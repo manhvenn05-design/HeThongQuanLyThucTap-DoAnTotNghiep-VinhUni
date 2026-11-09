@@ -1,0 +1,148 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Xem trước kết quả bóc tách file Excel - {{ lan_nhap.ten_tep }}{% endblock %}
+
+{% block content %}
+<div class="space-y-6 max-w-6xl mx-auto">
+
+    <!-- Header bar -->
+    <div class="bg-white rounded-2xl p-6 border border-slate-200 shadow-xs flex flex-col md:flex-row md:items-center justify-between gap-4">
+        <div>
+            <div class="flex items-center gap-2 text-xs text-blue-700 font-semibold mb-1">
+                <a href="{% url 'sprint1_dashboard_dot' dot_id=current_dot.id %}" class="hover:underline flex items-center gap-1">
+                    <span class="material-symbols-outlined text-sm">arrow_back</span>
+                    <span>Quay lại Đợt: {{ current_dot.ma_dot }}</span>
+                </a>
+            </div>
+            <h1 class="text-xl sm:text-2xl font-bold font-heading text-slate-900 tracking-tight">
+                Xem trước kết quả bóc tách file Excel
+            </h1>
+            <p class="text-xs text-slate-500 mt-1">
+                Tệp: <b class="font-mono text-slate-700">{{ lan_nhap.ten_tep }}</b> • Tải lên lúc: {{ lan_nhap.ngay_tai|date:"d/m/Y H:i" }}
+            </p>
+        </div>
+
+        <!-- Confirm action -->
+        <div class="flex items-center gap-3">
+            <a href="{% url 'sprint1_dashboard_dot' dot_id=current_dot.id %}" class="px-4 py-2 text-xs font-semibold text-slate-600 hover:bg-slate-100 rounded-xl transition">
+                Hủy bỏ
+            </a>
+
+            {% if lan_nhap.dong_hop_le > 0 and lan_nhap.trang_thai == 'XEM_TRUOC' %}
+            <form action="{% url 'confirm_excel' lan_nhap_id=lan_nhap.id %}" method="POST" onsubmit="return confirm('Bạn có chắc chắn muốn xác nhận nạp {{ lan_nhap.dong_hop_le }} dòng sinh viên hợp lệ vào đợt?');">
+                {% csrf_token %}
+                <button type="submit" class="inline-flex items-center gap-2 px-5 py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl text-xs sm:text-sm font-bold font-heading transition shadow-xs cursor-pointer">
+                    <span class="material-symbols-outlined text-lg">check_circle</span>
+                    <span>Xác nhận nạp ({{ lan_nhap.dong_hop_le }} sinh viên)</span>
+                </button>
+            </form>
+            {% else %}
+            <span class="text-xs font-semibold text-slate-400 bg-slate-100 px-4 py-2 rounded-xl">
+                Không thể xác nhận (Không có dòng hợp lệ hoặc đã nạp)
+            </span>
+            {% endif %}
+        </div>
+    </div>
+
+    <!-- Summary Metrics -->
+    <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+        <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-xs flex items-center justify-between">
+            <div>
+                <p class="text-xs text-slate-500 font-medium">Tổng số dòng đọc được</p>
+                <p class="text-2xl font-bold font-heading text-slate-900 mt-1">{{ lan_nhap.tong_dong }}</p>
+            </div>
+            <div class="w-10 h-10 rounded-lg bg-blue-50 text-blue-700 flex items-center justify-center">
+                <span class="material-symbols-outlined">dataset</span>
+            </div>
+        </div>
+
+        <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-xs flex items-center justify-between">
+            <div>
+                <p class="text-xs text-slate-500 font-medium">Số dòng hợp lệ (Sẽ nạp)</p>
+                <p class="text-2xl font-bold font-heading text-emerald-600 mt-1">{{ lan_nhap.dong_hop_le }}</p>
+            </div>
+            <div class="w-10 h-10 rounded-lg bg-emerald-50 text-emerald-700 flex items-center justify-center">
+                <span class="material-symbols-outlined">check_circle</span>
+            </div>
+        </div>
+
+        <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-xs flex items-center justify-between">
+            <div>
+                <p class="text-xs text-slate-500 font-medium">Dòng bị lỗi / Trùng lặp (Bỏ qua)</p>
+                <p class="text-2xl font-bold font-heading text-rose-600 mt-1">{{ lan_nhap.dong_loi }}</p>
+            </div>
+            <div class="w-10 h-10 rounded-lg bg-rose-50 text-rose-700 flex items-center justify-center">
+                <span class="material-symbols-outlined">warning</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Table of Parsed Rows -->
+    <div class="bg-white rounded-2xl border border-slate-200 shadow-xs overflow-hidden">
+        <div class="p-4 border-b border-slate-200 bg-slate-50 flex items-center justify-between">
+            <h3 class="text-xs font-bold font-heading text-slate-700 uppercase tracking-wider">
+                Chi tiết từng dòng bóc tách
+            </h3>
+            <div class="flex items-center gap-2">
+                <a href="?trang_thai=" class="px-2.5 py-1 text-xs font-semibold rounded-lg {% if not filter_trang_thai %}bg-blue-600 text-white{% else %}bg-white text-slate-600 border border-slate-200{% endif %}">Tất cả</a>
+                <a href="?trang_thai=HOP_LE" class="px-2.5 py-1 text-xs font-semibold rounded-lg {% if filter_trang_thai == 'HOP_LE' %}bg-emerald-600 text-white{% else %}bg-white text-slate-600 border border-slate-200{% endif %}">Chỉ hợp lệ</a>
+                <a href="?trang_thai=TRUNG" class="px-2.5 py-1 text-xs font-semibold rounded-lg {% if filter_trang_thai == 'TRUNG' %}bg-amber-600 text-white{% else %}bg-white text-slate-600 border border-slate-200{% endif %}">Trùng lặp</a>
+                <a href="?trang_thai=LOI" class="px-2.5 py-1 text-xs font-semibold rounded-lg {% if filter_trang_thai == 'LOI' %}bg-rose-600 text-white{% else %}bg-white text-slate-600 border border-slate-200{% endif %}">Lỗi</a>
+            </div>
+        </div>
+
+        <div class="overflow-x-auto">
+            <table class="w-full text-left text-xs">
+                <thead>
+                    <tr class="border-b border-slate-200 text-slate-500 uppercase font-heading bg-slate-50/50">
+                        <th class="py-3 px-4 font-semibold text-center w-16">Dòng</th>
+                        <th class="py-3 px-4 font-semibold">Mã sinh viên</th>
+                        <th class="py-3 px-4 font-semibold">Họ và tên</th>
+                        <th class="py-3 px-4 font-semibold">Lớp</th>
+                        <th class="py-3 px-4 font-semibold text-center">Trạng thái bóc tách</th>
+                        <th class="py-3 px-4 font-semibold">Ghi chú kiểm tra</th>
+                    </tr>
+                </thead>
+                <tbody class="divide-y divide-slate-100">
+                    {% for d in danh_sach_dong %}
+                    <tr class="hover:bg-slate-50 transition {% if d.trang_thai_dong == 'LOI' %}bg-rose-50/30{% elif d.trang_thai_dong == 'TRUNG' %}bg-amber-50/30{% endif %}">
+                        <td class="py-3 px-4 text-center font-mono text-slate-400 font-bold">{{ d.so_dong }}</td>
+                        <td class="py-3 px-4 font-bold font-mono text-slate-900">{{ d.ma_sinh_vien }}</td>
+                        <td class="py-3 px-4 font-semibold text-slate-800">{{ d.ho_ten|default:"—" }}</td>
+                        <td class="py-3 px-4 text-slate-600">{{ d.lop|default:"—" }}</td>
+                        <td class="py-3 px-4 text-center">
+                            {% if d.trang_thai_dong == 'HOP_LE' %}
+                            <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded text-xs font-medium bg-slate-100 text-slate-800 border border-slate-200">
+                                <span>Hợp lệ</span>
+                            </span>
+                            {% elif d.trang_thai_dong == 'TRUNG' %}
+                            <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded text-xs font-medium bg-slate-100 text-slate-800 border border-slate-200">
+                                <span>Trùng lặp</span>
+                            </span>
+                            {% else %}
+                            <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded text-xs font-medium bg-slate-100 text-rose-700 border border-rose-200">
+                                <span>Lỗi dữ liệu</span>
+                            </span>
+                            {% endif %}
+                        </td>
+                        <td class="py-3 px-4 text-slate-500">
+                            {% if d.loi %}
+                            <span class="text-rose-600 font-medium">{{ d.loi }}</span>
+                            {% else %}
+                            <span class="text-emerald-600">Sẵn sàng nạp</span>
+                            {% endif %}
+                        </td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="6" class="py-8 text-center text-slate-400">Không tìm thấy dòng nào theo bộ lọc</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</div>
+{% endblock %}

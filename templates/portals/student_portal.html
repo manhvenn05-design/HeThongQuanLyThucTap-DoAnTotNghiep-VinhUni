@@ -1,0 +1,491 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Cổng Sinh Viên Tốt Nghiệp - {{ persona_name }}{% endblock %}
+
+{% block content %}
+<div class="space-y-6 max-w-6xl mx-auto">
+
+    <!-- BANNER DANH TÍNH SINH VIÊN -->
+    <section class="bg-white border border-slate-200 rounded-2xl p-5 shadow-xs flex flex-col md:flex-row md:items-center justify-between gap-4">
+        <div class="flex items-center gap-4">
+            <div class="w-14 h-14 rounded-2xl bg-emerald-50 border border-emerald-200 text-emerald-700 flex items-center justify-center font-bold text-xl font-heading shrink-0">
+                {{ persona_avatar }}
+            </div>
+            <div>
+                <div class="flex items-center gap-2.5 flex-wrap">
+                    <h1 class="text-2xl font-bold font-academic text-slate-900">
+                        {{ persona_name }}
+                    </h1>
+                    <span class="inline-flex items-center text-xs font-bold uppercase tracking-wider text-slate-700 bg-slate-100 border border-slate-300 px-2 py-0.5 rounded font-sans">
+                        {{ persona_role_display }}
+                    </span>
+                    <span class="font-mono text-xs text-slate-500 font-medium">Mã sinh viên: {{ persona_code }}</span>
+                </div>
+                <p class="text-xs sm:text-sm text-slate-600 mt-1.5 font-sans flex items-center gap-2 flex-wrap">
+                    <span>Lớp: <strong class="text-slate-900 font-semibold">{{ thong_tin_sv.lop|default:"62K1-CNTT" }}</strong></span>
+                    <span>•</span>
+                    <span>Ngành: <strong class="text-slate-900 font-semibold">{{ thong_tin_sv.khoa|default:"Công nghệ Thông tin" }}</strong></span>
+                    <span>•</span>
+                    <span>Khóa học: <strong class="text-slate-800">Khóa 62 (2021 - 2026)</strong></span>
+                </p>
+            </div>
+        </div>
+
+        <div class="text-right shrink-0 font-sans">
+            <span class="text-xs text-slate-400 uppercase tracking-wider block font-semibold">Trạng thái hồ sơ</span>
+            <span class="text-sm font-bold text-slate-900 mt-0.5 block">{{ thong_tin_sv.trang_thai_text }}</span>
+        </div>
+    </section>
+
+    <!-- THANH ĐIỀU HƯỚNG TỐI GIẢN CỦA SINH VIÊN -->
+    <section class="bg-white border border-slate-200 rounded-2xl p-1.5 shadow-xs">
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-1.5 text-xs font-semibold">
+            <a href="?step=1" class="p-3 rounded-xl flex items-center justify-center gap-2.5 transition whitespace-nowrap {% if active_step == '1' %}bg-slate-900 text-white shadow-xs{% else %}text-slate-600 hover:bg-slate-100{% endif %}">
+                <span class="material-symbols-outlined text-base">person</span>
+                <span>Cán bộ Hướng dẫn</span>
+            </a>
+            <a href="?step=2" class="p-3 rounded-xl flex items-center justify-center gap-2.5 transition whitespace-nowrap {% if active_step == '2' %}bg-slate-900 text-white shadow-xs{% else %}text-slate-600 hover:bg-slate-100{% endif %}">
+                <span class="material-symbols-outlined text-base">menu_book</span>
+                <span>Đề tài Đồ án</span>
+            </a>
+            <a href="?step=3" class="p-3 rounded-xl flex items-center justify-center gap-2.5 transition whitespace-nowrap {% if active_step == '3' %}bg-slate-900 text-white shadow-xs{% else %}text-slate-600 hover:bg-slate-100{% endif %}">
+                <span class="material-symbols-outlined text-base">apartment</span>
+                <span>Thực tập & Tiến độ</span>
+            </a>
+            <a href="?step=4" class="p-3 rounded-xl flex items-center justify-center gap-2.5 transition whitespace-nowrap {% if active_step == '4' %}bg-slate-900 text-white shadow-xs{% else %}text-slate-600 hover:bg-slate-100{% endif %}">
+                <span class="material-symbols-outlined text-base">analytics</span>
+                <span>Báo cáo & Điểm số</span>
+            </a>
+        </div>
+    </section>
+
+    <!-- ================= BƯỚC 1: GVHD PHỤ TRÁCH ================= -->
+    {% if active_step == '1' %}
+    <section class="bg-white border border-slate-200 rounded-2xl p-6 shadow-xs space-y-4">
+        <div class="flex items-center justify-between border-b border-slate-100 pb-3">
+            <h2 class="text-base font-bold font-heading text-slate-900 flex items-center gap-2">
+                <span class="material-symbols-outlined text-blue-600">person</span>
+                <span>Giảng Viên Hướng Dẫn</span>
+            </h2>
+            <span class="px-2.5 py-0.5 bg-slate-100 text-slate-800 border border-slate-200 rounded text-xs font-medium">
+                Đã phân công chính thức
+            </span>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div class="p-4 bg-slate-50 border border-slate-200 rounded-xl space-y-2">
+                <div class="flex items-center gap-3">
+                    <div class="w-12 h-12 rounded-xl bg-blue-100 text-blue-800 font-bold flex items-center justify-center text-lg font-heading">
+                        CS
+                    </div>
+                    <div>
+                        <h3 class="font-bold text-slate-900 font-heading text-base">{{ thong_tin_sv.gvhd_ho_ten }}</h3>
+                        <p class="text-xs text-slate-500">{{ thong_tin_sv.gvhd_bo_mon }}</p>
+                    </div>
+                </div>
+                <div class="pt-2 text-xs text-slate-600 space-y-1">
+                    <p>Email: <strong class="text-blue-700">{{ thong_tin_sv.gvhd_email }}</strong></p>
+                    <p>Điện thoại: <strong class="text-slate-800">{{ thong_tin_sv.gvhd_sdt }}</strong></p>
+                    <p>Mã cán bộ: <span class="font-mono">{{ thong_tin_sv.gvhd_ma_cb }}</span></p>
+                </div>
+            </div>
+
+            <div class="p-4 bg-blue-50/50 border border-blue-200 rounded-xl space-y-2 text-xs text-slate-700">
+                <h4 class="font-bold text-blue-900 font-heading flex items-center gap-1.5">
+                    <span class="material-symbols-outlined text-blue-700 text-base">info</span>
+                    <span>Quy định làm việc với Giảng viên hướng dẫn:</span>
+                </h4>
+                <ul class="list-disc list-inside space-y-1 text-slate-600">
+                    <li>Sinh viên chủ động liên hệ thầy theo email/SĐT trên để thống nhất đề tài.</li>
+                    <li>Báo cáo tiến độ trực tiếp hoặc trực tuyến định kỳ theo lịch của bộ môn.</li>
+                    <li>Nộp minh chứng đầy đủ tại mục Thực tập & Tiến độ trước hạn khóa cổng giữa kỳ.</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- ================= BƯỚC 2: ĐỀ TÀI CỦA TÔI ================= -->
+    {% elif active_step == '2' %}
+    <div class="space-y-4">
+        <!-- THÔNG TRI ĐỊNH HƯỚNG ĐỀ TÀI CỦA KHOA ĐỂ SINH VIÊN NẮM RÕ (CHUẨN THỂ THỨC HỌC THUẬT) -->
+        <section class="bg-white border border-slate-200/90 border-l-4 border-l-blue-900 rounded-2xl p-5 shadow-xs space-y-3.5">
+            <div class="flex flex-col sm:flex-row sm:items-start justify-between gap-3 border-b border-slate-100 pb-3">
+                <div>
+                    <span class="font-academic font-bold text-slate-900 text-xs tracking-wider uppercase block">
+                        TRƯỜNG KỸ THUẬT VÀ CÔNG NGHỆ • ĐẠI HỌC VINH
+                    </span>
+                    <span class="text-[11px] text-slate-500 font-medium tracking-wide uppercase block">
+                        HỘI ĐỒNG KHOA HỌC VÀ ĐÀO TẠO KHOA
+                    </span>
+                </div>
+                <div class="sm:text-right shrink-0">
+                    <span class="font-mono text-xs font-bold text-blue-900 bg-blue-50 px-2 py-0.5 rounded border border-blue-200 inline-block">
+                        Số: 26/TB-KTCN-ĐATN
+                    </span>
+                    <span class="text-[11px] text-slate-400 italic block mt-0.5">01/03/2026</span>
+                </div>
+            </div>
+
+            <div>
+                <h3 class="text-sm font-bold font-academic text-slate-900 uppercase">
+                    TIÊU CHUẨN NỘI DUNG ĐỀ TÀI ĐỒ ÁN TỐT NGHIỆP NĂM 2026
+                </h3>
+                <p class="text-[11px] text-slate-500 italic mt-0.5">
+                    Sinh viên cần đọc kỹ 4 tiêu chuẩn dưới đây trước khi đăng ký nhận đề tài gợi ý hoặc tự đề xuất đề tài mới (UC13, UC14).
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-2.5 text-xs pt-1">
+                <div class="p-3 bg-slate-50 border border-slate-200 rounded-xl space-y-1">
+                    <span class="font-bold text-slate-900 block font-heading text-xs">1. Thực tiễn doanh nghiệp</span>
+                    <p class="text-[11px] text-slate-600 leading-relaxed">Gắn với bài toán thực tế của doanh nghiệp, cơ quan thực tập hoặc địa phương.</p>
+                </div>
+                <div class="p-3 bg-slate-50 border border-slate-200 rounded-xl space-y-1">
+                    <span class="font-bold text-slate-900 block font-heading text-xs">2. Công nghệ hiện đại</span>
+                    <p class="text-[11px] text-slate-600 leading-relaxed">Ưu tiên ứng dụng AI/LLM, Computer Vision, IoT thông minh, Cloud Native.</p>
+                </div>
+                <div class="p-3 bg-slate-50 border border-slate-200 rounded-xl space-y-1">
+                    <span class="font-bold text-slate-900 block font-heading text-xs">3. Liêm chính học thuật</span>
+                    <p class="text-[11px] text-slate-600 leading-relaxed">Tuyệt đối không sao chép đề tài cũ; đề tài phải có tính sáng tạo và đóng góp mới.</p>
+                </div>
+                <div class="p-3 bg-slate-50 border border-slate-200 rounded-xl space-y-1">
+                    <span class="font-bold text-slate-900 block font-heading text-xs">4. Sản phẩm thực nghiệm</span>
+                    <p class="text-[11px] text-slate-600 leading-relaxed">100% đề tài bắt buộc Live Demo sản phẩm chạy thực nghiệm trước Hội đồng.</p>
+                </div>
+            </div>
+
+            <div class="p-3 bg-blue-50/60 border border-blue-200/80 rounded-xl text-xs text-blue-950 flex items-center gap-2">
+                <span class="material-symbols-outlined text-blue-800 text-base shrink-0">info</span>
+                <span>Lưu ý: Sinh viên trao đổi trực tiếp với Thầy hướng dẫn ({{ thong_tin_sv.gvhd_ho_ten }}). Thầy là người trực tiếp phê duyệt và bấm chốt đề tài chính thức cho em (UC15).</span>
+            </div>
+        </section>
+
+        <!-- Sub-tabs Bước 2 -->
+        <div class="flex items-center gap-2 border-b border-slate-200 pb-2">
+            <a href="?step=2&sub=my-topic" class="px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold transition {% if active_sub == 'my-topic' or not active_sub %}bg-slate-900 text-white shadow-xs{% else %}text-slate-600 hover:text-slate-900 hover:bg-slate-100{% endif %}">
+                Đề tài của tôi
+            </a>
+            <a href="?step=2&sub=bank" class="px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold transition {% if active_sub == 'bank' %}bg-slate-900 text-white shadow-xs{% else %}text-slate-600 hover:text-slate-900 hover:bg-slate-100{% endif %}">
+                Ngân hàng đề tài gợi ý của giảng viên
+            </a>
+        </div>
+
+        {% if active_sub == 'my-topic' or not active_sub %}
+        <section class="bg-white border border-slate-200 rounded-2xl p-6 shadow-xs space-y-4">
+            <div class="flex items-center justify-between border-b border-slate-100 pb-3">
+                <h2 class="text-base font-bold font-heading text-slate-900 flex items-center gap-2">
+                    <span class="material-symbols-outlined text-blue-600">assignment</span>
+                    <span>Đề Tài Tốt Nghiệp Cá Nhân</span>
+                </h2>
+                <span class="px-2.5 py-0.5 bg-slate-100 text-slate-800 border border-slate-200 rounded text-xs font-medium">
+                    {{ de_tai_cua_toi.trang_thai_text }}
+                </span>
+            </div>
+
+            <div class="p-5 bg-slate-50 border border-slate-200 rounded-xl space-y-3">
+                <div>
+                    <span class="text-xs bg-slate-200 text-slate-700 px-2 py-0.5 rounded font-mono font-semibold">
+                        {{ de_tai_cua_toi.nguon_text }}
+                    </span>
+                    <h3 class="text-lg font-bold font-heading text-slate-900 mt-2">
+                        {{ de_tai_cua_toi.ten_de_tai }}
+                    </h3>
+                </div>
+
+                <div class="text-xs text-slate-600 space-y-1 pt-1 border-t border-slate-200">
+                    <p><strong class="text-slate-800">Mục tiêu nghiên cứu:</strong> {{ de_tai_cua_toi.muc_tieu }}</p>
+                    <p><strong class="text-slate-800">Công nghệ áp dụng:</strong> <span class="font-mono text-blue-700">{{ de_tai_cua_toi.cong_nghe }}</span></p>
+                </div>
+
+                <div class="pt-3 flex items-center gap-2">
+                    <button type="button" onclick="showToast('Cập nhật đề xuất', 'Đang mở biểu mẫu hiệu chỉnh nội dung đề xuất đề tài...', 'info');" class="px-3.5 py-1.5 bg-white border border-slate-300 hover:bg-slate-100 text-slate-700 text-xs font-semibold rounded-lg transition">
+                        Chỉnh sửa đề xuất
+                    </button>
+                </div>
+            </div>
+        </section>
+        {% endif %}
+
+        {% if active_sub == 'bank' %}
+        <section class="bg-white border border-slate-200 rounded-2xl p-6 shadow-xs space-y-4">
+            <div class="flex items-center justify-between border-b border-slate-100 pb-3">
+                <h2 class="text-base font-bold font-heading text-slate-900 flex items-center gap-2">
+                    <span class="material-symbols-outlined text-amber-500">lightbulb</span>
+                    <span>Danh Sách Đề Tài Gợi Ý Của TS. Cao Thanh Sơn</span>
+                </h2>
+                <span class="text-xs text-slate-500">Sinh viên có thể chọn 1 đề tài thay vì tự đề xuất</span>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                {% for dt in de_tai_goi_y %}
+                <div class="p-4 bg-slate-50 border border-slate-200 rounded-xl space-y-3">
+                    <div class="flex items-center justify-between">
+                        <span class="font-mono text-xs font-bold text-blue-700">{{ dt.ma }}</span>
+                        <span class="text-xs font-medium {% if dt.con_lai > 0 %}text-emerald-700{% else %}text-slate-400{% endif %}">
+                            Còn lại: {{ dt.con_lai }}/{{ dt.so_sv }} chỉ tiêu
+                        </span>
+                    </div>
+                    <h3 class="text-sm font-bold text-slate-900">{{ dt.ten }}</h3>
+                    <div class="pt-2 border-t border-slate-200 flex items-center justify-end">
+                        {% if dt.con_lai > 0 %}
+                        <button type="button" onclick="showToast('Đăng ký đề tài', 'Đã gửi yêu cầu đăng ký nhận đề tài gợi ý tới cán bộ hướng dẫn!', 'success');" class="px-3 py-1.5 bg-slate-900 text-white rounded-lg text-xs font-semibold hover:bg-slate-800">
+                            Đăng ký đề tài này
+                        </button>
+                        {% else %}
+                        <button type="button" disabled class="px-3 py-1.5 bg-slate-200 text-slate-400 rounded-lg text-xs font-semibold cursor-not-allowed">
+                            Đã hết chỗ
+                        </button>
+                        {% endif %}
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </section>
+        {% endif %}
+    </div>
+
+    <!-- ================= BƯỚC 3: THỰC TẬP & BÁO CÁO TUẦN ================= -->
+    {% elif active_step == '3' %}
+    <div class="space-y-4">
+        <!-- Sub-tabs Bước 3 -->
+        <div class="flex items-center gap-2 border-b border-slate-200 pb-2">
+            <a href="?step=3&sub=enterprise" class="px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold transition {% if active_sub == 'enterprise' or not active_sub %}bg-slate-900 text-white shadow-xs{% else %}text-slate-600 hover:text-slate-900 hover:bg-slate-100{% endif %}">
+                Hồ sơ Đơn vị thực tập
+            </a>
+            <a href="?step=3&sub=logs" class="px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold transition {% if active_sub == 'logs' %}bg-slate-900 text-white shadow-xs{% else %}text-slate-600 hover:text-slate-900 hover:bg-slate-100{% endif %}">
+                Nhật ký tuần & Nộp minh chứng
+            </a>
+        </div>
+
+        {% if active_sub == 'enterprise' or not active_sub %}
+        <section class="bg-white border border-slate-200 rounded-2xl p-5 shadow-xs space-y-3">
+            <div class="flex items-center justify-between border-b border-slate-100 pb-2">
+                <h2 class="text-sm font-bold font-heading text-slate-900 flex items-center gap-2">
+                    <span class="material-symbols-outlined text-blue-600">apartment</span>
+                    <span>Đơn Vị Thực Tập Doanh Nghiệp (UC16)</span>
+                </h2>
+                <span class="text-xs text-emerald-700 font-semibold">{{ doanh_nghiep.trang_thai_text }}</span>
+            </div>
+            <div class="text-xs text-slate-600 grid grid-cols-1 md:grid-cols-3 gap-3">
+                <p>Công ty: <strong class="text-slate-900">{{ doanh_nghiep.ten_cong_ty }}</strong></p>
+                <p>Địa chỉ: <strong class="text-slate-800">{{ doanh_nghiep.dia_chi }}</strong></p>
+                <p>Cán bộ hướng dẫn DN: <strong class="text-slate-900">{{ doanh_nghiep.nguoi_huong_dan }}</strong></p>
+            </div>
+            <div class="pt-2 flex items-center gap-2">
+                <button type="button" onclick="showToast('Tải biểu mẫu', 'Đang tải mẫu Giấy tiếp nhận thực tập của Trường ĐH Vinh...', 'info');" class="px-3 py-1.5 border border-slate-300 rounded-lg text-xs font-semibold text-slate-700 hover:bg-slate-50">
+                    Tải mẫu Giấy tiếp nhận
+                </button>
+                <button type="button" onclick="showToast('Đơn vị thực tập', 'Đang mở biểu mẫu cập nhật thông tin doanh nghiệp tiếp nhận...', 'info');" class="px-3 py-1.5 bg-white border border-slate-300 rounded-lg text-xs font-semibold text-slate-700 hover:bg-slate-50">
+                    Cập nhật thông tin DN
+                </button>
+            </div>
+        </section>
+        {% endif %}
+
+        {% if active_sub == 'logs' or not active_sub %}
+        <!-- ================= DANH MỤC MINH CHỨNG THẦY HƯỚNG DẪN YÊU CẦU NỘP (UC16, UC18) ================= -->
+        <section class="bg-white border border-slate-200 rounded-2xl p-5 shadow-xs space-y-4">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-100 pb-3">
+                <div>
+                    <h2 class="text-sm font-bold font-heading text-slate-900 flex items-center gap-2">
+                        <span class="material-symbols-outlined text-blue-600">checklist</span>
+                        <span>Danh Mục Tài Liệu Thầy Hướng Dẫn (TS. Cao Thanh Sơn) Yêu Cầu Nộp</span>
+                    </h2>
+                    <p class="text-xs text-slate-500 mt-0.5">Sinh viên cần chuẩn bị đầy đủ các sản phẩm dưới đây theo đúng hướng dẫn của thầy</p>
+                </div>
+                <div class="space-y-1 sm:w-48 self-start sm:self-auto shrink-0">
+                    <div class="flex items-center justify-between text-xs font-semibold text-slate-700">
+                        <span>Tiến độ hoàn thành</span>
+                        <span class="text-emerald-700 font-bold">75%</span>
+                    </div>
+                    <div class="w-full bg-slate-100 rounded-full h-2 border border-slate-200 overflow-hidden">
+                        <div class="bg-emerald-600 h-2 rounded-full transition-all duration-500" style="width: 75%"></div>
+                    </div>
+                    <span class="text-[11px] text-slate-500 block text-right">Đã nộp 3 / 4 yêu cầu</span>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-3 text-xs">
+                <!-- Mục 1: Báo cáo PDF -->
+                <div class="p-3.5 bg-emerald-50/50 border border-emerald-200 rounded-xl space-y-2">
+                    <div class="flex items-start justify-between gap-2">
+                        <div>
+                            <span class="font-bold text-slate-900 block">1. Báo cáo tiến độ định kỳ (.PDF)</span>
+                            <p class="text-slate-500 text-[11px] mt-0.5">Trình bày mục tiêu, kết quả tuần và khó khăn</p>
+                        </div>
+                        <span class="px-2 py-0.5 text-[10px] font-bold rounded bg-emerald-100 text-emerald-800 border border-emerald-300 shrink-0">Đã nộp</span>
+                    </div>
+                    <div class="text-[11px] text-slate-600 pt-1 border-t border-emerald-200/60 flex items-center justify-between">
+                        <span class="truncate font-mono">Bao_cao_tuan8_Manh.pdf</span>
+                        <a href="javascript:void(0)" onclick="showToast('Xem file', 'Đang mở tệp báo cáo PDF đã nộp...', 'info')" class="text-blue-600 font-semibold hover:underline">Xem lại</a>
+                    </div>
+                </div>
+
+                <!-- Mục 2: Git Repo -->
+                <div class="p-3.5 bg-emerald-50/50 border border-emerald-200 rounded-xl space-y-2">
+                    <div class="flex items-start justify-between gap-2">
+                        <div>
+                            <span class="font-bold text-slate-900 block">2. Mã nguồn & Kho lưu trữ Git</span>
+                            <p class="text-slate-500 text-[11px] mt-0.5">Đường dẫn GitHub / GitLab chính thức</p>
+                        </div>
+                        <span class="px-2 py-0.5 text-[10px] font-bold rounded bg-emerald-100 text-emerald-800 border border-emerald-300 shrink-0">Đã nộp</span>
+                    </div>
+                    <div class="text-[11px] text-slate-600 pt-1 border-t border-emerald-200/60 flex items-center justify-between">
+                        <span class="truncate font-mono">github.com/manhnt/kltn-2026</span>
+                        <a href="javascript:void(0)" onclick="showToast('Mã nguồn', 'Đang mở đường dẫn kho mã nguồn GitHub...', 'info')" class="text-blue-600 font-semibold hover:underline">Mở link</a>
+                    </div>
+                </div>
+
+                <!-- Mục 3: CSDL -->
+                <div class="p-3.5 bg-emerald-50/50 border border-emerald-200 rounded-xl space-y-2">
+                    <div class="flex items-start justify-between gap-2">
+                        <div>
+                            <span class="font-bold text-slate-900 block">3. Bản vẽ CSDL & Kiến trúc hệ thống</span>
+                            <p class="text-slate-500 text-[11px] mt-0.5">Sơ đồ ERD hoặc script tạo bảng CSDL (.SQL, .PNG)</p>
+                        </div>
+                        <span class="px-2 py-0.5 text-[10px] font-bold rounded bg-emerald-100 text-emerald-800 border border-emerald-300 shrink-0">Đã nộp</span>
+                    </div>
+                    <div class="text-[11px] text-slate-600 pt-1 border-t border-emerald-200/60 flex items-center justify-between">
+                        <span class="truncate font-mono">CSDL_He_thong_v2.png</span>
+                        <a href="javascript:void(0)" onclick="showToast('Xem sơ đồ', 'Đang tải bản vẽ sơ đồ CSDL...', 'info')" class="text-blue-600 font-semibold hover:underline">Xem lại</a>
+                    </div>
+                </div>
+
+                <!-- Mục 4: Video Demo (Chưa nộp) -->
+                <div class="p-3.5 bg-amber-50/60 border border-amber-200 rounded-xl space-y-2">
+                    <div class="flex items-start justify-between gap-2">
+                        <div>
+                            <span class="font-bold text-slate-900 block">4. Video demo tính năng sản phẩm</span>
+                            <p class="text-slate-500 text-[11px] mt-0.5">Quay màn hình chạy thử 3-5 phút (Drive / YouTube)</p>
+                        </div>
+                        <span class="px-2 py-0.5 text-[10px] font-bold rounded bg-amber-100 text-amber-800 border border-amber-300 shrink-0">Chưa nộp</span>
+                    </div>
+                    <div class="text-[11px] pt-1 border-t border-amber-200 flex items-center justify-between">
+                        <span class="text-slate-400 italic">Chưa cập nhật link video</span>
+                        <button type="button" onclick="showToast('Nộp video demo', 'Đang mở biểu mẫu dán link Google Drive video demo...', 'info')" class="px-2.5 py-1 bg-slate-900 hover:bg-slate-800 text-white rounded-lg font-semibold text-[11px]">
+                            Nộp mục này
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Nhật ký nộp minh chứng -->
+        <section class="bg-white border border-slate-200 rounded-2xl shadow-xs overflow-hidden">
+            <div class="p-4 border-b border-slate-200 bg-slate-50/70 flex items-center justify-between">
+                <h2 class="text-sm font-bold font-heading text-slate-900 flex items-center gap-2">
+                    <span class="material-symbols-outlined text-blue-600">upload_file</span>
+                    <span>Nhật Ký Nộp Minh Chứng & Báo Cáo Tiến Độ (UC17)</span>
+                </h2>
+                <button type="button" onclick="showToast('Nộp minh chứng', 'Đang mở biểu mẫu tải lên minh chứng tiến độ tuần (PDF/ZIP)...', 'info');" class="px-3.5 py-1.5 bg-slate-900 text-white rounded-lg text-xs font-semibold hover:bg-slate-800 transition">
+                    + Nộp minh chứng mới
+                </button>
+            </div>
+
+            <div class="divide-y divide-slate-100">
+                {% for row in minh_chung_tuan %}
+                <div class="p-4 flex flex-col md:flex-row md:items-center justify-between gap-3 text-xs">
+                    <div>
+                        <div class="flex items-center gap-2">
+                            <span class="font-mono font-bold bg-slate-100 px-2 py-0.5 rounded text-slate-800">{{ row.tuan }}</span>
+                            <span class="font-bold text-slate-900 text-sm font-heading">{{ row.tieu_de }}</span>
+                            <span class="text-slate-400">({{ row.ngay_nop }})</span>
+                        </div>
+                        <p class="text-slate-600 mt-1 italic">
+                            Lời phê của TS. Cao Thanh Sơn: "{{ row.loi_phe }}"
+                        </p>
+                    </div>
+                    <span class="px-2.5 py-0.5 rounded text-xs font-medium shrink-0 bg-slate-100 text-slate-800 border border-slate-200">
+                        {{ row.trang_thai_text }}
+                    </span>
+                </div>
+                {% endfor %}
+            </div>
+        </section>
+        {% endif %}
+    </div>
+
+    <!-- ================= BƯỚC 4: KẾT QUẢ & LỊCH BẢO VỆ ================= -->
+    {% elif active_step == '4' %}
+    <div class="space-y-4">
+        <!-- Sub-tabs Bước 4 -->
+        <div class="flex items-center gap-2 border-b border-slate-200 pb-2">
+            <a href="?step=4&sub=report" class="px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold transition {% if active_sub == 'report' or not active_sub %}bg-slate-900 text-white shadow-xs{% else %}text-slate-600 hover:text-slate-900 hover:bg-slate-100{% endif %}">
+                Nộp báo cáo cuối & Lịch bảo vệ
+            </a>
+            <a href="?step=4&sub=grades" class="px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold transition {% if active_sub == 'grades' %}bg-slate-900 text-white shadow-xs{% else %}text-slate-600 hover:text-slate-900 hover:bg-slate-100{% endif %}">
+                Tra cứu Bảng điểm tốt nghiệp
+            </a>
+        </div>
+
+        {% if active_sub == 'report' or not active_sub %}
+        <section class="bg-white border border-slate-200 rounded-2xl p-6 shadow-xs space-y-6">
+            <div class="p-4 bg-blue-50/70 border border-blue-200 rounded-xl flex items-center justify-between">
+                <div>
+                    <span class="text-xs font-bold text-blue-900 font-heading uppercase">Lịch Bảo Vệ Hội Đồng Của Bạn:</span>
+                    <p class="font-bold text-base text-blue-900 font-heading mt-0.5">{{ ket_qua.lich_bao_ve }}</p>
+                    <p class="text-xs text-slate-600 mt-0.5">{{ ket_qua.hoi_dong }}</p>
+                </div>
+                <span class="px-3 py-1 bg-white text-blue-800 border border-blue-300 rounded-lg text-xs font-bold">
+                    Mã phòng: HT2
+                </span>
+            </div>
+
+            <div class="p-5 bg-slate-50 border border-slate-200 rounded-xl space-y-3">
+                <div class="flex items-center justify-between">
+                    <h3 class="text-sm font-bold text-slate-900 font-heading">Nộp Báo Cáo Toàn Văn & Slide Báo Cáo</h3>
+                    <span class="text-xs text-emerald-700 font-semibold">Đã nộp bản chính thức</span>
+                </div>
+                <div class="space-y-1 text-xs text-slate-600">
+                    <p>File báo cáo: <strong class="text-blue-700">Bao_cao_tot_nghiep_NguyenTrongManh_211108234.pdf (14.2 MB)</strong></p>
+                    <p>Mã kiểm tra trùng lặp Turnitin: <strong class="text-slate-800">11.4% (Đạt chuẩn dưới 20%)</strong></p>
+                </div>
+                <div class="pt-2 flex items-center gap-2">
+                    <button type="button" onclick="showToast('Tải báo cáo', 'Đang tải tệp báo cáo toàn văn đã nộp trước đó...', 'info');" class="px-3 py-1.5 bg-white border border-slate-300 rounded-lg text-xs font-semibold text-slate-700 hover:bg-slate-50">
+                        Tải file đã nộp
+                    </button>
+                    <button type="button" onclick="showToast('Nộp cập nhật', 'Đang mở biểu mẫu nộp cập nhật báo cáo toàn văn...', 'info');" class="px-3 py-1.5 bg-slate-900 text-white rounded-lg text-xs font-semibold hover:bg-slate-800">
+                        Nộp cập nhật
+                    </button>
+                </div>
+            </div>
+        </section>
+        {% endif %}
+
+        {% if active_sub == 'grades' or not active_sub %}
+        <section class="bg-white border border-slate-200 rounded-2xl p-6 shadow-xs space-y-4">
+            <h3 class="text-sm font-bold font-heading text-slate-900">Bảng Điểm Tốt Nghiệp Chính Thức (UC27)</h3>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-3 text-center">
+                <div class="p-4 bg-slate-50 border border-slate-200 rounded-xl">
+                    <span class="text-xs text-slate-500 font-semibold block">Điểm Hướng dẫn (40%)</span>
+                    <span class="font-mono text-2xl font-bold text-slate-900 mt-1 block">{{ ket_qua.diem_hd }}</span>
+                </div>
+                <div class="p-4 bg-slate-50 border border-slate-200 rounded-xl">
+                    <span class="text-xs text-slate-500 font-semibold block">Điểm Phản biện (20%)</span>
+                    <span class="font-mono text-2xl font-bold text-slate-900 mt-1 block">{{ ket_qua.diem_pb }}</span>
+                </div>
+                <div class="p-4 bg-slate-50 border border-slate-200 rounded-xl">
+                    <span class="text-xs text-slate-500 font-semibold block">Điểm Hội đồng (40%)</span>
+                    <span class="font-mono text-2xl font-bold text-slate-900 mt-1 block">{{ ket_qua.diem_hdong }}</span>
+                </div>
+                <div class="p-4 bg-emerald-50 border border-emerald-200 rounded-xl">
+                    <span class="text-xs text-emerald-800 font-bold block">Tổng kết (Hệ 10 / Hệ 4)</span>
+                    <span class="font-mono text-2xl font-bold text-emerald-700 mt-1 block">{{ ket_qua.diem_tong_he10 }} / {{ ket_qua.diem_he4 }} ({{ ket_qua.diem_chu }})</span>
+                    <span class="text-[11px] font-bold text-emerald-800 uppercase tracking-wide">Xếp loại: {{ ket_qua.xep_loai }}</span>
+                </div>
+            </div>
+            <div class="pt-2 flex items-center justify-between text-xs text-slate-500">
+                <span>Hồ sơ đã được thẩm định và khóa sổ CSDL Đại học Vinh.</span>
+                <button type="button" onclick="showToast('Tải bảng điểm', 'Đang kết xuất Bảng điểm tốt nghiệp chứng thực điện tử (.PDF)...', 'info');" class="text-blue-600 font-semibold hover:underline flex items-center gap-1">
+                    <span class="material-symbols-outlined text-sm">download</span>
+                    <span>Tải bảng điểm chứng thực (.PDF)</span>
+                </button>
+            </div>
+        </section>
+        {% endif %}
+    </div>
+    {% endif %}
+
+</div>
+{% endblock %}

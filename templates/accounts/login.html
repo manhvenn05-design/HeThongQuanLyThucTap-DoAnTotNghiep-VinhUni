@@ -1,0 +1,211 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="vi" class="h-full">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Đăng nhập - Cổng Quản lý Đồ án & Thực tập | ĐH Vinh</title>
+    <!-- Google Fonts: Plus Jakarta Sans (Modern Headings & Antigravity Style), Inter (Clean UI Sans), JetBrains Mono -->
+    <link rel="preconnect" href="https://fonts.googleapis.com"/>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,600&display=swap" rel="stylesheet"/>
+    <!-- Material Symbols Outlined -->
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+    <!-- Tailwind CSS v3 -->
+    <script src="https://cdn.tailwindcss.com?plugins=forms"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        vinhuni: {
+                            50: '#f0f7ff',
+                            100: '#e0effe',
+                            600: '#1d4ed8',
+                            700: '#1e40af',
+                            800: '#172554',
+                            900: '#0b1d3a',
+                            navy: '#030e1d',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', '-apple-system', 'BlinkMacSystemFont', '"Segoe UI"', 'Roboto', 'sans-serif'],
+                        academic: ['"Plus Jakarta Sans"', 'Inter', 'sans-serif'],
+                        heading: ['"Plus Jakarta Sans"', 'Inter', 'sans-serif'],
+                        mono: ['"JetBrains Mono"', 'monospace'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body, html {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            font-size: 15px;
+            letter-spacing: -0.01em;
+        }
+        h1, h2, h3, h4, .font-academic, .font-heading {
+            font-family: 'Plus Jakarta Sans', 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif !important;
+            letter-spacing: -0.025em;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            display: inline-block;
+            vertical-align: middle;
+            line-height: 1;
+        }
+        @keyframes slowRotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+        .drum-spin {
+            animation: slowRotate 240s linear infinite;
+        }
+    </style>
+</head>
+<body class="h-full flex items-center justify-center p-4 bg-gradient-to-br from-[#020b17] via-[#051833] to-[#0a2b56] font-sans antialiased text-slate-800 relative overflow-hidden">
+
+    <!-- ================= HÌNH ẢNH TRỐNG ĐỒNG ĐÔNG SƠN MÀU VÀNG CHAMPAGNE HOÀNG KIM (SIÊU NÉT 2400px, VÀNG KIM SÁNG RẠNG RỠ) ================= -->
+    <div class="pointer-events-none absolute inset-0 flex items-center justify-center overflow-hidden z-0">
+        <div class="w-[880px] h-[880px] sm:w-[980px] sm:h-[980px] md:w-[1060px] md:h-[1060px] max-w-[96vw] max-h-[96vh] opacity-90 sm:opacity-95 drum-spin select-none transition-all">
+            <img src="{% static 'images/trong_dong_gold_champagne.png' %}?v=2026_imperial_gold_v3" 
+                 alt="Trống đồng Đông Sơn ĐH Vinh" 
+                 class="w-full h-full object-contain filter drop-shadow-[0_0_35px_rgba(232,202,138,0.5)]">
+        </div>
+    </div>
+
+    <!-- ================= KHỐI ĐĂNG NHẬP CHÍNH (PHONG CÁCH HỌC THUẬT QUỐC TẾ - THUẦN TÚY, KHÔNG LÒE LOẸT) ================= -->
+    <div class="w-full max-w-[490px] relative z-10 my-auto">
+        <div class="bg-white/95 backdrop-blur-xl rounded-2xl shadow-[0_25px_60px_-15px_rgba(0,0,0,0.6)] border border-slate-200/80 p-7 sm:p-9 transition-all">
+            
+            <!-- Logo ĐH Vinh: Cắt tròn chuẩn xác 120px, 100% không viền trắng thừa -->
+            <div class="text-center mb-6">
+                <img src="{% static 'images/logo_vinhuni.png' %}?v=2026" 
+                     alt="Logo Trường Đại học Vinh" 
+                     class="w-24 h-24 mx-auto mb-3 object-contain drop-shadow-md">
+                
+                <h1 class="text-base sm:text-lg md:text-xl font-extrabold text-slate-900 font-academic tracking-tight uppercase whitespace-nowrap">
+                    TRƯỜNG KỸ THUẬT VÀ CÔNG NGHỆ
+                </h1>
+                <!-- Tiêu đề học thuật trang trọng (Chia 2 dòng chuẩn, không nhảy chữ mồ côi) -->
+                <div class="mt-1.5 space-y-0.5">
+                    <p class="text-xs font-bold uppercase tracking-wider text-slate-600 font-sans">
+                        TRƯỜNG ĐẠI HỌC VINH
+                    </p>
+                    <p class="text-[11px] font-medium uppercase tracking-wide text-slate-500 font-sans">
+                        Hệ thống Quản lý Thực tập & Đồ án tốt nghiệp
+                    </p>
+                </div>
+                <div class="w-12 h-0.5 bg-blue-800 mx-auto mt-2.5 rounded-full"></div>
+            </div>
+
+            <!-- Trạng thái phiên hiện tại (nếu có) -->
+            {% if request.user.is_authenticated %}
+            <div class="mb-5 p-3 rounded-xl bg-blue-50 border border-blue-200 text-blue-900 text-xs flex items-center justify-between">
+                <div class="flex items-center gap-2">
+                    <span class="material-symbols-outlined text-blue-700 text-base">verified_user</span>
+                    <span>Phiên làm việc gần nhất: <strong>{{ request.user.username }}</strong></span>
+                </div>
+                <a href="{% url 'logout' %}" class="text-rose-600 font-bold hover:underline">Đăng xuất</a>
+            </div>
+            {% endif %}
+
+            <!-- Thông báo lỗi (nếu có) -->
+            {% if error_message %}
+            <div class="mb-5 p-3.5 rounded-xl bg-rose-50 border border-rose-200 text-rose-700 text-sm flex items-start gap-2.5">
+                <span class="material-symbols-outlined text-rose-600 text-lg shrink-0">error</span>
+                <span class="font-medium leading-relaxed">{{ error_message }}</span>
+            </div>
+            {% endif %}
+
+            <!-- Biểu mẫu đăng nhập -->
+            <form method="POST" action="{% url 'login' %}" class="space-y-4">
+                {% csrf_token %}
+                
+                <div>
+                    <label for="username" class="block text-xs font-semibold uppercase tracking-wider text-slate-700 mb-1.5 font-sans">
+                        Tài khoản / Mã định danh
+                    </label>
+                    <div class="relative">
+                        <span class="material-symbols-outlined absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 text-xl">person</span>
+                        <input type="text" id="username" name="username" required autocomplete="username"
+                               placeholder="Mã cán bộ / MSSV / Tên đăng nhập"
+                               class="w-full pl-11 pr-4 py-2.5 sm:py-3 text-sm font-medium bg-slate-50/80 border border-slate-300 rounded-xl focus:bg-white focus:ring-2 focus:ring-blue-800 focus:border-blue-800 transition placeholder:text-slate-400 font-sans">
+                    </div>
+                </div>
+
+                <div>
+                    <label for="password" class="block text-xs font-semibold uppercase tracking-wider text-slate-700 mb-1.5 font-sans">
+                        Mật khẩu
+                    </label>
+                    <div class="relative">
+                        <span class="material-symbols-outlined absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 text-xl">lock</span>
+                        <input type="password" id="password" name="password" required autocomplete="current-password"
+                               placeholder="Nhập mật khẩu truy cập"
+                               class="w-full pl-11 pr-4 py-2.5 sm:py-3 text-sm font-medium bg-slate-50/80 border border-slate-300 rounded-xl focus:bg-white focus:ring-2 focus:ring-blue-800 focus:border-blue-800 transition placeholder:text-slate-400 font-sans">
+                    </div>
+                </div>
+
+                <div class="pt-2">
+                    <button type="submit" 
+                            class="w-full py-3.5 px-4 bg-blue-800 hover:bg-blue-900 active:bg-blue-950 text-white font-bold text-[15px] rounded-xl shadow-md transition flex items-center justify-center gap-2 font-sans cursor-pointer">
+                        <span>Đăng nhập hệ thống</span>
+                        <span class="material-symbols-outlined text-xl">login</span>
+                    </button>
+                </div>
+            </form>
+
+            <!-- Danh sách tài khoản kiểm thử vai trò hệ thống -->
+            <div class="mt-7 pt-5 border-t border-slate-200">
+                <p class="text-xs font-semibold uppercase tracking-wider text-slate-400 mb-3 text-center font-sans">
+                    Đăng nhập nhanh theo vai trò
+                </p>
+                <div class="space-y-2">
+                    <button type="button" onclick="fillAccount('truongkhoa', 'vinhuni123')"
+                            class="w-full flex items-center justify-between p-2.5 rounded-xl border border-slate-200 hover:border-slate-400 hover:bg-slate-50 transition text-left group">
+                        <div>
+                            <p class="text-sm font-bold text-slate-900 group-hover:text-blue-800 font-sans">TS. Phan Anh Phong</p>
+                            <p class="text-xs text-slate-500 font-sans">Trưởng khoa (CB_TK01)</p>
+                        </div>
+                        <span class="text-xs font-mono font-medium text-slate-600 bg-slate-100 px-2 py-0.5 rounded">truongkhoa</span>
+                    </button>
+
+                    <button type="button" onclick="fillAccount('gv_son', 'vinhuni123')"
+                            class="w-full flex items-center justify-between p-2.5 rounded-xl border border-slate-200 hover:border-slate-400 hover:bg-slate-50 transition text-left group">
+                        <div>
+                            <p class="text-sm font-bold text-slate-900 group-hover:text-blue-800 font-sans">TS. Cao Thanh Sơn</p>
+                            <p class="text-xs text-slate-500 font-sans">Giảng viên HD/PB (CB_GV01)</p>
+                        </div>
+                        <span class="text-xs font-mono font-medium text-slate-600 bg-slate-100 px-2 py-0.5 rounded">gv_son</span>
+                    </button>
+
+                    <button type="button" onclick="fillAccount('sv_manh', 'vinhuni123')"
+                            class="w-full flex items-center justify-between p-2.5 rounded-xl border border-slate-200 hover:border-slate-400 hover:bg-slate-50 transition text-left group">
+                        <div>
+                            <p class="text-sm font-bold text-slate-900 group-hover:text-blue-800 font-sans">Nguyễn Trọng Mạnh</p>
+                            <p class="text-xs text-slate-500 font-sans">Sinh viên (211108234)</p>
+                        </div>
+                        <span class="text-xs font-mono font-medium text-slate-600 bg-slate-100 px-2 py-0.5 rounded">sv_manh</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="mt-5 text-center text-xs text-sky-200/70 font-sans">
+            <p>© 2026 Trường Kỹ thuật và Công nghệ – Đại học Vinh (Vinh University 1959)</p>
+            <p class="mt-0.5 text-sky-200/50">Phát triển theo chuẩn quy chế đào tạo tín chỉ ĐH Vinh</p>
+        </div>
+    </div>
+
+    <script>
+        function fillAccount(username, password) {
+            document.getElementById('username').value = username;
+            document.getElementById('password').value = password;
+            setTimeout(() => {
+                document.querySelector('form').submit();
+            }, 120);
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+
+<html class="h-full bg-surface" lang="vi"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Đăng nhập SSO USmart | Trường Kỹ thuật và Công nghệ - Đại học Vinh</title>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,300..900;1,6..12,300..900&amp;family=Public+Sans:ital,wght@0,300..900;1,300..900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "on-secondary-fixed": "#111c2d",
+            "surface-container-highest": "#d3e4fe",
+            "inverse-on-surface": "#eaf1ff",
+            "on-primary-fixed": "#131b2e",
+            "on-primary-fixed-variant": "#3f465c",
+            "on-tertiary-fixed": "#271901",
+            "tertiary-fixed-dim": "#dec29a",
+            "on-background": "#0b1c30",
+            "on-secondary": "#ffffff",
+            "tertiary": "#000000",
+            "on-tertiary-container": "#98805d",
+            "error-container": "#ffdad6",
+            "surface-dim": "#cbdbf5",
+            "outline-variant": "#c6c6cd",
+            "on-secondary-container": "#586377",
+            "on-tertiary-fixed-variant": "#574425",
+            "surface-container-low": "#eff4ff",
+            "on-primary": "#ffffff",
+            "on-primary-container": "#7c839b",
+            "on-surface": "#0b1c30",
+            "primary-fixed": "#dae2fd",
+            "primary-fixed-dim": "#bec6e0",
+            "surface-container-lowest": "#ffffff",
+            "on-surface-variant": "#45464d",
+            "secondary-fixed-dim": "#bcc7de",
+            "surface-container": "#e5eeff",
+            "tertiary-fixed": "#fcdeb5",
+            "surface": "#f8f9ff",
+            "inverse-primary": "#bec6e0",
+            "surface-tint": "#565e74",
+            "primary-container": "#131b2e",
+            "on-error": "#ffffff",
+            "surface-bright": "#f8f9ff",
+            "background": "#f8f9ff",
+            "secondary": "#545f73",
+            "on-secondary-fixed-variant": "#3c475a",
+            "inverse-surface": "#213145",
+            "on-tertiary": "#ffffff",
+            "primary": "#000000",
+            "surface-variant": "#d3e4fe",
+            "on-error-container": "#93000a",
+            "secondary-fixed": "#d8e3fb",
+            "outline": "#76777d",
+            "surface-container-high": "#dce9ff",
+            "tertiary-container": "#271901",
+            "secondary-container": "#d5e0f8",
+            "error": "#ba1a1a"
+          },
+          "borderRadius": {
+            "DEFAULT": "0.125rem",
+            "lg": "0.25rem",
+            "xl": "0.5rem",
+            "full": "0.75rem"
+          },
+          "spacing": {
+            "space-sm": "0.5rem",
+            "margin": "1rem",
+            "space-lg": "1.5rem",
+            "space-md": "0.75rem",
+            "margin-md": "1.5rem",
+            "space-base": "1rem",
+            "margin-lg": "2rem",
+            "space-xs": "0.25rem",
+            "space-2xl": "3rem",
+            "space-xl": "2rem",
+            "gutter": "1rem",
+            "gutter-lg": "1.5rem",
+            "space-2xs": "0.125rem"
+          },
+          "fontFamily": {
+            "body-lg": ["Nunito Sans"],
+            "display-lg": ["Public Sans"],
+            "label-sm": ["Public Sans"],
+            "body-md": ["Nunito Sans"],
+            "label-md": ["Public Sans"],
+            "body-sm": ["Nunito Sans"],
+            "headline-lg": ["Public Sans"],
+            "caption": ["Nunito Sans"],
+            "headline-sm": ["Public Sans"],
+            "headline-md": ["Public Sans"]
+          },
+          "fontSize": {
+            "body-lg": ["16px", { "lineHeight": "26px", "fontWeight": "400" }],
+            "display-lg": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+            "label-sm": ["11px", { "lineHeight": "16px", "letterSpacing": "0.02em", "fontWeight": "600" }],
+            "body-md": ["14px", { "lineHeight": "22px", "fontWeight": "400" }],
+            "label-md": ["13px", { "lineHeight": "18px", "letterSpacing": "0.01em", "fontWeight": "600" }],
+            "body-sm": ["13px", { "lineHeight": "20px", "fontWeight": "400" }],
+            "headline-lg": ["24px", { "lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "700" }],
+            "caption": ["12px", { "lineHeight": "16px", "fontWeight": "400" }],
+            "headline-sm": ["16px", { "lineHeight": "24px", "fontWeight": "600" }],
+            "headline-md": ["20px", { "lineHeight": "28px", "fontWeight": "600" }]
+          }
+        }
+      }
+    }
+  </script>
+<style>
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+      display: inline-block;
+      vertical-align: middle;
+      line-height: 1;
+    }
+    .material-symbols-outlined.fill-icon {
+      font-variation-settings: 'FILL' 1, 'wght' 500, 'GRAD' 0, 'opsz' 24;
+    }
+  </style>
+</head>
+<body class="min-h-full flex flex-col font-body-md text-on-surface bg-[#F8FAFC] antialiased selection:bg-slate-200">
+<!-- Header Đơn vị Thể chế (Cố định, chuẩn công thái học phẳng) -->
+<header class="w-full bg-surface-container-lowest border-b border-slate-200 sticky top-0 z-50 shadow-sm">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between gap-4">
+<!-- Cụm Thương hiệu & Biểu trưng -->
+<div class="flex items-center gap-3.5 min-w-0">
+<div class="w-12 h-12 flex-shrink-0 flex items-center justify-center p-0.5 rounded-full border border-slate-200 bg-white">
+<img alt="Logo Trường Đại học Vinh 1959" class="w-full h-full object-contain rounded-full" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBxEJ3J2H5w1ImaDczYc9Y7ZqHc2Npf4ABolOWH-POzGJnU60FYa7KNTrU3pJKQ2oxLrUc8X6veRat6IzT6hZMRgPiiQoEj1NJ0NmickcOBW-Ioci-y5aZgOoh6W1rOlu9UF-hoEyGSUYnQUWcAJyYzZ6VOC0E3I4wT3zbywEbgIThvcek5TTZcuMJwjVXW7Aer-9-LO3bE-q2caM40fjENBjv11Or5UD1X2Hr6sq9hkgsPtTiY75qUaw"/>
+</div>
+<div class="flex flex-col min-w-0">
+<div class="font-headline-sm text-headline-sm font-bold text-slate-900 tracking-tight whitespace-nowrap">
+            TRƯỜNG KỸ THUẬT VÀ CÔNG NGHỆ - ĐẠI HỌC VINH
+          </div>
+<div class="font-body-sm text-body-sm text-slate-500 truncate flex items-center gap-2">
+<span>Hệ thống Quản lý &amp; Điều phối Đồ án Tốt nghiệp - CSDL Đào tạo</span>
+<span class="inline-block w-1 h-1 rounded-full bg-slate-300"></span>
+<span class="font-mono text-xs text-slate-400">v2.5.4 (UC01-M01)</span>
+</div>
+</div>
+</div>
+<!-- Tiện ích & Trạng thái API bên phải -->
+<div class="hidden md:flex items-center gap-5 flex-shrink-0">
+<!-- Badge Trực tuyến API USmart -->
+<div class="flex items-center gap-2 px-3 py-1.5 rounded-md border border-slate-200 bg-slate-50 text-slate-700">
+<span class="flex h-2 w-2 relative">
+<span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+<span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-600"></span>
+</span>
+<span class="font-label-sm text-label-sm font-semibold tracking-normal text-slate-800">Cổng kết nối API USmart: <span class="text-emerald-700 font-bold">Trực tuyến</span></span>
+</div>
+<div class="h-6 w-px bg-slate-200"></div>
+<!-- Liên kết tra cứu & Trợ giúp -->
+<a class="flex items-center gap-1.5 font-label-md text-label-md text-slate-600 hover:text-slate-900 transition-colors" href="#support">
+<span class="material-symbols-outlined text-[18px] text-slate-500">menu_book</span>
+<span>Hướng dẫn quy chế</span>
+</a>
+<div class="flex items-center gap-1.5 font-label-md text-label-md text-slate-600">
+<span class="material-symbols-outlined text-[18px] text-slate-500">support_agent</span>
+<span class="font-mono font-medium text-slate-800">0238 3855 452</span>
+</div>
+</div>
+</div>
+</header>
+<!-- Khung Nội Dung Chính -->
+<main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8 lg:py-10">
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+<!-- Cột Trái / Trung tâm: Khối Đăng nhập Xác thực 2 Kênh (7 Cột) -->
+<div class="lg:col-span-7 flex flex-col gap-6">
+<!-- Khối Thẻ Đăng Nhập Chính (Chuẩn WCAG AAA, Slate/White tối giản) -->
+<div class="bg-surface-container-lowest rounded-xl border border-slate-200 shadow-sm p-6 sm:p-8">
+<div class="border-b border-slate-100 pb-5 mb-6">
+<div class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded bg-slate-100 text-slate-700 text-xs font-semibold mb-2.5">
+<span class="material-symbols-outlined text-sm text-slate-600">vpn_key</span>
+              XÁC THỰC DANH TÍNH TẬP TRUNG (SSO)
+            </div>
+<h1 class="font-headline-lg text-headline-lg text-slate-900 tracking-tight">
+              Đăng nhập Cổng Sinh viên &amp; Cán bộ
+            </h1>
+<p class="font-body-md text-body-md text-slate-500 mt-1">
+              Sử dụng tài khoản số được cấp bởi Đại học Vinh để truy cập cổng phân công, phản biện và nghiệm thu đồ án.
+            </p>
+</div>
+<!-- KÊNH 1: Kênh chính thức bắt buộc qua USmart SSO -->
+<div class="p-5 rounded-lg bg-slate-50 border border-slate-200">
+<div class="flex items-start justify-between gap-4 mb-4">
+<div>
+<span class="font-label-sm text-label-sm text-slate-500 uppercase tracking-wider font-semibold">Kênh 01 (Khuyến nghị mặc định)</span>
+<h2 class="font-headline-sm text-headline-sm text-slate-900 mt-0.5">Xác thực Cổng Đào tạo USmart / SSO VinhUni</h2>
+</div>
+<span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-emerald-50 text-emerald-800 border border-emerald-200">
+                Chính thức
+              </span>
+</div>
+<!-- Nút bấm Đăng nhập USmart Chính -->
+<button class="w-full h-12 flex items-center justify-center gap-3 px-6 rounded-md bg-[#0F172A] hover:bg-slate-800 text-white font-label-md text-label-md transition-all active:scale-[0.99] shadow-sm" type="button">
+<span class="material-symbols-outlined text-xl text-slate-200">lock</span>
+<span class="font-semibold text-[15px]">Đăng nhập qua Cổng Đào tạo USmart / SSO VinhUni</span>
+<span class="material-symbols-outlined text-sm text-slate-400 ml-auto">arrow_forward</span>
+</button>
+<!-- Ghi chú bảo mật bất biến theo M01 -->
+<div class="mt-3.5 flex items-center gap-2 text-slate-500 font-body-sm text-body-sm">
+<span class="material-symbols-outlined text-base text-slate-400">verified_user</span>
+<span>Hệ thống xác thực một lần (Single Sign-On). Không lưu trữ mật khẩu cá nhân của bạn.</span>
+</div>
+</div>
+<!-- Phân luồng điều hướng tự động theo RBAC (bảng nguoi_dung, vai_tro, nguoi_dung_vai_tro) -->
+<div class="mt-5 p-4 rounded-lg bg-white border border-slate-200">
+<div class="flex items-center gap-2 font-label-md text-label-md text-slate-700 mb-2.5 font-semibold">
+<span class="material-symbols-outlined text-base text-slate-500">alt_route</span>
+              Quy tắc tự động điều hướng sau khi xác thực thành công:
+            </div>
+<div class="grid grid-cols-1 sm:grid-cols-3 gap-2.5 text-xs">
+<div class="p-2.5 rounded bg-slate-50 border border-slate-200 flex flex-col justify-between">
+<div>
+<div class="font-semibold text-slate-800 flex items-center gap-1">
+<span class="material-symbols-outlined text-xs text-slate-500">school</span>
+                    Sinh viên
+                  </div>
+<div class="text-slate-600 mt-1">Chuyển trực tiếp tới <span class="font-medium text-slate-800">Hồ sơ của tôi</span> (Đợt đồ án đang mở).</div>
+</div>
+<div class="font-mono text-[10px] text-slate-400 mt-2">vai_tro: SINH_VIEN</div>
+</div>
+<div class="p-2.5 rounded bg-slate-50 border border-slate-200 flex flex-col justify-between">
+<div>
+<div class="font-semibold text-slate-800 flex items-center gap-1">
+<span class="material-symbols-outlined text-xs text-slate-500">person</span>
+                    Giảng viên
+                  </div>
+<div class="text-slate-600 mt-1">Chuyển trực tiếp tới <span class="font-medium text-slate-800">Việc của tôi</span> (Chấm duyệt đề xuất).</div>
+</div>
+<div class="font-mono text-[10px] text-slate-400 mt-2">vai_tro: GIANG_VIEN</div>
+</div>
+<div class="p-2.5 rounded bg-slate-50 border border-slate-200 flex flex-col justify-between">
+<div>
+<div class="font-semibold text-slate-800 flex items-center gap-1">
+<span class="material-symbols-outlined text-xs text-slate-500">admin_panel_settings</span>
+                    Trưởng khoa
+                  </div>
+<div class="text-slate-600 mt-1">Chuyển trực tiếp tới <span class="font-medium text-slate-800">Điều phối toàn khoa</span> &amp; hội đồng.</div>
+</div>
+<div class="font-mono text-[10px] text-slate-400 mt-2">vai_tro: TRUONG_KHOA</div>
+</div>
+</div>
+</div>
+<!-- Đường phân cách giữa 2 kênh -->
+<div class="relative my-7 text-center">
+<div class="absolute inset-0 flex items-center"><div class="w-full border-t border-slate-200"></div></div>
+<span class="relative bg-white px-3 font-label-sm text-label-sm text-slate-400 uppercase tracking-wider font-semibold">Hoặc phương thức dự phòng</span>
+</div>
+<!-- KÊNH 2: Kênh dự phòng Google Workspace ĐH Vinh -->
+<div class="p-5 rounded-lg bg-white border border-slate-200">
+<div class="flex items-start justify-between gap-4 mb-3">
+<div>
+<span class="font-label-sm text-label-sm text-slate-500 uppercase tracking-wider font-semibold">Kênh 02 (Kênh dự phòng)</span>
+<h3 class="font-headline-sm text-headline-sm text-slate-900 mt-0.5">Tài khoản Google trường (@vinhuni.edu.vn)</h3>
+</div>
+<span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-slate-100 text-slate-700 border border-slate-200">
+                Liên kết Email
+              </span>
+</div>
+<!-- Nút phụ Google Workspace -->
+<button class="w-full h-11 flex items-center justify-center gap-3 px-5 rounded-md bg-white border border-slate-300 hover:bg-slate-50 text-slate-800 font-label-md text-label-md transition-all active:scale-[0.99]" type="button">
+<!-- Google Icon Minimal -->
+<svg class="w-5 h-5 flex-shrink-0" viewbox="0 0 24 24">
+<path d="M23.745 12.27c0-.7-.06-1.4-.19-2.07H12v4.51h6.6c-.29 1.52-1.14 2.8-2.4 3.65v3.05h3.88c2.27-2.09 3.665-5.17 3.665-9.14z" fill="#4285F4"></path>
+<path d="M12 24c3.24 0 5.95-1.08 7.93-2.91l-3.88-3.05c-1.08.72-2.45 1.16-4.05 1.16-3.12 0-5.77-2.1-6.72-4.93H1.25v3.15C3.26 21.36 7.33 24 12 24z" fill="#34A853"></path>
+<path d="M5.28 14.27c-.25-.72-.38-1.49-.38-2.27s.13-1.55.38-2.27V6.58H1.25C.45 8.18 0 9.98 0 12s.45 3.82 1.25 5.42l4.03-3.15z" fill="#FBBC05"></path>
+<path d="M12 4.75c1.77 0 3.35.61 4.6 1.8l3.42-3.42C17.95 1.19 15.24 0 12 0 7.33 0 3.26 2.64 1.25 6.58l4.03 3.15c.95-2.83 3.6-4.98 6.72-4.98z" fill="#EA4335"></path>
+</svg>
+<span class="font-medium text-slate-800">Tiếp tục với Google Workspace</span>
+</button>
+<!-- Chú thích nghiệp vụ ràng buộc DB -->
+<p class="mt-3 text-xs text-slate-500 leading-relaxed">
+              * Dành cho tài khoản Google đã liên kết hoặc đang chờ Trưởng khoa duyệt mã định danh 
+              (<code class="font-mono text-slate-700 bg-slate-100 px-1 py-0.5 rounded">tai_khoan_lien_ket.trang_thai_duyet = CHO_DUYET</code>).
+            </p>
+</div>
+<!-- Liên kết phụ trợ -->
+<div class="mt-6 pt-4 border-t border-slate-100 flex flex-wrap items-center justify-between text-xs text-slate-500 gap-3">
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-sm text-slate-400">info</span>
+<span>Lần đăng nhập đầu tiên? Hệ thống tự động tạo mã theo số hiệu cán bộ / sinh viên.</span>
+</div>
+<a class="text-slate-700 hover:text-slate-900 font-semibold underline decoration-slate-300 underline-offset-2" href="#support">
+              Báo cáo lỗi tài khoản
+            </a>
+</div>
+</div>
+<!-- Khối Thông Điệp Chuẩn Hóa An Toàn Dữ Liệu -->
+<div class="p-4 rounded-lg bg-white border border-slate-200 flex items-start gap-3 text-slate-600">
+<span class="material-symbols-outlined text-slate-500 text-lg flex-shrink-0 mt-0.5">policy</span>
+<div class="text-xs leading-relaxed">
+<span class="font-semibold text-slate-800">Quy định truy cập CSDL Học thuật:</span>
+            Mọi thao tác thay đổi trạng thái đề tài, đề xuất phân công giảng viên và tải báo cáo toàn văn đều được ghi nhật ký hệ thống (<code class="font-mono text-slate-700 bg-slate-100 px-1">nhat_ky_he_thong</code>) kèm địa chỉ IP và mã băm SHA-256 để phục vụ hậu kiểm.
+          </div>
+</div>
+</div>
+<!-- Cột Phải: Khối Thông Tin Bổ Trợ (5 Cột) -->
+<div class="lg:col-span-5 flex flex-col gap-6">
+<!-- Thẻ 1: Thông báo tuyển sinh đợt & Lịch trình đang mở -->
+<div class="bg-surface-container-lowest rounded-xl border border-slate-200 shadow-sm p-6">
+<div class="flex items-center justify-between pb-3 border-b border-slate-100 mb-4">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-slate-700 text-xl">event_available</span>
+<h3 class="font-headline-sm text-headline-sm text-slate-900">Đợt Đồ án &amp; Thực tập đang mở</h3>
+</div>
+<span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-semibold bg-emerald-50 text-emerald-800 border border-emerald-200">
+              Đang nhận hồ sơ
+            </span>
+</div>
+<div class="space-y-4">
+<!-- Thông tin Đợt -->
+<div class="p-3.5 rounded-lg bg-slate-50 border border-slate-200">
+<div class="text-xs text-slate-500 font-medium">Mã đợt xét duyệt chính thức:</div>
+<div class="font-mono font-bold text-sm text-slate-900 mt-0.5 flex items-center justify-between">
+<span>DOT26_HK2_CNTT_01</span>
+<span class="font-normal text-xs text-slate-600 bg-white px-2 py-0.5 rounded border border-slate-200">Kỳ 2 / 2024-2025</span>
+</div>
+</div>
+<!-- Đối tượng áp dụng -->
+<div>
+<div class="text-xs font-semibold text-slate-700 mb-1 flex items-center gap-1.5">
+<span class="material-symbols-outlined text-sm text-slate-500">groups</span>
+                Đối tượng tham gia:
+              </div>
+<p class="text-xs text-slate-600 bg-white p-2.5 rounded border border-slate-200 leading-relaxed">
+                Sinh viên chính quy <span class="font-semibold text-slate-800">Khóa 63</span> các ngành Kỹ sư Công nghệ thông tin, Kỹ thuật Phần mềm, Mạng máy tính &amp; ATTT đủ điều kiện tích lũy tín chỉ chuyên ngành.
+              </p>
+</div>
+<!-- Mốc thời gian then chốt -->
+<div>
+<div class="text-xs font-semibold text-slate-700 mb-2 flex items-center gap-1.5">
+<span class="material-symbols-outlined text-sm text-slate-500">schedule</span>
+                Mốc thời gian tiến độ quy chế:
+              </div>
+<ul class="space-y-2 text-xs">
+<li class="flex items-start justify-between p-2 rounded bg-slate-50 border border-slate-100">
+<span class="text-slate-600">Hạn chốt nộp đề xuất đề tài mới:</span>
+<span class="font-mono font-bold text-slate-900">23:59 - 15/04/2025</span>
+</li>
+<li class="flex items-start justify-between p-2 rounded bg-slate-50 border border-slate-100">
+<span class="text-slate-600">Hạn chốt ghép Giảng viên hướng dẫn:</span>
+<span class="font-mono font-bold text-slate-900">17:00 - 20/04/2025</span>
+</li>
+<li class="flex items-start justify-between p-2 rounded bg-slate-50 border border-slate-100">
+<span class="text-slate-600">Công bố danh sách duyệt chính thức:</span>
+<span class="font-mono font-bold text-slate-900">25/04/2025</span>
+</li>
+</ul>
+</div>
+<!-- Nút Tải Biểu mẫu / Quy chế -->
+<a class="inline-flex w-full items-center justify-center gap-2 h-9 px-3 rounded-md bg-white border border-slate-300 hover:bg-slate-50 text-slate-700 font-label-md text-label-md transition-colors" href="#">
+<span class="material-symbols-outlined text-base text-slate-500">download</span>
+<span>Tải file Quyết định &amp; Quy chế Đồ án 2025 (.PDF)</span>
+</a>
+</div>
+</div>
+<!-- Thẻ 2: Hỗ trợ kỹ thuật & Xử lý sự cố đăng nhập -->
+<div class="bg-surface-container-lowest rounded-xl border border-slate-200 shadow-sm p-6" id="support">
+<div class="flex items-center gap-2 pb-3 border-b border-slate-100 mb-4">
+<span class="material-symbols-outlined text-slate-700 text-xl">contact_support</span>
+<h3 class="font-headline-sm text-headline-sm text-slate-900">Hỗ trợ Kỹ thuật &amp; Xử lý Sự cố</h3>
+</div>
+<div class="space-y-3.5 text-xs text-slate-600">
+<!-- Tình huống chưa có mã đào tạo (M02) -->
+<div class="p-3 rounded-lg bg-amber-50/60 border border-amber-200/80 text-amber-900 leading-relaxed">
+<div class="font-bold flex items-center gap-1.5 text-amber-950 mb-1">
+<span class="material-symbols-outlined text-sm text-amber-700">warning</span>
+                Chưa có mã trong danh sách đào tạo? (M02)
+              </div>
+              Vui lòng mang theo Thẻ sinh viên / Thẻ cán bộ tới trực tiếp Văn phòng Giáo vụ để đối soát danh sách xét điều kiện làm đồ án tốt nghiệp.
+            </div>
+<div class="space-y-2 pt-1">
+<div class="flex items-center gap-2.5">
+<span class="material-symbols-outlined text-base text-slate-400">apartment</span>
+<span class="text-slate-700 font-medium">Giáo vụ Khoa CNTT &amp; TT: Phòng 304, Nhà A1, ĐH Vinh</span>
+</div>
+<div class="flex items-center gap-2.5">
+<span class="material-symbols-outlined text-base text-slate-400">mail</span>
+<span class="text-slate-700">Email kỹ thuật: <a class="font-mono text-slate-900 font-medium hover:underline" href="mailto:it_support@vinhuni.edu.vn">it_support@vinhuni.edu.vn</a></span>
+</div>
+<div class="flex items-center gap-2.5">
+<span class="material-symbols-outlined text-base text-slate-400">call</span>
+<span class="text-slate-700">Đường dây nóng: <span class="font-mono text-slate-900 font-bold">0238 3855 452</span> (Giờ hành chính)</span>
+</div>
+</div>
+<div class="pt-2 border-t border-slate-100 flex items-center justify-between text-[11px] text-slate-400">
+<span>Hỗ trợ SV từ Thứ Hai đến Thứ Sáu</span>
+<span>7:00 - 11:30 | 13:30 - 17:00</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- Chân trang Thể chế (Footer) -->
+<footer class="mt-auto w-full bg-surface-container-lowest border-t border-slate-200 py-6">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-4 text-xs text-slate-500">
+<div class="flex flex-col sm:flex-row items-center gap-2 text-center sm:text-left">
+<span class="font-medium text-slate-700">© 1959 - 2025 Trường Đại học Vinh - Trường Kỹ thuật và Công nghệ.</span>
+<span class="hidden sm:inline text-slate-300">|</span>
+<span class="text-slate-500">Chuẩn CSDL 32 bảng PostgreSQL (Nhóm A: nguoi_dung, tai_khoan_lien_ket, sinh_vien, giang_vien).</span>
+</div>
+<div class="flex items-center gap-4 text-slate-600">
+<span class="flex items-center gap-1">
+<span class="material-symbols-outlined text-sm text-slate-400">database</span>
+<span class="font-mono">PostgreSQL 16.2</span>
+</span>
+<span class="text-slate-300">•</span>
+<span>Phân hệ UC01-M01</span>
+<span class="text-slate-300">•</span>
+<a class="hover:text-slate-900 underline decoration-slate-300" href="#">Chính sách bảo mật</a>
+</div>
+</div>
+</footer>
+</body></html>

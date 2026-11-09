@@ -1,0 +1,110 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Quản Trị Hệ Thống & Cài Đặt Quy Chế - Đại học Vinh{% endblock %}
+
+{% block content %}
+<div class="space-y-6">
+
+    <!-- HEADER QUẢN TRỊ TỐI GIẢN -->
+    <section class="bg-white border border-slate-200 rounded-2xl p-5 shadow-xs flex flex-col md:flex-row md:items-center justify-between gap-4">
+        <div>
+            <h1 class="text-xl sm:text-2xl font-bold font-heading text-slate-900 tracking-tight">
+                Danh Mục & Quy Chế Đào Tạo
+            </h1>
+            <p class="text-xs sm:text-sm text-slate-500 mt-1 font-sans">
+                Cấu hình cơ cấu Khoa, Bộ môn và kiểm toán tài khoản cán bộ
+            </p>
+        </div>
+
+        <div class="flex items-center gap-2">
+            <a href="/admin/" target="_blank" class="inline-flex items-center gap-1.5 px-4 py-2 bg-slate-900 hover:bg-slate-800 text-white text-xs sm:text-sm font-semibold rounded-xl shadow-xs transition">
+                <span class="material-symbols-outlined text-base">admin_panel_settings</span>
+                <span>Django Admin CSDL</span>
+            </a>
+        </div>
+    </section>
+
+    <!-- GRID DANH MỤC -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <!-- Bộ môn 1 -->
+        <div class="bg-white border border-slate-200 rounded-2xl p-5 shadow-xs space-y-3">
+            <div class="flex items-center justify-between border-b border-slate-100 pb-3">
+                <h3 class="font-bold text-slate-900 font-heading text-sm">Bộ môn Kỹ thuật phần mềm</h3>
+                <span class="text-xs font-semibold px-2 py-0.5 bg-slate-100 text-slate-700 rounded border border-slate-200">KTPM</span>
+            </div>
+            <div class="text-xs text-slate-600 space-y-1">
+                <p>Trưởng bộ môn: <strong class="text-slate-800">TS. Nguyễn Văn An</strong></p>
+                <p>Tổng số giảng viên: <strong class="text-slate-800">10 cán bộ</strong></p>
+                <p>Định hướng: Trí tuệ nhân tạo, Công nghệ phần mềm, Cloud</p>
+            </div>
+        </div>
+
+        <!-- Bộ môn 2 -->
+        <div class="bg-white border border-slate-200 rounded-2xl p-5 shadow-xs space-y-3">
+            <div class="flex items-center justify-between border-b border-slate-100 pb-3">
+                <h3 class="font-bold text-slate-900 font-heading text-sm">Bộ môn Hệ thống thông tin</h3>
+                <span class="text-xs font-semibold px-2 py-0.5 bg-slate-100 text-slate-700 rounded border border-slate-200">HTTT</span>
+            </div>
+            <div class="text-xs text-slate-600 space-y-1">
+                <p>Trưởng bộ môn: <strong class="text-slate-800">TS. Phạm Minh Đức</strong></p>
+                <p>Tổng số giảng viên: <strong class="text-slate-800">9 cán bộ</strong></p>
+                <p>Định hướng: Cơ sở dữ liệu lớn, An toàn thông tin, ERP</p>
+            </div>
+        </div>
+
+        <!-- Bộ môn 3 -->
+        <div class="bg-white border border-slate-200 rounded-2xl p-5 shadow-xs space-y-3">
+            <div class="flex items-center justify-between border-b border-slate-100 pb-3">
+                <h3 class="font-bold text-slate-900 font-heading text-sm">Bộ môn Mạng máy tính & TT</h3>
+                <span class="text-xs font-semibold px-2 py-0.5 bg-slate-100 text-slate-700 rounded border border-slate-200">MMT</span>
+            </div>
+            <div class="text-xs text-slate-600 space-y-1">
+                <p>Trưởng bộ môn: <strong class="text-slate-800">ThS. Lê Quốc Cường</strong></p>
+                <p>Tổng số giảng viên: <strong class="text-slate-800">9 cán bộ</strong></p>
+                <p>Định hướng: IoT, Mạng không dây, An ninh mạng</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- NHẬT KÝ KIỂM TOÁN HỆ THỐNG (BẢNG 32 - UC30) -->
+    <section class="bg-white border border-slate-200 rounded-2xl shadow-xs overflow-hidden">
+        <div class="p-4 border-b border-slate-200 bg-slate-50/70 flex items-center justify-between">
+            <div class="flex items-center gap-2">
+                <span class="material-symbols-outlined text-blue-600">receipt_long</span>
+                <h2 class="text-sm font-bold font-heading text-slate-900">
+                    Nhật Ký Kiểm Toán Tác Động Hệ Thống (Bảo mật: Không lưu điểm số)
+                </h2>
+            </div>
+            <span class="text-xs text-slate-400">Tự động ghi nhận mọi hành vi</span>
+        </div>
+
+        <div class="divide-y divide-slate-100 text-xs">
+            <div class="p-4 flex items-center justify-between">
+                <div>
+                    <span class="font-bold text-slate-900">CHUYEN_TRANG_THAI_DOT</span>
+                    <p class="text-slate-500 mt-0.5">TS. Nguyễn Văn An: Chuyển trạng thái đợt DOT26_HK2_CNTT_01 sang PHAN_CONG</p>
+                </div>
+                <span class="font-mono text-slate-400">08/11/2026 17:21</span>
+            </div>
+
+            <div class="p-4 flex items-center justify-between">
+                <div>
+                    <span class="font-bold text-slate-900">CHAY_THUAT_TOAN_SNAKE_DRAFT</span>
+                    <p class="text-slate-500 mt-0.5">Hệ thống phân bổ cân bằng 20 sinh viên cho 5 giảng viên theo đường ziczac GPA</p>
+                </div>
+                <span class="font-mono text-slate-400">08/11/2026 17:15</span>
+            </div>
+
+            <div class="p-4 flex items-center justify-between">
+                <div>
+                    <span class="font-bold text-slate-900">DONG_BO_USMART</span>
+                    <p class="text-slate-500 mt-0.5">Đồng bộ tự động điểm trung bình tích lũy và tín chỉ từ cổng đào tạo USMART</p>
+                </div>
+                <span class="font-mono text-slate-400">08/11/2026 16:30</span>
+            </div>
+        </div>
+    </section>
+
+</div>
+{% endblock %}

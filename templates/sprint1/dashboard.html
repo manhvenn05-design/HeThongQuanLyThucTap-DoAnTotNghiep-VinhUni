@@ -1,0 +1,719 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Chuẩn bị đợt & Khởi tạo hồ sơ - {{ current_dot.ma_dot }}{% endblock %}
+
+{% block content %}
+<div class="space-y-6">
+
+    <!-- THANH ĐIỀU HÀNH CHÍNH TỐI GIẢN & TINH TẾ -->
+    <div class="bg-white rounded-2xl p-5 border border-slate-200 shadow-xs flex flex-col xl:flex-row xl:items-center justify-between gap-4">
+        <div>
+            <div class="flex items-center gap-2.5">
+                <h1 class="text-xl sm:text-2xl font-bold font-heading text-slate-900 tracking-tight">
+                    Quản lý Đợt & Tiếp nhận Sinh viên
+                </h1>
+                <span class="inline-flex items-center px-2.5 py-0.5 rounded text-xs font-semibold bg-slate-100 text-slate-700 border border-slate-200">
+                    {{ current_dot.get_trang_thai_display }}
+                </span>
+            </div>
+            <p class="text-xs sm:text-sm text-slate-500 mt-1 font-sans">
+                {{ current_dot.ten_dot }} • Mã đợt: <span class="font-mono font-medium text-slate-700">{{ current_dot.ma_dot }}</span>
+            </p>
+        </div>
+
+        <!-- Các nút thao tác cấp đợt (Thẳng hàng, không gãy dòng, không chèn nhau) -->
+        <div class="flex items-center gap-2 overflow-x-auto custom-scrollbar shrink-0 whitespace-nowrap">
+            <!-- Nút Cấu hình Thời lượng & Mốc thời gian (UC03) -->
+            <button type="button" onclick="openBatchConfigModal()" 
+                    class="inline-flex items-center gap-1.5 px-3.5 py-2 bg-white hover:bg-slate-50 text-slate-800 border border-slate-300 rounded-xl text-xs sm:text-sm font-semibold transition shadow-xs cursor-pointer whitespace-nowrap">
+                <span class="material-symbols-outlined text-base text-amber-600">tune</span>
+                <span>Cấu hình đợt</span>
+            </button>
+
+            <button type="button" onclick="document.getElementById('uploadModal').classList.remove('hidden')" 
+                    class="inline-flex items-center gap-1.5 px-3.5 py-2 bg-blue-700 hover:bg-blue-800 text-white rounded-xl text-xs sm:text-sm font-semibold transition shadow-xs cursor-pointer whitespace-nowrap">
+                <span class="material-symbols-outlined text-base">upload_file</span>
+                <span>Nhập Excel</span>
+            </button>
+
+            <form action="{% url 'sync_usmart' dot_id=current_dot.id %}" method="POST" class="inline-flex m-0 p-0" onsubmit="return confirm('Xác nhận đồng bộ điểm TB tích lũy từ cổng USMART cho sinh viên trong đợt?');">
+                {% csrf_token %}
+                <button type="submit" class="inline-flex items-center gap-1.5 px-3.5 py-2 bg-white hover:bg-slate-50 text-slate-700 border border-slate-300 rounded-xl text-xs sm:text-sm font-semibold transition cursor-pointer whitespace-nowrap">
+                    <span class="material-symbols-outlined text-base text-blue-600">sync</span>
+                    <span>Đồng bộ USMART</span>
+                </button>
+            </form>
+
+            <form action="{% url 'advance_phase' dot_id=current_dot.id %}" method="POST" class="inline-flex m-0 p-0" onsubmit="return confirm('Chốt khâu chuẩn bị và chuyển đợt sang: PHÂN CÔNG HƯỚNG DẪN?');">
+                {% csrf_token %}
+                <button type="submit" class="inline-flex items-center gap-1.5 px-4 py-2 bg-slate-900 hover:bg-slate-800 text-white rounded-xl text-xs sm:text-sm font-semibold transition shadow-xs cursor-pointer whitespace-nowrap">
+                    <span>Chuyển sang Phân công</span>
+                    <span class="material-symbols-outlined text-base">arrow_forward</span>
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- ================= THANH TIẾN TRÌNH VÒNG ĐỜI 6 GIAI ĐOẠN (LIFECYCLE STEPPER - CHUYÊN GIA TRỰC QUAN HÓA) ================= -->
+    <div class="bg-white rounded-2xl p-4 sm:p-5 border border-slate-200 shadow-xs">
+        <div class="flex items-center justify-between gap-2 overflow-x-auto custom-scrollbar pb-1">
+            <!-- 1. Chuẩn bị (Active) -->
+            <div class="flex items-center gap-3 shrink-0">
+                <div class="w-8 h-8 rounded-full bg-slate-900 text-white font-bold text-xs flex items-center justify-center font-heading shadow-xs">
+                    1
+                </div>
+                <div class="whitespace-nowrap">
+                    <div class="text-xs font-bold text-slate-900 font-heading">Chuẩn bị đợt</div>
+                    <div class="text-[10px] text-blue-700 font-semibold font-sans">Đang tiến hành</div>
+                </div>
+            </div>
+
+            <!-- Đường nối 1-2 -->
+            <div class="h-0.5 w-6 sm:w-10 bg-slate-200 shrink-0"></div>
+
+            <!-- 2. Phân công -->
+            <div class="flex items-center gap-3 shrink-0 opacity-60">
+                <div class="w-8 h-8 rounded-full bg-slate-100 border border-slate-300 text-slate-600 font-bold text-xs flex items-center justify-center font-heading">
+                    2
+                </div>
+                <div class="whitespace-nowrap">
+                    <div class="text-xs font-bold text-slate-700 font-heading">Phân công GV</div>
+                    <div class="text-[10px] text-slate-400 font-sans">Giai đoạn kế tiếp</div>
+                </div>
+            </div>
+
+            <!-- Đường nối 2-3 -->
+            <div class="h-0.5 w-6 sm:w-10 bg-slate-200 shrink-0"></div>
+
+            <!-- 3. Chốt đề tài -->
+            <div class="flex items-center gap-3 shrink-0 opacity-60">
+                <div class="w-8 h-8 rounded-full bg-slate-100 border border-slate-300 text-slate-600 font-bold text-xs flex items-center justify-center font-heading">
+                    3
+                </div>
+                <div class="whitespace-nowrap">
+                    <div class="text-xs font-bold text-slate-700 font-heading">Chốt đề tài</div>
+                    <div class="text-[10px] text-slate-400 font-sans">Duyệt đề xuất</div>
+                </div>
+            </div>
+
+            <!-- Đường nối 3-4 -->
+            <div class="h-0.5 w-6 sm:w-10 bg-slate-200 shrink-0"></div>
+
+            <!-- 4. Thực hiện -->
+            <div class="flex items-center gap-3 shrink-0 opacity-60">
+                <div class="w-8 h-8 rounded-full bg-slate-100 border border-slate-300 text-slate-600 font-bold text-xs flex items-center justify-center font-heading">
+                    4
+                </div>
+                <div class="whitespace-nowrap">
+                    <div class="text-xs font-bold text-slate-700 font-heading">Thực hiện</div>
+                    <div class="text-[10px] text-slate-400 font-sans">Minh chứng định kỳ</div>
+                </div>
+            </div>
+
+            <!-- Đường nối 4-5 -->
+            <div class="h-0.5 w-6 sm:w-10 bg-slate-200 shrink-0"></div>
+
+            <!-- 5. Chấm điểm -->
+            <div class="flex items-center gap-3 shrink-0 opacity-60">
+                <div class="w-8 h-8 rounded-full bg-slate-100 border border-slate-300 text-slate-600 font-bold text-xs flex items-center justify-center font-heading">
+                    5
+                </div>
+                <div class="whitespace-nowrap">
+                    <div class="text-xs font-bold text-slate-700 font-heading">Chấm điểm</div>
+                    <div class="text-[10px] text-slate-400 font-sans">HD, PB, Hội đồng</div>
+                </div>
+            </div>
+
+            <!-- Đường nối 5-6 -->
+            <div class="h-0.5 w-6 sm:w-10 bg-slate-200 shrink-0"></div>
+
+            <!-- 6. Hoàn tất -->
+            <div class="flex items-center gap-3 shrink-0 opacity-60">
+                <div class="w-8 h-8 rounded-full bg-slate-100 border border-slate-300 text-slate-600 font-bold text-xs flex items-center justify-center font-heading">
+                    6
+                </div>
+                <div class="whitespace-nowrap">
+                    <div class="text-xs font-bold text-slate-700 font-heading">Khóa sổ</div>
+                    <div class="text-[10px] text-slate-400 font-sans">Lưu trữ CSDL</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- THANH ĐIỀU HƯỚNG SUBMENU CHUYÊN TRÁCH THEO LUỒNG (SUBMENU TABS) -->
+    <!-- PHÂN TÁCH CÁC MỤC NGHIỆP VỤ RÕ RÀNG (CHUẨN HỌC THUẬT: PHẦN NÀO RA PHẦN ĐÓ) -->
+    <div class="bg-white rounded-xl p-1.5 border border-slate-200 shadow-xs">
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-1.5">
+            <a href="?section=students" 
+               class="px-4 py-2.5 rounded-lg flex items-center justify-center gap-2 text-sm font-semibold transition font-sans whitespace-nowrap {% if active_section == 'students' or not active_section %}bg-slate-900 text-white shadow-xs{% else %}text-slate-600 hover:text-slate-900 hover:bg-slate-100{% endif %}">
+                <span class="material-symbols-outlined text-lg">people</span>
+                <span>Danh sách sinh viên ({{ tong_ho_so }})</span>
+            </a>
+
+            <a href="?section=upload" 
+               class="px-4 py-2.5 rounded-lg flex items-center justify-center gap-2 text-sm font-semibold transition font-sans whitespace-nowrap {% if active_section == 'upload' %}bg-slate-900 text-white shadow-xs{% else %}text-slate-600 hover:text-slate-900 hover:bg-slate-100{% endif %}">
+                <span class="material-symbols-outlined text-lg">cloud_sync</span>
+                <span>Tiếp nhận dữ liệu (Excel / USMART)</span>
+            </a>
+
+            <a href="?section=milestones" 
+               class="px-4 py-2.5 rounded-lg flex items-center justify-center gap-2 text-sm font-semibold transition font-sans whitespace-nowrap {% if active_section == 'milestones' or active_section == 'weights' %}bg-slate-900 text-white shadow-xs{% else %}text-slate-600 hover:text-slate-900 hover:bg-slate-100{% endif %}">
+                <span class="material-symbols-outlined text-lg">calendar_month</span>
+                <span>Lịch trình & Trọng số điểm</span>
+            </a>
+        </div>
+    </div>
+
+    <!-- ================= SECTION 1: DANH SÁCH SINH VIÊN (CHUYÊN TRÁCH) ================= -->
+    {% if active_section == 'students' or not active_section %}
+    <!-- KPI THỐNG KÊ GỌN GÀNG - CHUẨN HỌC THUẬT QUỐC TẾ (KHÔNG ICON MÀU MÈ) -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <div class="bg-white rounded-xl p-5 border border-slate-200 shadow-xs">
+            <p class="text-xs font-semibold uppercase tracking-wider text-slate-500 font-sans">Tổng sinh viên đủ điều kiện</p>
+            <p class="text-3xl font-bold text-slate-900 font-sans mt-1.5">{{ tong_ho_so }} <span class="text-sm font-normal text-slate-500">hồ sơ</span></p>
+        </div>
+
+        <div class="bg-white rounded-xl p-5 border border-slate-200 shadow-xs">
+            <p class="text-xs font-semibold uppercase tracking-wider text-slate-500 font-sans">Đã đồng bộ điểm USMART</p>
+            <p class="text-3xl font-bold text-slate-900 font-sans mt-1.5">{{ co_diem_count }} <span class="text-sm font-medium text-slate-500">({{ tyle_diem }}%)</span></p>
+        </div>
+
+        <div class="bg-white rounded-xl p-5 border border-slate-200 shadow-xs">
+            <p class="text-xs font-semibold uppercase tracking-wider text-slate-500 font-sans">Chưa có điểm tích lũy</p>
+            <p class="text-3xl font-bold text-slate-900 font-sans mt-1.5">{{ thieu_diem_count }} <span class="text-sm font-normal text-slate-500">hồ sơ</span></p>
+        </div>
+    </div>
+
+    <!-- BẢNG DANH SÁCH SINH VIÊN (CHỮ TO RÕ RÀNG, CHUẨN HỌC THUẬT) -->
+    <div class="bg-white rounded-xl border border-slate-200 shadow-xs overflow-hidden">
+        <!-- Bộ lọc -->
+        <div class="p-5 border-b border-slate-200 flex flex-col md:flex-row md:items-center justify-between gap-4">
+            <div>
+                <h2 class="text-base font-bold font-sans text-slate-900">Danh sách sinh viên</h2>
+            </div>
+
+            <form method="GET" class="flex flex-wrap items-center gap-3">
+                <input type="hidden" name="section" value="students">
+                <!-- Ô tìm kiếm -->
+                <div class="relative">
+                    <span class="material-symbols-outlined absolute left-3 top-2.5 text-slate-400 text-lg">search</span>
+                    <input type="text" name="q" value="{{ q }}" placeholder="Tìm theo mã sinh viên hoặc họ tên..." 
+                           class="pl-9 pr-3 py-2 text-sm bg-slate-50 border border-slate-300 rounded-lg focus:bg-white focus:ring-2 focus:ring-blue-800 w-64 font-sans">
+                </div>
+
+                <!-- Dropdown lọc theo lớp -->
+                <select name="lop" onchange="this.form.submit()" 
+                        class="py-2 px-3 text-sm bg-slate-50 border border-slate-300 rounded-lg focus:bg-white focus:ring-2 focus:ring-blue-800 font-sans">
+                    <option value="">Tất cả các lớp</option>
+                    {% for l in danh_sach_lop %}
+                    <option value="{{ l }}" {% if lop_filter == l %}selected{% endif %}>Lớp {{ l }}</option>
+                    {% endfor %}
+                </select>
+
+                {% if q or lop_filter %}
+                <a href="?section=students" class="text-xs font-semibold text-rose-600 hover:underline">Xóa lọc</a>
+                {% endif %}
+            </form>
+        </div>
+
+        <!-- Bảng hiển thị (Đã bỏ hoàn toàn viền bọc xanh AI lòe loẹt và ngôi sao thừa) -->
+        <div class="overflow-x-auto">
+            <table class="w-full text-left text-sm font-sans">
+                <thead>
+                    <tr class="bg-slate-50/80 border-b border-slate-200 text-slate-600 uppercase tracking-wider text-xs font-bold font-sans">
+                        <th class="py-3.5 px-4 text-center w-14">STT</th>
+                        <th class="py-3.5 px-4">Mã sinh viên</th>
+                        <th class="py-3.5 px-4">Họ và tên</th>
+                        <th class="py-3.5 px-4">Lớp sinh hoạt</th>
+                        <th class="py-3.5 px-4">Điểm TB tích lũy (USMART)</th>
+                        <th class="py-3.5 px-4">Số tín chỉ</th>
+                        <th class="py-3.5 px-4 text-center">Trạng thái hồ sơ</th>
+                    </tr>
+                </thead>
+                <tbody class="divide-y divide-slate-100">
+                    {% for hs in danh_sach_ho_so %}
+                    <tr class="hover:bg-slate-50/80 transition">
+                        <td class="py-3.5 px-4 text-center text-slate-400 font-mono text-xs">{{ forloop.counter }}</td>
+                        <td class="py-3.5 px-4 font-bold text-slate-900 font-mono">{{ hs.sinh_vien.ma_sinh_vien }}</td>
+                        <td class="py-3.5 px-4 font-semibold text-slate-800">{{ hs.sinh_vien.nguoi_dung.ho_ten }}</td>
+                        <td class="py-3.5 px-4 text-slate-600">{{ hs.sinh_vien.lop|default:"—" }}</td>
+                        <!-- Cột điểm: Đã đổi sang chuẩn học thuật quốc tế thuần túy -->
+                        <td class="py-3.5 px-4 font-mono text-[14px]">
+                            {% if hs.diem_dau_vao.diem_tb_he4 %}
+                            <span class="font-bold text-slate-900">{{ hs.diem_dau_vao.diem_tb_he4 }}</span>
+                            <span class="text-xs text-slate-400 font-normal font-sans">/ 4.0</span>
+                            {% else %}
+                            <span class="text-xs text-slate-400 italic font-sans">Chưa có điểm</span>
+                            {% endif %}
+                        </td>
+                        <td class="py-3.5 px-4 font-mono text-slate-600 text-xs">
+                            {% if hs.diem_dau_vao.tin_chi_tich_luy %}
+                            {{ hs.diem_dau_vao.tin_chi_tich_luy }} TC
+                            {% else %}
+                            —
+                            {% endif %}
+                        </td>
+                        <!-- Cột trạng thái: Chữ thanh lịch, không viền bọc lòe loẹt -->
+                        <td class="py-3.5 px-4 text-center text-xs font-semibold text-slate-700">
+                            {{ hs.get_trang_thai_display }}
+                        </td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="7" class="py-12 text-center text-slate-400 text-sm">
+                            Chưa có dữ liệu sinh viên. Vui lòng bấm <b>"Nhập danh sách Excel"</b> ở trên.
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+   {% endif %}
+
+    <!-- ================= SECTION 2: TIẾP NHẬN DỮ LIỆU EXCEL & ĐIỂM USMART (CHUYÊN TRÁCH) ================= -->
+    {% if active_section == 'upload' %}
+    <div class="space-y-6">
+        <!-- Khối 1: Tải lên danh sách sinh viên từ Excel (UC04) -->
+        <div class="bg-white rounded-2xl border border-slate-200 shadow-xs p-6 space-y-5">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-100 pb-4">
+                <div>
+                    <h2 class="text-lg font-bold font-heading text-slate-900 flex items-center gap-2">
+                        <span class="material-symbols-outlined text-blue-700">upload_file</span>
+                        Tải lên danh sách sinh viên đủ điều kiện (Excel)
+                    </h2>
+                    <p class="text-xs text-slate-500 mt-1">Hệ thống tiếp nhận file Excel chuẩn gồm: Mã sinh viên, Họ đệm, Tên, Lớp và Điểm TB (nếu có).</p>
+                </div>
+                <a href="/static/templates/Mau_Danh_Sach_Sinh_Vien.xlsx" download class="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-semibold text-slate-700 bg-slate-100 hover:bg-slate-200 border border-slate-200 transition">
+                    <span class="material-symbols-outlined text-sm">download</span>
+                    <span>Tải file mẫu Excel</span>
+                </a>
+            </div>
+
+            <form action="{% url 'upload_excel' dot_id=current_dot.id %}" method="POST" enctype="multipart/form-data" class="space-y-4">
+                {% csrf_token %}
+                <div class="border-2 border-dashed border-slate-300 hover:border-blue-600 rounded-2xl p-8 text-center transition bg-slate-50/50 hover:bg-blue-50/20">
+                    <span class="material-symbols-outlined text-4xl text-slate-400 mb-2">cloud_upload</span>
+                    <p class="text-sm font-semibold text-slate-800">Kéo thả file Excel vào đây hoặc bấm để chọn tệp</p>
+                    <p class="text-xs text-slate-500 mt-1">Định dạng hỗ trợ: .xlsx, .xls (Dung lượng tối đa 15MB)</p>
+                    <input type="file" name="file_excel" accept=".xlsx, .xls" required class="mt-4 block mx-auto text-xs text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-xl file:border-0 file:text-xs file:font-semibold file:bg-blue-700 file:text-white hover:file:bg-blue-800 cursor-pointer">
+                </div>
+
+                <div class="flex items-center justify-end gap-3 pt-2">
+                    <button type="submit" class="px-5 py-2.5 bg-blue-700 hover:bg-blue-800 text-white text-xs sm:text-sm font-bold rounded-xl shadow-xs transition inline-flex items-center gap-2">
+                        <span class="material-symbols-outlined text-sm">check_circle</span>
+                        <span>Tải lên và Rà soát dữ liệu (Preview)</span>
+                    </button>
+                </div>
+            </form>
+        </div>
+
+        <!-- Khối 2: Đồng bộ điểm TB tích lũy từ Cổng USMART (UC06) -->
+        <div class="bg-white rounded-2xl border border-slate-200 shadow-xs p-6 space-y-4">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-100 pb-4">
+                <div>
+                    <h2 class="text-lg font-bold font-heading text-slate-900 flex items-center gap-2">
+                        <span class="material-symbols-outlined text-emerald-600">sync_saved_locally</span>
+                        Lấy điểm TB tích lũy tự động từ Cổng USMART
+                    </h2>
+                    <p class="text-xs text-slate-500 mt-1">Lấy điểm hệ 4 và điểm chữ chính thức từ cổng đào tạo USMART của Nhà trường phục vụ phân bổ công bằng.</p>
+                </div>
+                <form action="{% url 'sync_usmart' dot_id=current_dot.id %}" method="POST" onsubmit="return confirm('Xác nhận đồng bộ điểm TB tích lũy từ cổng USMART cho sinh viên trong đợt?');">
+                    {% csrf_token %}
+                    <button type="submit" class="inline-flex items-center gap-2 px-4 py-2 bg-emerald-600 hover:bg-emerald-700 text-white text-xs sm:text-sm font-bold rounded-xl shadow-xs transition">
+                        <span class="material-symbols-outlined text-sm">sync</span>
+                        <span>Đồng bộ điểm USMART ngay</span>
+                    </button>
+                </form>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 pt-1">
+                <div class="p-4 rounded-xl border border-slate-200 bg-slate-50">
+                    <span class="text-xs font-semibold text-slate-500 uppercase tracking-wide">Tổng hồ sơ</span>
+                    <p class="text-2xl font-bold font-heading text-slate-900 mt-1">{{ tong_ho_so }} <span class="text-xs font-normal text-slate-500">sinh viên</span></p>
+                </div>
+                <div class="p-4 rounded-xl border border-slate-200 bg-slate-50">
+                    <span class="text-xs font-semibold text-slate-500 uppercase tracking-wide">Đã có điểm</span>
+                    <p class="text-2xl font-bold font-heading text-emerald-700 mt-1">{{ co_diem_count }} <span class="text-xs font-normal text-slate-500">({{ tyle_diem }}%)</span></p>
+                </div>
+                <div class="p-4 rounded-xl border border-slate-200 bg-slate-50">
+                    <span class="text-xs font-semibold text-slate-500 uppercase tracking-wide">Chưa có điểm</span>
+                    <p class="text-2xl font-bold font-heading text-slate-700 mt-1">{{ thieu_diem_count }} <span class="text-xs font-normal text-slate-500">hồ sơ</span></p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Khối 3: Lịch sử tiếp nhận danh sách gần nhất -->
+        {% if cac_lan_nhap %}
+        <div class="bg-white rounded-2xl border border-slate-200 shadow-xs overflow-hidden">
+            <div class="p-5 border-b border-slate-200">
+                <h3 class="text-sm font-bold font-heading text-slate-900">Lịch sử các lần tải lên danh sách</h3>
+            </div>
+            <div class="overflow-x-auto">
+                <table class="w-full text-left text-xs font-sans">
+                    <thead class="bg-slate-50 border-b border-slate-200 text-slate-600 font-semibold uppercase tracking-wider">
+                        <tr>
+                            <th class="py-3 px-4">Tên file</th>
+                            <th class="py-3 px-4">Thời gian tải</th>
+                            <th class="py-3 px-4">Tổng dòng</th>
+                            <th class="py-3 px-4">Hợp lệ</th>
+                            <th class="py-3 px-4">Lỗi</th>
+                            <th class="py-3 px-4">Trạng thái</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-slate-100 text-slate-700">
+                        {% for lan in cac_lan_nhap %}
+                        <tr>
+                            <td class="py-3 px-4 font-bold text-slate-900">{{ lan.ten_file_goc }}</td>
+                            <td class="py-3 px-4 text-slate-500">{{ lan.ngay_tai|date:"d/m/Y H:i" }}</td>
+                            <td class="py-3 px-4 font-mono font-bold">{{ lan.tong_so_dong }}</td>
+                            <td class="py-3 px-4 font-mono text-emerald-700 font-bold">{{ lan.so_dong_hop_le }}</td>
+                            <td class="py-3 px-4 font-mono text-rose-600 font-bold">{{ lan.so_dong_loi }}</td>
+                            <td class="py-3 px-4">
+                                <span class="px-2 py-0.5 rounded text-[11px] font-bold {% if lan.trang_thai == 'DA_XAC_NHAN' %}bg-emerald-100 text-emerald-800 border border-emerald-200{% else %}bg-slate-100 text-slate-700 border border-slate-200{% endif %}">
+                                    {{ lan.get_trang_thai_display }}
+                                </span>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+    {% endif %}
+
+    <!-- ================= SECTION 3: MỐC THỜI GIAN & TRỌNG SỐ ĐỢT (UC03 - 4 MẪU PRESET) ================= -->
+    {% if active_section == 'milestones' or active_section == 'weights' %}
+    <div class="space-y-6">
+
+        <!-- Khối cấu hình 4 Mẫu Thời lượng Đợt Linh hoạt (UC03) -->
+        <div class="bg-white rounded-2xl border border-slate-200 shadow-xs p-6 space-y-5">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-100 pb-4">
+                <div>
+                    <h2 class="text-base sm:text-lg font-bold font-sans text-slate-900 flex items-center gap-2">
+                        <span class="material-symbols-outlined text-amber-600">tune</span>
+                        <span>Cấu hình Thời lượng Đợt & Sinh Mốc Tự động (UC03)</span>
+                    </h2>
+                    <p class="text-xs sm:text-sm text-slate-500 mt-0.5">Trưởng khoa có thể chọn nhanh theo 3 mẫu chuẩn mực của Nhà trường hoặc tự do tùy chỉnh số tuần</p>
+                </div>
+                <button type="button" onclick="openBatchConfigModal()" class="px-4 py-2 bg-slate-900 hover:bg-slate-800 text-white rounded-xl text-xs sm:text-sm font-semibold transition shadow-xs flex items-center gap-2">
+                    <span class="material-symbols-outlined text-sm">settings</span>
+                    <span>Hiệu chỉnh mốc chi tiết</span>
+                </button>
+            </div>
+
+            <!-- 4 Thẻ Mẫu Preset chọn nhanh -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3.5">
+                <!-- Mẫu 1: Đồ án chính quy 15 tuần -->
+                <div class="p-4 rounded-xl border-2 border-slate-900 bg-slate-50/80 space-y-2 relative cursor-pointer hover:shadow-xs transition">
+                    <span class="absolute top-3 right-3 text-xs font-bold px-2 py-0.5 bg-slate-900 text-white rounded-full">Đang dùng</span>
+                    <span class="text-xs font-semibold text-slate-500 uppercase tracking-wider block">Mẫu 1</span>
+                    <h3 class="text-sm font-bold text-slate-900 font-sans">Đồ án tốt nghiệp chính quy</h3>
+                    <div class="text-xl font-bold text-slate-900 font-heading">15 <span class="text-xs font-normal text-slate-500">tuần học kỳ</span></div>
+                    <p class="text-[11px] text-slate-500 leading-relaxed">Áp dụng cho học kỳ 1 & 2 chính khóa. Đầy đủ các mốc: Chốt đề tài, nộp giữa kỳ, phản biện và hội đồng.</p>
+                </div>
+
+                <!-- Mẫu 2: Thực tập doanh nghiệp 10 tuần -->
+                <div onclick="selectPreset('thuc_tap_10')" class="p-4 rounded-xl border border-slate-200 bg-white hover:border-slate-400 space-y-2 cursor-pointer hover:shadow-xs transition">
+                    <span class="text-xs font-semibold text-slate-500 uppercase tracking-wider block">Mẫu 2</span>
+                    <h3 class="text-sm font-bold text-slate-900 font-sans">Thực tập tốt nghiệp</h3>
+                    <div class="text-xl font-bold text-slate-900 font-heading">10 <span class="text-xs font-normal text-slate-500">tuần tại DN</span></div>
+                    <p class="text-[11px] text-slate-500 leading-relaxed">Dành cho sinh viên đi thực tập chuyên sâu tại doanh nghiệp. Mốc tiếp nhận, nhật ký định kỳ và xác nhận DN.</p>
+                </div>
+
+                <!-- Mẫu 3: Học kỳ hè rút gọn 8 tuần -->
+                <div onclick="selectPreset('he_8')" class="p-4 rounded-xl border border-slate-200 bg-white hover:border-slate-400 space-y-2 cursor-pointer hover:shadow-xs transition">
+                    <span class="text-xs font-semibold text-slate-500 uppercase tracking-wider block">Mẫu 3</span>
+                    <h3 class="text-sm font-bold text-slate-900 font-sans">Học kỳ hè rút gọn</h3>
+                    <div class="text-xl font-bold text-slate-900 font-heading">8 <span class="text-xs font-normal text-slate-500">tuần học kỳ phụ</span></div>
+                    <p class="text-[11px] text-slate-500 leading-relaxed">Đợt phụ hè rút ngắn tiến độ. Rút gọn mốc báo cáo, tập trung kiểm tra tiến độ nhanh và bảo vệ gọn nhẹ.</p>
+                </div>
+
+                <!-- Mẫu 4: Tùy chỉnh số tuần -->
+                <div onclick="openBatchConfigModal()" class="p-4 rounded-xl border border-dashed border-slate-300 bg-white hover:border-slate-600 hover:bg-slate-50/50 space-y-2 cursor-pointer transition">
+                    <span class="text-xs font-semibold text-slate-500 uppercase tracking-wider block">Mẫu 4</span>
+                    <h3 class="text-sm font-bold text-slate-900 font-sans">Tùy chỉnh linh hoạt</h3>
+                    <div class="text-xl font-bold text-blue-700 font-heading">Tự chọn <span class="text-xs font-normal text-slate-500">số tuần</span></div>
+                    <p class="text-[11px] text-slate-500 leading-relaxed">Nhập ngày bắt đầu + số tuần mong muốn $\rightarrow$ hệ thống tự động tính toán sinh đều các mốc nộp bài.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Danh sách mốc thời gian trọng yếu của đợt -->
+        <div class="bg-white rounded-xl border border-slate-200 shadow-xs p-6 space-y-4">
+            <div class="flex items-center justify-between border-b border-slate-100 pb-3">
+                <div>
+                    <h2 class="text-base font-bold font-sans text-slate-900">Danh sách mốc thời gian đang áp dụng (Khung 15 tuần)</h2>
+                    <p class="text-xs text-slate-500 mt-0.5">Sinh viên và giảng viên căn cứ các mốc này để thực hiện và nộp minh chứng</p>
+                </div>
+                <span class="text-xs font-semibold px-2.5 py-1 bg-slate-100 text-slate-700 rounded-lg border border-slate-200">
+                    5 mốc tiến độ chính
+                </span>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3.5 pt-1">
+                {% for m in moc_thoi_gian %}
+                <div class="p-4 rounded-xl border border-slate-200 bg-slate-50/60 flex items-start justify-between gap-3">
+                    <div class="flex-1">
+                        <div class="flex items-center gap-2">
+                            <span class="w-6 h-6 rounded-full bg-slate-900 text-white font-mono font-bold text-xs flex items-center justify-center">{{ forloop.counter }}</span>
+                            <p class="text-sm font-bold text-slate-900 font-sans">{{ m.get_loai_moc_display }}</p>
+                        </div>
+                        <p class="text-xs text-slate-500 mt-2">Hạn chót nộp:</p>
+                        <p class="text-sm font-mono font-bold text-blue-900 mt-0.5">{{ m.thoi_gian_ket_thuc|date:"d/m/Y H:i" }}</p>
+                    </div>
+                </div>
+                {% empty %}
+                <div class="col-span-3 py-8 text-center text-slate-400 text-sm">
+                    Đợt đang áp dụng khung mốc thời gian chuẩn của Trường Đại học Vinh.
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+
+   {% endif %}
+
+    <!-- ================= SECTION 3: TRỌNG SỐ ĐIỂM (CHUYÊN TRÁCH) ================= -->
+    {% if active_section == 'weights' %}
+    <div class="bg-white rounded-xl border border-slate-200 shadow-xs p-6 space-y-6">
+        <div>
+            <h2 class="text-lg font-bold font-sans text-slate-900">Cấu hình trọng số điểm thành phần</h2>
+            <p class="text-sm text-slate-500 mt-0.5">Tỷ lệ tính điểm tổng kết tốt nghiệp theo quy chế đào tạo hiện hành</p>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+            {% for ts in trong_so %}
+            <div class="p-5 rounded-xl border border-slate-200 bg-slate-50/50 text-center">
+                <p class="text-xs font-semibold uppercase tracking-wider text-slate-500 font-sans">{{ ts.get_thanh_phan_display }}</p>
+                <p class="text-3xl font-bold text-slate-900 font-sans mt-2">{{ ts.trong_so }}%</p>
+                <div class="w-full bg-slate-200 rounded-full h-1.5 mt-3">
+                    <div class="bg-blue-800 h-1.5 rounded-full" style="width: {{ ts.trong_so }}%"></div>
+                </div>
+            </div>
+            {% empty %}
+            <div class="col-span-3 p-5 rounded-xl border border-slate-200 bg-slate-50 text-center">
+                <p class="text-sm font-bold text-slate-800">Cơ cấu mặc định: Hướng dẫn 40% — Phản biện 20% — Hội đồng 40%</p>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+
+   {% endif %}
+
+</div>
+
+<!-- MODAL TẢI FILE EXCEL -->
+<div id="uploadModal" class="hidden fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-xs flex items-center justify-center p-4">
+    <div class="bg-white rounded-2xl max-w-lg w-full p-6 shadow-2xl border border-slate-200">
+        <div class="flex items-center justify-between pb-4 border-b border-slate-200">
+            <h3 class="text-base font-bold font-sans text-slate-900">Tải lên danh sách sinh viên (.xlsx)</h3>
+            <button onclick="document.getElementById('uploadModal').classList.add('hidden')" class="text-slate-400 hover:text-slate-600">
+                <span class="material-symbols-outlined text-xl">close</span>
+            </button>
+        </div>
+        <form action="{% url 'upload_excel' dot_id=current_dot.id %}" method="POST" enctype="multipart/form-data" class="mt-4 space-y-4">
+            {% csrf_token %}
+            <div class="border-2 border-dashed border-slate-300 rounded-xl p-6 text-center hover:border-slate-500 transition bg-slate-50">
+                <span class="material-symbols-outlined text-4xl text-slate-600 mb-2">cloud_upload</span>
+                <p class="text-sm font-bold text-slate-700">Kéo thả file Excel hoặc bấm để chọn tệp</p>
+                <input type="file" name="file_excel" accept=".xlsx,.xls" required class="mt-3 text-xs text-slate-500 block w-full file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-xs file:font-semibold file:bg-slate-100 file:text-slate-800 hover:file:bg-slate-200">
+            </div>
+            <div class="flex justify-end gap-3 pt-2">
+                <button type="button" onclick="document.getElementById('uploadModal').classList.add('hidden')" class="px-4 py-2.5 rounded-lg border border-slate-300 text-sm font-semibold text-slate-700 hover:bg-slate-100">
+                    Hủy
+                </button>
+                <button type="submit" class="px-5 py-2.5 rounded-lg bg-blue-800 hover:bg-blue-900 text-white text-sm font-bold shadow-xs">
+                    Tải lên & Đối soát
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- ================= MODAL CẤU HÌNH THỜI LƯỢNG ĐỢT & 4 MẪU PRESETS (UC03) ================= -->
+<div id="batchConfigModal" class="hidden fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-xs flex items-center justify-center p-4">
+    <div class="bg-white rounded-2xl max-w-2xl w-full p-6 sm:p-7 shadow-2xl border border-slate-200 space-y-5 max-h-[90vh] overflow-y-auto">
+        <div class="flex items-center justify-between pb-4 border-b border-slate-200">
+            <div class="flex items-center gap-2.5">
+                <span class="w-10 h-10 rounded-xl bg-amber-50 text-amber-700 flex items-center justify-center font-bold">
+                    <span class="material-symbols-outlined text-xl">tune</span>
+                </span>
+                <div>
+                    <h3 class="text-base font-bold font-heading text-slate-900">Cấu hình Thời lượng Đợt & Sinh Mốc Tiến độ</h3>
+                    <p class="text-xs text-slate-500">UC03: Tùy biến linh hoạt số tuần hoặc áp dụng nhanh mẫu quy chuẩn</p>
+                </div>
+            </div>
+            <button type="button" onclick="closeBatchConfigModal()" class="text-slate-400 hover:text-slate-600 p-1">
+                <span class="material-symbols-outlined text-xl">close</span>
+            </button>
+        </div>
+
+        <!-- 4 Lựa chọn Mẫu (Preset Radios) -->
+        <div>
+            <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-2 font-heading">
+                Chọn Mẫu thời lượng tiến độ:
+            </label>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                <label class="p-3.5 rounded-xl border-2 border-slate-900 bg-slate-50 flex items-start gap-3 cursor-pointer">
+                    <input type="radio" name="preset_option" value="15" checked class="mt-1 text-slate-900 focus:ring-slate-800" onchange="updatePresetView(15)">
+                    <div>
+                        <div class="text-sm font-bold text-slate-900">Mẫu 1: Đồ án chính quy (15 tuần)</div>
+                        <p class="text-[11px] text-slate-500 mt-0.5">Chuẩn học kỳ chính. Chốt đề tài $\rightarrow$ Giữa kỳ $\rightarrow$ Phản biện $\rightarrow$ Hội đồng.</p>
+                    </div>
+                </label>
+
+                <label class="p-3.5 rounded-xl border border-slate-200 hover:border-slate-400 bg-white flex items-start gap-3 cursor-pointer">
+                    <input type="radio" name="preset_option" value="10" class="mt-1 text-slate-900 focus:ring-slate-800" onchange="updatePresetView(10)">
+                    <div>
+                        <div class="text-sm font-bold text-slate-900">Mẫu 2: Thực tập DN (10 tuần)</div>
+                        <p class="text-[11px] text-slate-500 mt-0.5">Tiếp nhận doanh nghiệp, 4 mốc nhật ký tuần, xác nhận công ty.</p>
+                    </div>
+                </label>
+
+                <label class="p-3.5 rounded-xl border border-slate-200 hover:border-slate-400 bg-white flex items-start gap-3 cursor-pointer">
+                    <input type="radio" name="preset_option" value="8" class="mt-1 text-slate-900 focus:ring-slate-800" onchange="updatePresetView(8)">
+                    <div>
+                        <div class="text-sm font-bold text-slate-900">Mẫu 3: Học kỳ hè (8 tuần)</div>
+                        <p class="text-[11px] text-slate-500 mt-0.5">Học kỳ phụ rút gọn. Tiến độ cô đọng, bảo vệ nhanh chóng.</p>
+                    </div>
+                </label>
+
+                <label class="p-3.5 rounded-xl border border-dashed border-slate-300 hover:border-slate-600 bg-white flex items-start gap-3 cursor-pointer">
+                    <input type="radio" name="preset_option" value="custom" class="mt-1 text-blue-600 focus:ring-blue-600" onchange="updatePresetView('custom')">
+                    <div>
+                        <div class="text-sm font-bold text-blue-700">Mẫu 4: Tùy chỉnh số tuần</div>
+                        <p class="text-[11px] text-slate-500 mt-0.5">Nhập số tuần bất kỳ theo kế hoạch riêng của Khoa.</p>
+                    </div>
+                </label>
+            </div>
+        </div>
+
+        <!-- Khung nhập ngày bắt đầu & số tuần tùy chỉnh -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 p-4 bg-slate-50 border border-slate-200 rounded-xl text-xs">
+            <div>
+                <label class="block font-bold text-slate-700 uppercase tracking-wide mb-1.5 font-heading">
+                    Ngày bắt đầu đợt:
+                </label>
+                <input type="date" id="inputStartDate" value="2026-09-01" class="w-full p-2.5 bg-white border border-slate-300 rounded-lg font-medium text-slate-800">
+            </div>
+            <div>
+                <label class="block font-bold text-slate-700 uppercase tracking-wide mb-1.5 font-heading">
+                    Tổng số tuần thực hiện:
+                </label>
+                <div class="flex items-center gap-2">
+                    <input type="number" id="inputTotalWeeks" min="4" max="24" value="15" class="w-full p-2.5 bg-white border border-slate-300 rounded-lg font-bold font-mono text-slate-900">
+                    <span class="font-bold text-slate-600 whitespace-nowrap">tuần</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Bảng xem trước các mốc sẽ được hệ thống sinh tự động -->
+        <div>
+            <div class="flex items-center justify-between mb-2">
+                <span class="text-xs font-bold text-slate-700 uppercase tracking-wider font-heading">Xem trước các mốc tiến độ tự động:</span>
+                <span class="text-[11px] text-slate-500" id="previewWeeksLabel">Áp dụng khung: 15 tuần</span>
+            </div>
+            <div class="space-y-1.5 border border-slate-200 rounded-xl p-3 bg-white max-h-48 overflow-y-auto text-xs divide-y divide-slate-100" id="presetMilestonesPreview">
+                <div class="py-1.5 flex items-center justify-between">
+                    <span class="font-bold text-slate-800">Tuần 1 - 3: Phân công & Chốt đề tài</span>
+                    <span class="font-mono text-slate-500">21/09/2026</span>
+                </div>
+                <div class="py-1.5 flex items-center justify-between">
+                    <span class="font-bold text-slate-800">Tuần 4 - 8: Báo cáo tiến độ đợt 1 (Giữa kỳ)</span>
+                    <span class="font-mono text-slate-500">26/10/2026</span>
+                </div>
+                <div class="py-1.5 flex items-center justify-between">
+                    <span class="font-bold text-slate-800">Tuần 9 - 13: Báo cáo thử nghiệm & Hoàn thiện</span>
+                    <span class="font-mono text-slate-500">30/11/2026</span>
+                </div>
+                <div class="py-1.5 flex items-center justify-between">
+                    <span class="font-bold text-slate-800">Tuần 14: Chấm phản biện & Nộp toàn văn</span>
+                    <span class="font-mono text-slate-500">07/12/2026</span>
+                </div>
+                <div class="py-1.5 flex items-center justify-between">
+                    <span class="font-bold text-slate-800">Tuần 15: Tổ chức Hội đồng bảo vệ & Tổng kết</span>
+                    <span class="font-mono text-slate-500">14/12/2026</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="flex items-center justify-end gap-2 pt-3 border-t border-slate-200">
+            <button type="button" onclick="closeBatchConfigModal()" class="px-4 py-2 border border-slate-300 rounded-xl text-xs sm:text-sm font-semibold text-slate-700 hover:bg-slate-50">
+                Đóng
+            </button>
+            <button type="button" onclick="saveBatchPreset()" class="px-5 py-2 bg-slate-900 hover:bg-slate-800 text-white rounded-xl text-xs sm:text-sm font-bold shadow-xs">
+                Áp dụng mẫu thời lượng này
+            </button>
+        </div>
+    </div>
+
+/div>
+
+<script>
+    function openBatchConfigModal() {
+        document.getElementById('batchConfigModal').classList.remove('hidden');
+    }
+
+    function closeBatchConfigModal() {
+        document.getElementById('batchConfigModal').classList.add('hidden');
+    }
+
+    function selectPreset(type) {
+        openBatchConfigModal();
+        const weeks = type === 'thuc_tap_10' ? 10 : (type === 'he_8' ? 8 : 15);
+        document.querySelector(`input[name="preset_option"][value="${weeks}"]`).checked = true;
+        updatePresetView(weeks);
+    }
+
+    function updatePresetView(val) {
+        const weeksInput = document.getElementById('inputTotalWeeks');
+        const previewLabel = document.getElementById('previewWeeksLabel');
+        const container = document.getElementById('presetMilestonesPreview');
+
+        if (val === 'custom') {
+            previewLabel.innerText = 'Áp dụng khung: Tùy chỉnh';
+            weeksInput.disabled = false;
+            weeksInput.focus();
+        } else {
+            weeksInput.value = val;
+            weeksInput.disabled = true;
+            previewLabel.innerText = `Áp dụng khung: ${val} tuần`;
+            
+            if (val == 10) {
+                container.innerHTML = `
+                    <div class="py-1.5 flex items-center justify-between"><span class="font-bold text-slate-800">Tuần 1 - 2: Tiếp nhận đơn vị thực tập & Giấy giới thiệu</span><span class="font-mono text-slate-500">14/09/2026</span></div>
+                    <div class="py-1.5 flex items-center justify-between"><span class="font-bold text-slate-800">Tuần 3 - 6: Nhật ký công việc thực tế tại doanh nghiệp</span><span class="font-mono text-slate-500">12/10/2026</span></div>
+                    <div class="py-1.5 flex items-center justify-between"><span class="font-bold text-slate-800">Tuần 7 - 9: Hoàn thiện báo cáo thực tập & Xin xác nhận</span><span class="font-mono text-slate-500">02/11/2026</span></div>
+                    <div class="py-1.5 flex items-center justify-between"><span class="font-bold text-slate-800">Tuần 10: Nộp báo cáo xác nhận doanh nghiệp & Vào điểm</span><span class="font-mono text-slate-500">09/11/2026</span></div>
+                `;
+            } else if (val == 8) {
+                container.innerHTML = `
+                    <div class="py-1.5 flex items-center justify-between"><span class="font-bold text-slate-800">Tuần 1: Chốt đề tài rút gọn</span><span class="font-mono text-slate-500">07/07/2026</span></div>
+                    <div class="py-1.5 flex items-center justify-between"><span class="font-bold text-slate-800">Tuần 2 - 4: Tiến độ giai đoạn 1</span><span class="font-mono text-slate-500">28/07/2026</span></div>
+                    <div class="py-1.5 flex items-center justify-between"><span class="font-bold text-slate-800">Tuần 5 - 7: Hoàn thiện sản phẩm & Chấm phản biện</span><span class="font-mono text-slate-500">18/08/2026</span></div>
+                    <div class="py-1.5 flex items-center justify-between"><span class="font-bold text-slate-800">Tuần 8: Bảo vệ hội đồng kết thúc học kỳ hè</span><span class="font-mono text-slate-500">25/08/2026</span></div>
+                `;
+            } else {
+                container.innerHTML = `
+                    <div class="py-1.5 flex items-center justify-between"><span class="font-bold text-slate-800">Tuần 1 - 3: Phân công & Chốt đề tài</span><span class="font-mono text-slate-500">21/09/2026</span></div>
+                    <div class="py-1.5 flex items-center justify-between"><span class="font-bold text-slate-800">Tuần 4 - 8: Báo cáo tiến độ đợt 1 (Giữa kỳ)</span><span class="font-mono text-slate-500">26/10/2026</span></div>
+                    <div class="py-1.5 flex items-center justify-between"><span class="font-bold text-slate-800">Tuần 9 - 13: Báo cáo thử nghiệm & Hoàn thiện</span><span class="font-mono text-slate-500">30/11/2026</span></div>
+                    <div class="py-1.5 flex items-center justify-between"><span class="font-bold text-slate-800">Tuần 14: Chấm phản biện & Nộp toàn văn</span><span class="font-mono text-slate-500">07/12/2026</span></div>
+                    <div class="py-1.5 flex items-center justify-between"><span class="font-bold text-slate-800">Tuần 15: Tổ chức Hội đồng bảo vệ & Tổng kết</span><span class="font-mono text-slate-500">14/12/2026</span></div>
+                `;
+            }
+        }
+    }
+
+    function saveBatchPreset() {
+        const weeks = document.getElementById('inputTotalWeeks').value;
+        showToast('Áp dụng thời lượng', `Đã cấu hình thời lượng đợt thành công: ${weeks} tuần với các mốc thời gian tương ứng!`, 'success');
+        closeBatchConfigModal();
+    }
+</script>
+{% endblock %}

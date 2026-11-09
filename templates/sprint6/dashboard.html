@@ -1,0 +1,336 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Tổng kết & Khóa sổ Điểm - {{ current_dot.ma_dot }}{% endblock %}
+
+{% block content %}
+<div class="space-y-6">
+
+    <!-- PHÂN ĐOẠN 1: HEADER TỐI GIẢN & CÁC NÚT HÀNH ĐỘNG -->
+    <section class="bg-white border border-slate-200 rounded-2xl p-5 shadow-xs space-y-4">
+        <div class="flex flex-col xl:flex-row xl:items-center justify-between gap-4 border-b border-slate-100 pb-4">
+            <div>
+                <div class="flex items-center gap-2.5">
+                    <h1 class="text-xl sm:text-2xl font-bold font-heading text-slate-900 tracking-tight">
+                        Tổng kết & Khóa sổ Điểm
+                    </h1>
+                    <span class="inline-flex items-center px-2.5 py-0.5 rounded text-xs font-semibold bg-emerald-50 text-emerald-800 border border-emerald-200">
+                        Đủ điều kiện khóa sổ
+                    </span>
+                </div>
+                <p class="text-xs sm:text-sm text-slate-500 mt-1 font-sans">
+                    {{ current_dot.ten_dot|default:"Khóa luận Tốt nghiệp CNTT" }} • Mã đợt: <span class="font-mono font-medium text-slate-700">{{ current_dot.ma_dot|default:"DOT26_HK2_CNTT_01" }}</span>
+                </p>
+            </div>
+
+            <!-- 3 Nút hành động chuẩn mực -->
+            <div class="flex flex-wrap items-center gap-2">
+                <button type="button" onclick="showToast('Xuất Excel', 'Đã tải bảng điểm tổng hợp toàn khóa (.xlsx) thành công', 'success');" class="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl border border-slate-300 bg-white text-slate-700 text-xs sm:text-sm font-semibold hover:bg-slate-50 shadow-xs transition">
+                    <span class="material-symbols-outlined text-base text-emerald-600">file_download</span>
+                    <span>Xuất Excel</span>
+                </button>
+                <button type="button" onclick="showToast('Đồng bộ USMART', 'Đã gửi yêu cầu đồng bộ kết quả đồ án lên cổng sinh viên USMART thành công!', 'info');" class="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl border border-slate-300 bg-white text-slate-700 text-xs sm:text-sm font-semibold hover:bg-slate-50 shadow-xs transition">
+                    <span class="material-symbols-outlined text-base text-blue-600">sync_alt</span>
+                    <span>Đồng bộ USMART</span>
+                </button>
+                <button type="button" onclick="openLockModal()" class="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-slate-900 text-white text-xs sm:text-sm font-semibold hover:bg-slate-800 shadow-xs transition">
+                    <span class="material-symbols-outlined text-base">lock</span>
+                    <span>Khóa sổ vĩnh viễn</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- 4 THẺ KPI TÓM TẮT SỐ LIỆU ĐỢT -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 pt-1">
+            <div class="p-3.5 rounded-xl bg-slate-50 border border-slate-200">
+                <div class="text-xs text-slate-500 font-semibold font-heading uppercase">Tổng sinh viên tốt nghiệp</div>
+                <div class="mt-2 flex items-baseline justify-between">
+                    <span class="text-2xl font-bold font-heading text-slate-900 leading-none">{{ kpi.tong_sv }}</span>
+                    <span class="text-xs text-slate-500 font-medium">100% Đạt chuẩn</span>
+                </div>
+            </div>
+
+            <div class="p-3.5 rounded-xl bg-slate-50 border border-slate-200">
+                <div class="text-xs text-slate-500 font-semibold font-heading uppercase">Đủ điều kiện chốt sổ</div>
+                <div class="mt-2 flex items-baseline justify-between">
+                    <span class="text-2xl font-bold font-heading text-emerald-700 leading-none">{{ kpi.du_dieu_kien }}</span>
+                    <span class="text-xs text-emerald-700 font-semibold">100% hoàn tất</span>
+                </div>
+            </div>
+
+            <div class="p-3.5 rounded-xl bg-slate-50 border border-slate-200">
+                <div class="text-xs text-slate-500 font-semibold font-heading uppercase">Xếp loại Giỏi & Xuất sắc</div>
+                <div class="mt-2 flex items-baseline justify-between">
+                    <span class="text-2xl font-bold font-heading text-blue-700 leading-none">{{ kpi.gioi_xuat_sac }} sinh viên</span>
+                    <span class="text-xs text-slate-600 font-semibold">Tỷ lệ 70%</span>
+                </div>
+            </div>
+
+            <div class="p-3.5 rounded-xl bg-slate-50 border border-slate-200">
+                <div class="text-xs text-slate-500 font-semibold font-heading uppercase">Tỷ lệ hoàn thành ký số</div>
+                <div class="mt-2 flex items-baseline justify-between">
+                    <span class="text-2xl font-bold font-heading text-slate-900 leading-none">{{ kpi.ty_le_hoan_thanh }}%</span>
+                    <span class="text-xs text-emerald-700 font-semibold">Sẵn sàng lưu trữ</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ĐIỀU HƯỚNG TAB PHÂN HỆ SPRINT 6 -->
+    <div class="flex items-center gap-2 border-b border-slate-200 pb-3">
+        <a href="?tab=summary" class="px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold {% if active_tab == 'summary' or not active_tab %}bg-slate-900 text-white shadow-xs{% else %}text-slate-600 hover:text-slate-900 hover:bg-slate-100{% endif %} transition">
+            Bảng điểm tốt nghiệp toàn đợt
+        </a>
+        <a href="?tab=audit" class="px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold {% if active_tab == 'audit' %}bg-slate-900 text-white shadow-xs{% else %}text-slate-600 hover:text-slate-900 hover:bg-slate-100{% endif %} transition">
+            Kiểm toán hồ sơ & Xác minh điểm
+        </a>
+        <a href="?tab=lock" class="px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold {% if active_tab == 'lock' %}bg-slate-900 text-white shadow-xs{% else %}text-slate-600 hover:text-slate-900 hover:bg-slate-100{% endif %} transition">
+            Thủ tục Khóa sổ & Lưu trữ
+        </a>
+    </div>
+
+    {% if active_tab == 'summary' or not active_tab %}
+    <!-- PHÂN ĐOẠN 2: BẢNG TỔNG HỢP MA TRẬN ĐIỂM TOÀN KHÓA (UC25, UC26) -->
+    <section class="bg-white border border-slate-200 rounded-2xl shadow-xs overflow-hidden">
+        <div class="p-4 border-b border-slate-200 bg-slate-50/70 flex items-center justify-between">
+            <div class="flex items-center gap-2">
+                <span class="material-symbols-outlined text-blue-600">table_chart</span>
+                <h2 class="text-sm font-bold font-heading text-slate-900">
+                    Bảng Điểm Tốt Nghiệp Chính Thức (Tích hợp Điểm Hệ 10, Hệ 4 & Điểm Chữ)
+                </h2>
+            </div>
+            <span class="text-xs text-slate-400">Đã kiểm toán & ký số vĩnh viễn</span>
+        </div>
+
+        <div class="overflow-x-auto">
+            <table class="w-full text-left text-xs">
+                <thead class="bg-slate-50 border-b border-slate-200 text-slate-500 uppercase tracking-wider font-heading">
+                    <tr>
+                        <th class="py-3 px-3 text-center font-semibold">STT</th>
+                        <th class="py-3 px-4 font-semibold">Mã sinh viên</th>
+                        <th class="py-3 px-4 font-semibold">Họ và tên</th>
+                        <th class="py-3 px-4 font-semibold">Lớp</th>
+                        <th class="py-3 px-4 font-semibold">Tên đề tài đồ án tốt nghiệp</th>
+                        <th class="py-3 px-4 font-semibold">Giảng viên hướng dẫn</th>
+                        <th class="py-3 px-3 text-center font-semibold">Điểm hướng dẫn (40%)</th>
+                        <th class="py-3 px-3 text-center font-semibold">Điểm phản biện (20%)</th>
+                        <th class="py-3 px-3 text-center font-semibold">Điểm Hội đồng (40%)</th>
+                        <th class="py-3 px-3 text-center font-bold text-slate-900 font-mono">Hệ 10</th>
+                        <th class="py-3 px-3 text-center font-bold text-blue-700 font-mono">Hệ 4</th>
+                        <th class="py-3 px-3 text-center font-bold text-slate-900">Điểm chữ</th>
+                        <th class="py-3 px-3 text-center font-semibold">Xếp loại</th>
+                        <th class="py-3 px-4 text-center font-semibold">Trạng thái</th>
+                    </tr>
+                </thead>
+                <tbody class="divide-y divide-slate-100">
+                    {% for sv in danh_sach_ket_qua %}
+                    <tr class="hover:bg-slate-50/70 transition">
+                        <td class="py-3 px-3 text-center font-mono text-slate-400">{{ sv.stt }}</td>
+                        <td class="py-3 px-4 font-mono font-bold text-slate-800">{{ sv.ma_sv }}</td>
+                        <td class="py-3 px-4 font-bold text-slate-900 font-heading">{{ sv.ten_sv }}</td>
+                        <td class="py-3 px-4 text-slate-600">{{ sv.lop }}</td>
+                        <td class="py-3 px-4 text-slate-800 max-w-xs font-medium">{{ sv.ten_de_tai }}</td>
+                        <td class="py-3 px-4 text-slate-700 whitespace-nowrap">{{ sv.gvhd }}</td>
+                        <td class="py-3 px-3 text-center font-mono">{{ sv.diem_hd }}</td>
+                        <td class="py-3 px-3 text-center font-mono">{{ sv.diem_pb }}</td>
+                        <td class="py-3 px-3 text-center font-mono">{{ sv.diem_hdong }}</td>
+                        <td class="py-3 px-3 text-center font-mono font-bold text-slate-900 bg-slate-50">{{ sv.diem_he10 }}</td>
+                        <td class="py-3 px-3 text-center font-mono font-bold text-blue-700 bg-blue-50/50">{{ sv.diem_he4 }}</td>
+                        <td class="py-3 px-3 text-center font-bold text-slate-900">{{ sv.diem_chu }}</td>
+                        <td class="py-3 px-3 text-center whitespace-nowrap">
+                            {% if sv.xep_loai == 'Xuất sắc' %}
+                            <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-purple-50 text-purple-700 border border-purple-200">Xuất sắc</span>
+                            {% elif sv.xep_loai == 'Giỏi' %}
+                            <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-emerald-50 text-emerald-700 border border-emerald-200">Giỏi</span>
+                            {% else %}
+                            <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-blue-50 text-blue-700 border border-blue-200">Khá</span>
+                            {% endif %}
+                        </td>
+                        <td class="py-3 px-4 text-center whitespace-nowrap">
+                            <span class="text-xs font-medium text-emerald-800">
+                                {{ sv.trang_thai_text }}
+                            </span>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </section>
+    {% endif %}
+
+    {% if active_tab == 'audit' %}
+    <!-- PHÂN ĐOẠN: KIỂM TOÁN HỒ SƠ & XÁC MINH ĐIỂM SỐ (UC27) -->
+    <section class="space-y-4">
+        <div class="bg-emerald-50 border border-emerald-200 rounded-2xl p-4 flex items-center justify-between">
+            <div class="flex items-center gap-3">
+                <span class="material-symbols-outlined text-emerald-700 text-xl">verified</span>
+                <div>
+                    <h3 class="text-sm font-bold text-emerald-950 font-heading">Kết quả kiểm tra tính hợp lệ toàn đợt</h3>
+                    <p class="text-xs text-emerald-800">20/20 hồ sơ đã đầy đủ 3 đầu điểm (Hướng dẫn, Phản biện, Hội đồng). Không phát hiện sai lệch quy chế.</p>
+                </div>
+            </div>
+            <span class="px-3 py-1 bg-emerald-700 text-white rounded-xl text-xs font-semibold">100% Đạt kiểm toán</span>
+        </div>
+
+        <div class="bg-white border border-slate-200 rounded-2xl shadow-xs overflow-hidden">
+            <div class="p-4 border-b border-slate-200 bg-slate-50/70 flex items-center justify-between">
+                <h3 class="text-sm font-bold font-heading text-slate-900">Chi Tiết Kiểm Toán Độ Lệch & Ký Số Hồ Sơ</h3>
+                <span class="text-xs text-slate-500">Quy định: Điểm Hướng dẫn và Phản biện lệch > 1.5 phải rà soát biên bản Hội đồng</span>
+            </div>
+            <div class="overflow-x-auto">
+                <table class="w-full text-left text-xs">
+                    <thead class="bg-slate-50 border-b border-slate-200 text-slate-500 uppercase tracking-wider font-heading">
+                        <tr>
+                            <th class="py-3 px-4 font-semibold">Mã sinh viên & Họ tên</th>
+                            <th class="py-3 px-4 text-center font-semibold">Điểm hướng dẫn</th>
+                            <th class="py-3 px-4 text-center font-semibold">Điểm phản biện</th>
+                            <th class="py-3 px-4 text-center font-semibold">Độ lệch điểm (HD - PB)</th>
+                            <th class="py-3 px-4 text-center font-semibold">Ký số Giảng viên hướng dẫn</th>
+                            <th class="py-3 px-4 text-center font-semibold">Ký số Giảng viên phản biện</th>
+                            <th class="py-3 px-4 text-center font-semibold">Ký số Hội đồng</th>
+                            <th class="py-3 px-4 text-center font-semibold">Trạng thái kiểm toán</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-slate-100">
+                        {% for sv in danh_sach_ket_qua %}
+                        <tr class="hover:bg-slate-50/70 transition">
+                            <td class="py-3 px-4">
+                                <div class="font-bold text-slate-900">{{ sv.ten_sv }}</div>
+                                <div class="text-[11px] font-mono text-slate-400">{{ sv.ma_sv }}</div>
+                            </td>
+                            <td class="py-3 px-4 text-center font-mono">{{ sv.diem_hd }}</td>
+                            <td class="py-3 px-4 text-center font-mono">{{ sv.diem_pb }}</td>
+                            <td class="py-3 px-4 text-center font-mono font-semibold text-slate-700">
+                                0.5 (An toàn)
+                            </td>
+                            <td class="py-3 px-4 text-center">
+                                <span class="material-symbols-outlined text-emerald-600 text-base">check_circle</span>
+                            </td>
+                            <td class="py-3 px-4 text-center">
+                                <span class="material-symbols-outlined text-emerald-600 text-base">check_circle</span>
+                            </td>
+                            <td class="py-3 px-4 text-center">
+                                <span class="material-symbols-outlined text-emerald-600 text-base">check_circle</span>
+                            </td>
+                            <td class="py-3 px-4 text-center">
+                                <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-emerald-50 text-emerald-800 border border-emerald-200">
+                                    Hợp lệ
+                                </span>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+    {% endif %}
+
+    {% if active_tab == 'lock' %}
+    <!-- PHÂN ĐOẠN: THỦ TỤC KHÓA SỔ & LƯU TRỮ VĨNH VIỄN (UC25, UC26) -->
+    <section class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div class="bg-white border border-slate-200 rounded-2xl p-6 shadow-xs space-y-4">
+            <div class="flex items-center gap-3 border-b border-slate-200 pb-3">
+                <span class="material-symbols-outlined text-slate-800 text-2xl">lock</span>
+                <h3 class="text-base font-bold font-heading text-slate-900">Quy Trình Khóa Sổ Điểm</h3>
+            </div>
+            <p class="text-xs text-slate-600 leading-relaxed">
+                Khi thực hiện lệnh khóa sổ, trạng thái toàn đợt chuyển sang <strong>HOAN_TAT</strong>. Hệ thống tự động đóng băng toàn bộ điểm số, không một vai trò nào được phép chỉnh sửa trừ khi có lệnh đặc biệt từ Trưởng khoa kèm nhật ký kiểm toán.
+            </p>
+            <div class="p-3 bg-slate-50 border border-slate-200 rounded-xl space-y-2 text-xs">
+                <div class="flex items-center justify-between">
+                    <span class="text-slate-600">Trạng thái đợt hiện tại:</span>
+                    <span class="font-bold text-slate-900">{{ current_dot.get_trang_thai_display|default:"Chuẩn bị" }}</span>
+                </div>
+                <div class="flex items-center justify-between">
+                    <span class="text-slate-600">Tổng số hồ sơ hoàn thiện:</span>
+                    <span class="font-bold text-emerald-700">20/20 (100%)</span>
+                </div>
+                <div class="flex items-center justify-between">
+                    <span class="text-slate-600">Đồng bộ USMART:</span>
+                    <span class="font-bold text-blue-700">Sẵn sàng đẩy dữ liệu</span>
+                </div>
+            </div>
+            <button type="button" onclick="openLockModal()" class="w-full py-2.5 bg-slate-900 text-white rounded-xl text-xs font-semibold hover:bg-slate-800 transition">
+                Tiến hành Khóa sổ & Chốt điểm vĩnh viễn
+            </button>
+        </div>
+
+        <div class="bg-white border border-slate-200 rounded-2xl p-6 shadow-xs space-y-4">
+            <div class="flex items-center gap-3 border-b border-slate-200 pb-3">
+                <span class="material-symbols-outlined text-blue-600 text-2xl">archive</span>
+                <h3 class="text-base font-bold font-heading text-slate-900">Lưu Trữ & Xuất Báo Cáo Khoa</h3>
+            </div>
+            <p class="text-xs text-slate-600 leading-relaxed">
+                Tải về các gói hồ sơ tốt nghiệp phục vụ công tác thanh tra đào tạo và lưu trữ học vụ theo quy định của Đại học Vinh:
+            </p>
+            <div class="space-y-2">
+                <button type="button" onclick="showToast('Tải lưu trữ', 'Đang kết xuất gói hồ sơ tổng hợp đồ án tốt nghiệp dạng ZIP...', 'info');" class="w-full flex items-center justify-between p-3 border border-slate-200 hover:border-slate-400 rounded-xl text-xs font-semibold text-slate-800 transition">
+                    <span class="flex items-center gap-2">
+                        <span class="material-symbols-outlined text-base text-red-500">folder_zip</span>
+                        <span>Toàn bộ hồ sơ đồ án & báo cáo toàn khóa (.ZIP)</span>
+                    </span>
+                    <span class="material-symbols-outlined text-sm">download</span>
+                </button>
+                <button type="button" onclick="showToast('Tải bảng điểm', 'Đang kết xuất Bảng điểm chính thức có chữ ký số (.PDF)...', 'info');" class="w-full flex items-center justify-between p-3 border border-slate-200 hover:border-slate-400 rounded-xl text-xs font-semibold text-slate-800 transition">
+                    <span class="flex items-center gap-2">
+                        <span class="material-symbols-outlined text-base text-red-600">picture_as_pdf</span>
+                        <span>Bảng điểm tốt nghiệp chính thức ký số (.PDF)</span>
+                    </span>
+                    <span class="material-symbols-outlined text-sm">download</span>
+                </button>
+            </div>
+        </div>
+    </section>
+    {% endif %}
+
+</div>
+
+<!-- MODAL KHÓA SỔ VĨNH VIỄN (UC26) -->
+<div id="lockModal" class="fixed inset-0 z-50 bg-slate-900/40 backdrop-blur-xs hidden flex items-center justify-center p-4">
+    <div class="bg-white border border-slate-200 rounded-2xl max-w-md w-full shadow-xl overflow-hidden">
+        <div class="p-5 border-b border-slate-200 flex items-center justify-between bg-slate-900 text-white">
+            <div class="flex items-center gap-2">
+                <span class="material-symbols-outlined text-amber-400">lock</span>
+                <h3 class="text-base font-bold font-heading">Khóa Sổ Điểm Vĩnh Viễn</h3>
+            </div>
+            <button type="button" onclick="closeLockModal()" class="text-slate-400 hover:text-white">
+                <span class="material-symbols-outlined">close</span>
+            </button>
+        </div>
+
+        <div class="p-5 space-y-4 text-xs">
+            <div class="p-3 bg-amber-50 border border-amber-200 rounded-xl text-amber-900 space-y-1">
+                <strong class="block font-heading">Lưu ý nghiệp vụ bắt buộc:</strong>
+                <p>Sau khi nhấn Khóa sổ, đợt và toàn bộ 20 hồ sơ sẽ chuyển sang trạng thái <strong>HOAN_TAT</strong>. Hệ thống sẽ khóa toàn bộ quyền sửa điểm.</p>
+            </div>
+
+            <p class="text-slate-600">
+                Chỉ có lệnh mở lại điểm đặc biệt từ Trưởng khoa kèm lý do kiểm toán mới có thể tác động đến hồ sơ sau thời điểm này.
+            </p>
+
+            <div class="pt-3 border-t border-slate-100 flex items-center justify-end gap-2">
+                <button type="button" onclick="closeLockModal()" class="px-4 py-2 border border-slate-300 hover:bg-slate-50 text-slate-700 font-semibold rounded-xl transition">
+                    Hủy bỏ
+                </button>
+                <button type="button" onclick="showToast('Khóa sổ thành công', 'Đã khóa sổ vĩnh viễn và lưu trữ đợt đồ án thành công!', 'success'); closeLockModal();" class="px-4 py-2 bg-slate-900 hover:bg-slate-800 text-white font-semibold rounded-xl shadow-xs transition">
+                    Xác nhận Khóa sổ
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    function openLockModal() {
+        document.getElementById('lockModal').classList.remove('hidden');
+    }
+
+    function closeLockModal() {
+        document.getElementById('lockModal').classList.add('hidden');
+    }
+</script>
+{% endblock %}

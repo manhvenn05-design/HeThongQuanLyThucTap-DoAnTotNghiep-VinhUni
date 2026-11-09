@@ -1,0 +1,300 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Theo dõi Tiến độ & Minh chứng - {{ current_dot.ma_dot }}{% endblock %}
+
+{% block content %}
+<div class="space-y-6">
+
+    <!-- PHÂN ĐOẠN 1: HEADER TỐI GIẢN & CHỈ SỐ TIẾN ĐỘ -->
+    <section class="bg-white border border-slate-200 rounded-2xl p-5 shadow-xs">
+        <div class="flex flex-col xl:flex-row xl:items-center justify-between gap-4">
+            <div>
+                <div class="flex items-center gap-2.5">
+                    <h1 class="text-xl sm:text-2xl font-bold font-heading text-slate-900 tracking-tight">
+                        Theo dõi Tiến độ & Minh chứng
+                    </h1>
+                    <span class="inline-flex items-center px-2.5 py-0.5 rounded text-xs font-semibold bg-blue-50 text-blue-800 border border-blue-200">
+                        Tuần {{ kpi.tuan_hien_tai }} / {{ kpi.tong_so_tuan }}
+                    </span>
+                </div>
+                <p class="text-xs sm:text-sm text-slate-500 mt-1 font-sans">
+                    {{ current_dot.ten_dot|default:"Khóa luận Tốt nghiệp CNTT" }} • Mã đợt: <span class="font-mono font-medium text-slate-700">{{ current_dot.ma_dot|default:"DOT26_HK2_CNTT_01" }}</span>
+                </p>
+            </div>
+
+            <div class="flex items-center gap-3 bg-slate-50 border border-slate-200 rounded-xl px-4 py-2.5 text-xs font-sans">
+                <div>
+                    <div class="text-[11px] text-slate-500 font-medium">Tiến trình học kỳ</div>
+                    <div class="font-bold text-slate-900 text-sm mt-0.5">53% hoàn thành</div>
+                </div>
+                <div class="h-8 w-px bg-slate-200"></div>
+                <div>
+                    <div class="text-[11px] text-slate-500 font-medium">Mốc hạn sắp tới</div>
+                    <div class="font-bold text-rose-700 text-sm mt-0.5">
+                        {{ kpi.moc_ke_tiep }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PHÂN TÁCH CHUYÊN MỤC THEO SUBMENU (PHẦN NÀO RA PHẦN ĐÓ) -->
+    <div class="bg-white rounded-xl p-1.5 border border-slate-200 shadow-xs">
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-1.5">
+            <a href="?tab=timeline" 
+               class="px-4 py-2.5 rounded-lg flex items-center justify-center gap-2 text-sm font-semibold transition font-sans {% if active_tab == 'timeline' or not active_tab %}bg-slate-900 text-white shadow-xs{% else %}text-slate-600 hover:text-slate-900 hover:bg-slate-100{% endif %}">
+                <span class="material-symbols-outlined text-lg">history_edu</span>
+                <span>Bảng theo dõi nộp báo cáo ({{ kpi.so_moc_da_dat }}/{{ kpi.tong_so_moc }})</span>
+            </a>
+
+            <a href="?tab=enterprise" 
+               class="px-4 py-2.5 rounded-lg flex items-center justify-center gap-2 text-sm font-semibold transition font-sans {% if active_tab == 'enterprise' %}bg-slate-900 text-white shadow-xs{% else %}text-slate-600 hover:text-slate-900 hover:bg-slate-100{% endif %}">
+                <span class="material-symbols-outlined text-lg">apartment</span>
+                <span>Hồ sơ Đơn vị thực tập</span>
+            </a>
+
+            <a href="?tab=warnings" 
+               class="px-4 py-2.5 rounded-lg flex items-center justify-center gap-2 text-sm font-semibold transition font-sans {% if active_tab == 'warnings' %}bg-slate-900 text-white shadow-xs{% else %}text-slate-600 hover:text-slate-900 hover:bg-slate-100{% endif %}">
+                <span class="material-symbols-outlined text-lg">warning</span>
+                <span>Danh sách nộp chậm & Cảnh báo</span>
+            </a>
+        </div>
+    </div>
+
+    <!-- PHÂN ĐOẠN 2: THÔNG TIN NƠI THỰC TẬP & DOANH NGHIỆP -->
+    <section class="bg-white border border-slate-200 rounded-2xl p-5 shadow-xs space-y-4 {% if active_tab != 'enterprise' %}hidden{% endif %}">
+        <div class="flex items-center justify-between border-b border-slate-200 pb-3">
+            <div class="flex items-center gap-2">
+                <span class="material-symbols-outlined text-blue-600">apartment</span>
+                <h2 class="text-base font-bold font-heading text-slate-900">
+                    Thông tin Đơn vị Thực tập
+                </h2>
+            </div>
+            <span class="text-xs font-medium text-emerald-800 bg-emerald-50 px-2.5 py-0.5 rounded border border-emerald-200">
+                {{ doanh_nghiep.trang_thai_text }}
+            </span>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 text-xs">
+            <div class="p-3 bg-slate-50 border border-slate-200 rounded-xl space-y-1">
+                <span class="text-slate-400 block font-heading uppercase text-[10px] font-bold">Đơn vị tiếp nhận:</span>
+                <p class="font-bold text-slate-900 text-sm">{{ doanh_nghiep.ten_cong_ty }}</p>
+                <p class="text-slate-500">Mã số thuế: <strong class="text-slate-700">{{ doanh_nghiep.ma_so_thue }}</strong></p>
+            </div>
+
+            <div class="p-3 bg-slate-50 border border-slate-200 rounded-xl space-y-1">
+                <span class="text-slate-400 block font-heading uppercase text-[10px] font-bold">Địa chỉ trụ sở / Chi nhánh:</span>
+                <p class="font-medium text-slate-800">{{ doanh_nghiep.dia_chi }}</p>
+                <p class="text-slate-500">Vị trí thực tập: <strong class="text-blue-700">{{ doanh_nghiep.vi_tri_thuc_tap }}</strong></p>
+            </div>
+
+            <div class="p-3 bg-slate-50 border border-slate-200 rounded-xl space-y-1">
+                <span class="text-slate-400 block font-heading uppercase text-[10px] font-bold">Cán bộ hướng dẫn Doanh nghiệp:</span>
+                <p class="font-bold text-slate-900 text-sm">{{ doanh_nghiep.nguoi_huong_dan_dn }}</p>
+                <p class="text-slate-500">{{ doanh_nghiep.chuc_vu_dn }} • SĐT: {{ doanh_nghiep.sdt_dn }}</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- PHÂN ĐOẠN 3: BẢNG THEO DÕI MINH CHỨNG & BÁO CÁO TIẾN ĐỘ (UC17, UC18, UC31) -->
+    <section class="bg-white border border-slate-200 rounded-2xl shadow-xs overflow-hidden {% if active_tab != 'timeline' and active_tab %}hidden{% endif %}">
+        <div class="p-5 border-b border-slate-200 bg-slate-50/70 flex flex-wrap items-center justify-between gap-3">
+            <div class="flex items-center gap-2">
+                <span class="material-symbols-outlined text-blue-600">history_edu</span>
+                <h2 class="text-base font-bold font-heading text-slate-900">
+                    Nhật ký Minh chứng Tiến độ ({{ kpi.so_moc_da_dat }}/{{ kpi.tong_so_moc }})
+                </h2>
+            </div>
+
+            <button type="button" onclick="openSubmitModal()" class="inline-flex items-center gap-1.5 px-4 py-2 bg-slate-900 hover:bg-slate-800 text-white text-xs sm:text-sm font-semibold rounded-xl shadow-xs transition">
+                <span class="material-symbols-outlined text-base">cloud_upload</span>
+                <span>Nộp minh chứng / Báo cáo tuần</span>
+            </button>
+        </div>
+
+        <div class="divide-y divide-slate-100">
+            {% for item in danh_sach_minh_chung %}
+            <div class="p-5 flex flex-col lg:flex-row lg:items-start justify-between gap-4 hover:bg-slate-50/50 transition">
+                <div class="space-y-2 flex-1">
+                    <div class="flex items-center gap-2.5 flex-wrap">
+                        <span class="font-mono text-xs font-bold px-2 py-0.5 rounded bg-slate-100 text-slate-800 border border-slate-200">
+                            {{ item.tuan }}
+                        </span>
+                        <h3 class="text-sm font-bold font-heading text-slate-900">
+                            {{ item.tieu_de }}
+                        </h3>
+                    </div>
+
+                    <!-- File đính kèm & Thời gian nộp -->
+                    <div class="flex flex-wrap items-center gap-4 text-xs text-slate-500">
+                        <span class="flex items-center gap-1">
+                            <span class="material-symbols-outlined text-sm text-slate-400">schedule</span>
+                            {{ item.ngay_nop }}
+                        </span>
+                        {% if item.file_dinh_kem != '--' %}
+                        <span class="flex items-center gap-1 text-blue-600 font-semibold cursor-pointer hover:underline">
+                            <span class="material-symbols-outlined text-sm">attach_file</span>
+                            {{ item.file_dinh_kem }}
+                        </span>
+                        {% endif %}
+                    </div>
+
+                    <!-- Lời nhận xét của GVHD -->
+                    <div class="p-3 rounded-xl border {% if item.trang_thai == 'DAT' %}bg-emerald-50/50 border-emerald-100{% elif item.trang_thai == 'CHO_NHAN_XET' %}bg-amber-50/50 border-amber-100{% else %}bg-slate-50 border-slate-200{% endif %} text-xs space-y-1 mt-2">
+                        <div class="flex items-center justify-between">
+                            <span class="font-bold text-slate-800 flex items-center gap-1">
+                                <span class="material-symbols-outlined text-sm text-slate-500">rate_review</span>
+                                Nhận xét của Giảng viên hướng dẫn ({{ item.gv_nhan_xet }}):
+                            </span>
+                            <span class="text-slate-400 font-mono text-[11px]">{{ item.ngay_nhan_xet }}</span>
+                        </div>
+                        <p class="text-slate-700 italic">"{{ item.nhan_xet_gv }}"</p>
+                    </div>
+                </div>
+
+                <!-- Trạng thái nghiệm thu -->
+                <div class="shrink-0 pt-1 lg:pt-0">
+                    {% if item.trang_thai == 'DAT' %}
+                    <span class="inline-flex items-center gap-1 px-3 py-1.5 rounded-xl text-xs font-semibold bg-emerald-50 text-emerald-800 border border-emerald-200">
+                        <span class="material-symbols-outlined text-sm">check_circle</span>
+                        <span>{{ item.trang_thai_text }}</span>
+                    </span>
+                    {% elif item.trang_thai == 'CHO_NHAN_XET' %}
+                    <span class="inline-flex items-center gap-1 px-3 py-1.5 rounded-xl text-xs font-semibold bg-amber-50 text-amber-800 border border-amber-200">
+                        <span class="material-symbols-outlined text-sm">pending</span>
+                        <span>{{ item.trang_thai_text }}</span>
+                    </span>
+                    {% else %}
+                    <span class="inline-flex items-center px-3 py-1.5 rounded-xl text-xs font-semibold bg-slate-100 text-slate-500 border border-slate-200">
+                        {{ item.trang_thai_text }}
+                    </span>
+                    {% endif %}
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </section>
+
+    <!-- PHÂN ĐOẠN 4: DANH SÁCH NỘP CHẬM & CẢNH BÁO TIẾN ĐỘ (UC18) -->
+    <section class="bg-white border border-slate-200 rounded-2xl shadow-xs p-6 space-y-5 {% if active_tab != 'warnings' %}hidden{% endif %}">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-100 pb-4">
+            <div>
+                <h2 class="text-lg font-bold font-heading text-slate-900 flex items-center gap-2">
+                    <span class="material-symbols-outlined text-amber-600">warning</span>
+                    Giám sát Tiến độ Nộp báo cáo Toàn đợt & Nhắc nhở (UC18)
+                </h2>
+                <p class="text-xs text-slate-500 mt-1">Lọc danh sách các sinh viên chưa nộp minh chứng đúng hạn để gửi thông báo đôn đốc kịp thời.</p>
+            </div>
+            <button type="button" onclick="showToast('Đôn đốc tiến độ', 'Đã gửi thông báo nhắc nhở tiến độ thành công cho tất cả sinh viên chưa nộp bài!', 'info');" class="inline-flex items-center gap-2 px-4 py-2 bg-slate-900 hover:bg-slate-800 text-white text-xs sm:text-sm font-bold rounded-xl shadow-xs transition">
+                <span class="material-symbols-outlined text-sm">notifications_active</span>
+                <span>Gửi nhắc nhở toàn đợt</span>
+            </button>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div class="p-4 rounded-xl border border-slate-200 bg-slate-50">
+                <span class="text-xs font-semibold text-slate-500 uppercase">Đúng tiến độ</span>
+                <p class="text-2xl font-bold font-heading text-emerald-700 mt-1">18 / 20 <span class="text-xs font-normal text-slate-500">sinh viên (90%)</span></p>
+            </div>
+            <div class="p-4 rounded-xl border border-slate-200 bg-slate-50">
+                <span class="text-xs font-semibold text-slate-500 uppercase">Chậm nộp / Quá hạn</span>
+                <p class="text-2xl font-bold font-heading text-rose-600 mt-1">2 <span class="text-xs font-normal text-slate-500">sinh viên (10%)</span></p>
+            </div>
+            <div class="p-4 rounded-xl border border-slate-200 bg-slate-50">
+                <span class="text-xs font-semibold text-slate-500 uppercase">Mốc kế tiếp</span>
+                <p class="text-sm font-bold font-heading text-blue-900 mt-2">Mốc 3: Báo cáo thử nghiệm (Còn 3 ngày)</p>
+            </div>
+        </div>
+
+        <div class="border border-slate-200 rounded-xl overflow-hidden mt-3">
+            <table class="w-full text-left text-xs font-sans">
+                <thead class="bg-slate-50 border-b border-slate-200 text-slate-600 font-semibold uppercase">
+                    <tr>
+                        <th class="py-3 px-4">Sinh viên</th>
+                        <th class="py-3 px-4">Đề tài</th>
+                        <th class="py-3 px-4">Giảng viên hướng dẫn</th>
+                        <th class="py-3 px-4">Mốc nộp chậm</th>
+                        <th class="py-3 px-4 text-center">Trạng thái</th>
+                    </tr>
+                </thead>
+                <tbody class="divide-y divide-slate-100">
+                    <tr>
+                        <td class="py-3 px-4 font-bold text-slate-900">Trần Văn Bình (211108390)</td>
+                        <td class="py-3 px-4 text-slate-700">Ứng dụng blockchain trong xác thực văn bằng</td>
+                        <td class="py-3 px-4 text-slate-700">TS. Phạm Minh Đức</td>
+                        <td class="py-3 px-4 text-rose-600 font-bold font-mono">Quá hạn Tuần 6 (Trễ 3 ngày)</td>
+                        <td class="py-3 px-4 text-center">
+                            <span class="px-2 py-0.5 rounded text-[11px] font-bold bg-rose-50 text-rose-700 border border-rose-200">Đã cảnh báo</span>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+</div>
+
+<!-- MODAL NỘP MINH CHỨNG MỚI (UC17) -->
+<div id="submitModal" class="fixed inset-0 z-50 bg-slate-900/40 backdrop-blur-xs hidden flex items-center justify-center p-4">
+    <div class="bg-white border border-slate-200 rounded-2xl max-w-lg w-full shadow-xl overflow-hidden">
+        <div class="p-5 border-b border-slate-200 flex items-center justify-between bg-slate-50/70">
+            <div class="flex items-center gap-2">
+                <span class="material-symbols-outlined text-blue-600">upload_file</span>
+                <h3 class="text-base font-bold font-heading text-slate-900">Nộp Minh chứng Tiến độ / Báo cáo tuần</h3>
+            </div>
+            <button type="button" onclick="closeSubmitModal()" class="text-slate-400 hover:text-slate-700">
+                <span class="material-symbols-outlined">close</span>
+            </button>
+        </div>
+
+        <form onsubmit="event.preventDefault(); showToast('Nộp minh chứng', 'Đã nộp minh chứng thành công! Giảng viên hướng dẫn sẽ nhận được thông báo để đánh giá.', 'success'); closeSubmitModal();" class="p-5 space-y-4">
+            <div>
+                <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1 font-heading">
+                    Mốc nộp tương ứng:
+                </label>
+                <select class="w-full text-xs p-2.5 bg-white border border-slate-300 rounded-xl">
+                    <option>Tuần 9: Báo cáo tiến độ Phase 2 (RAG & Benchmark)</option>
+                    <option>Tuần 12: Dự thảo báo cáo toàn văn tốt nghiệp</option>
+                    <option>Báo cáo tuần đột xuất / Bổ sung</option>
+                </select>
+            </div>
+
+            <div>
+                <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1 font-heading">
+                    Tóm tắt công việc đã hoàn thành:
+                </label>
+                <textarea rows="3" required placeholder="Ghi chú các tính năng, module đã lập trình và kết quả đạt được..." class="w-full text-xs p-3 bg-white border border-slate-300 rounded-xl focus:border-slate-800 focus:ring-0"></textarea>
+            </div>
+
+            <div>
+                <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1 font-heading">
+                    Tệp đính kèm (PDF, DOCX, ZIP tối đa 50MB):
+                </label>
+                <input type="file" class="w-full text-xs p-2 bg-slate-50 border border-slate-300 rounded-xl">
+            </div>
+
+            <div class="pt-3 border-t border-slate-100 flex items-center justify-end gap-2">
+                <button type="button" onclick="closeSubmitModal()" class="px-4 py-2 border border-slate-300 hover:bg-slate-50 text-slate-700 text-xs font-semibold rounded-xl transition">
+                    Đóng
+                </button>
+                <button type="submit" class="px-4 py-2 bg-slate-900 hover:bg-slate-800 text-white text-xs font-semibold rounded-xl shadow-xs transition">
+                    Xác nhận nộp minh chứng
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    function openSubmitModal() {
+        document.getElementById('submitModal').classList.remove('hidden');
+    }
+
+    function closeSubmitModal() {
+        document.getElementById('submitModal').classList.add('hidden');
+    }
+</script>
+{% endblock %}

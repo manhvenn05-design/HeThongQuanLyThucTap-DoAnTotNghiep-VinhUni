@@ -1,0 +1,868 @@
+<!DOCTYPE html>
+
+<html class="h-full bg-surface" lang="vi"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Quản trị Hệ thống &amp; Phân quyền Danh mục - Đại học Vinh</title>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&amp;family=Public+Sans:ital,wght@0,300..900;1,300..900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "on-error": "#ffffff",
+            "on-secondary": "#ffffff",
+            "on-secondary-fixed": "#111c2d",
+            "tertiary-fixed": "#fcdeb5",
+            "primary": "#000000",
+            "on-primary-container": "#7c839b",
+            "secondary": "#545f73",
+            "primary-fixed": "#dae2fd",
+            "inverse-surface": "#213145",
+            "surface-container-lowest": "#ffffff",
+            "secondary-container": "#d5e0f8",
+            "on-secondary-fixed-variant": "#3c475a",
+            "on-primary-fixed-variant": "#3f465c",
+            "error": "#ba1a1a",
+            "surface-container-low": "#eff4ff",
+            "on-primary-fixed": "#131b2e",
+            "on-background": "#0b1c30",
+            "on-primary": "#ffffff",
+            "primary-fixed-dim": "#bec6e0",
+            "tertiary-container": "#271901",
+            "surface-dim": "#cbdbf5",
+            "outline": "#76777d",
+            "secondary-fixed": "#d8e3fb",
+            "background": "#f8f9ff",
+            "surface-bright": "#f8f9ff",
+            "on-tertiary-fixed-variant": "#574425",
+            "on-tertiary-fixed": "#271901",
+            "on-tertiary-container": "#98805d",
+            "on-tertiary": "#ffffff",
+            "surface-container-highest": "#d3e4fe",
+            "error-container": "#ffdad6",
+            "on-surface-variant": "#45464d",
+            "inverse-on-surface": "#eaf1ff",
+            "tertiary": "#000000",
+            "on-surface": "#0b1c30",
+            "surface-container": "#e5eeff",
+            "surface-tint": "#565e74",
+            "surface-container-high": "#dce9ff",
+            "on-secondary-container": "#586377",
+            "surface-variant": "#d3e4fe",
+            "secondary-fixed-dim": "#bcc7de",
+            "on-error-container": "#93000a",
+            "primary-container": "#131b2e",
+            "inverse-primary": "#bec6e0",
+            "tertiary-fixed-dim": "#dec29a",
+            "outline-variant": "#c6c6cd",
+            "surface": "#f8f9ff"
+          },
+          "borderRadius": {
+            "DEFAULT": "0.125rem",
+            "lg": "0.25rem",
+            "xl": "0.5rem",
+            "full": "0.75rem"
+          },
+          "spacing": {
+            "gutter": "1rem",
+            "margin-md": "1.5rem",
+            "space-2xs": "0.125rem",
+            "margin-lg": "2rem",
+            "space-xs": "0.25rem",
+            "space-xl": "2rem",
+            "space-sm": "0.5rem",
+            "margin": "1rem",
+            "space-lg": "1.5rem",
+            "space-md": "0.75rem",
+            "gutter-lg": "1.5rem",
+            "space-base": "1rem",
+            "space-2xl": "3rem"
+          },
+          "fontFamily": {
+            "headline-lg": ["Public Sans"],
+            "headline-md": ["Public Sans"],
+            "display-lg": ["Public Sans"],
+            "headline-sm": ["Public Sans"],
+            "body-sm": ["Nunito Sans"],
+            "caption": ["Nunito Sans"],
+            "body-lg": ["Nunito Sans"],
+            "body-md": ["Nunito Sans"],
+            "label-sm": ["Public Sans"],
+            "label-md": ["Public Sans"]
+          },
+          "fontSize": {
+            "headline-lg": ["24px", { "lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "700" }],
+            "headline-md": ["20px", { "lineHeight": "28px", "fontWeight": "600" }],
+            "display-lg": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+            "headline-sm": ["16px", { "lineHeight": "24px", "fontWeight": "600" }],
+            "body-sm": ["13px", { "lineHeight": "20px", "fontWeight": "400" }],
+            "caption": ["12px", { "lineHeight": "16px", "fontWeight": "400" }],
+            "body-lg": ["16px", { "lineHeight": "26px", "fontWeight": "400" }],
+            "body-md": ["14px", { "lineHeight": "22px", "fontWeight": "400" }],
+            "label-sm": ["11px", { "lineHeight": "16px", "letterSpacing": "0.02em", "fontWeight": "600" }],
+            "label-md": ["13px", { "lineHeight": "18px", "letterSpacing": "0.01em", "fontWeight": "600" }]
+          }
+        }
+      }
+    }
+  </script>
+<style>
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 20;
+      font-size: 20px;
+      line-height: 1;
+      display: inline-block;
+      vertical-align: middle;
+    }
+  </style>
+</head>
+<body class="h-full bg-slate-50 text-on-surface antialiased flex flex-col font-body-md text-body-md overflow-x-hidden">
+<!-- Top Navigation Anchor (Shared TopNavBar) -->
+<header class="w-full border-b border-outline-variant bg-surface-container-lowest sticky top-0 z-50 px-4 lg:px-8 max-w-full flex items-center justify-between h-16 shadow-sm">
+<div class="flex items-center gap-4">
+<div class="flex items-center gap-3">
+<img alt="Logo Trường Đại học Vinh - Kỹ thuật và Công nghệ 1959" class="h-10 w-10 object-contain rounded-full bg-white p-0.5 border border-slate-200" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB-1aTr_b4KnKSiHU4Mp94B1bcbq31wIRSu3Ided69wrriLVHeO4UvSBvc9A4VPiq18PVRbdcAuvnLLRyOt46yFiKJ3eKtzLCksiOH0k_hDhAiaMbzr_oVVisZcS8TOtZR4WFlqbdG1fbm8tVOdL-RZSfQT6AMAXUuHpRRKwjspIyyIekKqlQ40tHc05Y1H9Zzo4WLtYd5A0Rn31-TN9KTPZpLqhc3VNKl3cBH0fWmr15-ONtPkh7gsWw"/>
+<span class="text-headline-sm font-headline-sm font-bold text-on-surface uppercase tracking-tight hidden sm:inline-block">TRƯỜNG KỸ THUẬT VÀ CÔNG NGHỆ - ĐẠI HỌC VINH</span>
+</div>
+</div>
+<!-- Central Search & Global Meta -->
+<div class="hidden md:flex items-center gap-2 bg-slate-50 border border-slate-200 rounded-lg px-3 py-1.5 w-72">
+<span class="material-symbols-outlined text-secondary text-sm" data-icon="search">search</span>
+<input class="bg-transparent border-none text-body-sm font-body-sm focus:ring-0 text-on-surface placeholder:text-secondary p-0 w-full outline-none" placeholder="Tìm tài khoản, mã CB, email..." type="text"/>
+</div>
+<!-- Actions / Identity -->
+<div class="flex items-center gap-4">
+<div class="hidden lg:flex items-center gap-2">
+<button class="px-3 py-1.5 border border-slate-200 hover:bg-slate-100 rounded-lg text-label-md font-label-md text-on-surface transition-colors">
+          Giảng viên / TBM
+        </button>
+<button class="px-3 py-1.5 bg-primary text-on-primary hover:bg-slate-800 rounded-lg text-label-md font-label-md transition-colors flex items-center gap-1.5">
+<span class="material-symbols-outlined text-sm" data-icon="sync">sync</span>
+          Duyệt nhanh đề tài
+        </button>
+</div>
+<div class="flex items-center gap-1">
+<button class="p-2 text-secondary hover:text-on-surface hover:bg-slate-100 rounded-lg transition-colors relative" title="Thông báo">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+<span class="absolute top-1.5 right-1.5 w-2 h-2 bg-rose-600 rounded-full"></span>
+</button>
+<button class="p-2 text-secondary hover:text-on-surface hover:bg-slate-100 rounded-lg transition-colors" title="Trợ giúp">
+<span class="material-symbols-outlined" data-icon="help_outline">help_outline</span>
+</button>
+</div>
+<div class="h-6 w-px bg-slate-200"></div>
+<!-- User Chip -->
+<div class="flex items-center gap-2.5">
+<div class="w-8 h-8 rounded-full bg-slate-900 text-white flex items-center justify-center font-bold text-label-md border border-slate-300">
+          AD
+        </div>
+<div class="hidden xl:block text-left">
+<p class="text-label-md font-label-md font-semibold text-on-surface leading-tight">Admin Quản trị</p>
+<p class="text-caption font-caption text-secondary">admin.ktcn@vinhuni.edu.vn</p>
+</div>
+</div>
+</div>
+</header>
+<div class="flex flex-1 min-h-[calc(100vh-4rem)]">
+<!-- MENU DỌC PHÂN CẤP (w-64) -->
+<aside class="w-64 bg-surface-container-lowest border-r border-slate-200 flex flex-col justify-between shrink-0 select-none">
+<div class="p-4 space-y-4">
+<!-- Brand Unit Header (1 single line institution sub-header) -->
+<div class="pb-3 border-b border-slate-200">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-slate-700" data-icon="admin_panel_settings">admin_panel_settings</span>
+<span class="text-label-md font-label-md font-bold text-slate-900 uppercase truncate" title="TRƯỜNG KỸ THUẬT VÀ CÔNG NGHỆ - ĐẠI HỌC VINH">
+              CỔNG QUẢN TRỊ TRƯỜNG KT&amp;CN
+            </span>
+</div>
+<p class="text-caption font-caption text-secondary mt-1">Phân hệ Quản trị &amp; Đồng bộ CSDL</p>
+</div>
+<!-- Vertical Menu Hierarchy -->
+<nav class="space-y-1">
+<!-- 1. Dashboard Quản trị -->
+<a class="text-secondary font-body-md text-body-md hover:bg-slate-100 hover:text-on-surface rounded-lg flex items-center gap-3 px-3 py-2 transition-colors" href="#">
+<span class="material-symbols-outlined text-slate-500" data-icon="dashboard">dashboard</span>
+<span>Dashboard Quản trị</span>
+</a>
+<!-- 2. Mục Hệ thống nòng cốt: Tài khoản & Phân quyền (UC28 - ĐANG CHỌN) -->
+<div class="pt-2">
+<div class="bg-secondary-container text-on-secondary-fixed font-label-md text-label-md rounded-lg flex items-center justify-between px-3 py-2.5 font-semibold">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-slate-900" data-icon="manage_accounts">manage_accounts</span>
+<span class="truncate">Tài khoản &amp; Phân quyền (UC28)</span>
+</div>
+<span class="material-symbols-outlined text-xs text-slate-700" data-icon="expand_more">expand_more</span>
+</div>
+<!-- Submenu UC28 -->
+<div class="mt-1 ml-4 pl-3 border-l-2 border-slate-300 space-y-1">
+<a class="flex items-center justify-between py-1.5 px-2 rounded text-body-sm font-body-sm font-semibold text-slate-900 bg-slate-100" href="#">
+<span>Quản lý người dùng</span>
+<span class="text-caption font-caption bg-slate-200 text-slate-700 px-1.5 py-0.5 rounded">614</span>
+</a>
+<a class="flex items-center justify-between py-1.5 px-2 rounded text-body-sm font-body-sm text-secondary hover:text-on-surface hover:bg-slate-50 transition-colors" href="#">
+<span>Phân quyền vai trò (RBAC)</span>
+</a>
+<a class="flex items-center justify-between py-1.5 px-2 rounded text-body-sm font-body-sm text-secondary hover:text-on-surface hover:bg-slate-50 transition-colors" href="#">
+<span>Duyệt liên kết USmart/Google</span>
+<span class="w-2 h-2 rounded-full bg-amber-600"></span>
+</a>
+</div>
+</div>
+<!-- 3. Danh mục Khoa & Bộ môn (UC29) -->
+<div class="pt-1">
+<div class="text-secondary font-body-md text-body-md hover:bg-slate-100 hover:text-on-surface rounded-lg flex items-center justify-between px-3 py-2 transition-colors cursor-pointer">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-slate-500" data-icon="account_tree">account_tree</span>
+<span>Danh mục Khoa &amp; Bộ môn (UC29)</span>
+</div>
+<span class="material-symbols-outlined text-xs text-slate-400" data-icon="chevron_right">chevron_right</span>
+</div>
+<!-- Submenu Preview -->
+<div class="ml-4 pl-3 border-l border-slate-200 mt-1 space-y-1 hidden">
+<a class="block py-1 px-2 text-body-sm text-secondary hover:text-on-surface" href="#">Quản lý Khoa</a>
+<a class="block py-1 px-2 text-body-sm text-secondary hover:text-on-surface" href="#">Bộ môn trực thuộc</a>
+</div>
+</div>
+<!-- 4. Nhật ký Kiểm toán hệ thống (UC30) -->
+<div class="pt-1">
+<div class="text-secondary font-body-md text-body-md hover:bg-slate-100 hover:text-on-surface rounded-lg flex items-center justify-between px-3 py-2 transition-colors cursor-pointer">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-slate-500" data-icon="history_edu">history_edu</span>
+<span>Nhật ký Kiểm toán (UC30)</span>
+</div>
+<span class="material-symbols-outlined text-xs text-slate-400" data-icon="chevron_right">chevron_right</span>
+</div>
+</div>
+<!-- Divider -->
+<div class="pt-3 pb-1 border-t border-slate-200">
+<p class="text-caption font-caption uppercase tracking-wider text-slate-400 px-3 pb-1 font-bold">Quy trình đào tạo</p>
+</div>
+<!-- 5. Lối tắt về Không gian Đồ án 6 giai đoạn -->
+<a class="border border-slate-200 bg-white hover:bg-slate-50 text-slate-800 rounded-lg flex items-center justify-between px-3 py-2.5 transition-colors" href="#">
+<div class="flex items-center gap-2.5">
+<span class="material-symbols-outlined text-slate-600" data-icon="flowsheet">flowsheet</span>
+<div class="text-left">
+<p class="text-label-md font-label-md font-semibold text-slate-900 leading-tight">Đồ án 6 giai đoạn</p>
+<p class="text-caption font-caption text-secondary">M60, M61, M62 Portal</p>
+</div>
+</div>
+<span class="material-symbols-outlined text-sm text-slate-400" data-icon="open_in_new">open_in_new</span>
+</a>
+</nav>
+</div>
+<!-- Footer Info Block in Sidebar -->
+<div class="p-4 border-t border-slate-200 bg-slate-50">
+<div class="flex items-center justify-between text-caption font-caption text-slate-500 mb-2">
+<span>Phiên bản v2.5-prod</span>
+<span class="flex items-center gap-1">
+<span class="w-1.5 h-1.5 rounded-full bg-emerald-600"></span> Online
+          </span>
+</div>
+<p class="text-caption font-caption text-slate-500 leading-snug">
+          Máy chủ USmart API: Kết nối ổn định (28ms)
+        </p>
+</div>
+</aside>
+<!-- MAIN CONTENT CANVAS -->
+<main class="flex-1 flex flex-col min-w-0 bg-slate-50 overflow-y-auto">
+<!-- Breadcrumbs & Quick Banner -->
+<div class="bg-white border-b border-slate-200 px-6 py-2.5 flex items-center justify-between">
+<div class="flex items-center gap-2 text-caption font-caption text-secondary">
+<span class="material-symbols-outlined text-sm" data-icon="home">home</span>
+<span>/</span>
+<span>Hệ thống nòng cốt</span>
+<span>/</span>
+<span class="text-slate-900 font-semibold">Tài khoản &amp; Phân quyền (UC28)</span>
+<span>/</span>
+<span class="text-slate-500">Mã phân hệ: M60-M62</span>
+</div>
+<div class="flex items-center gap-2 text-caption font-caption text-slate-500">
+<span class="material-symbols-outlined text-sm" data-icon="schedule">schedule</span>
+<span>Đồng bộ USmart gần nhất: 10 phút trước</span>
+</div>
+</div>
+<div class="p-6 lg:p-8 space-y-6 max-w-7xl w-full mx-auto">
+<!-- PHÂN ĐOẠN 1: Header trang kèm các nút tác vụ -->
+<section class="bg-white border border-slate-200 rounded-xl p-6 shadow-sm flex flex-col md:flex-row md:items-center justify-between gap-4">
+<div>
+<div class="flex items-center gap-2.5">
+<h1 class="text-headline-lg font-headline-lg text-slate-900 tracking-tight">
+                Quản trị Tài nguyên &amp; Cấu hình Phân quyền Hệ thống
+              </h1>
+<span class="px-2 py-0.5 rounded border border-slate-200 bg-slate-50 text-caption font-caption font-semibold text-slate-600">
+                UC28-UC30
+              </span>
+</div>
+<p class="text-body-md font-body-md text-secondary mt-1">
+              Trung tâm kiểm soát tài khoản tập trung, quản lý RBAC đa cấp bậc, danh mục 04 bộ môn chuyên trách và nhật ký audit log bất biến.
+            </p>
+</div>
+<!-- Nút hành động chính chuẩn Style Guidance: Flat, bo 6px, ko viền sáng chói -->
+<div class="flex flex-wrap items-center gap-2.5 shrink-0">
+<button class="px-3.5 py-2 bg-white border border-slate-200 hover:bg-slate-50 text-slate-800 rounded-lg text-label-md font-label-md flex items-center gap-2 transition-colors">
+<span class="material-symbols-outlined text-sm" data-icon="sync">sync</span>
+<span>Đồng bộ USmart</span>
+</button>
+<button class="px-3.5 py-2 bg-white border border-slate-200 hover:bg-slate-50 text-slate-800 rounded-lg text-label-md font-label-md flex items-center gap-2 transition-colors">
+<span class="material-symbols-outlined text-sm" data-icon="file_download">file_download</span>
+<span>Xuất báo cáo</span>
+</button>
+<button class="px-4 py-2 bg-primary hover:bg-slate-800 text-white rounded-lg text-label-md font-label-md flex items-center gap-2 transition-colors">
+<span class="material-symbols-outlined text-sm" data-icon="person_add">person_add</span>
+<span>Thêm người dùng mới</span>
+</button>
+</div>
+</section>
+<!-- PHÂN ĐOẠN 2: 4 khối KPI số liệu chuẩn xác CSDL -->
+<section class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+<!-- KPI 1: Tổng tài khoản -->
+<div class="bg-white border border-slate-200 rounded-xl p-5 shadow-sm">
+<div class="flex items-center justify-between">
+<span class="text-label-md font-label-md font-semibold text-secondary">Tổng tài khoản CSDL</span>
+<span class="w-8 h-8 rounded-lg bg-slate-100 flex items-center justify-center text-slate-700">
+<span class="material-symbols-outlined text-sm" data-icon="group">group</span>
+</span>
+</div>
+<div class="mt-3 flex items-baseline gap-2">
+<span class="text-display-lg font-display-lg text-slate-900 leading-none">614</span>
+<span class="text-caption font-caption text-secondary">tài khoản</span>
+</div>
+<div class="mt-3 pt-3 border-t border-slate-100 flex items-center justify-between text-caption font-caption text-secondary">
+<span>128 Giảng viên</span>
+<span>•</span>
+<span>482 Sinh viên</span>
+<span>•</span>
+<span class="font-semibold text-slate-800">4 Admin</span>
+</div>
+</div>
+<!-- KPI 2: Liên kết SSO -->
+<div class="bg-white border border-slate-200 rounded-xl p-5 shadow-sm">
+<div class="flex items-center justify-between">
+<span class="text-label-md font-label-md font-semibold text-secondary">Liên kết USmart / SSO</span>
+<span class="w-8 h-8 rounded-lg bg-slate-100 flex items-center justify-center text-slate-700">
+<span class="material-symbols-outlined text-sm" data-icon="vpn_key">vpn_key</span>
+</span>
+</div>
+<div class="mt-3 flex items-baseline gap-2">
+<span class="text-display-lg font-display-lg text-slate-900 leading-none">598</span>
+<span class="text-caption font-caption text-slate-500">/ 614 hợp lệ</span>
+</div>
+<div class="mt-3 pt-3 border-t border-slate-100 flex items-center justify-between text-caption font-caption">
+<span class="text-emerald-700 font-semibold flex items-center gap-1">
+<span class="w-1.5 h-1.5 rounded-full bg-emerald-600"></span> 97.4% Đã xác thực
+              </span>
+<span class="text-amber-700 font-medium">16 Chờ duyệt</span>
+</div>
+</div>
+<!-- KPI 3: Số Bộ môn -->
+<div class="bg-white border border-slate-200 rounded-xl p-5 shadow-sm">
+<div class="flex items-center justify-between">
+<span class="text-label-md font-label-md font-semibold text-secondary">Đơn vị Chuyên trách</span>
+<span class="w-8 h-8 rounded-lg bg-slate-100 flex items-center justify-center text-slate-700">
+<span class="material-symbols-outlined text-sm" data-icon="apartment">apartment</span>
+</span>
+</div>
+<div class="mt-3 flex items-baseline gap-2">
+<span class="text-display-lg font-display-lg text-slate-900 leading-none">04</span>
+<span class="text-caption font-caption text-secondary">Bộ môn trực thuộc</span>
+</div>
+<div class="mt-3 pt-3 border-t border-slate-100 text-caption font-caption text-secondary truncate" title="CNTT, KTPM, MMT, HTTT">
+              Khoa CNTT: <span class="font-semibold text-slate-800">CNTT, KTPM, MMT, HTTT</span>
+</div>
+</div>
+<!-- KPI 4: Bản ghi kiểm toán -->
+<div class="bg-white border border-slate-200 rounded-xl p-5 shadow-sm">
+<div class="flex items-center justify-between">
+<span class="text-label-md font-label-md font-semibold text-secondary">Audit Logs Hôm nay</span>
+<span class="w-8 h-8 rounded-lg bg-slate-100 flex items-center justify-center text-slate-700">
+<span class="material-symbols-outlined text-sm" data-icon="verified_user">verified_user</span>
+</span>
+</div>
+<div class="mt-3 flex items-baseline gap-2">
+<span class="text-display-lg font-display-lg text-slate-900 leading-none">1,428</span>
+<span class="text-caption font-caption text-secondary">sự kiện</span>
+</div>
+<div class="mt-3 pt-3 border-t border-slate-100 flex items-center justify-between text-caption font-caption text-secondary">
+<span class="font-mono text-slate-700">append-only log</span>
+<span class="text-emerald-700 font-semibold flex items-center gap-1">
+<span class="w-1.5 h-1.5 rounded-full bg-emerald-600"></span> Bất biến
+              </span>
+</div>
+</div>
+</section>
+<!-- PHÂN ĐOẠN 4 (Đặt phía trên/bộ điều hướng tab để chuyển view trực quan) -->
+<section class="border-b border-slate-200 flex items-center justify-between gap-4">
+<div class="flex items-center gap-6 overflow-x-auto">
+<!-- Active Tab: Tài khoản & Phân quyền -->
+<button class="border-b-2 border-primary text-slate-900 font-label-md text-label-md py-3 flex items-center gap-2 whitespace-nowrap">
+<span class="material-symbols-outlined text-sm" data-icon="badge">badge</span>
+<span>Danh sách Tài khoản &amp; Phân quyền (UC28)</span>
+<span class="bg-slate-200 text-slate-800 text-caption font-caption font-bold px-1.5 py-0.5 rounded">614</span>
+</button>
+<!-- Tab 2: Danh mục Khoa/Bộ môn -->
+<button class="text-secondary font-label-md text-label-md hover:text-slate-900 py-3 flex items-center gap-2 transition-colors whitespace-nowrap">
+<span class="material-symbols-outlined text-sm" data-icon="domain">domain</span>
+<span>Danh mục Khoa &amp; Bộ môn (UC29)</span>
+<span class="bg-slate-100 text-slate-600 text-caption font-caption px-1.5 py-0.5 rounded">4 Bộ môn</span>
+</button>
+<!-- Tab 3: Nhật ký Audit Log -->
+<button class="text-secondary font-label-md text-label-md hover:text-slate-900 py-3 flex items-center gap-2 transition-colors whitespace-nowrap">
+<span class="material-symbols-outlined text-sm" data-icon="security">security</span>
+<span>Nhật ký Kiểm toán Hệ thống (UC30)</span>
+<span class="bg-slate-100 text-slate-600 text-caption font-caption px-1.5 py-0.5 rounded">1,428 logs</span>
+</button>
+</div>
+<div class="hidden lg:flex items-center gap-2 text-caption font-caption text-secondary">
+<span class="material-symbols-outlined text-sm" data-icon="info">info</span>
+<span>Chế độ kiểm duyệt: Nghiêm ngặt (Strict RBAC)</span>
+</div>
+</section>
+<!-- PHÂN ĐOẠN 3: Bảng danh sách tài khoản & phân quyền (Data Table Grid) -->
+<section class="bg-white border border-slate-200 rounded-xl overflow-hidden shadow-sm">
+<!-- Bảng điều khiển bộ lọc & Tìm kiếm nhanh -->
+<div class="p-4 border-b border-slate-200 bg-white flex flex-col md:flex-row items-center justify-between gap-3">
+<div class="flex flex-wrap items-center gap-3 w-full md:w-auto">
+<!-- Bộ lọc Vai trò -->
+<div class="flex items-center gap-2">
+<label class="text-caption font-caption font-semibold text-secondary">Vai trò:</label>
+<select class="h-9 px-2.5 text-body-sm font-body-sm bg-white border border-slate-200 rounded-lg text-slate-800 focus:border-slate-900 focus:ring-0 outline-none">
+<option>Tất cả vai trò (4)</option>
+<option>TRUONG_KHOA</option>
+<option>GIANG_VIEN</option>
+<option>SINH_VIEN</option>
+<option>QUAN_TRI</option>
+</select>
+</div>
+<!-- Bộ lọc Bộ môn -->
+<div class="flex items-center gap-2">
+<label class="text-caption font-caption font-semibold text-secondary">Bộ môn:</label>
+<select class="h-9 px-2.5 text-body-sm font-body-sm bg-white border border-slate-200 rounded-lg text-slate-800 focus:border-slate-900 focus:ring-0 outline-none">
+<option>Tất cả bộ môn (4)</option>
+<option>Kỹ thuật Phần mềm (KTPM)</option>
+<option>Khoa học Máy tính (CNTT)</option>
+<option>Mạng máy tính &amp; TT (MMT)</option>
+<option>Hệ thống Thông tin (HTTT)</option>
+</select>
+</div>
+<!-- Bộ lọc Trạng thái -->
+<div class="flex items-center gap-2">
+<label class="text-caption font-caption font-semibold text-secondary">Trạng thái:</label>
+<select class="h-9 px-2.5 text-body-sm font-body-sm bg-white border border-slate-200 rounded-lg text-slate-800 focus:border-slate-900 focus:ring-0 outline-none">
+<option>Tất cả trạng thái</option>
+<option>HOAT_DONG</option>
+<option>CHO_DUYET</option>
+<option>KHOA</option>
+</select>
+</div>
+</div>
+<!-- Tổng kết hiển thị & Thao tác hàng loạt -->
+<div class="flex items-center gap-2 w-full md:w-auto justify-end">
+<span class="text-caption font-caption text-secondary">Hiển thị 6 / 614 bản ghi</span>
+<button class="px-2.5 py-1.5 border border-slate-200 hover:bg-slate-50 text-slate-700 rounded-lg text-caption font-caption font-semibold flex items-center gap-1">
+<span class="material-symbols-outlined text-sm" data-icon="filter_list">filter_list</span>
+                Lọc nâng cao
+              </button>
+</div>
+</div>
+<!-- Data Grid Table -->
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-slate-50 border-b border-slate-200 text-caption font-caption font-semibold text-slate-600 uppercase tracking-wider">
+<th class="py-3 px-4 w-12 text-center">
+<input class="rounded border-slate-300 text-slate-900 focus:ring-0" type="checkbox"/>
+</th>
+<th class="py-3 px-4">Mã CB / MSSV</th>
+<th class="py-3 px-4">Họ và tên</th>
+<th class="py-3 px-4">Email thể chế</th>
+<th class="py-3 px-4">Đơn vị / Bộ môn</th>
+<th class="py-3 px-4">Vai trò hệ thống</th>
+<th class="py-3 px-4">Trạng thái</th>
+<th class="py-3 px-4 text-right">Thao tác</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-slate-100 text-body-sm font-body-sm">
+<!-- Hàng 1: Trưởng Khoa -->
+<tr class="hover:bg-slate-50 transition-colors">
+<td class="py-3.5 px-4 text-center">
+<input class="rounded border-slate-300 text-slate-900 focus:ring-0" type="checkbox"/>
+</td>
+<td class="py-3.5 px-4 font-mono font-semibold text-slate-900">
+                    CB-01048
+                  </td>
+<td class="py-3.5 px-4">
+<div class="font-semibold text-slate-900">PGS. TS. Trần Văn Minh</div>
+<div class="text-caption font-caption text-secondary">Học hàm: Phó Giáo sư - Tiến sĩ</div>
+</td>
+<td class="py-3.5 px-4 text-slate-600 font-mono text-caption">
+                    minhtv@vinhuni.edu.vn
+                  </td>
+<td class="py-3.5 px-4">
+<span class="text-slate-800 font-medium">Khoa CNTT - Kỹ thuật Phần mềm</span>
+</td>
+<td class="py-3.5 px-4">
+<span class="font-mono text-caption font-bold px-2 py-0.5 rounded bg-slate-100 text-slate-800 border border-slate-200">
+                      TRUONG_KHOA
+                    </span>
+</td>
+<td class="py-3.5 px-4">
+<div class="flex items-center gap-1.5 text-emerald-700 font-semibold text-caption font-caption">
+<span class="w-2 h-2 rounded-full bg-emerald-600"></span>
+                      HOAT_DONG
+                    </div>
+</td>
+<td class="py-3.5 px-4 text-right">
+<div class="inline-flex items-center gap-1">
+<button class="p-1 text-slate-500 hover:text-slate-900 hover:bg-slate-100 rounded" title="Phân quyền">
+<span class="material-symbols-outlined text-sm" data-icon="lock_open">lock_open</span>
+</button>
+<button class="p-1 text-slate-500 hover:text-slate-900 hover:bg-slate-100 rounded" title="Chỉnh sửa">
+<span class="material-symbols-outlined text-sm" data-icon="edit">edit</span>
+</button>
+<button class="p-1 text-slate-400 hover:text-slate-700 hover:bg-slate-100 rounded" title="Xem thêm">
+<span class="material-symbols-outlined text-sm" data-icon="more_vert">more_vert</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- Hàng 2: Giảng viên (KTPM) -->
+<tr class="hover:bg-slate-50 transition-colors">
+<td class="py-3.5 px-4 text-center">
+<input class="rounded border-slate-300 text-slate-900 focus:ring-0" type="checkbox"/>
+</td>
+<td class="py-3.5 px-4 font-mono font-semibold text-slate-900">
+                    CB-02319
+                  </td>
+<td class="py-3.5 px-4">
+<div class="font-semibold text-slate-900">TS. Nguyễn Thị Mai Hương</div>
+<div class="text-caption font-caption text-secondary">Trưởng bộ môn KTPM</div>
+</td>
+<td class="py-3.5 px-4 text-slate-600 font-mono text-caption">
+                    huongntm@vinhuni.edu.vn
+                  </td>
+<td class="py-3.5 px-4">
+<span class="text-slate-800 font-medium">Bộ môn Kỹ thuật Phần mềm</span>
+</td>
+<td class="py-3.5 px-4">
+<span class="font-mono text-caption font-bold px-2 py-0.5 rounded bg-slate-100 text-slate-800 border border-slate-200">
+                      GIANG_VIEN
+                    </span>
+</td>
+<td class="py-3.5 px-4">
+<div class="flex items-center gap-1.5 text-emerald-700 font-semibold text-caption font-caption">
+<span class="w-2 h-2 rounded-full bg-emerald-600"></span>
+                      HOAT_DONG
+                    </div>
+</td>
+<td class="py-3.5 px-4 text-right">
+<div class="inline-flex items-center gap-1">
+<button class="p-1 text-slate-500 hover:text-slate-900 hover:bg-slate-100 rounded" title="Phân quyền">
+<span class="material-symbols-outlined text-sm" data-icon="lock_open">lock_open</span>
+</button>
+<button class="p-1 text-slate-500 hover:text-slate-900 hover:bg-slate-100 rounded" title="Chỉnh sửa">
+<span class="material-symbols-outlined text-sm" data-icon="edit">edit</span>
+</button>
+<button class="p-1 text-slate-400 hover:text-slate-700 hover:bg-slate-100 rounded" title="Xem thêm">
+<span class="material-symbols-outlined text-sm" data-icon="more_vert">more_vert</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- Hàng 3: Quản trị hệ thống -->
+<tr class="hover:bg-slate-50 transition-colors">
+<td class="py-3.5 px-4 text-center">
+<input class="rounded border-slate-300 text-slate-900 focus:ring-0" type="checkbox"/>
+</td>
+<td class="py-3.5 px-4 font-mono font-semibold text-slate-900">
+                    AD-00002
+                  </td>
+<td class="py-3.5 px-4">
+<div class="font-semibold text-slate-900">ThS. Lê Hoàng Tuấn</div>
+<div class="text-caption font-caption text-secondary">Chuyên viên CNTT &amp; Cơ sở dữ liệu</div>
+</td>
+<td class="py-3.5 px-4 text-slate-600 font-mono text-caption">
+                    tuanlh.sys@vinhuni.edu.vn
+                  </td>
+<td class="py-3.5 px-4">
+<span class="text-slate-800 font-medium">Ban Quản trị KT&amp;CN</span>
+</td>
+<td class="py-3.5 px-4">
+<span class="font-mono text-caption font-bold px-2 py-0.5 rounded bg-slate-900 text-white border border-slate-900">
+                      QUAN_TRI
+                    </span>
+</td>
+<td class="py-3.5 px-4">
+<div class="flex items-center gap-1.5 text-emerald-700 font-semibold text-caption font-caption">
+<span class="w-2 h-2 rounded-full bg-emerald-600"></span>
+                      HOAT_DONG
+                    </div>
+</td>
+<td class="py-3.5 px-4 text-right">
+<div class="inline-flex items-center gap-1">
+<button class="p-1 text-slate-500 hover:text-slate-900 hover:bg-slate-100 rounded" title="Phân quyền">
+<span class="material-symbols-outlined text-sm" data-icon="lock_open">lock_open</span>
+</button>
+<button class="p-1 text-slate-500 hover:text-slate-900 hover:bg-slate-100 rounded" title="Chỉnh sửa">
+<span class="material-symbols-outlined text-sm" data-icon="edit">edit</span>
+</button>
+<button class="p-1 text-slate-400 hover:text-slate-700 hover:bg-slate-100 rounded" title="Xem thêm">
+<span class="material-symbols-outlined text-sm" data-icon="more_vert">more_vert</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- Hàng 4: Sinh viên chuẩn bị đồ án -->
+<tr class="hover:bg-slate-50 transition-colors">
+<td class="py-3.5 px-4 text-center">
+<input class="rounded border-slate-300 text-slate-900 focus:ring-0" type="checkbox"/>
+</td>
+<td class="py-3.5 px-4 font-mono font-semibold text-slate-900">
+                    2151060382
+                  </td>
+<td class="py-3.5 px-4">
+<div class="font-semibold text-slate-900">Nguyễn Hải Đăng</div>
+<div class="text-caption font-caption text-secondary">Lớp 62KTPM - Khóa 62</div>
+</td>
+<td class="py-3.5 px-4 text-slate-600 font-mono text-caption">
+                    dangnh.2151@sv.vinhuni.edu.vn
+                  </td>
+<td class="py-3.5 px-4">
+<span class="text-slate-800 font-medium">Bộ môn Kỹ thuật Phần mềm</span>
+</td>
+<td class="py-3.5 px-4">
+<span class="font-mono text-caption font-bold px-2 py-0.5 rounded bg-slate-100 text-slate-800 border border-slate-200">
+                      SINH_VIEN
+                    </span>
+</td>
+<td class="py-3.5 px-4">
+<div class="flex items-center gap-1.5 text-emerald-700 font-semibold text-caption font-caption">
+<span class="w-2 h-2 rounded-full bg-emerald-600"></span>
+                      HOAT_DONG
+                    </div>
+</td>
+<td class="py-3.5 px-4 text-right">
+<div class="inline-flex items-center gap-1">
+<button class="p-1 text-slate-500 hover:text-slate-900 hover:bg-slate-100 rounded" title="Phân quyền">
+<span class="material-symbols-outlined text-sm" data-icon="lock_open">lock_open</span>
+</button>
+<button class="p-1 text-slate-500 hover:text-slate-900 hover:bg-slate-100 rounded" title="Chỉnh sửa">
+<span class="material-symbols-outlined text-sm" data-icon="edit">edit</span>
+</button>
+<button class="p-1 text-slate-400 hover:text-slate-700 hover:bg-slate-100 rounded" title="Xem thêm">
+<span class="material-symbols-outlined text-sm" data-icon="more_vert">more_vert</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- Hàng 5: Sinh viên Chờ duyệt liên kết SSO USmart -->
+<tr class="hover:bg-slate-50 transition-colors bg-amber-50/20">
+<td class="py-3.5 px-4 text-center">
+<input class="rounded border-slate-300 text-slate-900 focus:ring-0" type="checkbox"/>
+</td>
+<td class="py-3.5 px-4 font-mono font-semibold text-slate-900">
+                    2151060415
+                  </td>
+<td class="py-3.5 px-4">
+<div class="font-semibold text-slate-900">Phan Thu Thảo</div>
+<div class="text-caption font-caption text-secondary">Lớp 62MMT - Cần mapping USmart ID</div>
+</td>
+<td class="py-3.5 px-4 text-slate-600 font-mono text-caption">
+                    thaopt.2151@sv.vinhuni.edu.vn
+                  </td>
+<td class="py-3.5 px-4">
+<span class="text-slate-800 font-medium">Bộ môn Mạng máy tính &amp; TT</span>
+</td>
+<td class="py-3.5 px-4">
+<span class="font-mono text-caption font-bold px-2 py-0.5 rounded bg-slate-100 text-slate-800 border border-slate-200">
+                      SINH_VIEN
+                    </span>
+</td>
+<td class="py-3.5 px-4">
+<div class="flex items-center gap-1.5 text-amber-700 font-semibold text-caption font-caption">
+<span class="w-2 h-2 rounded-full bg-amber-600"></span>
+                      CHO_DUYET
+                    </div>
+</td>
+<td class="py-3.5 px-4 text-right">
+<div class="inline-flex items-center gap-1">
+<button class="px-2 py-1 bg-white border border-slate-200 hover:bg-slate-100 rounded text-caption font-caption font-semibold text-slate-800" title="Duyệt kết nối">
+                        Duyệt SSO
+                      </button>
+<button class="p-1 text-slate-400 hover:text-slate-700 hover:bg-slate-100 rounded" title="Xem thêm">
+<span class="material-symbols-outlined text-sm" data-icon="more_vert">more_vert</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- Hàng 6: Giảng viên Bộ môn HTTT -->
+<tr class="hover:bg-slate-50 transition-colors">
+<td class="py-3.5 px-4 text-center">
+<input class="rounded border-slate-300 text-slate-900 focus:ring-0" type="checkbox"/>
+</td>
+<td class="py-3.5 px-4 font-mono font-semibold text-slate-900">
+                    CB-03125
+                  </td>
+<td class="py-3.5 px-4">
+<div class="font-semibold text-slate-900">TS. Đặng Quốc Dũng</div>
+<div class="text-caption font-caption text-secondary">Phó Trưởng bộ môn HTTT</div>
+</td>
+<td class="py-3.5 px-4 text-slate-600 font-mono text-caption">
+                    dungdq@vinhuni.edu.vn
+                  </td>
+<td class="py-3.5 px-4">
+<span class="text-slate-800 font-medium">Bộ môn Hệ thống Thông tin</span>
+</td>
+<td class="py-3.5 px-4">
+<span class="font-mono text-caption font-bold px-2 py-0.5 rounded bg-slate-100 text-slate-800 border border-slate-200">
+                      GIANG_VIEN
+                    </span>
+</td>
+<td class="py-3.5 px-4">
+<div class="flex items-center gap-1.5 text-emerald-700 font-semibold text-caption font-caption">
+<span class="w-2 h-2 rounded-full bg-emerald-600"></span>
+                      HOAT_DONG
+                    </div>
+</td>
+<td class="py-3.5 px-4 text-right">
+<div class="inline-flex items-center gap-1">
+<button class="p-1 text-slate-500 hover:text-slate-900 hover:bg-slate-100 rounded" title="Phân quyền">
+<span class="material-symbols-outlined text-sm" data-icon="lock_open">lock_open</span>
+</button>
+<button class="p-1 text-slate-500 hover:text-slate-900 hover:bg-slate-100 rounded" title="Chỉnh sửa">
+<span class="material-symbols-outlined text-sm" data-icon="edit">edit</span>
+</button>
+<button class="p-1 text-slate-400 hover:text-slate-700 hover:bg-slate-100 rounded" title="Xem thêm">
+<span class="material-symbols-outlined text-sm" data-icon="more_vert">more_vert</span>
+</button>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- Bảng phân trang chuẩn xác -->
+<div class="p-4 border-t border-slate-200 bg-white flex flex-col sm:flex-row items-center justify-between gap-3 text-caption font-caption text-secondary">
+<div>
+              Đang xem <span class="font-semibold text-slate-900">1 - 6</span> trên tổng số <span class="font-semibold text-slate-900">614</span> người dùng hệ thống
+            </div>
+<div class="flex items-center gap-1">
+<button class="px-2.5 py-1.5 border border-slate-200 rounded text-slate-400 hover:bg-slate-50 disabled:opacity-50" disabled="">
+                Trang trước
+              </button>
+<button class="px-3 py-1.5 border border-slate-900 bg-slate-900 text-white rounded font-semibold">1</button>
+<button class="px-3 py-1.5 border border-slate-200 hover:bg-slate-50 text-slate-700 rounded">2</button>
+<button class="px-3 py-1.5 border border-slate-200 hover:bg-slate-50 text-slate-700 rounded">3</button>
+<span class="px-1 text-slate-400">...</span>
+<button class="px-3 py-1.5 border border-slate-200 hover:bg-slate-50 text-slate-700 rounded">103</button>
+<button class="px-2.5 py-1.5 border border-slate-200 rounded text-slate-700 hover:bg-slate-50">
+                Trang sau
+              </button>
+</div>
+</div>
+</section>
+<!-- KHỐI BỔ TRỢ PHÂN ĐOẠN 4: Chi tiết danh mục Khoa & Xem trước Audit Log -->
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+<!-- Danh mục Khoa & 4 Bộ môn trực thuộc (UC29 Preview) -->
+<section class="bg-white border border-slate-200 rounded-xl p-5 shadow-sm">
+<div class="flex items-center justify-between pb-3 border-b border-slate-100">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-slate-700" data-icon="domain">domain</span>
+<h2 class="text-headline-sm font-headline-sm text-slate-900">Danh mục Bộ môn Trực thuộc (UC29)</h2>
+</div>
+<button class="text-caption font-caption font-semibold text-slate-900 hover:underline flex items-center gap-1">
+                Xem toàn bộ <span class="material-symbols-outlined text-xs" data-icon="arrow_forward">arrow_forward</span>
+</button>
+</div>
+<div class="mt-4 space-y-2.5">
+<div class="p-3 border border-slate-200 rounded-lg flex items-center justify-between bg-slate-50/50">
+<div>
+<div class="text-body-sm font-body-sm font-bold text-slate-900">Bộ môn Kỹ thuật Phần mềm (KTPM)</div>
+<div class="text-caption font-caption text-secondary">Trưởng bộ môn: TS. Nguyễn Thị Mai Hương • 32 Giảng viên</div>
+</div>
+<span class="text-caption font-caption font-mono font-semibold px-2 py-0.5 rounded bg-white border border-slate-200 text-slate-700">BM-KTPM</span>
+</div>
+<div class="p-3 border border-slate-200 rounded-lg flex items-center justify-between bg-slate-50/50">
+<div>
+<div class="text-body-sm font-body-sm font-bold text-slate-900">Bộ môn Khoa học Máy tính (CNTT)</div>
+<div class="text-caption font-caption text-secondary">Trưởng bộ môn: TS. Lê Văn Thành • 36 Giảng viên</div>
+</div>
+<span class="text-caption font-caption font-mono font-semibold px-2 py-0.5 rounded bg-white border border-slate-200 text-slate-700">BM-CNTT</span>
+</div>
+<div class="p-3 border border-slate-200 rounded-lg flex items-center justify-between bg-slate-50/50">
+<div>
+<div class="text-body-sm font-body-sm font-bold text-slate-900">Bộ môn Mạng máy tính &amp; Truyền thông (MMT)</div>
+<div class="text-caption font-caption text-secondary">Trưởng bộ môn: ThS. Hoàng Quốc Việt • 28 Giảng viên</div>
+</div>
+<span class="text-caption font-caption font-mono font-semibold px-2 py-0.5 rounded bg-white border border-slate-200 text-slate-700">BM-MMT</span>
+</div>
+<div class="p-3 border border-slate-200 rounded-lg flex items-center justify-between bg-slate-50/50">
+<div>
+<div class="text-body-sm font-body-sm font-bold text-slate-900">Bộ môn Hệ thống Thông tin (HTTT)</div>
+<div class="text-caption font-caption text-secondary">Trưởng bộ môn: TS. Đặng Quốc Dũng (Phụ trách) • 32 Giảng viên</div>
+</div>
+<span class="text-caption font-caption font-mono font-semibold px-2 py-0.5 rounded bg-white border border-slate-200 text-slate-700">BM-HTTT</span>
+</div>
+</div>
+</section>
+<!-- Nhật ký Kiểm toán Audit Trail Mới nhất (UC30 Preview) -->
+<section class="bg-white border border-slate-200 rounded-xl p-5 shadow-sm">
+<div class="flex items-center justify-between pb-3 border-b border-slate-100">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-slate-700" data-icon="history">history</span>
+<h2 class="text-headline-sm font-headline-sm text-slate-900">Nhật ký Kiểm toán Hệ thống (UC30)</h2>
+</div>
+<span class="text-caption font-caption text-emerald-700 font-semibold flex items-center gap-1">
+<span class="w-1.5 h-1.5 rounded-full bg-emerald-600"></span> Ghi nhận liên tục
+              </span>
+</div>
+<div class="mt-4 space-y-3 font-mono text-caption">
+<!-- Log item 1 -->
+<div class="p-2.5 rounded bg-slate-50 border border-slate-200 flex items-start gap-2.5">
+<span class="text-slate-400 shrink-0">14:32:08</span>
+<div class="min-w-0 flex-1">
+<span class="text-slate-900 font-bold">AUTH_SYNC_USMART:</span>
+<span class="text-slate-600">Đồng bộ tự động 16 hồ sơ sinh viên Khóa 62 từ máy chủ đào tạo. Trạng thái: Thành công.</span>
+</div>
+</div>
+<!-- Log item 2 -->
+<div class="p-2.5 rounded bg-slate-50 border border-slate-200 flex items-start gap-2.5">
+<span class="text-slate-400 shrink-0">14:15:42</span>
+<div class="min-w-0 flex-1">
+<span class="text-slate-900 font-bold">RBAC_UPDATE:</span>
+<span class="text-slate-600">Admin gán quyền hội đồng phản biện đồ án cho CB-02319 (TS. Nguyễn Thị Mai Hương).</span>
+</div>
+</div>
+<!-- Log item 3 -->
+<div class="p-2.5 rounded bg-slate-50 border border-slate-200 flex items-start gap-2.5">
+<span class="text-slate-400 shrink-0">13:58:19</span>
+<div class="min-w-0 flex-1">
+<span class="text-slate-900 font-bold">ACCOUNT_ACTIVATE:</span>
+<span class="text-slate-600">Kích hoạt tài khoản người dùng MSSV 2151060382 sau khi xác thực email trường.</span>
+</div>
+</div>
+<!-- Log item 4 -->
+<div class="p-2.5 rounded bg-slate-50 border border-slate-200 flex items-start gap-2.5">
+<span class="text-slate-400 shrink-0">13:20:01</span>
+<div class="min-w-0 flex-1">
+<span class="text-slate-900 font-bold">SYSTEM_INTEGRITY:</span>
+<span class="text-slate-600">Kiểm tra tính toàn vẹn cơ sở dữ liệu đồ án 6 giai đoạn (M60-M62): 0 lỗi phát hiện.</span>
+</div>
+</div>
+</div>
+</section>
+</div>
+</div>
+<!-- Footer thể chế -->
+<footer class="mt-auto border-t border-slate-200 bg-white py-4 px-6 text-center text-caption font-caption text-secondary">
+        TRƯỜNG KỸ THUẬT VÀ CÔNG NGHỆ - TRƯỜNG ĐẠI HỌC VINH • HỆ THỐNG QUẢN LÝ THỰC TẬP VÀ ĐỒ ÁN TỐT NGHIỆP 2025
+      </footer>
+</main>
+</div>
+</body></html>

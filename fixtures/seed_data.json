@@ -1,0 +1,1296 @@
+[
+{
+  "model": "auth.user",
+  "fields": {
+    "password": "pbkdf2_sha256$1500000$xKuju8Hk8KLWSGPplGylpl$zC/K3dDqnzpsDw5/o8Grs3VwgcahQh4uO+3phrhYAdI=",
+    "last_login": "2026-11-09T13:18:54.054Z",
+    "is_superuser": true,
+    "username": "admin",
+    "first_name": "",
+    "last_name": "",
+    "email": "admin@vinhuni.edu.vn",
+    "is_staff": true,
+    "is_active": true,
+    "date_joined": "2026-11-08T09:11:27.172Z",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "auth.user",
+  "fields": {
+    "password": "pbkdf2_sha256$1500000$iWXUy8IRVWjeLXDgiKpOLE$30Ezi4i92z4yV9JP8TnEWGMLgqm5KCgQxXeMAydP/pc=",
+    "last_login": "2026-11-09T14:07:19.894Z",
+    "is_superuser": false,
+    "username": "truongkhoa",
+    "first_name": "Phong",
+    "last_name": "TS. Phan Anh",
+    "email": "phongpa@vinhuni.edu.vn",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2026-11-08T14:34:16.464Z",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "auth.user",
+  "fields": {
+    "password": "pbkdf2_sha256$1500000$xxOUC3ecxGFUkxFGWChPzz$zBq75rNOW57Q4oFWOceQv6NeaUgy3r6oD1cDWfj0lN4=",
+    "last_login": "2026-11-09T13:18:37.333Z",
+    "is_superuser": false,
+    "username": "gv_son",
+    "first_name": "Sơn",
+    "last_name": "TS. Cao Thanh",
+    "email": "sonct@vinhuni.edu.vn",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2026-11-08T14:34:17.274Z",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "auth.user",
+  "fields": {
+    "password": "pbkdf2_sha256$1500000$2SaQwKtgk2fXqnntO0RQpa$NeMwNqV4+zJ6kqLeGaAirme+wTetM1jBrFqAFjER4rU=",
+    "last_login": "2026-11-09T12:36:08.380Z",
+    "is_superuser": false,
+    "username": "sv_manh",
+    "first_name": "Mạnh",
+    "last_name": "Nguyễn Trọng",
+    "email": "manhnt211108234@student.vinhuni.edu.vn",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2026-11-08T14:34:18.166Z",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "sessions.session",
+  "pk": "16gmgiarpx7iqg3pr1b0mk2tb16gtqar",
+  "fields": {
+    "session_data": ".eJxVjsEOwiAQRP-FsyFLC8V69N5vIAu7SLWBhLYn479bkh70Om_mZd7C4b4lt69c3UziJjpx-c08hhfnBuiJ-VFkKHmrs5etIk-6yqkQL_ez-ydIuKZjrehqlGHWUfshAhEG6HyIqMAaqxlV5GA99TAaMjh2doygBrK9AgTQhzTstXLeXC0Ltz-MWXy-KkM_sQ:1xQQ1n:xXAr6RgM3qlrTwI700Oso5TxZvJHWiIUtT6W6m14UFU",
+    "expire_date": "2026-11-23T14:07:19.919Z"
+  }
+},
+{
+  "model": "sessions.session",
+  "pk": "19ov5clukpbya3tcmnnreikjrfat0taf",
+  "fields": {
+    "session_data": ".eJxVjsEOwiAQRP-FsyFLC8V69N5vIAu7SLWBhLYn479bkh70Om_mZd7C4b4lt69c3UziJjpx-c08hhfnBuiJ-VFkKHmrs5etIk-6yqkQL_ez-ydIuKZjrehqlGHWUfshAhEG6HyIqMAaqxlV5GA99TAaMjh2doygBrK9AgTQhzTstXLeXC0Ltz-MWXy-KkM_sQ:1xQ40x:Lxbqmxnky92K50jLgACTXr_k5Nh_PJH8jRIW3i-ymZo",
+    "expire_date": "2026-11-22T14:36:59.417Z"
+  }
+},
+{
+  "model": "sessions.session",
+  "pk": "1radibj4ako12bnqqyovwkg6a3dgogr0",
+  "fields": {
+    "session_data": ".eJxVjDkOwjAQRe_iGlleiJ1Q0ucM1sQzJoHIlrxUiLvjSCmg-vrbezMHra6uFcpuQ3ZjV3b5zRbwL4pHgU-Ij8R9ijVvCz8m_GwLnxPSfj-3f4AVytrf1oDRxmsgQJwgBLBdgzWqR8YONCBqKTUuAeSghBgViTDJUY1oJ7Qd6lvOFKvLaadOLLVht-zzBQOpQXk:1xQ41Y:GSf43M7j7ygN__YntA_qyORwHBqfSBFk_Rckt96obRs",
+    "expire_date": "2026-11-22T14:37:36.846Z"
+  }
+},
+{
+  "model": "sessions.session",
+  "pk": "207bfdilr507cos0gizmb7v5fq62o6a8",
+  "fields": {
+    "session_data": ".eJxVjMEOwiAQRP-FsyG2XRA8evcbCCxbW20gWeBk_Hdp0oPeJjNv3ls43-riWiF2axRXMYnTbxc8vijtQ3z69MgSc6q8Brkj8liLvOdI2-1g_wSLL0t_I1g96vM4ebAYFFgDIU56tDP2iGT8oAOANkNApRToIRoT1cUSzhqU6VJszJSq47xRN26EtTGx-HwB1QdAdQ:1xQOQz:3qE1RRqxI6rs9u6vRQ0Kev_uqTqQ9Y1PQe5WPxSyfqQ",
+    "expire_date": "2026-11-23T12:25:13.924Z"
+  }
+},
+{
+  "model": "sessions.session",
+  "pk": "3mutsd2jp3xnyoece268ayb4actupjjn",
+  "fields": {
+    "session_data": ".eJxVjsEOwiAQRP-FsyFLC8V69N5vIAu7SLWBhLYn479bkh70Om_mZd7C4b4lt69c3UziJjpx-c08hhfnBuiJ-VFkKHmrs5etIk-6yqkQL_ez-ydIuKZjrehqlGHWUfshAhEG6HyIqMAaqxlV5GA99TAaMjh2doygBrK9AgTQhzTstXLeXC0Ltz-MWXy-KkM_sQ:1xQ64B:AtqMWNDgOvy9HK83tAPbgSzTOJ9AJFK0aR2UlANaJCI",
+    "expire_date": "2026-11-22T16:48:27.870Z"
+  }
+},
+{
+  "model": "sessions.session",
+  "pk": "4ctserqr0899upka1rmfnrbkjlvlmiw9",
+  "fields": {
+    "session_data": ".eJxVjsEOwiAQRP-FsyFLC8V69N5vIAu7SLWBhLYn479bkh70Om_mZd7C4b4lt69c3UziJjpx-c08hhfnBuiJ-VFkKHmrs5etIk-6yqkQL_ez-ydIuKZjrehqlGHWUfshAhEG6HyIqMAaqxlV5GA99TAaMjh2doygBrK9AgTQhzTstXLeXC0Ltz-MWXy-KkM_sQ:1xQ574:TZyDtOPH3CIN8jX60zKRS0NXC72Xi7DefqMV2xbXAsE",
+    "expire_date": "2026-11-22T15:47:22.046Z"
+  }
+},
+{
+  "model": "sessions.session",
+  "pk": "4k1jt9e0n12pux35stjmz9ztlzksa3it",
+  "fields": {
+    "session_data": ".eJxVjsEOwiAQRP-FsyFLC8V69N5vIAu7SLWBhLYn479bkh70Om_mZd7C4b4lt69c3UziJjpx-c08hhfnBuiJ-VFkKHmrs5etIk-6yqkQL_ez-ydIuKZjrehqlGHWUfshAhEG6HyIqMAaqxlV5GA99TAaMjh2doygBrK9AgTQhzTstXLeXC0Ltz-MWXy-KkM_sQ:1xQ4JP:bM7KTJjiT_HSRqJgbJtx6ZbKy73C5C87w_0-O00BD90",
+    "expire_date": "2026-11-22T14:56:03.204Z"
+  }
+},
+{
+  "model": "sessions.session",
+  "pk": "5xhxrjct2ocfq52lu2e99f166xwtu7y0",
+  "fields": {
+    "session_data": ".eJxNjbsKwzAMRX_FaO5gpymUbv2AZGnGgBG2SQyOHPwIhNJ_r53Jk450uFdfUDkEQ0kG7wy8IKasywo32E2InlASblWMSz7nLIx6EJvCRZoWNlRCQWuTUF7XRCeE4M_u3jcKD0wYat3QXOtvqW3cHZ7FfSyt7LBz5twgMXcB31iZpfE9jfD7A9r7PY0:1xQ6nf:wh7at7GF1CYB5Dmkdf50BBbHeM5Ofd4G5fuOR-EC8Gg",
+    "expire_date": "2026-11-22T17:35:27.451Z"
+  }
+},
+{
+  "model": "sessions.session",
+  "pk": "6e4gqovhnox2za2iaazylte9lzmq1fjr",
+  "fields": {
+    "session_data": ".eJxVjDkOwjAQRe_iGlleiJ1Q0ucM1sQzJoHIlrxUiLvjSCmg-vrbezMHra6uFcpuQ3ZjV3b5zRbwL4pHgU-Ij8R9ijVvCz8m_GwLnxPSfj-3f4AVytrf1oDRxmsgQJwgBLBdgzWqR8YONCBqKTUuAeSghBgViTDJUY1oJ7Qd6lvOFKvLaadOLLVht-zzBQOpQXk:1xQORd:UOjMktFC3zPL4LOzp_eQPnjUPZHyoyU9JpPMPvJCxqI",
+    "expire_date": "2026-11-23T12:25:53.135Z"
+  }
+},
+{
+  "model": "sessions.session",
+  "pk": "6y4xk1z5oamx4dad01afbbik0o42r7bt",
+  "fields": {
+    "session_data": ".eJxVjsEOwiAQRP-FsyFLC8V69N5vIAu7SLWBhLYn479bkh70Om_mZd7C4b4lt69c3UziJjpx-c08hhfnBuiJ-VFkKHmrs5etIk-6yqkQL_ez-ydIuKZjrehqlGHWUfshAhEG6HyIqMAaqxlV5GA99TAaMjh2doygBrK9AgTQhzTstXLeXC0Ltz-MWXy-KkM_sQ:1xQOTP:QG5unEalRlfRLPe_B6ZwCZyRrTDrELeSJcnuN84_tb0",
+    "expire_date": "2026-11-23T12:27:43.030Z"
+  }
+},
+{
+  "model": "sessions.session",
+  "pk": "7o3ymqnwgd08dnihu2w1dmqpwhntm584",
+  "fields": {
+    "session_data": ".eJxVjsEOwiAQRP-FsyFLC8V69N5vIAu7SLWBhLYn479bkh70Om_mZd7C4b4lt69c3UziJjpx-c08hhfnBuiJ-VFkKHmrs5etIk-6yqkQL_ez-ydIuKZjrehqlGHWUfshAhEG6HyIqMAaqxlV5GA99TAaMjh2doygBrK9AgTQhzTstXLeXC0Ltz-MWXy-KkM_sQ:1xQ4ZF:timvHLMUdrweyQLFZ8o_OXbXrzhJs7b_VZEgPelhW-g",
+    "expire_date": "2026-11-22T15:12:25.590Z"
+  }
+},
+{
+  "model": "sessions.session",
+  "pk": "8ikfclo6in1vrb1hm5d1kyv4w1isseb3",
+  "fields": {
+    "session_data": ".eJxVjDkOwjAQRe_iGlleiJ1Q0ucM1sQzJoHIlrxUiLvjSCmg-vrbezMHra6uFcpuQ3ZjV3b5zRbwL4pHgU-Ij8R9ijVvCz8m_GwLnxPSfj-3f4AVytrf1oDRxmsgQJwgBLBdgzWqR8YONCBqKTUuAeSghBgViTDJUY1oJ7Qd6lvOFKvLaadOLLVht-zzBQOpQXk:1xQ5b1:F1oZxfJjurdFxLW5cW48ewRJ9x2qBssm1OXrSQqL7B0",
+    "expire_date": "2026-11-22T16:18:19.073Z"
+  }
+},
+{
+  "model": "sessions.session",
+  "pk": "8qdi4zyelflaibnnf1bb42xpus17wf9w",
+  "fields": {
+    "session_data": ".eJxVjsEOwiAQRP-FsyFLC8V69N5vIAu7SLWBhLYn479bkh70Om_mZd7C4b4lt69c3UziJjpx-c08hhfnBuiJ-VFkKHmrs5etIk-6yqkQL_ez-ydIuKZjrehqlGHWUfshAhEG6HyIqMAaqxlV5GA99TAaMjh2doygBrK9AgTQhzTstXLeXC0Ltz-MWXy-KkM_sQ:1xQ4fJ:-cELrI3tGX0aXflgjIAVIDP999_ndYSsohPqV-bL8Tc",
+    "expire_date": "2026-11-22T15:18:41.541Z"
+  }
+},
+{
+  "model": "sessions.session",
+  "pk": "b7q68cguqqjvntywuoad0vmsjnxj4rdn",
+  "fields": {
+    "session_data": ".eJxVjDkOwjAQRe_iGlleiJ1Q0ucM1sQzJoHIlrxUiLvjSCmg-vrbezMHra6uFcpuQ3ZjV3b5zRbwL4pHgU-Ij8R9ijVvCz8m_GwLnxPSfj-3f4AVytrf1oDRxmsgQJwgBLBdgzWqR8YONCBqKTUuAeSghBgViTDJUY1oJ7Qd6lvOFKvLaadOLLVht-zzBQOpQXk:1xQ4Ji:d2_46qbuKHXU0podkChY-tcjENk2UY35ce88r6stGTA",
+    "expire_date": "2026-11-22T14:56:22.229Z"
+  }
+},
+{
+  "model": "sessions.session",
+  "pk": "bbjotyao2u18gt31ldmxl6tfq3v5n8or",
+  "fields": {
+    "session_data": ".eJxVjDkOwjAQRe_iGlleiJ1Q0ucM1sQzJoHIlrxUiLvjSCmg-vrbezMHra6uFcpuQ3ZjV3b5zRbwL4pHgU-Ij8R9ijVvCz8m_GwLnxPSfj-3f4AVytrf1oDRxmsgQJwgBLBdgzWqR8YONCBqKTUuAeSghBgViTDJUY1oJ7Qd6lvOFKvLaadOLLVht-zzBQOpQXk:1xQ498:F1xxift3i1in3mZILzevNWKGBcjz2VghXEHkE9JEuWc",
+    "expire_date": "2026-11-22T14:45:26.901Z"
+  }
+},
+{
+  "model": "sessions.session",
+  "pk": "bjvfb7f1o48ry6ptvmoddjg3e5876qnf",
+  "fields": {
+    "session_data": ".eJxVjsEOwiAQRP-FsyFLC8V69N5vIAu7SLWBhLYn479bkh70Om_mZd7C4b4lt69c3UziJjpx-c08hhfnBuiJ-VFkKHmrs5etIk-6yqkQL_ez-ydIuKZjrehqlGHWUfshAhEG6HyIqMAaqxlV5GA99TAaMjh2doygBrK9AgTQhzTstXLeXC0Ltz-MWXy-KkM_sQ:1xQ54h:c4g46Y72witQPfax8RgvB_DUJErDF6qPWYiTf6JZjng",
+    "expire_date": "2026-11-22T15:44:55.225Z"
+  }
+},
+{
+  "model": "sessions.session",
+  "pk": "bltpy3s0tzgxg6nrzwoqfroiytzlnkdz",
+  "fields": {
+    "session_data": ".eJxVjDkOwjAQRe_iGlleiJ1Q0ucM1sQzJoHIlrxUiLvjSCmg-vrbezMHra6uFcpuQ3ZjV3b5zRbwL4pHgU-Ij8R9ijVvCz8m_GwLnxPSfj-3f4AVytrf1oDRxmsgQJwgBLBdgzWqR8YONCBqKTUuAeSghBgViTDJUY1oJ7Qd6lvOFKvLaadOLLVht-zzBQOpQXk:1xQ4WP:7dH5Jbi1eUtuVK8ItlsVKWnZTn-SYXxFMvIGQKUSYhs",
+    "expire_date": "2026-11-22T15:09:29.636Z"
+  }
+},
+{
+  "model": "sessions.session",
+  "pk": "c5k8p0vmhq3inscorluhh7nbdwoh2v7d",
+  "fields": {
+    "session_data": ".eJxVjsEOwiAQRP-FsyFLC8V69N5vIAu7SLWBhLYn479bkh70Om_mZd7C4b4lt69c3UziJjpx-c08hhfnBuiJ-VFkKHmrs5etIk-6yqkQL_ez-ydIuKZjrehqlGHWUfshAhEG6HyIqMAaqxlV5GA99TAaMjh2doygBrK9AgTQhzTstXLeXC0Ltz-MWXy-KkM_sQ:1xQ48C:YYh1o88AGk_LZGFPQihCfNjR7KDhENK6ULC3Vv4flFI",
+    "expire_date": "2026-11-22T14:44:28.797Z"
+  }
+},
+{
+  "model": "sessions.session",
+  "pk": "dunvcq29xsmv1thlkpgz5gx2c1iruej0",
+  "fields": {
+    "session_data": ".eJxVjsEOwiAQRP-FsyFLC8V69N5vIAu7SLWBhLYn479bkh70Om_mZd7C4b4lt69c3UziJjpx-c08hhfnBuiJ-VFkKHmrs5etIk-6yqkQL_ez-ydIuKZjrehqlGHWUfshAhEG6HyIqMAaqxlV5GA99TAaMjh2doygBrK9AgTQhzTstXLeXC0Ltz-MWXy-KkM_sQ:1xQ4rS:ta-_4A_fC0X_fiEM97nLDJKXxY4kDRHxebAGvv6Wp6c",
+    "expire_date": "2026-11-22T15:31:14.571Z"
+  }
+},
+{
+  "model": "sessions.session",
+  "pk": "dz8447v5qor4unwawcmkcjgqo0x97tv6",
+  "fields": {
+    "session_data": ".eJxVjsEOwiAQRP-FsyFLC8V69N5vIAu7SLWBhLYn479bkh70Om_mZd7C4b4lt69c3UziJjpx-c08hhfnBuiJ-VFkKHmrs5etIk-6yqkQL_ez-ydIuKZjrehqlGHWUfshAhEG6HyIqMAaqxlV5GA99TAaMjh2doygBrK9AgTQhzTstXLeXC0Ltz-MWXy-KkM_sQ:1xQPGC:364krla1GXn9mlRPqWIZIn8v7DJCE485Yt7HKUO40cs",
+    "expire_date": "2026-11-23T13:18:08.522Z"
+  }
+},
+{
+  "model": "sessions.session",
+  "pk": "e7jsnlhboekzdhaw6u8rm4g6ca358jf7",
+  "fields": {
+    "session_data": ".eJxVjsEOwiAQRP-FsyFLC8V69N5vIAu7SLWBhLYn479bkh70Om_mZd7C4b4lt69c3UziJjpx-c08hhfnBuiJ-VFkKHmrs5etIk-6yqkQL_ez-ydIuKZjrehqlGHWUfshAhEG6HyIqMAaqxlV5GA99TAaMjh2doygBrK9AgTQhzTstXLeXC0Ltz-MWXy-KkM_sQ:1xQOFq:1x69hScT5s9h8mHNj3eupQiMf74Nck-lli-FImm9QN0",
+    "expire_date": "2026-11-23T12:13:42.466Z"
+  }
+},
+{
+  "model": "sessions.session",
+  "pk": "esoyx88l0f55ho8t07e0gd4clzpmyt4c",
+  "fields": {
+    "session_data": ".eJxVjsEOwiAQRP-FsyFLC8V69N5vIAu7SLWBhLYn479bkh70Om_mZd7C4b4lt69c3UziJjpx-c08hhfnBuiJ-VFkKHmrs5etIk-6yqkQL_ez-ydIuKZjrehqlGHWUfshAhEG6HyIqMAaqxlV5GA99TAaMjh2doygBrK9AgTQhzTstXLeXC0Ltz-MWXy-KkM_sQ:1xQHv6:b2wfxLsycrQe8LjsNTn7QoxfNhzOeFQnMdvfX4Lf0dI",
+    "expire_date": "2026-11-23T05:27:52.508Z"
+  }
+},
+{
+  "model": "sessions.session",
+  "pk": "iskvbs96cvfaxqgbxfoom6kapg0kpbo0",
+  "fields": {
+    "session_data": ".eJxVjMEOwiAQRP-FsyG2XRA8evcbCCxbW20gWeBk_Hdp0oPeJjNv3ls43-riWiF2axRXMYnTbxc8vijtQ3z69MgSc6q8Brkj8liLvOdI2-1g_wSLL0t_I1g96vM4ebAYFFgDIU56tDP2iGT8oAOANkNApRToIRoT1cUSzhqU6VJszJSq47xRN26EtTGx-HwB1QdAdQ:1xQPGe:GMFKkulhAt9bAl0k03IMRzTZNBeHMW98ED_ACYjbP78",
+    "expire_date": "2026-11-23T13:18:36.447Z"
+  }
+},
+{
+  "model": "sessions.session",
+  "pk": "j066let9n2xklx4mc8kwvpk78vt7yy0w",
+  "fields": {
+    "session_data": ".eJxNjbsKwzAMRX_FaO5gpymUbv2AZGnGgBG2SQyOHPwIhNJ_r53Jk450uFdfUDkEQ0kG7wy8IKasywo32E2InlASblWMSz7nLIx6EJvCRZoWNlRCQWuTUF7XRCeE4M_u3jcKD0wYat3QXOtvqW3cHZ7FfSyt7LBz5twgMXcB31iZpfE9jfD7A9r7PY0:1xQ6mC:SiFDAoVzVxWW4whrcyw5L08faeQiP5-HUu6037ledHc",
+    "expire_date": "2026-11-22T17:33:56.993Z"
+  }
+},
+{
+  "model": "sessions.session",
+  "pk": "l12jqnjpxy8glg0tn8sbreva26g94x79",
+  "fields": {
+    "session_data": ".eJxVjDkOwjAQRe_iGlleiJ1Q0ucM1sQzJoHIlrxUiLvjSCmg-vrbezMHra6uFcpuQ3ZjV3b5zRbwL4pHgU-Ij8R9ijVvCz8m_GwLnxPSfj-3f4AVytrf1oDRxmsgQJwgBLBdgzWqR8YONCBqKTUuAeSghBgViTDJUY1oJ7Qd6lvOFKvLaadOLLVht-zzBQOpQXk:1xQObY:BikUfS8fNTwlc-I4KbKuoYNpYx15_DEcfrE7pr4OA_Y",
+    "expire_date": "2026-11-23T12:36:08.393Z"
+  }
+},
+{
+  "model": "sessions.session",
+  "pk": "l6vhx42tsrjnqh9v6pck1b57o5r0p8ey",
+  "fields": {
+    "session_data": ".eJxVjsEOwiAQRP-FsyFLC8V69N5vIAu7SLWBhLYn479bkh70Om_mZd7C4b4lt69c3UziJjpx-c08hhfnBuiJ-VFkKHmrs5etIk-6yqkQL_ez-ydIuKZjrehqlGHWUfshAhEG6HyIqMAaqxlV5GA99TAaMjh2doygBrK9AgTQhzTstXLeXC0Ltz-MWXy-KkM_sQ:1xQ5l8:_7I6K4xofr-FCBbEQXxzZypRMZstynsTHeo7AE538_I",
+    "expire_date": "2026-11-22T16:28:46.617Z"
+  }
+},
+{
+  "model": "sessions.session",
+  "pk": "lk38wvm1dwlrnqjopngstc5jhjlbhqdu",
+  "fields": {
+    "session_data": "eyJhY3RpdmVfZG90X2lkIjoxfQ:1xQ7QN:EHL-qsiruPJcaKsT1-ligPwkl_jp0SwXvt74E6NT624",
+    "expire_date": "2026-11-22T18:15:27.765Z"
+  }
+},
+{
+  "model": "sessions.session",
+  "pk": "neq8vnotv6bnge2eg50u52tu4xz7vt1g",
+  "fields": {
+    "session_data": ".eJxVjsEOwiAQRP-FsyFLC8V69N5vIAu7SLWBhLYn479bkh70Om_mZd7C4b4lt69c3UziJjpx-c08hhfnBuiJ-VFkKHmrs5etIk-6yqkQL_ez-ydIuKZjrehqlGHWUfshAhEG6HyIqMAaqxlV5GA99TAaMjh2doygBrK9AgTQhzTstXLeXC0Ltz-MWXy-KkM_sQ:1xQ5Ix:oqnOuK0EFA6A3QT2i8Tvd6DCWI3-CBAYMio-OZPEdLQ",
+    "expire_date": "2026-11-22T15:59:39.594Z"
+  }
+},
+{
+  "model": "sessions.session",
+  "pk": "orp0swsdogl6qdob8blgcxf75tnwj3g5",
+  "fields": {
+    "session_data": ".eJxNjcEKwjAQRH9l2YMnkfTam_YoSMA9FsLaxEasm7JtBBH_3eaW2_DmMfPFIasGWZ2mKWCLPrDgHuegSxJ2wq9C6XoAG1ngKHELScbKGZIvTndydDZNVfCbV9atsrai5cj5xzJP_CnT2mfT3Eyfm-DvMsIzJobuQgQ7IMLfH6koNko:1xQ6mt:3R4CtPLWA2cmmi9eXZP43IZg0yupU8SD0ePTtReUrVo",
+    "expire_date": "2026-11-22T17:34:39.373Z"
+  }
+},
+{
+  "model": "sessions.session",
+  "pk": "qheflbeslp64k6mzduxyxzw5vprj573w",
+  "fields": {
+    "session_data": ".eJxVjsEOwiAQRP-FsyFLC8V69N5vIAu7SLWBhLYn479bkh70Om_mZd7C4b4lt69c3UziJjpx-c08hhfnBuiJ-VFkKHmrs5etIk-6yqkQL_ez-ydIuKZjrehqlGHWUfshAhEG6HyIqMAaqxlV5GA99TAaMjh2doygBrK9AgTQhzTstXLeXC0Ltz-MWXy-KkM_sQ:1xQHGu:t005r6G7UFCWZRX6aGkDJeyPbbnygHtJpB9lxTq_Bec",
+    "expire_date": "2026-11-23T04:46:20.534Z"
+  }
+},
+{
+  "model": "sessions.session",
+  "pk": "qp22vwiibvv63lyoqlr19d1cwtswhdlo",
+  "fields": {
+    "session_data": "eyJjdXJyZW50X3JvbGUiOiJzdHVkZW50In0:1xQ3lN:CeBXt3SOl64T0Y0vZvl_UXtN4GOrLj8pWAFhQssgaCg",
+    "expire_date": "2026-11-22T14:20:53.127Z"
+  }
+},
+{
+  "model": "sessions.session",
+  "pk": "upd334l46745monbbuufgmm5xi77z40n",
+  "fields": {
+    "session_data": ".eJxNjbsKwzAMRX_FaO5gpymUbv2AZGnGgBG2SQyOHPwIhNJ_r53Jk450uFdfUDkEQ0kG7wy8IKasywo32E2InlASblWMSz7nLIx6EJvCRZoWNlRCQWuTUF7XRCeE4M_u3jcKD0wYat3QXOtvqW3cHZ7FfSyt7LBz5twgMXcB31iZpfE9jfD7A9r7PY0:1xQ70h:cFapd9StdqVJBXtr04Lypl2BuGblTjv6SO9mSbJfuKc",
+    "expire_date": "2026-11-22T17:48:55.065Z"
+  }
+},
+{
+  "model": "sessions.session",
+  "pk": "ws5mp7tybesodjejnnuj6jldd34rqzhi",
+  "fields": {
+    "session_data": ".eJxVjDkOwjAQRe_iGlleiJ1Q0ucM1sQzJoHIlrxUiLvjSCmg-vrbezMHra6uFcpuQ3ZjV3b5zRbwL4pHgU-Ij8R9ijVvCz8m_GwLnxPSfj-3f4AVytrf1oDRxmsgQJwgBLBdgzWqR8YONCBqKTUuAeSghBgViTDJUY1oJ7Qd6lvOFKvLaadOLLVht-zzBQOpQXk:1xQ4Ze:kbrdNAv03VbnQb4-bm1PrS94oBBZaXiUXD_dxDWtBp0",
+    "expire_date": "2026-11-22T15:12:50.198Z"
+  }
+},
+{
+  "model": "sessions.session",
+  "pk": "zjucuegyrfm9beghdcr30g1vp4xccuyz",
+  "fields": {
+    "session_data": ".eJxVjsEOwiAQRP-FsyFLC8V69N5vIAu7SLWBhLYn479bkh70Om_mZd7C4b4lt69c3UziJjpx-c08hhfnBuiJ-VFkKHmrs5etIk-6yqkQL_ez-ydIuKZjrehqlGHWUfshAhEG6HyIqMAaqxlV5GA99TAaMjh2doygBrK9AgTQhzTstXLeXC0Ltz-MWXy-KkM_sQ:1xQ4wl:wKMfSfa1YJiNO7huDqVxl-J-TlMw7q9CyWWMEjFDXb0",
+    "expire_date": "2026-11-22T15:36:43.168Z"
+  }
+},
+{
+  "model": "sessions.session",
+  "pk": "zprg5e3nrng290ohb29bqzaww24xed7s",
+  "fields": {
+    "session_data": ".eJxVjsEOwiAQRP-FsyFLC8V69N5vIAu7SLWBhLYn479bkh70Om_mZd7C4b4lt69c3UziJjpx-c08hhfnBuiJ-VFkKHmrs5etIk-6yqkQL_ez-ydIuKZjrehqlGHWUfshAhEG6HyIqMAaqxlV5GA99TAaMjh2doygBrK9AgTQhzTstXLeXC0Ltz-MWXy-KkM_sQ:1xQ5f0:zErBGHPtUzjpFjNdlhX04kNNJ8F7-4lxXMyaZiALudY",
+    "expire_date": "2026-11-22T16:22:26.084Z"
+  }
+},
+{
+  "model": "accounts.nguoi_dung",
+  "pk": 1,
+  "fields": {
+    "ma_dinh_danh_cong": "CB_TK01",
+    "ho_ten": "TS. Phan Anh Phong",
+    "email": "tkhoa_cntt@vinhuni.edu.vn",
+    "so_dien_thoai": "0912345678",
+    "loai_nguoi_dung": "GIANG_VIEN",
+    "trang_thai": "HOAT_DONG",
+    "lan_dang_nhap_cuoi": null,
+    "ngay_tao": "2026-11-08T09:11:27.895Z"
+  }
+},
+{
+  "model": "accounts.nguoi_dung",
+  "pk": 2,
+  "fields": {
+    "ma_dinh_danh_cong": "CB_GV01",
+    "ho_ten": "TS. Cao Thanh Sơn",
+    "email": "binhtt@vinhuni.edu.vn",
+    "so_dien_thoai": null,
+    "loai_nguoi_dung": "GIANG_VIEN",
+    "trang_thai": "HOAT_DONG",
+    "lan_dang_nhap_cuoi": null,
+    "ngay_tao": "2026-11-08T09:11:27.912Z"
+  }
+},
+{
+  "model": "accounts.nguoi_dung",
+  "pk": 3,
+  "fields": {
+    "ma_dinh_danh_cong": "CB_GV02",
+    "ho_ten": "ThS. Lê Quốc Cường",
+    "email": "cuonglq@vinhuni.edu.vn",
+    "so_dien_thoai": null,
+    "loai_nguoi_dung": "GIANG_VIEN",
+    "trang_thai": "HOAT_DONG",
+    "lan_dang_nhap_cuoi": null,
+    "ngay_tao": "2026-11-08T09:11:27.930Z"
+  }
+},
+{
+  "model": "accounts.nguoi_dung",
+  "pk": 4,
+  "fields": {
+    "ma_dinh_danh_cong": "CB_GV03",
+    "ho_ten": "TS. Phạm Minh Đức",
+    "email": "ducpm@vinhuni.edu.vn",
+    "so_dien_thoai": null,
+    "loai_nguoi_dung": "GIANG_VIEN",
+    "trang_thai": "HOAT_DONG",
+    "lan_dang_nhap_cuoi": null,
+    "ngay_tao": "2026-11-08T09:11:27.945Z"
+  }
+},
+{
+  "model": "accounts.nguoi_dung",
+  "pk": 5,
+  "fields": {
+    "ma_dinh_danh_cong": "CB_GV04",
+    "ho_ten": "ThS. Hoàng Thị Dung",
+    "email": "dunght@vinhuni.edu.vn",
+    "so_dien_thoai": null,
+    "loai_nguoi_dung": "GIANG_VIEN",
+    "trang_thai": "HOAT_DONG",
+    "lan_dang_nhap_cuoi": null,
+    "ngay_tao": "2026-11-08T09:11:27.961Z"
+  }
+},
+{
+  "model": "accounts.nguoi_dung",
+  "pk": 6,
+  "fields": {
+    "ma_dinh_danh_cong": "22A1001",
+    "ho_ten": "Nguyễn Văn An",
+    "email": "22a1001@vinhuni.edu.vn",
+    "so_dien_thoai": null,
+    "loai_nguoi_dung": "SINH_VIEN",
+    "trang_thai": "HOAT_DONG",
+    "lan_dang_nhap_cuoi": null,
+    "ngay_tao": "2026-11-08T09:44:58.062Z"
+  }
+},
+{
+  "model": "accounts.nguoi_dung",
+  "pk": 7,
+  "fields": {
+    "ma_dinh_danh_cong": "22A1002",
+    "ho_ten": "Trần Thị Bình",
+    "email": "22a1002@vinhuni.edu.vn",
+    "so_dien_thoai": null,
+    "loai_nguoi_dung": "SINH_VIEN",
+    "trang_thai": "HOAT_DONG",
+    "lan_dang_nhap_cuoi": null,
+    "ngay_tao": "2026-11-08T09:44:58.070Z"
+  }
+},
+{
+  "model": "accounts.nguoi_dung",
+  "pk": 8,
+  "fields": {
+    "ma_dinh_danh_cong": "22A1003",
+    "ho_ten": "Lê Hoàng Cường",
+    "email": "22a1003@vinhuni.edu.vn",
+    "so_dien_thoai": null,
+    "loai_nguoi_dung": "SINH_VIEN",
+    "trang_thai": "HOAT_DONG",
+    "lan_dang_nhap_cuoi": null,
+    "ngay_tao": "2026-11-08T09:44:58.073Z"
+  }
+},
+{
+  "model": "accounts.nguoi_dung",
+  "pk": 9,
+  "fields": {
+    "ma_dinh_danh_cong": "22A1004",
+    "ho_ten": "Phạm Minh Đức",
+    "email": "22a1004@vinhuni.edu.vn",
+    "so_dien_thoai": null,
+    "loai_nguoi_dung": "SINH_VIEN",
+    "trang_thai": "HOAT_DONG",
+    "lan_dang_nhap_cuoi": null,
+    "ngay_tao": "2026-11-08T09:44:58.074Z"
+  }
+},
+{
+  "model": "accounts.nguoi_dung",
+  "pk": 10,
+  "fields": {
+    "ma_dinh_danh_cong": "22A1005",
+    "ho_ten": "Hoàng Thị Dung",
+    "email": "22a1005@vinhuni.edu.vn",
+    "so_dien_thoai": null,
+    "loai_nguoi_dung": "SINH_VIEN",
+    "trang_thai": "HOAT_DONG",
+    "lan_dang_nhap_cuoi": null,
+    "ngay_tao": "2026-11-08T09:44:58.078Z"
+  }
+},
+{
+  "model": "accounts.nguoi_dung",
+  "pk": 11,
+  "fields": {
+    "ma_dinh_danh_cong": "22A1006",
+    "ho_ten": "Vũ Quốc Hùng",
+    "email": "22a1006@vinhuni.edu.vn",
+    "so_dien_thoai": null,
+    "loai_nguoi_dung": "SINH_VIEN",
+    "trang_thai": "HOAT_DONG",
+    "lan_dang_nhap_cuoi": null,
+    "ngay_tao": "2026-11-08T09:44:58.080Z"
+  }
+},
+{
+  "model": "accounts.nguoi_dung",
+  "pk": 12,
+  "fields": {
+    "ma_dinh_danh_cong": "22A1007",
+    "ho_ten": "Đặng Thị Mai",
+    "email": "22a1007@vinhuni.edu.vn",
+    "so_dien_thoai": null,
+    "loai_nguoi_dung": "SINH_VIEN",
+    "trang_thai": "HOAT_DONG",
+    "lan_dang_nhap_cuoi": null,
+    "ngay_tao": "2026-11-08T09:44:58.081Z"
+  }
+},
+{
+  "model": "accounts.nguoi_dung",
+  "pk": 13,
+  "fields": {
+    "ma_dinh_danh_cong": "22A1008",
+    "ho_ten": "Ngô Thành Nam",
+    "email": "22a1008@vinhuni.edu.vn",
+    "so_dien_thoai": null,
+    "loai_nguoi_dung": "SINH_VIEN",
+    "trang_thai": "HOAT_DONG",
+    "lan_dang_nhap_cuoi": null,
+    "ngay_tao": "2026-11-08T09:44:58.083Z"
+  }
+},
+{
+  "model": "accounts.nguoi_dung",
+  "pk": 14,
+  "fields": {
+    "ma_dinh_danh_cong": "22A1009",
+    "ho_ten": "Bùi Văn Phúc",
+    "email": "22a1009@vinhuni.edu.vn",
+    "so_dien_thoai": null,
+    "loai_nguoi_dung": "SINH_VIEN",
+    "trang_thai": "HOAT_DONG",
+    "lan_dang_nhap_cuoi": null,
+    "ngay_tao": "2026-11-08T09:44:58.085Z"
+  }
+},
+{
+  "model": "accounts.nguoi_dung",
+  "pk": 15,
+  "fields": {
+    "ma_dinh_danh_cong": "22A1010",
+    "ho_ten": "Dương Thị Quyên",
+    "email": "22a1010@vinhuni.edu.vn",
+    "so_dien_thoai": null,
+    "loai_nguoi_dung": "SINH_VIEN",
+    "trang_thai": "HOAT_DONG",
+    "lan_dang_nhap_cuoi": null,
+    "ngay_tao": "2026-11-08T09:44:58.087Z"
+  }
+},
+{
+  "model": "accounts.nguoi_dung",
+  "pk": 16,
+  "fields": {
+    "ma_dinh_danh_cong": "22A1011",
+    "ho_ten": "Đỗ Minh Sang",
+    "email": "22a1011@vinhuni.edu.vn",
+    "so_dien_thoai": null,
+    "loai_nguoi_dung": "SINH_VIEN",
+    "trang_thai": "HOAT_DONG",
+    "lan_dang_nhap_cuoi": null,
+    "ngay_tao": "2026-11-08T09:44:58.088Z"
+  }
+},
+{
+  "model": "accounts.nguoi_dung",
+  "pk": 17,
+  "fields": {
+    "ma_dinh_danh_cong": "22A1012",
+    "ho_ten": "Hồ Thị Thảo",
+    "email": "22a1012@vinhuni.edu.vn",
+    "so_dien_thoai": null,
+    "loai_nguoi_dung": "SINH_VIEN",
+    "trang_thai": "HOAT_DONG",
+    "lan_dang_nhap_cuoi": null,
+    "ngay_tao": "2026-11-08T09:44:58.090Z"
+  }
+},
+{
+  "model": "accounts.nguoi_dung",
+  "pk": 18,
+  "fields": {
+    "ma_dinh_danh_cong": "22A1013",
+    "ho_ten": "Lý Quốc Tuấn",
+    "email": "22a1013@vinhuni.edu.vn",
+    "so_dien_thoai": null,
+    "loai_nguoi_dung": "SINH_VIEN",
+    "trang_thai": "HOAT_DONG",
+    "lan_dang_nhap_cuoi": null,
+    "ngay_tao": "2026-11-08T09:44:58.092Z"
+  }
+},
+{
+  "model": "accounts.nguoi_dung",
+  "pk": 19,
+  "fields": {
+    "ma_dinh_danh_cong": "22A1014",
+    "ho_ten": "Võ Văn Uy",
+    "email": "22a1014@vinhuni.edu.vn",
+    "so_dien_thoai": null,
+    "loai_nguoi_dung": "SINH_VIEN",
+    "trang_thai": "HOAT_DONG",
+    "lan_dang_nhap_cuoi": null,
+    "ngay_tao": "2026-11-08T09:44:58.096Z"
+  }
+},
+{
+  "model": "accounts.nguoi_dung",
+  "pk": 20,
+  "fields": {
+    "ma_dinh_danh_cong": "22A1015",
+    "ho_ten": "Trịnh Thị Vân",
+    "email": "22a1015@vinhuni.edu.vn",
+    "so_dien_thoai": null,
+    "loai_nguoi_dung": "SINH_VIEN",
+    "trang_thai": "HOAT_DONG",
+    "lan_dang_nhap_cuoi": null,
+    "ngay_tao": "2026-11-08T09:44:58.097Z"
+  }
+},
+{
+  "model": "accounts.nguoi_dung",
+  "pk": 21,
+  "fields": {
+    "ma_dinh_danh_cong": "22A1016",
+    "ho_ten": "Nguyễn Đắc Xuân",
+    "email": "22a1016@vinhuni.edu.vn",
+    "so_dien_thoai": null,
+    "loai_nguoi_dung": "SINH_VIEN",
+    "trang_thai": "HOAT_DONG",
+    "lan_dang_nhap_cuoi": null,
+    "ngay_tao": "2026-11-08T09:44:58.099Z"
+  }
+},
+{
+  "model": "accounts.nguoi_dung",
+  "pk": 22,
+  "fields": {
+    "ma_dinh_danh_cong": "22A1017",
+    "ho_ten": "Lê Văn Yên",
+    "email": "22a1017@vinhuni.edu.vn",
+    "so_dien_thoai": null,
+    "loai_nguoi_dung": "SINH_VIEN",
+    "trang_thai": "HOAT_DONG",
+    "lan_dang_nhap_cuoi": null,
+    "ngay_tao": "2026-11-08T09:44:58.101Z"
+  }
+},
+{
+  "model": "accounts.nguoi_dung",
+  "pk": 23,
+  "fields": {
+    "ma_dinh_danh_cong": "22A1018",
+    "ho_ten": "Phan Thị Ánh",
+    "email": "22a1018@vinhuni.edu.vn",
+    "so_dien_thoai": null,
+    "loai_nguoi_dung": "SINH_VIEN",
+    "trang_thai": "HOAT_DONG",
+    "lan_dang_nhap_cuoi": null,
+    "ngay_tao": "2026-11-08T09:44:58.102Z"
+  }
+},
+{
+  "model": "accounts.nguoi_dung",
+  "pk": 24,
+  "fields": {
+    "ma_dinh_danh_cong": "22A1019",
+    "ho_ten": "Trần Đình Bắc",
+    "email": "22a1019@vinhuni.edu.vn",
+    "so_dien_thoai": null,
+    "loai_nguoi_dung": "SINH_VIEN",
+    "trang_thai": "HOAT_DONG",
+    "lan_dang_nhap_cuoi": null,
+    "ngay_tao": "2026-11-08T09:44:58.104Z"
+  }
+},
+{
+  "model": "accounts.nguoi_dung",
+  "pk": 25,
+  "fields": {
+    "ma_dinh_danh_cong": "22A1020",
+    "ho_ten": "Nguyễn Khánh Duy",
+    "email": "22a1020@vinhuni.edu.vn",
+    "so_dien_thoai": null,
+    "loai_nguoi_dung": "SINH_VIEN",
+    "trang_thai": "HOAT_DONG",
+    "lan_dang_nhap_cuoi": null,
+    "ngay_tao": "2026-11-08T09:44:58Z"
+  }
+},
+{
+  "model": "accounts.nguoi_dung",
+  "pk": 26,
+  "fields": {
+    "ma_dinh_danh_cong": "211108234",
+    "ho_ten": "Nguyễn Trọng Mạnh",
+    "email": "manhnt211108234@student.vinhuni.edu.vn",
+    "so_dien_thoai": null,
+    "loai_nguoi_dung": "SINH_VIEN",
+    "trang_thai": "HOAT_DONG",
+    "lan_dang_nhap_cuoi": null,
+    "ngay_tao": "2026-11-08T14:34:19.394Z"
+  }
+},
+{
+  "model": "accounts.vai_tro",
+  "pk": 1,
+  "fields": {
+    "ma_vai_tro": "TRUONG_KHOA",
+    "ten_vai_tro": "Trưởng khoa",
+    "mo_ta": "Trưởng khoa quản lý điều phối các đợt thực tập/đồ án của khoa"
+  }
+},
+{
+  "model": "accounts.vai_tro",
+  "pk": 2,
+  "fields": {
+    "ma_vai_tro": "GIANG_VIEN",
+    "ten_vai_tro": "Giảng viên",
+    "mo_ta": "Giảng viên hướng dẫn, phản biện hoặc hội đồng"
+  }
+},
+{
+  "model": "accounts.vai_tro",
+  "pk": 3,
+  "fields": {
+    "ma_vai_tro": "QUAN_TRI",
+    "ten_vai_tro": "Quản trị viên",
+    "mo_ta": "Cán bộ quản trị kỹ thuật hệ thống"
+  }
+},
+{
+  "model": "accounts.nguoi_dung_vai_tro",
+  "pk": 1,
+  "fields": {
+    "nguoi_dung": 1,
+    "vai_tro": 1,
+    "khoa": 1,
+    "hieu_luc_tu": "2026-11-08",
+    "hieu_luc_den": null
+  }
+},
+{
+  "model": "accounts.nguoi_dung_vai_tro",
+  "pk": 2,
+  "fields": {
+    "nguoi_dung": 2,
+    "vai_tro": 2,
+    "khoa": 1,
+    "hieu_luc_tu": "2026-11-08",
+    "hieu_luc_den": null
+  }
+},
+{
+  "model": "accounts.nguoi_dung_vai_tro",
+  "pk": 3,
+  "fields": {
+    "nguoi_dung": 3,
+    "vai_tro": 2,
+    "khoa": 1,
+    "hieu_luc_tu": "2026-11-08",
+    "hieu_luc_den": null
+  }
+},
+{
+  "model": "accounts.nguoi_dung_vai_tro",
+  "pk": 4,
+  "fields": {
+    "nguoi_dung": 4,
+    "vai_tro": 2,
+    "khoa": 1,
+    "hieu_luc_tu": "2026-11-08",
+    "hieu_luc_den": null
+  }
+},
+{
+  "model": "accounts.nguoi_dung_vai_tro",
+  "pk": 5,
+  "fields": {
+    "nguoi_dung": 5,
+    "vai_tro": 2,
+    "khoa": 1,
+    "hieu_luc_tu": "2026-11-08",
+    "hieu_luc_den": null
+  }
+},
+{
+  "model": "organization.khoa",
+  "pk": 1,
+  "fields": {
+    "ma_khoa": "CNTT",
+    "ten_khoa": "Khoa Công nghệ Thông tin",
+    "dang_hoat_dong": true
+  }
+},
+{
+  "model": "organization.bo_mon",
+  "pk": 1,
+  "fields": {
+    "khoa": 1,
+    "ma_bo_mon": "KTPM",
+    "ten_bo_mon": "Kỹ thuật phần mềm",
+    "dang_hoat_dong": true
+  }
+},
+{
+  "model": "organization.bo_mon",
+  "pk": 2,
+  "fields": {
+    "khoa": 1,
+    "ma_bo_mon": "HTTT",
+    "ten_bo_mon": "Hệ thống thông tin",
+    "dang_hoat_dong": true
+  }
+},
+{
+  "model": "organization.bo_mon",
+  "pk": 3,
+  "fields": {
+    "khoa": 1,
+    "ma_bo_mon": "MMT",
+    "ten_bo_mon": "Mạng máy tính & Truyền thông",
+    "dang_hoat_dong": true
+  }
+},
+{
+  "model": "organization.sinh_vien",
+  "pk": 1,
+  "fields": {
+    "nguoi_dung": 6,
+    "ma_sinh_vien": "22A1001",
+    "lop": "63KTPM1",
+    "khoa": 1
+  }
+},
+{
+  "model": "organization.sinh_vien",
+  "pk": 2,
+  "fields": {
+    "nguoi_dung": 7,
+    "ma_sinh_vien": "22A1002",
+    "lop": "63KTPM1",
+    "khoa": 1
+  }
+},
+{
+  "model": "organization.sinh_vien",
+  "pk": 3,
+  "fields": {
+    "nguoi_dung": 8,
+    "ma_sinh_vien": "22A1003",
+    "lop": "63KTPM1",
+    "khoa": 1
+  }
+},
+{
+  "model": "organization.sinh_vien",
+  "pk": 4,
+  "fields": {
+    "nguoi_dung": 9,
+    "ma_sinh_vien": "22A1004",
+    "lop": "63KTPM2",
+    "khoa": 1
+  }
+},
+{
+  "model": "organization.sinh_vien",
+  "pk": 5,
+  "fields": {
+    "nguoi_dung": 10,
+    "ma_sinh_vien": "22A1005",
+    "lop": "63HTTT1",
+    "khoa": 1
+  }
+},
+{
+  "model": "organization.sinh_vien",
+  "pk": 6,
+  "fields": {
+    "nguoi_dung": 11,
+    "ma_sinh_vien": "22A1006",
+    "lop": "63HTTT1",
+    "khoa": 1
+  }
+},
+{
+  "model": "organization.sinh_vien",
+  "pk": 7,
+  "fields": {
+    "nguoi_dung": 12,
+    "ma_sinh_vien": "22A1007",
+    "lop": "63MMT1",
+    "khoa": 1
+  }
+},
+{
+  "model": "organization.sinh_vien",
+  "pk": 8,
+  "fields": {
+    "nguoi_dung": 13,
+    "ma_sinh_vien": "22A1008",
+    "lop": "63MMT1",
+    "khoa": 1
+  }
+},
+{
+  "model": "organization.sinh_vien",
+  "pk": 9,
+  "fields": {
+    "nguoi_dung": 14,
+    "ma_sinh_vien": "22A1009",
+    "lop": "63KTPM2",
+    "khoa": 1
+  }
+},
+{
+  "model": "organization.sinh_vien",
+  "pk": 10,
+  "fields": {
+    "nguoi_dung": 15,
+    "ma_sinh_vien": "22A1010",
+    "lop": "63HTTT2",
+    "khoa": 1
+  }
+},
+{
+  "model": "organization.sinh_vien",
+  "pk": 11,
+  "fields": {
+    "nguoi_dung": 16,
+    "ma_sinh_vien": "22A1011",
+    "lop": "63KTPM1",
+    "khoa": 1
+  }
+},
+{
+  "model": "organization.sinh_vien",
+  "pk": 12,
+  "fields": {
+    "nguoi_dung": 17,
+    "ma_sinh_vien": "22A1012",
+    "lop": "63MMT1",
+    "khoa": 1
+  }
+},
+{
+  "model": "organization.sinh_vien",
+  "pk": 13,
+  "fields": {
+    "nguoi_dung": 18,
+    "ma_sinh_vien": "22A1013",
+    "lop": "63HTTT1",
+    "khoa": 1
+  }
+},
+{
+  "model": "organization.sinh_vien",
+  "pk": 14,
+  "fields": {
+    "nguoi_dung": 19,
+    "ma_sinh_vien": "22A1014",
+    "lop": "63KTPM2",
+    "khoa": 1
+  }
+},
+{
+  "model": "organization.sinh_vien",
+  "pk": 15,
+  "fields": {
+    "nguoi_dung": 20,
+    "ma_sinh_vien": "22A1015",
+    "lop": "63MMT1",
+    "khoa": 1
+  }
+},
+{
+  "model": "organization.sinh_vien",
+  "pk": 16,
+  "fields": {
+    "nguoi_dung": 21,
+    "ma_sinh_vien": "22A1016",
+    "lop": "63HTTT2",
+    "khoa": 1
+  }
+},
+{
+  "model": "organization.sinh_vien",
+  "pk": 17,
+  "fields": {
+    "nguoi_dung": 22,
+    "ma_sinh_vien": "22A1017",
+    "lop": "63KTPM1",
+    "khoa": 1
+  }
+},
+{
+  "model": "organization.sinh_vien",
+  "pk": 18,
+  "fields": {
+    "nguoi_dung": 23,
+    "ma_sinh_vien": "22A1018",
+    "lop": "63KTPM2",
+    "khoa": 1
+  }
+},
+{
+  "model": "organization.sinh_vien",
+  "pk": 19,
+  "fields": {
+    "nguoi_dung": 24,
+    "ma_sinh_vien": "22A1019",
+    "lop": "63MMT1",
+    "khoa": 1
+  }
+},
+{
+  "model": "organization.sinh_vien",
+  "pk": 20,
+  "fields": {
+    "nguoi_dung": 25,
+    "ma_sinh_vien": "22A1020",
+    "lop": "63HTTT1",
+    "khoa": 1
+  }
+},
+{
+  "model": "organization.sinh_vien",
+  "pk": 21,
+  "fields": {
+    "nguoi_dung": 26,
+    "ma_sinh_vien": "211108234",
+    "lop": "62K1-CNTT",
+    "khoa": 1
+  }
+},
+{
+  "model": "organization.giang_vien",
+  "pk": 1,
+  "fields": {
+    "nguoi_dung": 1,
+    "ma_can_bo": "CB_TK01",
+    "khoa": 1,
+    "bo_mon": 1,
+    "hoc_vi": "TS"
+  }
+},
+{
+  "model": "organization.giang_vien",
+  "pk": 2,
+  "fields": {
+    "nguoi_dung": 2,
+    "ma_can_bo": "CB_GV01",
+    "khoa": 1,
+    "bo_mon": 1,
+    "hoc_vi": "TS"
+  }
+},
+{
+  "model": "organization.giang_vien",
+  "pk": 3,
+  "fields": {
+    "nguoi_dung": 3,
+    "ma_can_bo": "CB_GV02",
+    "khoa": 1,
+    "bo_mon": 2,
+    "hoc_vi": "ThS"
+  }
+},
+{
+  "model": "organization.giang_vien",
+  "pk": 4,
+  "fields": {
+    "nguoi_dung": 4,
+    "ma_can_bo": "CB_GV03",
+    "khoa": 1,
+    "bo_mon": 1,
+    "hoc_vi": "TS"
+  }
+},
+{
+  "model": "organization.giang_vien",
+  "pk": 5,
+  "fields": {
+    "nguoi_dung": 5,
+    "ma_can_bo": "CB_GV04",
+    "khoa": 1,
+    "bo_mon": 3,
+    "hoc_vi": "ThS"
+  }
+},
+{
+  "model": "dots.dot",
+  "pk": 1,
+  "fields": {
+    "ma_dot": "DOT26_HK2_CNTT_01",
+    "ten_dot": "Thực tập tốt nghiệp HK2 (2026 - 2027)",
+    "loai": "THUC_TAP",
+    "hoc_ky": 2,
+    "nam_hoc": "2026-2027",
+    "khoa": 1,
+    "trang_thai": "CHUAN_BI",
+    "so_sv_toi_da_moi_gv": 15,
+    "hinh_thuc_cham": "PHAN_BIEN",
+    "nguoi_tao": 1,
+    "ngay_tao": "2026-11-08T09:11:27.978Z"
+  }
+},
+{
+  "model": "dots.dot",
+  "pk": 2,
+  "fields": {
+    "ma_dot": "DOT26_HK1_CNTT_01",
+    "ten_dot": "Thực tập chuyên ngành CNTT (Đợt 1)",
+    "loai": "THUC_TAP",
+    "hoc_ky": 1,
+    "nam_hoc": "2026-2027",
+    "khoa": 1,
+    "trang_thai": "HOAN_TAT",
+    "so_sv_toi_da_moi_gv": 15,
+    "hinh_thuc_cham": "PHAN_BIEN",
+    "nguoi_tao": 1,
+    "ngay_tao": "2026-11-08T18:15:08.160Z"
+  }
+},
+{
+  "model": "dots.dot",
+  "pk": 3,
+  "fields": {
+    "ma_dot": "DOT25_HK2_CNTT_01",
+    "ten_dot": "Khóa luận tốt nghiệp CNTT (Đợt 1)",
+    "loai": "DO_AN",
+    "hoc_ky": 2,
+    "nam_hoc": "2025-2026",
+    "khoa": 1,
+    "trang_thai": "HOAN_TAT",
+    "so_sv_toi_da_moi_gv": 15,
+    "hinh_thuc_cham": "HOI_DONG",
+    "nguoi_tao": 1,
+    "ngay_tao": "2026-11-08T18:15:08.174Z"
+  }
+},
+{
+  "model": "dots.dot",
+  "pk": 4,
+  "fields": {
+    "ma_dot": "DOT25_HK2_CNTT_02",
+    "ten_dot": "Khóa luận tốt nghiệp (Đợt 2 - Bổ sung)",
+    "loai": "DO_AN",
+    "hoc_ky": 2,
+    "nam_hoc": "2025-2026",
+    "khoa": 1,
+    "trang_thai": "HOAN_TAT",
+    "so_sv_toi_da_moi_gv": 15,
+    "hinh_thuc_cham": "HOI_DONG",
+    "nguoi_tao": 1,
+    "ngay_tao": "2026-11-08T18:15:08.182Z"
+  }
+},
+{
+  "model": "dots.dot_moc_thoi_gian",
+  "pk": 1,
+  "fields": {
+    "dot": 1,
+    "ma_moc": "MOC_PHAN_CONG",
+    "ten_moc": "Hạn phân công GVHD",
+    "loai_moc": "PHAN_CONG",
+    "thu_tu": 1,
+    "han_cuoi": "2026-11-15T09:11:27.985Z"
+  }
+},
+{
+  "model": "dots.dot_moc_thoi_gian",
+  "pk": 2,
+  "fields": {
+    "dot": 1,
+    "ma_moc": "MOC_CHOT_DE_TAI",
+    "ten_moc": "Hạn chốt đề tài thực tập",
+    "loai_moc": "CHOT_DE_TAI",
+    "thu_tu": 2,
+    "han_cuoi": "2026-11-22T09:11:27.985Z"
+  }
+},
+{
+  "model": "dots.dot_moc_thoi_gian",
+  "pk": 3,
+  "fields": {
+    "dot": 1,
+    "ma_moc": "MOC_TIEN_DO_1",
+    "ten_moc": "Hạn nộp minh chứng đợt 1",
+    "loai_moc": "NOP_TIEN_DO",
+    "thu_tu": 3,
+    "han_cuoi": "2026-12-08T09:11:27.985Z"
+  }
+},
+{
+  "model": "dots.dot_moc_thoi_gian",
+  "pk": 4,
+  "fields": {
+    "dot": 1,
+    "ma_moc": "MOC_TIEN_DO_2",
+    "ten_moc": "Hạn nộp minh chứng đợt 2",
+    "loai_moc": "NOP_TIEN_DO",
+    "thu_tu": 4,
+    "han_cuoi": "2026-12-28T09:11:27.985Z"
+  }
+},
+{
+  "model": "dots.dot_moc_thoi_gian",
+  "pk": 5,
+  "fields": {
+    "dot": 1,
+    "ma_moc": "MOC_BAO_CAO_CUOI",
+    "ten_moc": "Hạn nộp báo cáo cuối đợt",
+    "loai_moc": "NOP_BAO_CAO",
+    "thu_tu": 5,
+    "han_cuoi": "2027-01-17T09:11:27.985Z"
+  }
+},
+{
+  "model": "dots.dot_moc_thoi_gian",
+  "pk": 6,
+  "fields": {
+    "dot": 1,
+    "ma_moc": "MOC_CHAM_DIEM",
+    "ten_moc": "Hạn hoàn tất chấm điểm",
+    "loai_moc": "CHAM_DIEM",
+    "thu_tu": 6,
+    "han_cuoi": "2027-01-27T09:11:27.985Z"
+  }
+},
+{
+  "model": "dots.dot_trong_so",
+  "pk": 1,
+  "fields": {
+    "dot": 1,
+    "thanh_phan": "HUONG_DAN",
+    "trong_so": "50.00"
+  }
+},
+{
+  "model": "dots.dot_trong_so",
+  "pk": 2,
+  "fields": {
+    "dot": 1,
+    "thanh_phan": "NOI_THUC_TAP",
+    "trong_so": "30.00"
+  }
+},
+{
+  "model": "dots.dot_trong_so",
+  "pk": 3,
+  "fields": {
+    "dot": 1,
+    "thanh_phan": "PHAN_BIEN",
+    "trong_so": "20.00"
+  }
+},
+{
+  "model": "phancong.ban_phan_cong",
+  "pk": 2,
+  "fields": {
+    "dot": 1,
+    "trang_thai": "NHAP",
+    "nguoi_tao": 1,
+    "ngay_gui": null,
+    "ngay_cong_bo": null
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 1,
+  "fields": {
+    "action_time": "2026-11-09T12:29:30.920Z",
+    "user": [
+      "admin"
+    ],
+    "content_type": [
+      "accounts",
+      "nguoi_dung"
+    ],
+    "object_id": "25",
+    "object_repr": "Nguyễn Khánh Duy (22A1020)",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"H\\u1ecd v\\u00e0 t\\u00ean\"]}}]"
+  }
+}
+]

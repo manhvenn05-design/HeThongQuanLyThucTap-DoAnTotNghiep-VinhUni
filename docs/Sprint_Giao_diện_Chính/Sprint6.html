@@ -1,0 +1,731 @@
+<!DOCTYPE html>
+
+<html class="h-full bg-surface" lang="vi"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Sprint 6: Tổng hợp Điểm, Khóa Sổ Lưu trữ &amp; Quản trị Đợt | M19-M20</title>
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,300..800;1,6..12,300..800&amp;family=Public+Sans:ital,wght@0,400..700;1,400..700&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols Outlined -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS with custom configuration -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "on-error": "#ffffff",
+            "on-secondary": "#ffffff",
+            "on-secondary-fixed": "#111c2d",
+            "tertiary-fixed": "#fcdeb5",
+            "primary": "#000000",
+            "on-primary-container": "#7c839b",
+            "secondary": "#545f73",
+            "primary-fixed": "#dae2fd",
+            "inverse-surface": "#213145",
+            "surface-container-lowest": "#ffffff",
+            "secondary-container": "#d5e0f8",
+            "on-secondary-fixed-variant": "#3c475a",
+            "on-primary-fixed-variant": "#3f465c",
+            "error": "#ba1a1a",
+            "surface-container-low": "#eff4ff",
+            "on-primary-fixed": "#131b2e",
+            "on-background": "#0b1c30",
+            "on-primary": "#ffffff",
+            "primary-fixed-dim": "#bec6e0",
+            "tertiary-container": "#271901",
+            "surface-dim": "#cbdbf5",
+            "outline": "#76777d",
+            "secondary-fixed": "#d8e3fb",
+            "background": "#f8f9ff",
+            "surface-bright": "#f8f9ff",
+            "on-tertiary-fixed-variant": "#574425",
+            "on-tertiary-fixed": "#271901",
+            "on-tertiary-container": "#98805d",
+            "on-tertiary": "#ffffff",
+            "surface-container-highest": "#d3e4fe",
+            "error-container": "#ffdad6",
+            "on-surface-variant": "#45464d",
+            "inverse-on-surface": "#eaf1ff",
+            "tertiary": "#000000",
+            "on-surface": "#0b1c30",
+            "surface-container": "#e5eeff",
+            "surface-tint": "#565e74",
+            "surface-container-high": "#dce9ff",
+            "on-secondary-container": "#586377",
+            "surface-variant": "#d3e4fe",
+            "secondary-fixed-dim": "#bcc7de",
+            "on-error-container": "#93000a",
+            "primary-container": "#131b2e",
+            "inverse-primary": "#bec6e0",
+            "tertiary-fixed-dim": "#dec29a",
+            "outline-variant": "#c6c6cd",
+            "surface": "#f8f9ff"
+          },
+          "borderRadius": {
+            "DEFAULT": "0.125rem",
+            "lg": "0.25rem",
+            "xl": "0.5rem",
+            "full": "0.75rem"
+          },
+          "spacing": {
+            "gutter": "1rem",
+            "margin-md": "1.5rem",
+            "space-2xs": "0.125rem",
+            "margin-lg": "2rem",
+            "space-xs": "0.25rem",
+            "space-xl": "2rem",
+            "space-sm": "0.5rem",
+            "margin": "1rem",
+            "space-lg": "1.5rem",
+            "space-md": "0.75rem",
+            "gutter-lg": "1.5rem",
+            "space-base": "1rem",
+            "space-2xl": "3rem"
+          },
+          "fontFamily": {
+            "headline-lg": ["Public Sans"],
+            "headline-md": ["Public Sans"],
+            "display-lg": ["Public Sans"],
+            "headline-sm": ["Public Sans"],
+            "body-sm": ["Nunito Sans"],
+            "caption": ["Nunito Sans"],
+            "body-lg": ["Nunito Sans"],
+            "body-md": ["Nunito Sans"],
+            "label-sm": ["Public Sans"],
+            "label-md": ["Public Sans"]
+          },
+          "fontSize": {
+            "headline-lg": ["24px", { "lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "700" }],
+            "headline-md": ["20px", { "lineHeight": "28px", "fontWeight": "600" }],
+            "display-lg": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+            "headline-sm": ["16px", { "lineHeight": "24px", "fontWeight": "600" }],
+            "body-sm": ["13px", { "lineHeight": "20px", "fontWeight": "400" }],
+            "caption": ["12px", { "lineHeight": "16px", "fontWeight": "400" }],
+            "body-lg": ["16px", { "lineHeight": "26px", "fontWeight": "400" }],
+            "body-md": ["14px", { "lineHeight": "22px", "fontWeight": "400" }],
+            "label-sm": ["11px", { "lineHeight": "16px", "letterSpacing": "0.02em", "fontWeight": "600" }],
+            "label-md": ["13px", { "lineHeight": "18px", "letterSpacing": "0.01em", "fontWeight": "600" }]
+          }
+        }
+      }
+    }
+  </script>
+</head>
+<body class="h-full bg-slate-50 font-body-md text-on-surface antialiased overflow-x-hidden">
+<!-- TOP APP BAR (from Shared Component Anchor) -->
+<header class="w-full border-b border-slate-200 bg-surface-container-lowest sticky top-0 z-50 px-4 lg:px-6 max-w-full flex items-center justify-between h-16 shadow-none">
+<div class="flex items-center gap-4">
+<div class="flex items-center gap-3">
+<img alt="Logo Trường Đại học Vinh - Kỹ thuật và Công nghệ 1959" class="h-9 w-9 object-contain shrink-0" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB-1aTr_b4KnKSiHU4Mp94B1bcbq31wIRSu3Ided69wrriLVHeO4UvSBvc9A4VPiq18PVRbdcAuvnLLRyOt46yFiKJ3eKtzLCksiOH0k_hDhAiaMbzr_oVVisZcS8TOtZR4WFlqbdG1fbm8tVOdL-RZSfQT6AMAXUuHpRRKwjspIyyIekKqlQ40tHc05Y1H9Zzo4WLtYd5A0Rn31-TN9KTPZpLqhc3VNKl3cBH0fWmr15-ONtPkh7gsWw"/>
+<div class="whitespace-nowrap">
+<span class="font-headline-sm text-headline-sm font-bold text-on-surface tracking-tight">TRƯỜNG KỸ THUẬT VÀ CÔNG NGHỆ - ĐẠI HỌC VINH</span>
+</div>
+</div>
+<div class="hidden xl:flex items-center ml-4 pl-4 border-l border-slate-200">
+<span class="px-2 py-0.5 rounded text-xs font-semibold bg-slate-100 text-slate-700">Sprint 6: M19 - M20</span>
+<span class="ml-2 font-caption text-caption text-secondary">Phân hệ Quản trị Đợt &amp; Bảo toàn Dữ liệu (UC25, UC26)</span>
+</div>
+</div>
+<!-- Navigation links & Trailing actions -->
+<div class="flex items-center gap-3">
+<nav class="hidden 2xl:flex items-center gap-5 mr-4">
+<span class="text-secondary font-label-md text-label-md hover:text-on-surface pb-1 transition-colors cursor-pointer">Tổng quan</span>
+<span class="text-secondary font-label-md text-label-md hover:text-on-surface pb-1 transition-colors cursor-pointer">Phân công</span>
+<span class="text-secondary font-label-md text-label-md hover:text-on-surface pb-1 transition-colors cursor-pointer">Ngân hàng đề tài</span>
+<span class="text-secondary font-label-md text-label-md hover:text-on-surface pb-1 transition-colors cursor-pointer">Xét duyệt đề tài</span>
+<span class="text-secondary font-label-md text-label-md hover:text-on-surface pb-1 transition-colors cursor-pointer">Đánh giá</span>
+<span class="border-b-2 border-primary text-primary font-label-md text-label-md pb-1 cursor-pointer">Báo cáo</span>
+</nav>
+<button class="hidden sm:inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-slate-200 bg-surface-container-lowest text-slate-800 text-sm font-medium hover:bg-slate-100 transition-colors" type="button">
+<span class="material-symbols-outlined text-base">help_outline</span>
+<span>Hướng dẫn quy chế</span>
+</button>
+<div class="flex items-center gap-2 pl-2 border-l border-slate-200">
+<button class="p-1.5 text-slate-600 hover:text-slate-900 rounded-lg hover:bg-slate-100 transition-colors relative" title="Thông báo hệ thống" type="button">
+<span class="material-symbols-outlined text-xl">notifications</span>
+<span class="absolute top-1 right-1 w-2 h-2 rounded-full bg-rose-600"></span>
+</button>
+<div class="flex items-center gap-2.5 pl-1.5">
+<div class="w-8 h-8 rounded-full bg-slate-200 border border-slate-300 flex items-center justify-center font-bold text-xs text-slate-700">
+            CB
+          </div>
+<div class="hidden md:block leading-tight text-left">
+<p class="font-label-md text-label-md font-semibold text-slate-900">Giảng viên / TBM</p>
+<p class="font-caption text-caption text-slate-500">Khoa CNTT &amp; TT</p>
+</div>
+</div>
+</div>
+</div>
+</header>
+<!-- MAIN WRAPPER (SIDEBAR + CONTENT) -->
+<div class="flex min-h-[calc(100vh-64px)]">
+<!-- MENU DỌC PHÂN CẤP CỐ ĐỊNH (w-64) -->
+<aside class="w-64 bg-surface-container-lowest border-r border-slate-200 flex flex-col justify-between shrink-0">
+<div class="p-3">
+<!-- Institutional Subtitle Block -->
+<div class="px-2 py-2 mb-2 border-b border-slate-100">
+<p class="text-xs font-semibold text-slate-500 uppercase tracking-wide">QUY TRÌNH QUẢN LÝ ĐỒ ÁN</p>
+<p class="font-headline-sm text-headline-sm text-slate-900 mt-0.5">Kỳ 2024 - 2025</p>
+</div>
+<!-- 6 Main Process Stages Hierarchy -->
+<nav class="space-y-1">
+<!-- Giai đoạn 1 -->
+<a class="flex items-center justify-between px-2.5 py-2 text-slate-600 hover:bg-slate-50 rounded-lg text-sm transition-colors group" href="#">
+<div class="flex items-center gap-2.5 truncate">
+<span class="w-5 h-5 rounded-full bg-slate-100 text-slate-600 flex items-center justify-center text-xs font-bold shrink-0">1</span>
+<span class="truncate">Chuẩn bị đợt</span>
+</div>
+<span class="material-symbols-outlined text-sm text-slate-400 group-hover:text-slate-600">chevron_right</span>
+</a>
+<!-- Giai đoạn 2 -->
+<a class="flex items-center justify-between px-2.5 py-2 text-slate-600 hover:bg-slate-50 rounded-lg text-sm transition-colors group" href="#">
+<div class="flex items-center gap-2.5 truncate">
+<span class="w-5 h-5 rounded-full bg-slate-100 text-slate-600 flex items-center justify-center text-xs font-bold shrink-0">2</span>
+<span class="truncate">Phân công hướng dẫn</span>
+</div>
+<span class="material-symbols-outlined text-sm text-slate-400 group-hover:text-slate-600">chevron_right</span>
+</a>
+<!-- Giai đoạn 3 -->
+<a class="flex items-center justify-between px-2.5 py-2 text-slate-600 hover:bg-slate-50 rounded-lg text-sm transition-colors group" href="#">
+<div class="flex items-center gap-2.5 truncate">
+<span class="w-5 h-5 rounded-full bg-slate-100 text-slate-600 flex items-center justify-center text-xs font-bold shrink-0">3</span>
+<span class="truncate">Chốt đề tài</span>
+</div>
+<span class="material-symbols-outlined text-sm text-slate-400 group-hover:text-slate-600">chevron_right</span>
+</a>
+<!-- Giai đoạn 4 -->
+<a class="flex items-center justify-between px-2.5 py-2 text-slate-600 hover:bg-slate-50 rounded-lg text-sm transition-colors group" href="#">
+<div class="flex items-center gap-2.5 truncate">
+<span class="w-5 h-5 rounded-full bg-slate-100 text-slate-600 flex items-center justify-center text-xs font-bold shrink-0">4</span>
+<span class="truncate">Thực hiện &amp; Minh chứng</span>
+</div>
+<span class="material-symbols-outlined text-sm text-slate-400 group-hover:text-slate-600">chevron_right</span>
+</a>
+<!-- Giai đoạn 5 -->
+<a class="flex items-center justify-between px-2.5 py-2 text-slate-600 hover:bg-slate-50 rounded-lg text-sm transition-colors group" href="#">
+<div class="flex items-center gap-2.5 truncate">
+<span class="w-5 h-5 rounded-full bg-slate-100 text-slate-600 flex items-center justify-center text-xs font-bold shrink-0">5</span>
+<span class="truncate">Đánh giá &amp; Chấm điểm</span>
+</div>
+<span class="material-symbols-outlined text-sm text-slate-400 group-hover:text-slate-600">chevron_right</span>
+</a>
+<!-- Giai đoạn 6 (ACTIVE) -->
+<div class="pt-1 pb-1">
+<div class="flex items-center justify-between px-2.5 py-2 bg-slate-100 text-slate-900 rounded-lg text-sm font-semibold border border-slate-200">
+<div class="flex items-center gap-2.5 truncate">
+<span class="w-5 h-5 rounded-full bg-slate-900 text-white flex items-center justify-center text-xs font-bold shrink-0">6</span>
+<span class="truncate">Hoàn tất &amp; Khóa sổ</span>
+</div>
+<span class="material-symbols-outlined text-sm text-slate-900">expand_more</span>
+</div>
+<!-- SUBMENU THỤT LỀ CỦA GIAI ĐOẠN 6 -->
+<div class="ml-6 pl-3 border-l-2 border-slate-300 mt-1 space-y-1">
+<!-- 6.1 ĐANG CHỌN -->
+<a class="flex items-center gap-2 py-1.5 px-2 rounded-md text-xs font-semibold text-slate-950 bg-slate-200" href="#matrix-section">
+<span class="w-1.5 h-1.5 rounded-full bg-slate-900"></span>
+<span class="truncate">6.1 Tổng hợp ma trận điểm</span>
+</a>
+<!-- 6.2 -->
+<a class="flex items-center gap-2 py-1.5 px-2 rounded-md text-xs font-medium text-slate-600 hover:text-slate-900 hover:bg-slate-50 transition-colors" href="#lock-section">
+<span class="w-1.5 h-1.5 rounded-full bg-transparent border border-slate-400"></span>
+<span class="truncate">6.2 Khóa sổ &amp; Lưu trữ vĩnh viễn</span>
+</a>
+<!-- 6.3 -->
+<a class="flex items-center gap-2 py-1.5 px-2 rounded-md text-xs font-medium text-slate-600 hover:text-slate-900 hover:bg-slate-50 transition-colors" href="#lookup-section">
+<span class="w-1.5 h-1.5 rounded-full bg-transparent border border-slate-400"></span>
+<span class="truncate">6.3 Tra cứu kết quả SV</span>
+</a>
+</div>
+</div>
+</nav>
+</div>
+<!-- FOOTER SIDEBAR -->
+<div class="p-3 border-t border-slate-200 bg-slate-50 space-y-1">
+<a class="flex items-center gap-2.5 px-2.5 py-1.5 text-xs text-slate-600 hover:text-slate-900 hover:bg-white rounded transition-colors" href="#">
+<span class="material-symbols-outlined text-base text-slate-500">settings</span>
+<span>Cài đặt quy chế đợt</span>
+</a>
+<a class="flex items-center gap-2.5 px-2.5 py-1.5 text-xs text-slate-600 hover:text-slate-900 hover:bg-white rounded transition-colors" href="#">
+<span class="material-symbols-outlined text-base text-slate-500">support_agent</span>
+<span>Hỗ trợ kỹ thuật phần mềm</span>
+</a>
+<div class="pt-2 text-[10px] text-slate-400 text-center">
+          Hệ thống bảo vệ đồ án K62 • 2025
+        </div>
+</div>
+</aside>
+<!-- MAIN CONTENT AREA -->
+<main class="flex-1 p-4 lg:p-6 xl:p-8 space-y-6 max-w-7xl mx-auto w-full">
+<!-- PHÂN ĐOẠN 1: HEADER ĐỢT, TRỌNG SỐ ĐIỂM VÀ CÁC NÚT HÀNH ĐỘNG -->
+<section class="bg-surface-container-lowest border border-slate-200 rounded-xl p-5 shadow-none">
+<div class="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
+<!-- Mã đợt và Trọng số -->
+<div>
+<div class="flex flex-wrap items-center gap-2.5 mb-1.5">
+<span class="font-headline-md text-headline-md font-bold text-slate-900">Đợt: DOT26_HK2_CNTT_01</span>
+<span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-semibold bg-slate-100 border border-slate-300 text-slate-700">
+                Giai đoạn: HOAN_TAT
+              </span>
+<span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-semibold bg-slate-100 border border-slate-300 text-slate-700">
+                Mã màn hình: M19 / M20
+              </span>
+</div>
+<p class="font-body-sm text-body-sm text-slate-600 flex flex-wrap items-center gap-x-4 gap-y-1">
+<span>Đồ án tốt nghiệp Ngành Công nghệ Thông tin &amp; TT</span>
+<span class="text-slate-300">|</span>
+<span class="text-slate-800 font-medium">
+                Quy chế trọng số: 
+                <span class="text-slate-950 font-semibold underline decoration-slate-300">Hướng dẫn (HD) 40%</span>, 
+                <span class="text-slate-950 font-semibold underline decoration-slate-300">Phản biện (PB) 20%</span>, 
+                <span class="text-slate-950 font-semibold underline decoration-slate-300">Hội đồng (HĐ) 40%</span>
+</span>
+</p>
+</div>
+<!-- 3 Nút hành động chuẩn mực -->
+<div class="flex flex-wrap items-center gap-2.5 shrink-0">
+<!-- Nút 1: Xuất Excel -->
+<button class="inline-flex items-center gap-2 px-3.5 py-2 rounded-lg border border-slate-300 bg-white text-slate-800 text-sm font-medium hover:bg-slate-50 transition-colors" type="button">
+<span class="material-symbols-outlined text-base">file_download</span>
+<span>Xuất bảng điểm Excel</span>
+</button>
+<!-- Nút 2: Đồng bộ USmart -->
+<button class="inline-flex items-center gap-2 px-3.5 py-2 rounded-lg border border-slate-300 bg-white text-slate-800 text-sm font-medium hover:bg-slate-50 transition-colors" type="button">
+<span class="material-symbols-outlined text-base">sync_alt</span>
+<span>Đồng bộ USmart</span>
+</button>
+<!-- Nút 3: Khóa sổ vĩnh viễn (Primary button phẳng không màu mè) -->
+<button class="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-slate-900 text-white text-sm font-semibold hover:bg-slate-800 transition-colors border border-slate-900" type="button">
+<span class="material-symbols-outlined text-base">lock</span>
+<span>Khóa sổ vĩnh viễn</span>
+</button>
+</div>
+</div>
+<!-- Trạng thái quy trình nhanh -->
+<div class="mt-4 pt-4 border-t border-slate-200 flex flex-wrap items-center justify-between text-xs text-slate-500 gap-2">
+<div class="flex items-center gap-3">
+<span class="flex items-center gap-1.5">
+<span class="w-2 h-2 rounded-full bg-slate-700"></span>
+              Thời gian mở điểm: 15/05/2025 - 28/05/2025
+            </span>
+<span class="text-slate-300">•</span>
+<span>Hội đồng phê duyệt: Khoa CNTT &amp; TT</span>
+</div>
+<div class="text-slate-600">
+            Phiên làm việc: Thẩm định điểm lần cuối trước khi phát hành quyết định tốt nghiệp
+          </div>
+</div>
+</section>
+<!-- PHÂN ĐOẠN 2: 4 THẺ KPI TÓM TẮT SỐ LIỆU ĐỢT -->
+<section class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+<!-- KPI 1: Tổng SV -->
+<div class="bg-surface-container-lowest border border-slate-200 rounded-xl p-4 flex flex-col justify-between">
+<div class="flex items-center justify-between text-slate-500 mb-2">
+<span class="font-label-md text-label-md font-medium text-slate-700">Tổng sinh viên bảo vệ</span>
+<span class="material-symbols-outlined text-xl text-slate-400">group</span>
+</div>
+<div class="flex items-baseline gap-2">
+<span class="font-display-lg text-display-lg font-bold text-slate-900">127</span>
+<span class="text-xs text-slate-500 font-medium">sinh viên</span>
+</div>
+<div class="mt-3 pt-2 border-t border-slate-100 text-xs text-slate-500 flex items-center justify-between">
+<span>Chính quy: 120</span>
+<span>Kỹ sư tài năng: 07</span>
+</div>
+</div>
+<!-- KPI 2: Đủ điều kiện chốt -->
+<div class="bg-surface-container-lowest border border-slate-200 rounded-xl p-4 flex flex-col justify-between">
+<div class="flex items-center justify-between text-slate-500 mb-2">
+<span class="font-label-md text-label-md font-medium text-slate-700">Đủ điều kiện chốt</span>
+<span class="w-2.5 h-2.5 rounded-full bg-emerald-600"></span>
+</div>
+<div class="flex items-baseline gap-2">
+<span class="font-display-lg text-display-lg font-bold text-slate-900">123</span>
+<span class="text-xs font-semibold text-emerald-700">96.85% hoàn tất</span>
+</div>
+<div class="mt-3 pt-2 border-t border-slate-100 text-xs text-slate-500 flex items-center justify-between">
+<span>Hồ sơ đã ký số: 123/127</span>
+<span class="text-emerald-700 font-medium">Sẵn sàng lưu kho</span>
+</div>
+</div>
+<!-- KPI 3: Thiếu điểm -->
+<div class="bg-surface-container-lowest border border-slate-200 rounded-xl p-4 flex flex-col justify-between">
+<div class="flex items-center justify-between text-slate-500 mb-2">
+<span class="font-label-md text-label-md font-medium text-slate-700">Thiếu điểm thành phần</span>
+<span class="w-2.5 h-2.5 rounded-full bg-rose-600"></span>
+</div>
+<div class="flex items-baseline gap-2">
+<span class="font-display-lg text-display-lg font-bold text-slate-900">04</span>
+<span class="text-xs font-semibold text-rose-700">Cần bổ sung gấp</span>
+</div>
+<div class="mt-3 pt-2 border-t border-slate-100 text-xs text-slate-500 flex items-center justify-between">
+<span>Chờ PB: 02 • Chưa nộp: 02</span>
+<span class="text-rose-700 font-medium">Khóa sổ bị chặn</span>
+</div>
+</div>
+<!-- KPI 4: Điểm TB toàn khoa -->
+<div class="bg-surface-container-lowest border border-slate-200 rounded-xl p-4 flex flex-col justify-between">
+<div class="flex items-center justify-between text-slate-500 mb-2">
+<span class="font-label-md text-label-md font-medium text-slate-700">Điểm trung bình toàn khoa</span>
+<span class="material-symbols-outlined text-xl text-slate-400">query_stats</span>
+</div>
+<div class="flex items-baseline gap-2">
+<span class="font-display-lg text-display-lg font-bold text-slate-900">8.42</span>
+<span class="text-xs text-slate-500 font-medium">/ 10.0 thang điểm</span>
+</div>
+<div class="mt-3 pt-2 border-t border-slate-100 text-xs text-slate-500 flex items-center justify-between">
+<span>Cao nhất: 9.80</span>
+<span>Thấp nhất: 6.50</span>
+</div>
+</div>
+</section>
+<!-- PHÂN ĐOẠN 3: BẢNG MA TRẬN ĐIỂM ĐỒ ÁN TỐT NGHIỆP CHI TIẾT -->
+<section class="bg-surface-container-lowest border border-slate-200 rounded-xl shadow-none overflow-hidden" id="matrix-section">
+<!-- Table Toolbar -->
+<div class="p-4 border-b border-slate-200 flex flex-col md:flex-row md:items-center justify-between gap-3 bg-white">
+<div class="flex items-center gap-2">
+<span class="font-headline-sm text-headline-sm font-semibold text-slate-900">Ma trận điểm chi tiết đồ án</span>
+<span class="text-xs font-normal text-slate-500 bg-slate-100 px-2 py-0.5 rounded border border-slate-200">UC25 - ho_so, dot_trong_so</span>
+</div>
+<!-- Lọc và Tìm kiếm -->
+<div class="flex flex-wrap items-center gap-2.5">
+<div class="relative">
+<span class="material-symbols-outlined absolute left-2.5 top-2.5 text-slate-400 text-sm">search</span>
+<input class="pl-8 pr-3 py-1.5 text-xs bg-slate-50 border border-slate-300 rounded-lg text-slate-800 placeholder-slate-400 focus:outline-none focus:border-slate-800 focus:bg-white w-64" placeholder="Tìm theo Mã SV, Họ tên, Đề tài..." type="text"/>
+</div>
+<select class="py-1.5 px-3 text-xs bg-slate-50 border border-slate-300 rounded-lg text-slate-800 focus:outline-none focus:border-slate-800">
+<option value="all">Tất cả trạng thái (127)</option>
+<option value="pass">Đủ điều kiện chốt (123)</option>
+<option value="warning">Thiếu điểm / Cảnh báo (04)</option>
+</select>
+<select class="py-1.5 px-3 text-xs bg-slate-50 border border-slate-300 rounded-lg text-slate-800 focus:outline-none focus:border-slate-800">
+<option value="all">Tất cả hội đồng</option>
+<option value="hd1">Hội đồng 01 - Trí tuệ nhân tạo</option>
+<option value="hd2">Hội đồng 02 - Kỹ thuật phần mềm</option>
+<option value="hd3">Hội đồng 03 - Mạng &amp; An ninh thông tin</option>
+</select>
+</div>
+</div>
+<!-- Table Data -->
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-slate-50 border-b border-slate-200 text-slate-600 font-label-md text-label-md text-xs uppercase tracking-wider">
+<th class="py-3 px-4 w-12 text-center">STT</th>
+<th class="py-3 px-4 w-32">Mã sinh viên</th>
+<th class="py-3 px-4 min-w-[180px]">Họ và tên</th>
+<th class="py-3 px-4 min-w-[260px]">Tên đề tài tốt nghiệp</th>
+<th class="py-3 px-3 text-center w-24">Điểm HD<br/><span class="normal-case font-normal text-slate-400 text-[11px]">(40%)</span></th>
+<th class="py-3 px-3 text-center w-24">Điểm PB<br/><span class="normal-case font-normal text-slate-400 text-[11px]">(20%)</span></th>
+<th class="py-3 px-3 text-center w-24">Điểm HĐ<br/><span class="normal-case font-normal text-slate-400 text-[11px]">(40%)</span></th>
+<th class="py-3 px-3 text-center w-24">Điểm cuối<br/><span class="normal-case font-normal text-slate-400 text-[11px]">(Hệ 10)</span></th>
+<th class="py-3 px-4 w-36 text-center">Trạng thái chốt</th>
+<th class="py-3 px-4 w-28 text-center">Thao tác</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-slate-100 text-sm text-slate-800">
+<!-- Hàng 1: Đủ điểm - Đạt -->
+<tr class="hover:bg-slate-50 transition-colors">
+<td class="py-3.5 px-4 text-center text-slate-500 font-medium">01</td>
+<td class="py-3.5 px-4 font-mono font-semibold text-slate-900">2011060123</td>
+<td class="py-3.5 px-4">
+<div class="font-semibold text-slate-900">Nguyễn Văn An</div>
+<div class="text-xs text-slate-500">Lớp 62K1-CNTT • CT Chuẩn</div>
+</td>
+<td class="py-3.5 px-4">
+<div class="font-medium text-slate-900 line-clamp-1">Xây dựng hệ thống phát hiện xâm nhập mạng dùng mô hình Transformer</div>
+<div class="text-xs text-slate-500">GVHD: TS. Trần Đình Hải</div>
+</td>
+<td class="py-3.5 px-3 text-center font-mono font-medium text-slate-800">8.80</td>
+<td class="py-3.5 px-3 text-center font-mono font-medium text-slate-800">8.50</td>
+<td class="py-3.5 px-3 text-center font-mono font-medium text-slate-800">9.00</td>
+<td class="py-3.5 px-3 text-center">
+<span class="font-mono font-bold text-slate-950 text-base">8.82</span>
+</td>
+<td class="py-3.5 px-4 text-center">
+<span class="inline-flex items-center gap-1.5 px-2 py-0.5 rounded text-xs font-semibold text-emerald-700 bg-slate-50 border border-slate-300">
+<span class="w-1.5 h-1.5 rounded-full bg-emerald-600"></span>
+                    Đủ điều kiện
+                  </span>
+</td>
+<td class="py-3.5 px-4 text-center">
+<button class="text-slate-600 hover:text-slate-900 text-xs font-medium underline decoration-slate-300" title="Xem chi tiết phiếu chấm" type="button">
+                    Chi tiết
+                  </button>
+</td>
+</tr>
+<!-- Hàng 2: Đủ điểm - Xuất sắc -->
+<tr class="hover:bg-slate-50 transition-colors">
+<td class="py-3.5 px-4 text-center text-slate-500 font-medium">02</td>
+<td class="py-3.5 px-4 font-mono font-semibold text-slate-900">2011060188</td>
+<td class="py-3.5 px-4">
+<div class="font-semibold text-slate-900">Trần Thị Bích Ngọc</div>
+<div class="text-xs text-slate-500">Lớp 62K2-CNTT • CT Tài năng</div>
+</td>
+<td class="py-3.5 px-4">
+<div class="font-medium text-slate-900 line-clamp-1">Nghiên cứu tối ưu hóa truy vấn phân tán cho cơ sở dữ liệu y tế học đường</div>
+<div class="text-xs text-slate-500">GVHD: PGS.TS. Lê Hoài Nam</div>
+</td>
+<td class="py-3.5 px-3 text-center font-mono font-medium text-slate-800">9.50</td>
+<td class="py-3.5 px-3 text-center font-mono font-medium text-slate-800">9.20</td>
+<td class="py-3.5 px-3 text-center font-mono font-medium text-slate-800">9.60</td>
+<td class="py-3.5 px-3 text-center">
+<span class="font-mono font-bold text-slate-950 text-base">9.48</span>
+</td>
+<td class="py-3.5 px-4 text-center">
+<span class="inline-flex items-center gap-1.5 px-2 py-0.5 rounded text-xs font-semibold text-emerald-700 bg-slate-50 border border-slate-300">
+<span class="w-1.5 h-1.5 rounded-full bg-emerald-600"></span>
+                    Đủ điều kiện
+                  </span>
+</td>
+<td class="py-3.5 px-4 text-center">
+<button class="text-slate-600 hover:text-slate-900 text-xs font-medium underline decoration-slate-300" type="button">
+                    Chi tiết
+                  </button>
+</td>
+</tr>
+<!-- Hàng 3: Thiếu điểm (Cảnh báo - Thiếu điểm GVPB) -->
+<tr class="bg-rose-50/20 hover:bg-slate-50 transition-colors">
+<td class="py-3.5 px-4 text-center text-slate-500 font-medium">03</td>
+<td class="py-3.5 px-4 font-mono font-semibold text-slate-900">2011060205</td>
+<td class="py-3.5 px-4">
+<div class="font-semibold text-slate-900">Lê Hoàng Quân</div>
+<div class="text-xs text-slate-500">Lớp 62K1-KTPM • CT Chuẩn</div>
+</td>
+<td class="py-3.5 px-4">
+<div class="font-medium text-slate-900 line-clamp-1">Phát triển nền tảng Microservices phục vụ phân hệ kiểm thử tự động CI/CD</div>
+<div class="text-xs text-slate-500">GVHD: TS. Nguyễn Công Minh</div>
+</td>
+<td class="py-3.5 px-3 text-center font-mono font-medium text-slate-800">8.20</td>
+<td class="py-3.5 px-3 text-center">
+<span class="inline-block px-1.5 py-0.5 text-[11px] font-semibold text-rose-700 bg-white border border-slate-300 rounded">Chưa chấm</span>
+</td>
+<td class="py-3.5 px-3 text-center font-mono font-medium text-slate-800">8.00</td>
+<td class="py-3.5 px-3 text-center">
+<span class="font-mono text-slate-400 font-bold text-sm">--</span>
+</td>
+<td class="py-3.5 px-4 text-center">
+<span class="inline-flex items-center gap-1.5 px-2 py-0.5 rounded text-xs font-semibold text-rose-700 bg-white border border-slate-300" title="Lý do: Thiếu điểm GVPB - ThS. Đậu Anh Tuấn">
+<span class="w-1.5 h-1.5 rounded-full bg-rose-600"></span>
+                    Thiếu điểm GVPB
+                  </span>
+</td>
+<td class="py-3.5 px-4 text-center">
+<button class="text-slate-800 hover:text-slate-950 text-xs font-semibold underline decoration-slate-400" type="button">
+                    Nhắc GVPB
+                  </button>
+</td>
+</tr>
+<!-- Hàng 4: Đủ điểm -->
+<tr class="hover:bg-slate-50 transition-colors">
+<td class="py-3.5 px-4 text-center text-slate-500 font-medium">04</td>
+<td class="py-3.5 px-4 font-mono font-semibold text-slate-900">2011060312</td>
+<td class="py-3.5 px-4">
+<div class="font-semibold text-slate-900">Phạm Quỳnh Mai</div>
+<div class="text-xs text-slate-500">Lớp 62K3-CNTT • CT Chuẩn</div>
+</td>
+<td class="py-3.5 px-4">
+<div class="font-medium text-slate-900 line-clamp-1">Ứng dụng thị giác máy tính trong giám sát thực hành nông nghiệp chính xác</div>
+<div class="text-xs text-slate-500">GVHD: TS. Hoàng Văn Thảo</div>
+</td>
+<td class="py-3.5 px-3 text-center font-mono font-medium text-slate-800">8.00</td>
+<td class="py-3.5 px-3 text-center font-mono font-medium text-slate-800">7.80</td>
+<td class="py-3.5 px-3 text-center font-mono font-medium text-slate-800">8.20</td>
+<td class="py-3.5 px-3 text-center">
+<span class="font-mono font-bold text-slate-950 text-base">8.04</span>
+</td>
+<td class="py-3.5 px-4 text-center">
+<span class="inline-flex items-center gap-1.5 px-2 py-0.5 rounded text-xs font-semibold text-emerald-700 bg-slate-50 border border-slate-300">
+<span class="w-1.5 h-1.5 rounded-full bg-emerald-600"></span>
+                    Đủ điều kiện
+                  </span>
+</td>
+<td class="py-3.5 px-4 text-center">
+<button class="text-slate-600 hover:text-slate-900 text-xs font-medium underline decoration-slate-300" type="button">
+                    Chi tiết
+                  </button>
+</td>
+</tr>
+<!-- Hàng 5: Thiếu điểm (Cảnh báo - Chưa nộp minh chứng / Báo cáo bản cứng) -->
+<tr class="bg-rose-50/20 hover:bg-slate-50 transition-colors">
+<td class="py-3.5 px-4 text-center text-slate-500 font-medium">05</td>
+<td class="py-3.5 px-4 font-mono font-semibold text-slate-900">2011060341</td>
+<td class="py-3.5 px-4">
+<div class="font-semibold text-slate-900">Đặng Tuấn Anh</div>
+<div class="text-xs text-slate-500">Lớp 62K2-CNTT • CT Chuẩn</div>
+</td>
+<td class="py-3.5 px-4">
+<div class="font-medium text-slate-900 line-clamp-1">Giải pháp xác thực định danh số phi tập trung ứng dụng hợp đồng thông minh</div>
+<div class="text-xs text-slate-500">GVHD: PGS.TS. Nguyễn Văn Phúc</div>
+</td>
+<td class="py-3.5 px-3 text-center font-mono font-medium text-slate-800">8.50</td>
+<td class="py-3.5 px-3 text-center font-mono font-medium text-slate-800">8.00</td>
+<td class="py-3.5 px-3 text-center">
+<span class="inline-block px-1.5 py-0.5 text-[11px] font-semibold text-rose-700 bg-white border border-slate-300 rounded">Chưa nộp</span>
+</td>
+<td class="py-3.5 px-3 text-center">
+<span class="font-mono text-slate-400 font-bold text-sm">--</span>
+</td>
+<td class="py-3.5 px-4 text-center">
+<span class="inline-flex items-center gap-1.5 px-2 py-0.5 rounded text-xs font-semibold text-rose-700 bg-white border border-slate-300" title="Lý do: Chưa nộp quyển đồ án hoàn thiện &amp; đĩa CD">
+<span class="w-1.5 h-1.5 rounded-full bg-rose-600"></span>
+                    Chưa nộp quyển
+                  </span>
+</td>
+<td class="py-3.5 px-4 text-center">
+<button class="text-slate-800 hover:text-slate-950 text-xs font-semibold underline decoration-slate-400" type="button">
+                    Báo lỗi SV
+                  </button>
+</td>
+</tr>
+<!-- Hàng 6: Chờ xác thực ký số -->
+<tr class="hover:bg-slate-50 transition-colors">
+<td class="py-3.5 px-4 text-center text-slate-500 font-medium">06</td>
+<td class="py-3.5 px-4 font-mono font-semibold text-slate-900">2011060455</td>
+<td class="py-3.5 px-4">
+<div class="font-semibold text-slate-900">Vũ Minh Đức</div>
+<div class="text-xs text-slate-500">Lớp 62K1-ATTT • CT Chuẩn</div>
+</td>
+<td class="py-3.5 px-4">
+<div class="font-medium text-slate-900 line-clamp-1">Phân tích mã độc nâng cao trong môi trường Sandbox ảo hóa KVM</div>
+<div class="text-xs text-slate-500">GVHD: TS. Nguyễn Công Minh</div>
+</td>
+<td class="py-3.5 px-3 text-center font-mono font-medium text-slate-800">8.70</td>
+<td class="py-3.5 px-3 text-center font-mono font-medium text-slate-800">8.40</td>
+<td class="py-3.5 px-3 text-center font-mono font-medium text-slate-800">8.80</td>
+<td class="py-3.5 px-3 text-center">
+<span class="font-mono font-bold text-slate-950 text-base">8.68</span>
+</td>
+<td class="py-3.5 px-4 text-center">
+<span class="inline-flex items-center gap-1.5 px-2 py-0.5 rounded text-xs font-semibold text-slate-700 bg-slate-100 border border-slate-300">
+<span class="w-1.5 h-1.5 rounded-full bg-slate-500"></span>
+                    Chờ ký số
+                  </span>
+</td>
+<td class="py-3.5 px-4 text-center">
+<button class="text-slate-600 hover:text-slate-900 text-xs font-medium underline decoration-slate-300" type="button">
+                    Chi tiết
+                  </button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- Table Footer / Pagination -->
+<div class="p-4 border-t border-slate-200 bg-slate-50 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-slate-600">
+<div>
+            Hiển thị <span class="font-semibold text-slate-900">1 - 6</span> trên tổng số <span class="font-semibold text-slate-900">127</span> hồ sơ sinh viên
+          </div>
+<div class="flex items-center gap-1">
+<button class="px-2.5 py-1 border border-slate-300 rounded bg-white text-slate-700 hover:bg-slate-100 disabled:opacity-50" disabled="">Trang trước</button>
+<button class="px-2.5 py-1 border border-slate-900 bg-slate-900 text-white font-semibold rounded">1</button>
+<button class="px-2.5 py-1 border border-slate-300 rounded bg-white text-slate-700 hover:bg-slate-100">2</button>
+<button class="px-2.5 py-1 border border-slate-300 rounded bg-white text-slate-700 hover:bg-slate-100">3</button>
+<span class="px-1 text-slate-400">...</span>
+<button class="px-2.5 py-1 border border-slate-300 rounded bg-white text-slate-700 hover:bg-slate-100">22</button>
+<button class="px-2.5 py-1 border border-slate-300 rounded bg-white text-slate-700 hover:bg-slate-100">Trang sau</button>
+</div>
+</div>
+</section>
+<!-- PHÂN ĐOẠN 4: HỘP GIẢI TRÌNH CƠ CHẾ BẢO TOÀN ĐIỂM (JSONB & SHA-256) -->
+<section class="bg-surface-container-lowest border border-slate-200 rounded-xl p-5 shadow-none space-y-4" id="lock-section">
+<div class="flex items-center justify-between border-b border-slate-200 pb-3">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-slate-700 text-lg">enhanced_encryption</span>
+<h3 class="font-headline-sm text-headline-sm font-semibold text-slate-900">Cơ chế Bảo toàn Dữ liệu &amp; Lưu trữ Vĩnh viễn (UC26)</h3>
+</div>
+<span class="text-xs font-mono text-slate-500 bg-slate-100 px-2 py-0.5 rounded border border-slate-200">
+            Immutable Snapshot: ket_qua_ho_so
+          </span>
+</div>
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-5">
+<!-- Cột thông tin 1: Quy trình niêm phong -->
+<div class="lg:col-span-1 space-y-3 text-xs text-slate-600">
+<p class="font-semibold text-slate-800 text-sm">Nguyên tắc Bất biến học thuật:</p>
+<p class="leading-relaxed">
+              Khi Trưởng khoa thực hiện lệnh <strong>"Khóa sổ vĩnh viễn"</strong>, toàn bộ cây dữ liệu bao gồm: thông tin sinh viên, danh sách hội đồng, bảng điểm thành phần (HD, PB, HĐ) và nhận xét của từng giảng viên sẽ được trích xuất thành một bản ghi đối tượng nhị phân <code>JSONB</code> duy nhất.
+            </p>
+<p class="leading-relaxed">
+              Hệ thống lập tức tính toán giá trị chữ ký kiểm tra <strong>SHA-256 Checksum</strong> đối với bản ghi này và ghi nhận dấu thời gian (Timestamp) cùng khóa công khai của tài khoản phê duyệt.
+            </p>
+<div class="p-3 bg-slate-50 border border-slate-200 rounded-lg space-y-1 font-mono text-[11px] text-slate-700">
+<div><strong class="text-slate-900">Trạng thái:</strong> SẴN SÀNG LẬP ẢNH CHỤP</div>
+<div><strong class="text-slate-900">Điều kiện kích hoạt:</strong> Giải quyết 04 hồ sơ thiếu điểm</div>
+</div>
+</div>
+<!-- Cột thông tin 2: Bản sao JSONB minh họa -->
+<div class="lg:col-span-2">
+<div class="rounded-lg border border-slate-200 bg-slate-950 text-slate-200 p-3.5 font-mono text-xs overflow-x-auto shadow-inner">
+<div class="flex items-center justify-between text-slate-400 border-b border-slate-800 pb-2 mb-2 text-[11px]">
+<span class="flex items-center gap-1.5">
+<span class="w-2 h-2 rounded-full bg-slate-400"></span>
+                  SNAPSHOT_KET_QUA_HO_SO_PREVIEW.jsonb
+                </span>
+<span class="text-slate-400">Thuật toán: SHA-256</span>
+</div>
+<pre class="leading-5 text-[11px] text-slate-300"><code>{
+  "dot_id": "DOT26_HK2_CNTT_01",
+  "khoa": "TRƯỜNG KỸ THUẬT VÀ CÔNG NGHỆ - ĐẠI HỌC VINH",
+  "tong_so_sinh_vien": 127,
+  "trong_so_thiet_lap": { "hd_rate": 0.40, "pb_rate": 0.20, "hoi_dong_rate": 0.40 },
+  "thoi_diem_khoa_so": "2025-05-28T17:30:00.000+07:00",
+  "nguoi_thuc_hien": "GV0012_TRUONG_KHOA_CNTT",
+  "sha256_checksum": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "danh_sach_ket_qua_dinh_kem": [
+    { "ma_sv": "2011060123", "ho_ten": "Nguyễn Văn An", "diem_hd": 8.8, "diem_pb": 8.5, "diem_hoi_dong": 9.0, "diem_tong_ket": 8.82, "xep_loai": "Gioi" },
+    { "ma_sv": "2011060188", "ho_ten": "Trần Thị Bích Ngọc", "diem_hd": 9.5, "diem_pb": 9.2, "diem_hoi_dong": 9.6, "diem_tong_ket": 9.48, "xep_loai": "XuatSac" }
+  ]
+}</code></pre>
+</div>
+<!-- Footer cảnh báo an toàn cơ sở dữ liệu -->
+<div class="mt-2.5 flex items-center justify-between text-xs text-slate-500">
+<span class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-slate-400 text-sm">verified_user</span>
+                Bảo toàn cấu trúc toàn vẹn: Không thể chỉnh sửa điểm sau khi ấn định
+              </span>
+<span class="font-mono text-slate-600">DB Schema: audit_log_final_snapshot</span>
+</div>
+</div>
+</div>
+</section>
+<!-- PHÂN ĐOẠN PHỤ: TRA CỨU NHANH KẾT QUẢ SINH VIÊN (6.3) -->
+<section class="bg-surface-container-lowest border border-slate-200 rounded-xl p-5 shadow-none" id="lookup-section">
+<div class="flex flex-col md:flex-row md:items-center justify-between gap-3 mb-4">
+<div>
+<h4 class="font-headline-sm text-headline-sm font-semibold text-slate-900">Tra cứu &amp; Cấp chứng nhận kết quả sinh viên</h4>
+<p class="font-body-sm text-body-sm text-slate-500">Tìm kiếm nhanh bảng điểm phục vụ cấp giấy chứng nhận tốt nghiệp tạm thời</p>
+</div>
+<div class="flex items-center gap-2">
+<span class="text-xs text-slate-600">Trạng thái cổng tra cứu SV:</span>
+<span class="inline-flex items-center gap-1 text-xs font-semibold text-emerald-700 bg-slate-100 px-2 py-1 rounded border border-slate-200">
+<span class="w-1.5 h-1.5 rounded-full bg-emerald-600"></span>
+              Đang mở tra cứu nội bộ
+            </span>
+</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-3">
+<div class="p-3 bg-slate-50 border border-slate-200 rounded-lg">
+<p class="text-xs text-slate-500 font-medium">Báo cáo kiểm tra đạo văn (Turnitin)</p>
+<p class="font-semibold text-slate-900 mt-1">127 / 127 Đã đối soát</p>
+<p class="text-[11px] text-slate-500 mt-0.5">Tỷ lệ tương đồng bình quân 8.4% (Đạt tiêu chuẩn &lt; 20%)</p>
+</div>
+<div class="p-3 bg-slate-50 border border-slate-200 rounded-lg">
+<p class="text-xs text-slate-500 font-medium">Biên bản họp Hội đồng chấm</p>
+<p class="font-semibold text-slate-900 mt-1">08 / 08 Hội đồng hoàn tất</p>
+<p class="text-[11px] text-slate-500 mt-0.5">Đã tải lên tệp PDF có đầy đủ chữ ký của Chủ tịch &amp; Thư ký</p>
+</div>
+<div class="p-3 bg-slate-50 border border-slate-200 rounded-lg">
+<p class="text-xs text-slate-500 font-medium">Đồng bộ dữ liệu sang Phòng Đào tạo</p>
+<p class="font-semibold text-slate-900 mt-1">Chờ khóa sổ chính thức</p>
+<p class="text-[11px] text-slate-500 mt-0.5">Tự động kết xuất XML theo quy chuẩn phần mềm USmart Vinh Uni</p>
+</div>
+</div>
+</section>
+</main>
+</div>
+</body></html>

@@ -1,0 +1,517 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Phân công Hướng dẫn Đồ án - {{ dot.ma_dot }}{% endblock %}
+
+{% block content %}
+<div class="space-y-6">
+
+    <!-- WORKSPACE HEADER TỐI GIẢN & TINH TẾ -->
+    <div class="bg-white border border-slate-200 rounded-2xl p-5 shadow-xs space-y-4">
+        <!-- Row 1: Tiêu đề & Các nút hành động chính -->
+        <div class="flex flex-col xl:flex-row xl:items-center justify-between gap-4">
+            <div>
+                <div class="flex items-center gap-2.5">
+                    <h1 class="text-xl sm:text-2xl font-bold font-heading text-slate-900 tracking-tight">
+                        Phân công Hướng dẫn Đồ án
+                    </h1>
+                    <span class="inline-flex items-center px-2.5 py-0.5 rounded text-xs font-semibold bg-slate-100 text-slate-700 border border-slate-200">
+                        {{ ban_phan_cong.get_trang_thai_display }}
+                    </span>
+                </div>
+                <p class="text-xs sm:text-sm text-slate-500 mt-1 font-sans">
+                    {{ dot.ten_dot }} • Mã đợt: <span class="font-mono font-medium text-slate-700">{{ dot.ma_dot }}</span>
+                </p>
+            </div>
+
+            <!-- Các nút thao tác nghiệp vụ -->
+            <div class="flex flex-wrap items-center gap-2.5">
+                <!-- Nút phân bổ cân bằng GPA -->
+                {% if ban_phan_cong.trang_thai != 'DA_CONG_BO' %}
+                <form method="POST" action="{% url 'phancong:chay_snake_draft' dot.id %}" onsubmit="return confirm('Bạn có chắc chắn muốn chạy thuật toán phân bổ ziczac cân bằng theo điểm GPA cho toàn bộ sinh viên chưa có giảng viên hướng dẫn?');">
+                    {% csrf_token %}
+                    <button type="submit" class="inline-flex items-center gap-2 px-3.5 py-2 bg-slate-900 hover:bg-slate-800 text-white text-xs sm:text-sm font-semibold rounded-xl shadow-xs transition">
+                        <span class="material-symbols-outlined text-base">auto_awesome</span>
+                        <span>Gợi ý phân bổ cân bằng GPA</span>
+                    </button>
+                </form>
+                {% endif %}
+
+                <!-- Xuất Excel dự thảo (UC08) -->
+                <a href="{% url 'phancong:xuat_excel' dot.id %}" class="inline-flex items-center gap-1.5 px-3 py-2 bg-white border border-slate-300 hover:bg-slate-50 text-slate-700 text-xs sm:text-sm font-semibold rounded-xl shadow-xs transition">
+                    <span class="material-symbols-outlined text-base text-emerald-600">file_download</span>
+                    <span>Tải dự thảo (Excel)</span>
+                </a>
+
+                <!-- Nút gửi cho GVHD (UC07) -->
+                {% if ban_phan_cong.trang_thai == 'NHAP' %}
+                <form method="POST" action="{% url 'phancong:gui_ban_phan_cong' dot.id %}" onsubmit="return confirm('Xác nhận gửi bản phân công này cho tất cả Giảng viên hướng dẫn để họ xác nhận?');">
+                    {% csrf_token %}
+                    <button type="submit" {% if kpi.chua_gan > 0 %}disabled title="Phải phân công hết sinh viên trước khi gửi"{% endif %} class="inline-flex items-center gap-1.5 px-3.5 py-2 bg-blue-600 hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed text-white text-xs sm:text-sm font-semibold rounded-xl shadow-xs transition">
+                        <span class="material-symbols-outlined text-base">send</span>
+                        <span>Gửi Giảng viên hướng dẫn xác nhận</span>
+                    </button>
+                </form>
+                {% elif ban_phan_cong.trang_thai == 'DA_GUI' %}
+                <!-- Nút Công bố chính thức (UC09) -->
+                <form method="POST" action="{% url 'phancong:cong_bo_chinh_thuc' dot.id %}" onsubmit="return confirm('Xác nhận công bố danh sách phân công chính thức? Sau khi công bố, hệ thống sẽ chốt giảng viên hướng dẫn cho sinh viên và chuyển tiếp sang bước Duyệt đề tài.');">
+                    {% csrf_token %}
+                    <button type="submit" class="inline-flex items-center gap-1.5 px-4 py-2 bg-emerald-600 hover:bg-emerald-700 text-white text-xs sm:text-sm font-semibold rounded-xl shadow-xs transition">
+                        <span class="material-symbols-outlined text-base">verified</span>
+                        <span>Công bố chính thức</span>
+                    </button>
+                </form>
+                {% else %}
+                <div class="inline-flex items-center gap-1 px-3 py-2 bg-emerald-50 text-emerald-800 border border-emerald-200 text-xs sm:text-sm font-semibold rounded-xl">
+                    <span class="material-symbols-outlined text-base">check_circle</span>
+                    <span>Đã công bố chính thức</span>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+
+        <!-- Row 2: Thanh chỉ số cốt lõi -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-3 pt-2 border-t border-slate-100">
+            <div class="bg-slate-50 border border-slate-200 rounded-xl p-3 flex items-center justify-between">
+                <div>
+                    <div class="text-xs text-slate-500 font-medium">Tiến độ phân bổ sinh viên</div>
+                    <div class="text-xl font-bold font-heading text-slate-900 mt-0.5">
+                        {{ kpi.da_gan }} <span class="text-xs font-normal text-slate-500">/ {{ kpi.tong_sinh_vien }} sinh viên</span>
+                    </div>
+                </div>
+                <div>
+                    {% if kpi.chua_gan == 0 %}
+                    <span class="text-xs font-semibold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">Đã gán 100%</span>
+                    {% else %}
+                    <span class="text-xs font-semibold text-rose-600 bg-rose-50 px-2 py-0.5 rounded border border-rose-200">Còn {{ kpi.chua_gan }}</span>
+                    {% endif %}
+                </div>
+            </div>
+
+            <div class="bg-slate-50 border border-slate-200 rounded-xl p-3 flex items-center justify-between">
+                <div>
+                    <div class="text-xs text-slate-500 font-medium">Giảng viên hướng dẫn</div>
+                    <div class="text-xl font-bold font-heading text-slate-900 mt-0.5">
+                        {{ kpi.gv_day_tai }} <span class="text-xs font-normal text-slate-500">/ {{ kpi.tong_giang_vien }} giảng viên đầy tải</span>
+                    </div>
+                </div>
+                <span class="text-xs text-slate-500">Còn lại: {{ kpi.chi_tieu_con_lai }} chỉ tiêu</span>
+            </div>
+
+            <div class="bg-slate-50 border border-slate-200 rounded-xl p-3 flex items-center justify-between">
+                <div>
+                    <div class="text-xs text-slate-500 font-medium">Độ lệch chuẩn phân bổ GPA</div>
+                    <div class="text-xl font-bold font-heading text-slate-900 mt-0.5">
+                        {% if kpi.std_dev_gpa is not None %}±{{ kpi.std_dev_gpa }}{% else %}--{% endif %}
+                    </div>
+                </div>
+                <div>
+                    {% if kpi.std_dev_gpa is not None and kpi.std_dev_gpa <= 0.25 %}
+                    <span class="text-xs font-semibold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">Tối ưu</span>
+                    {% else %}
+                    <span class="text-xs text-slate-500">Mục tiêu: ≤ 0.30</span>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- CHUYỂN ĐỔI CHUYÊN MỤC TÁC NGHIỆP (PHẦN NÀO RA PHẦN ĐÓ) -->
+    <div class="bg-white rounded-xl p-1.5 border border-slate-200 shadow-xs">
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-1.5">
+            <a href="?view=board" 
+               class="px-4 py-2.5 rounded-lg flex items-center justify-center gap-2 text-sm font-semibold transition font-sans {% if view_mode == 'board' or not view_mode %}bg-slate-900 text-white shadow-xs{% else %}text-slate-600 hover:text-slate-900 hover:bg-slate-100{% endif %}">
+                <span class="material-symbols-outlined text-lg">dashboard</span>
+                <span>Bảng phân công cán bộ</span>
+            </a>
+
+            <a href="?view=snake" 
+               class="px-4 py-2.5 rounded-lg flex items-center justify-center gap-2 text-sm font-semibold transition font-sans {% if view_mode == 'snake' %}bg-slate-900 text-white shadow-xs{% else %}text-slate-600 hover:text-slate-900 hover:bg-slate-100{% endif %}">
+                <span class="material-symbols-outlined text-lg">auto_awesome</span>
+                <span>Phân bổ cân bằng GPA</span>
+            </a>
+
+            <a href="?view=publish" 
+               class="px-4 py-2.5 rounded-lg flex items-center justify-center gap-2 text-sm font-semibold transition font-sans {% if view_mode == 'publish' %}bg-slate-900 text-white shadow-xs{% else %}text-slate-600 hover:text-slate-900 hover:bg-slate-100{% endif %}">
+                <span class="material-symbols-outlined text-lg">verified</span>
+                <span>Kiểm tra & Công bố chính thức</span>
+            </a>
+        </div>
+    </div>
+
+    {% if view_mode == 'snake' %}
+    <!-- VIEW 2: ĐỀ XUẤT CHIA ĐỀU (SNAKE-DRAFT CHUYÊN TRÁCH) -->
+    <div class="bg-white rounded-2xl border border-slate-200 shadow-xs p-6 space-y-5">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-100 pb-4">
+            <div>
+                <h2 class="text-lg font-bold font-heading text-slate-900 flex items-center gap-2">
+                    <span class="material-symbols-outlined text-amber-500">auto_awesome</span>
+                    Thuật toán phân bổ ziczac cân bằng theo điểm GPA (UC07, UC08)
+                </h2>
+                <p class="text-xs text-slate-500 mt-1">Phân bổ tự động sinh viên vào danh sách Giảng viên theo cơ chế xếp ziczac, bảo đảm điểm trung bình GPA và chỉ tiêu giữa các thầy cô cân bằng tối ưu.</p>
+            </div>
+            {% if ban_phan_cong.trang_thai != 'DA_CONG_BO' %}
+            <form method="POST" action="{% url 'phancong:chay_snake_draft' dot.id %}" onsubmit="return confirm('Xác nhận kích hoạt thuật toán phân bổ ziczac cân bằng theo điểm GPA?');">
+                {% csrf_token %}
+                <button type="submit" class="px-5 py-2.5 bg-slate-900 hover:bg-slate-800 text-white text-xs sm:text-sm font-bold rounded-xl shadow-xs transition inline-flex items-center gap-2">
+                    <span class="material-symbols-outlined text-sm">play_arrow</span>
+                    <span>Thực hiện chia đều tự động ngay</span>
+                </button>
+            </form>
+            {% endif %}
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div class="p-4 rounded-xl border border-slate-200 bg-slate-50">
+                <span class="text-xs font-semibold text-slate-500 uppercase">Nguyên tắc thuật toán</span>
+                <p class="text-sm text-slate-800 font-medium mt-1">Sắp xếp sinh viên giảm dần theo GPA đầu vào (USMART). Vòng 1 đi từ giảng viên 1 -> n, vòng 2 đảo chiều từ giảng viên n -> 1.</p>
+            </div>
+            <div class="p-4 rounded-xl border border-slate-200 bg-slate-50">
+                <span class="text-xs font-semibold text-slate-500 uppercase">Mục tiêu cân bằng</span>
+                <p class="text-sm text-slate-800 font-medium mt-1">Độ lệch chuẩn điểm trung bình giữa các giảng viên: <strong>≤ 0.30</strong>. Hiện tại: <strong class="text-emerald-700">{% if kpi.std_dev_gpa is not None %}±{{ kpi.std_dev_gpa }}{% else %}Chưa chạy{% endif %}</strong></p>
+            </div>
+            <div class="p-4 rounded-xl border border-slate-200 bg-slate-50">
+                <span class="text-xs font-semibold text-slate-500 uppercase">Quyền kiểm soát của Trưởng khoa</span>
+                <p class="text-sm text-slate-800 font-medium mt-1">Sau khi chia tự động, Trưởng khoa vẫn có toàn quyền kéo-thả hoặc đổi thủ công từng sinh viên trước khi gửi duyệt.</p>
+            </div>
+        </div>
+    </div>
+    {% elif view_mode == 'publish' %}
+    <!-- VIEW 3: KIỂM TRA & CÔNG BỐ CHÍNH THỨC (CHUYÊN TRÁCH) -->
+    <div class="bg-white rounded-2xl border border-slate-200 shadow-xs p-6 space-y-5">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-100 pb-4">
+            <div>
+                <h2 class="text-lg font-bold font-heading text-slate-900 flex items-center gap-2">
+                    <span class="material-symbols-outlined text-emerald-600">verified</span>
+                    Rà soát & Công bố danh sách chính thức (UC09)
+                </h2>
+                <p class="text-xs text-slate-500 mt-1">Sau khi công bố, quyết định phân công hướng dẫn sẽ có hiệu lực chính thức, hệ thống chuyển sang giai đoạn Chốt đề tài.</p>
+            </div>
+            {% if ban_phan_cong.trang_thai == 'DA_GUI' %}
+            <form method="POST" action="{% url 'phancong:cong_bo_chinh_thuc' dot.id %}" onsubmit="return confirm('Xác nhận công bố danh sách phân công chính thức?');">
+                {% csrf_token %}
+                <button type="submit" class="px-5 py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white text-xs sm:text-sm font-bold rounded-xl shadow-xs transition inline-flex items-center gap-2">
+                    <span class="material-symbols-outlined text-sm">verified</span>
+                    <span>Ban hành quyết định công bố</span>
+                </button>
+            </form>
+            {% elif ban_phan_cong.trang_thai == 'DA_CONG_BO' %}
+            <div class="inline-flex items-center gap-1.5 px-4 py-2 bg-emerald-50 text-emerald-800 border border-emerald-200 text-xs sm:text-sm font-bold rounded-xl">
+                <span class="material-symbols-outlined text-sm">check_circle</span>
+                <span>Đã công bố chính thức</span>
+            </div>
+            {% else %}
+            <div class="inline-flex items-center gap-1.5 px-4 py-2 bg-slate-100 text-slate-700 border border-slate-200 text-xs sm:text-sm font-bold rounded-xl">
+                <span class="material-symbols-outlined text-sm">info</span>
+                <span>Cần phân công đủ sinh viên và gửi giảng viên trước khi công bố</span>
+            </div>
+            {% endif %}
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div class="p-4 rounded-xl border border-slate-200 bg-slate-50">
+                <span class="text-xs font-semibold text-slate-500 uppercase">Tiến độ phân bổ</span>
+                <p class="text-2xl font-bold text-slate-900 font-heading mt-1">{{ kpi.da_gan }} / {{ kpi.tong_sinh_vien }} <span class="text-xs font-normal text-slate-500">sinh viên</span></p>
+            </div>
+            <div class="p-4 rounded-xl border border-slate-200 bg-slate-50">
+                <span class="text-xs font-semibold text-slate-500 uppercase">Sinh viên chưa gán</span>
+                <p class="text-2xl font-bold font-heading mt-1 {% if kpi.chua_gan > 0 %}text-rose-600{% else %}text-emerald-700{% endif %}">{{ kpi.chua_gan }} <span class="text-xs font-normal text-slate-500">hồ sơ</span></p>
+            </div>
+            <div class="p-4 rounded-xl border border-slate-200 bg-slate-50">
+                <span class="text-xs font-semibold text-slate-500 uppercase">Trạng thái bản phân công</span>
+                <p class="text-sm font-bold font-heading text-slate-900 mt-2">{{ ban_phan_cong.get_trang_thai_display }}</p>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+
+    <!-- DUAL-PANE WORKSPACE (2 Khung độc lập) -->
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start {% if view_mode == 'snake' or view_mode == 'publish' %}hidden{% endif %}">
+
+        <!-- KHUNG TRÁI: Sinh viên chưa phân công (5 cột) -->
+        <section class="lg:col-span-5 bg-white border border-slate-200 rounded-2xl shadow-xs overflow-hidden flex flex-col min-h-[600px]">
+            <!-- Header Khung Trái -->
+            <div class="p-4 border-b border-slate-200 bg-slate-50/80 flex items-center justify-between">
+                <div class="flex items-center gap-2">
+                    <h2 class="text-sm font-bold font-heading text-slate-900">
+                        Sinh viên chưa phân công giảng viên hướng dẫn ({{ sinh_vien_chua_gan|length }})
+                    </h2>
+                </div>
+            </div>
+
+            <!-- Bộ lọc nhóm GPA & Tìm kiếm -->
+            <div class="p-3 border-b border-slate-200 space-y-2.5 bg-white">
+                <div class="flex flex-wrap items-center gap-1.5 text-xs">
+                    <a href="?{% if filters.bo_mon_id %}bo_mon={{ filters.bo_mon_id }}&{% endif %}" class="px-2.5 py-1 rounded-lg font-semibold transition {% if not filters.gpa %}bg-slate-900 text-white{% else %}bg-slate-100 text-slate-700 hover:bg-slate-200{% endif %}">
+                        Tất cả ({{ counts.tat_ca }})
+                    </a>
+                    <a href="?gpa=GIOI{% if filters.bo_mon_id %}&bo_mon={{ filters.bo_mon_id }}{% endif %}" class="px-2.5 py-1 rounded-lg font-semibold transition {% if filters.gpa == 'GIOI' %}bg-slate-900 text-white{% else %}bg-slate-100 text-slate-700 hover:bg-slate-200{% endif %}">
+                        Giỏi ≥ 3.6 ({{ counts.gioi }})
+                    </a>
+                    <a href="?gpa=KHA{% if filters.bo_mon_id %}&bo_mon={{ filters.bo_mon_id }}{% endif %}" class="px-2.5 py-1 rounded-lg font-semibold transition {% if filters.gpa == 'KHA' %}bg-slate-900 text-white{% else %}bg-slate-100 text-slate-700 hover:bg-slate-200{% endif %}">
+                        Khá 3.2-3.59 ({{ counts.kha }})
+                    </a>
+                    <a href="?gpa=TB{% if filters.bo_mon_id %}&bo_mon={{ filters.bo_mon_id }}{% endif %}" class="px-2.5 py-1 rounded-lg font-semibold transition {% if filters.gpa == 'TB' %}bg-slate-900 text-white{% else %}bg-slate-100 text-slate-700 hover:bg-slate-200{% endif %}">
+                        TB ({{ counts.tb }})
+                    </a>
+                </div>
+
+                <form method="GET" class="relative">
+                    {% if filters.bo_mon_id %}<input type="hidden" name="bo_mon" value="{{ filters.bo_mon_id }}">{% endif %}
+                    {% if filters.gpa %}<input type="hidden" name="gpa" value="{{ filters.gpa }}">{% endif %}
+                    <input type="text" name="q" value="{{ filters.q }}" placeholder="Tìm theo tên hoặc mã sinh viên..." class="w-full text-xs py-2 pl-8 pr-3 bg-slate-50 border border-slate-200 rounded-xl focus:border-slate-800 focus:bg-white focus:ring-0">
+                    <span class="material-symbols-outlined absolute left-2.5 top-2 text-slate-400 text-sm">search</span>
+                </form>
+            </div>
+
+            <!-- Danh sách Sinh viên chưa gán -->
+            <div class="p-3 space-y-2 overflow-y-auto max-h-[700px] flex-1">
+                {% for hs in sinh_vien_chua_gan %}
+                <div class="p-3.5 bg-white hover:bg-slate-50 border border-slate-200 rounded-xl transition flex items-center justify-between gap-3">
+                    <div class="space-y-1 min-w-0">
+                        <div class="flex items-center gap-2 flex-wrap">
+                            <span class="font-bold text-slate-900 text-sm font-heading">{{ hs.sinh_vien.nguoi_dung.ho_ten }}</span>
+                            <span class="font-mono text-xs text-slate-400">{{ hs.sinh_vien.ma_sinh_vien }}</span>
+                            {% if hs.diem_dau_vao and hs.diem_dau_vao.diem_tb_he4 %}
+                            <span class="inline-flex items-center px-2 py-0.5 rounded text-[11px] font-semibold 
+                                {% if hs.diem_dau_vao.diem_tb_he4 >= 3.6 %}bg-emerald-50 text-emerald-800 border border-emerald-200
+                                {% elif hs.diem_dau_vao.diem_tb_he4 >= 3.2 %}bg-blue-50 text-blue-800 border border-blue-200
+                                {% else %}bg-slate-100 text-slate-800 border border-slate-200{% endif %}">
+                                GPA: {{ hs.diem_dau_vao.diem_tb_he4 }} ({{ hs.diem_dau_vao.tin_chi_tich_luy|default:"--" }} TC)
+                            </span>
+                            {% else %}
+                            <span class="text-[11px] text-slate-400 italic">Chưa có GPA</span>
+                            {% endif %}
+                        </div>
+
+                        <div class="flex items-center gap-3 text-xs text-slate-500">
+                            <span>Lớp: <strong>{{ hs.sinh_vien.lop|default:"--" }}</strong></span>
+                            {% if hs.sinh_vien.email %}
+                            <span class="truncate">{{ hs.sinh_vien.email }}</span>
+                            {% endif %}
+                        </div>
+                    </div>
+
+                    <!-- Nút mở modal ghép GV -->
+                    {% if ban_phan_cong.trang_thai != 'DA_CONG_BO' %}
+                    <button type="button" onclick="openAssignModal('{{ hs.id }}', '{{ hs.sinh_vien.nguoi_dung.ho_ten }} ({{ hs.sinh_vien.ma_sinh_vien }})')" class="shrink-0 inline-flex items-center gap-1 px-3 py-1.5 bg-white border border-slate-300 hover:border-slate-900 hover:bg-slate-900 hover:text-white text-slate-700 text-xs font-semibold rounded-lg transition shadow-2xs">
+                        <span>Phân công</span>
+                        <span class="material-symbols-outlined text-sm">arrow_forward</span>
+                    </button>
+                    {% endif %}
+                </div>
+                {% empty %}
+                <div class="py-12 text-center text-slate-400 space-y-2">
+                    <span class="material-symbols-outlined text-4xl text-slate-300">task_alt</span>
+                    <p class="text-sm font-semibold text-slate-600">Tuyệt vời! Không còn sinh viên nào chưa được phân công.</p>
+                    <p class="text-xs text-slate-400">Tất cả sinh viên trong đợt đã được ghép vào danh sách Giảng viên hướng dẫn.</p>
+                </div>
+                {% endfor %}
+            </div>
+        </section>
+
+
+        <!-- KHUNG PHẢI: Danh sách Giảng viên & Hạn mức tải (7 cột) -->
+        <section class="lg:col-span-7 bg-white border border-slate-200 rounded-2xl shadow-xs overflow-hidden flex flex-col min-h-[600px]">
+            <!-- Header Khung Phải -->
+            <div class="p-4 border-b border-slate-200 bg-slate-50/80 flex items-center justify-between">
+                <h2 class="text-sm font-bold font-heading text-slate-900">
+                    Danh sách Giảng viên ({{ danh_sach_gv_cards|length }})
+                </h2>
+                <span class="text-xs text-slate-500">Tối đa {{ dot.so_sv_toi_da_moi_gv }} sinh viên / giảng viên</span>
+            </div>
+
+            <!-- Bộ lọc Bộ môn -->
+            <div class="p-3 border-b border-slate-200 flex flex-wrap items-center justify-between gap-2 bg-white text-xs">
+                <div class="flex flex-wrap items-center gap-1.5">
+                    <a href="?{% if filters.gpa %}gpa={{ filters.gpa }}&{% endif %}{% if filters.q %}q={{ filters.q }}&{% endif %}" class="px-2.5 py-1 rounded-lg font-semibold transition {% if not filters.bo_mon_id %}bg-slate-900 text-white{% else %}bg-slate-100 text-slate-700 hover:bg-slate-200{% endif %}">
+                        Tất cả bộ môn
+                    </a>
+                    {% for bm in danh_sach_bo_mon %}
+                    <a href="?bo_mon={{ bm.id }}{% if filters.gpa %}&gpa={{ filters.gpa }}{% endif %}{% if filters.q %}&q={{ filters.q }}{% endif %}" class="px-2.5 py-1 rounded-lg font-semibold transition {% if filters.bo_mon_id == bm.id %}bg-slate-900 text-white{% else %}bg-slate-100 text-slate-700 hover:bg-slate-200{% endif %}">
+                        {{ bm.ten_bo_mon }}
+                    </a>
+                    {% endfor %}
+                </div>
+                <span class="text-xs font-semibold text-slate-500">
+                    Còn {{ kpi.chi_tieu_con_lai }} chỉ tiêu nhận thêm
+                </span>
+            </div>
+
+            <!-- Danh sách Thẻ Giảng viên -->
+            <div class="p-4 space-y-4 overflow-y-auto max-h-[700px] flex-1">
+                {% for card in danh_sach_gv_cards %}
+                <div class="border border-slate-200 rounded-xl p-4 bg-white hover:border-slate-300 transition space-y-3">
+                    <!-- Thông tin GV & Progress bar -->
+                    <div class="flex items-start justify-between gap-3">
+                        <div>
+                            <div class="flex items-center gap-2">
+                                <span class="font-bold text-slate-900 font-heading text-sm sm:text-base">
+                                    {{ card.giang_vien.hoc_ham_hoc_vi|default:"" }} {{ card.giang_vien.nguoi_dung.ho_ten }}
+                                </span>
+                                <span class="text-xs text-slate-500">• {{ card.giang_vien.bo_mon.ten_bo_mon|default:"Khoa CNTT" }}</span>
+                            </div>
+                            {% if card.giang_vien.huong_nghien_cuu %}
+                            <p class="text-xs text-slate-500 mt-0.5 italic">
+                                Hướng NC: {{ card.giang_vien.huong_nghien_cuu }}
+                            </p>
+                            {% endif %}
+                        </div>
+
+                        <div class="text-right shrink-0">
+                            <div class="flex items-center gap-2 justify-end">
+                                <span class="text-xs font-bold text-slate-700">Tải: {{ card.so_luong_hien_tai }} / {{ card.so_toi_da }}</span>
+                                {% if card.con_lai == 0 %}
+                                <span class="inline-flex items-center px-2 py-0.5 rounded text-[11px] font-semibold bg-slate-100 text-slate-700 border border-slate-200">
+                                    Đầy tải
+                                </span>
+                                {% else %}
+                                <span class="inline-flex items-center px-2 py-0.5 rounded text-[11px] font-semibold bg-emerald-50 text-emerald-800 border border-emerald-200">
+                                    Còn {{ card.con_lai }} chỉ tiêu
+                                </span>
+                                {% endif %}
+                            </div>
+                            <!-- Thanh progress -->
+                            <div class="w-32 h-1.5 bg-slate-100 rounded-full mt-1.5 overflow-hidden ml-auto">
+                                <div class="h-full {% if card.phan_tram_tai >= 100 %}bg-slate-800{% else %}bg-blue-600{% endif %} rounded-full" style="width: {{ card.phan_tram_tai }}%;"></div>
+                            </div>
+                            {% if card.avg_gpa %}
+                            <div class="text-[11px] text-slate-400 mt-1">GPA TB nhóm: <strong class="text-slate-700">{{ card.avg_gpa }}</strong></div>
+                            {% endif %}
+                        </div>
+                    </div>
+
+                    <!-- Danh sách SV đã ghép dưới Giảng viên này -->
+                    <div class="pt-2.5 border-t border-slate-100">
+                        <div class="text-[11px] font-bold text-slate-400 uppercase tracking-wide mb-2 flex items-center justify-between">
+                            <span>Sinh viên đã ghép ({{ card.cac_phan_cong|length }})</span>
+                            <a href="{% url 'phancong:xac_nhan_giang_vien' card.giang_vien.id %}" target="_blank" class="text-blue-600 hover:text-blue-800 normal-case font-semibold flex items-center gap-1">
+                                <span>Giao diện giảng viên xác nhận</span>
+                                <span class="material-symbols-outlined text-xs">open_in_new</span>
+                            </a>
+                        </div>
+
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                            {% for dong in card.cac_phan_cong %}
+                            <div class="flex items-center justify-between p-2 bg-slate-50 border border-slate-200 rounded-lg text-xs">
+                                <div class="truncate pr-1">
+                                    <span class="font-bold text-slate-800">{{ dong.ho_so.sinh_vien.nguoi_dung.ho_ten }}</span>
+                                    {% if dong.ho_so.diem_dau_vao and dong.ho_so.diem_dau_vao.diem_tb_he4 %}
+                                    <span class="text-slate-500 font-mono text-[11px] ml-1">({{ dong.ho_so.diem_dau_vao.diem_tb_he4 }})</span>
+                                    {% endif %}
+                                </div>
+
+                                <div class="flex items-center gap-1.5 shrink-0">
+                                    <!-- Badge hình thức phân bổ -->
+                                    {% if dong.la_goi_y %}
+                                    <span class="px-1.5 py-0.5 text-[10px] font-semibold rounded bg-slate-100 text-slate-700 border border-slate-200" title="Hệ thống gợi ý phân bổ tự động theo GPA">Tự động</span>
+                                    {% else %}
+                                    <span class="px-1.5 py-0.5 text-[10px] font-semibold rounded bg-amber-50 text-amber-800 border border-amber-200" title="Trưởng khoa chỉ định phân công">Chỉ định</span>
+                                    {% endif %}
+
+                                    <!-- Badge trạng thái xác nhận của GV -->
+                                    {% if dong.trang_thai == 'CHO_XAC_NHAN' %}
+                                    <span class="px-1.5 py-0.5 text-[10px] font-semibold rounded bg-amber-50 text-amber-700 border border-amber-200">Chờ giảng viên xác nhận</span>
+                                    {% elif dong.trang_thai == 'DONG_Y' %}
+                                    <span class="px-1.5 py-0.5 text-[10px] font-semibold rounded bg-emerald-50 text-emerald-700 border border-emerald-200">Đã nhận</span>
+                                    {% elif dong.trang_thai == 'TU_CHOI' %}
+                                    <span class="px-1.5 py-0.5 text-[10px] font-semibold rounded bg-rose-50 text-rose-700 border border-rose-200" title="{{ dong.ly_do_tu_choi }}">Từ chối</span>
+                                    {% endif %}
+
+                                    <!-- Nút gỡ (chỉ khi chưa công bố chính thức) -->
+                                    {% if ban_phan_cong.trang_thai != 'DA_CONG_BO' %}
+                                    <form method="POST" action="{% url 'phancong:xoa_phan_cong' dot.id dong.ho_so.id %}" onsubmit="return confirm('Bạn có chắc muốn gỡ sinh viên này về danh sách chưa gán?');" class="inline">
+                                        {% csrf_token %}
+                                        <button type="submit" class="text-slate-400 hover:text-rose-600 transition p-0.5" title="Gỡ phân công">
+                                            <span class="material-symbols-outlined text-sm">close</span>
+                                        </button>
+                                    </form>
+                                    {% endif %}
+                                </div>
+                            </div>
+                            {% empty %}
+                            <div class="col-span-2 py-3 text-center text-slate-400 text-xs italic">
+                                Chưa có sinh viên nào được phân công cho giảng viên này.
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+                {% empty %}
+                <div class="py-12 text-center text-slate-400">
+                    <p class="text-sm">Không tìm thấy giảng viên nào phù hợp bộ môn đã chọn.</p>
+                </div>
+                {% endfor %}
+            </div>
+        </section>
+
+    </div>
+</div>
+
+<!-- MODAL GHÉP GIẢNG VIÊN THỦ CÔNG -->
+<div id="assignModal" class="fixed inset-0 z-50 bg-slate-900/40 backdrop-blur-xs hidden flex items-center justify-center p-4">
+    <div class="bg-white border border-slate-200 rounded-2xl max-w-md w-full shadow-xl overflow-hidden animate-in fade-in zoom-in duration-150">
+        <div class="p-5 border-b border-slate-200 flex items-center justify-between bg-slate-50/70">
+            <div class="flex items-center gap-2">
+                <span class="material-symbols-outlined text-blue-600">person_add</span>
+                <h3 class="text-base font-bold font-heading text-slate-900">Ghép Giảng viên Hướng dẫn</h3>
+            </div>
+            <button type="button" onclick="closeAssignModal()" class="text-slate-400 hover:text-slate-700">
+                <span class="material-symbols-outlined">close</span>
+            </button>
+        </div>
+
+        <form method="POST" action="{% url 'phancong:gan_thu_cong' dot.id %}" class="p-5 space-y-4">
+            {% csrf_token %}
+            <input type="hidden" name="ho_so_id" id="modalHoSoId">
+
+            <div>
+                <label class="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-1 font-heading">Sinh viên được chọn:</label>
+                <div id="modalStudentName" class="p-3 bg-slate-50 border border-slate-200 rounded-xl text-sm font-bold text-slate-800 font-heading">
+                    --
+                </div>
+            </div>
+
+            <div>
+                <label for="modalGiangVienSelect" class="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-1 font-heading">
+                    Chọn Giảng viên hướng dẫn:
+                </label>
+                <select name="giang_vien_id" id="modalGiangVienSelect" required class="w-full text-sm py-2.5 px-3 bg-white border border-slate-300 rounded-xl focus:border-slate-800 focus:ring-0">
+                    <option value="">-- Chọn giảng viên còn chỉ tiêu --</option>
+                    {% for card in danh_sach_gv_cards %}
+                    <option value="{{ card.giang_vien.id }}" {% if card.con_lai == 0 %}disabled{% endif %}>
+                        {{ card.giang_vien.hoc_ham_hoc_vi|default:"" }} {{ card.giang_vien.nguoi_dung.ho_ten }} 
+                        ({{ card.giang_vien.bo_mon.ten_bo_mon|default:"Bộ môn" }}) 
+                        - Hiện có {{ card.so_luong_hien_tai }}/{{ card.so_toi_da }} sinh viên {% if card.con_lai == 0 %}[ĐÃ ĐẦY TẢI]{% endif %}
+                    </option>
+                    {% endfor %}
+                </select>
+                <p class="text-[11px] text-slate-400 mt-1 italic">Hệ thống sẽ ghi nhận đây là lượt gán thủ công của Trưởng khoa.</p>
+            </div>
+
+            <div class="pt-3 border-t border-slate-100 flex items-center justify-end gap-2">
+                <button type="button" onclick="closeAssignModal()" class="px-4 py-2 border border-slate-300 hover:bg-slate-50 text-slate-700 text-xs sm:text-sm font-semibold rounded-xl transition">
+                    Hủy bỏ
+                </button>
+                <button type="submit" class="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white text-xs sm:text-sm font-semibold rounded-xl shadow-xs transition">
+                    Xác nhận ghép
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    function openAssignModal(hoSoId, studentName) {
+        document.getElementById('modalHoSoId').value = hoSoId;
+        document.getElementById('modalStudentName').innerText = studentName;
+        document.getElementById('assignModal').classList.remove('hidden');
+    }
+
+    function closeAssignModal() {
+        document.getElementById('assignModal').classList.add('hidden');
+    }
+</script>
+{% endblock %}

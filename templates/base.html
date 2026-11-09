@@ -1,0 +1,837 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="vi" class="h-full bg-slate-100">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>{% block title %}Hệ thống Quản lý Thực tập & Đồ án tốt nghiệp{% endblock %} - ĐH Vinh</title>
+    <!-- Google Fonts: Plus Jakarta Sans (Modern Antigravity Headings), Inter (Clean UI Sans), JetBrains Mono -->
+    <link rel="preconnect" href="https://fonts.googleapis.com"/>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,600&display=swap" rel="stylesheet"/>
+    <!-- Material Symbols Outlined -->
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+    <!-- Tailwind CSS v3 -->
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        vinhuni: {
+                            50: '#f0f7ff',
+                            100: '#e0effe',
+                            600: '#1d4ed8',
+                            700: '#1e40af',
+                            800: '#0f294a',
+                            900: '#06172e',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', '-apple-system', 'BlinkMacSystemFont', '"Segoe UI"', 'Roboto', 'sans-serif'],
+                        academic: ['"Plus Jakarta Sans"', 'Inter', 'sans-serif'],
+                        heading: ['"Plus Jakarta Sans"', 'Inter', 'sans-serif'],
+                        mono: ['"JetBrains Mono"', 'monospace'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body, html {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            font-size: 15px;
+            line-height: 1.6;
+            letter-spacing: -0.01em;
+        }
+        h1, h2, h3, h4, .font-academic, .font-heading {
+            font-family: 'Plus Jakarta Sans', 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif !important;
+            letter-spacing: -0.025em;
+        }
+        table {
+            font-size: 14.5px;
+        }
+        input, select, textarea, button {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            font-size: 14px;
+        }
+        code, pre, .font-mono {
+            font-family: 'JetBrains Mono', monospace;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            display: inline-block;
+            vertical-align: middle;
+            line-height: 1;
+        }
+        /* Custom Slim Scrollbars */
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 5px;
+            height: 5px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 9999px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+            background: rgba(255, 255, 255, 0.4);
+        }
+        .main-scrollbar::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        .main-scrollbar::-webkit-scrollbar-track {
+            background: #f1f5f9;
+        }
+        .main-scrollbar::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 9999px;
+        }
+        .main-scrollbar::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
+        }
+
+        /* Collapsible sidebar styles */
+        .sidebar-expanded {
+            width: 18rem; /* 288px */
+        }
+        .sidebar-collapsed {
+            width: 5rem; /* 80px */
+        }
+        .sidebar-collapsed .nav-text,
+        .sidebar-collapsed .nav-header-text,
+        .sidebar-collapsed .user-info-text,
+        .sidebar-collapsed .submenu-container,
+        .sidebar-collapsed .drum-watermark {
+            display: none !important;
+        }
+        .sidebar-collapsed .nav-item {
+            justify-content: center !important;
+            padding-left: 0 !important;
+            padding-right: 0 !important;
+        }
+        .sidebar-collapsed .sidebar-header {
+            justify-content: center !important;
+            padding-left: 0 !important;
+            padding-right: 0 !important;
+        }
+    </style>
+    {% block extra_head %}{% endblock %}
+</head>
+<body class="h-screen w-screen overflow-hidden flex bg-slate-100 font-sans antialiased text-slate-800">
+
+    <!-- ================= 1. MENU DỌC (VERTICAL SIDEBAR - NỀN XANH ĐH VINH & NỬA TRỐNG ĐỒNG) ================= -->
+    <aside id="mainSidebar" 
+           class="sidebar-expanded h-screen flex flex-col bg-gradient-to-b from-[#05152a] via-[#092243] to-[#041021] text-white border-r border-[#153a66] shrink-0 transition-all duration-300 ease-in-out relative z-30 select-none overflow-hidden">
+        
+        <!-- HỌA TIẾT TRỐNG ĐỒNG NẰM CHÌM SÁT MÉP PHẢI DẠNG WATERMARK TINH TẾ (ẨN TÂM, KHÔNG ĐÈ LÊN VÙNG ĐỌC CHỮ) -->
+        <div class="drum-watermark pointer-events-none absolute -right-[380px] top-1/2 -translate-y-1/2 w-[560px] h-[560px] opacity-20 select-none overflow-hidden z-0">
+            <img src="{% static 'images/trong_dong_gold_champagne.png' %}?v=2026_imperial_gold_v3" alt="Họa tiết Trống đồng" class="w-full h-full object-contain filter drop-shadow-[0_0_15px_rgba(232,202,138,0.3)]">
+        </div>
+
+        <!-- Header Sidebar: Logo ĐH Vinh & Nút Thu phóng -->
+        <div class="sidebar-header h-20 border-b border-white/10 flex items-center justify-between px-4 shrink-0 relative z-10 bg-white/5 backdrop-blur-xs">
+            <div class="flex items-center gap-3 overflow-hidden">
+                <!-- Logo chuẩn Trường Đại học Vinh -->
+                <img src="{% static 'images/logo_vinhuni.png' %}?v=2026" 
+                     alt="Logo Trường Kỹ thuật và Công nghệ - ĐH Vinh" 
+                     class="w-12 h-12 sm:w-14 sm:h-14 object-contain shrink-0 drop-shadow-md">
+                <div class="nav-header-text truncate">
+                    <span class="font-academic font-bold text-white tracking-wider text-xs sm:text-sm leading-tight uppercase block">
+                        TRƯỜNG KỸ THUẬT VÀ CÔNG NGHỆ
+                    </span>
+                    <span class="text-[10px] text-slate-300 font-sans tracking-wider block uppercase">
+                        ĐẠI HỌC VINH
+                    </span>
+                </div>
+            </div>
+            <!-- Nút Thu phóng Menu (Sidebar Toggle) -->
+            <button type="button" onclick="toggleSidebar()" 
+                    title="Thu phóng thanh điều hướng"
+                    class="w-8 h-8 rounded-xl text-slate-300 hover:text-white hover:bg-white/10 flex items-center justify-center transition shrink-0 cursor-pointer">
+                <span class="material-symbols-outlined text-xl" id="toggleIcon">menu_open</span>
+            </button>
+        </div>
+
+        <!-- Thân Sidebar: Danh sách Chức năng Nghiệp vụ chuẩn mực -->
+        <div class="flex-1 overflow-y-auto px-3 py-4 custom-scrollbar space-y-4 relative z-10">
+
+            {% if current_role == 'dean' %}
+            <!-- ================= CÁC MODULE NGHIỆP VỤ CỦA TRƯỞNG KHOA ================= -->
+            
+            <!-- NHÓM A: ĐIỀU HÀNH & PHÂN CÔNG -->
+            <div class="space-y-1">
+                <p class="nav-text text-[10px] font-bold uppercase tracking-wider text-sky-300/70 px-3 mb-1.5 font-heading">
+                    A. ĐIỀU HÀNH & PHÂN CÔNG
+                </p>
+                <nav class="space-y-1 text-sm font-semibold font-heading">
+                    <!-- Module 1: Quản lý Đợt & Sinh viên -->
+                    <div class="rounded-xl transition {% if active_sprint == 1 %}bg-white/15 border border-white/20 shadow-xs border-l-4 border-l-amber-400{% else %}hover:bg-white/10{% endif %}">
+                        <div class="flex items-center justify-between px-3 py-2.5 text-white">
+                            <a href="{% url 'sprint1_dashboard' %}" class="nav-item flex items-center gap-3 truncate flex-1">
+                                <span class="material-symbols-outlined text-amber-300 text-xl shrink-0">folder_shared</span>
+                                <span class="nav-text truncate">Quản lý Đợt & Sinh viên</span>
+                            </a>
+                            <button type="button" onclick="toggleAccordion(event, 'sub-dot')" title="Đóng/Mở mục con"
+                                    class="w-6 h-6 rounded flex items-center justify-center text-slate-400 hover:text-white hover:bg-white/10 transition shrink-0">
+                                <span class="nav-text material-symbols-outlined text-sm transition-transform duration-200 {% if active_sprint == 1 %}rotate-180{% endif %}" id="sub-dot-arrow">expand_more</span>
+                            </button>
+                        </div>
+                        <div id="sub-dot" class="submenu-container border-l-2 border-white/20 ml-7 pl-2.5 my-2 space-y-1.5 {% if active_sprint != 1 %}hidden{% endif %}">
+                            <a href="{% url 'sprint1_dashboard' %}?section=students" 
+                               class="block py-1.5 px-2.5 rounded-lg text-[13px] font-medium transition {% if active_sprint == 1 and active_section == 'students' or not active_section and active_sprint == 1 %}text-amber-300 font-bold bg-white/10{% else %}text-slate-200 hover:text-white hover:bg-white/5{% endif %}">
+                                Danh sách sinh viên
+                            </a>
+                            <a href="{% url 'sprint1_dashboard' %}?section=upload" 
+                               class="block py-1.5 px-2.5 rounded-lg text-[13px] font-medium transition {% if active_sprint == 1 and active_section == 'upload' %}text-amber-300 font-bold bg-white/10{% else %}text-slate-200 hover:text-white hover:bg-white/5{% endif %}">
+                                Tiếp nhận dữ liệu (Excel & USMART)
+                            </a>
+                            <a href="{% url 'sprint1_dashboard' %}?section=milestones" 
+                               class="block py-1.5 px-2.5 rounded-lg text-[13px] font-medium transition {% if active_sprint == 1 and active_section == 'milestones' %}text-amber-300 font-bold bg-white/10{% else %}text-slate-200 hover:text-white hover:bg-white/5{% endif %}">
+                                Lịch trình & Trọng số điểm
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Module 2: Phân công Hướng dẫn -->
+                    <div class="rounded-xl transition {% if active_sprint == 2 %}bg-white/15 border border-white/20 shadow-xs border-l-4 border-l-amber-400{% else %}hover:bg-white/10{% endif %}">
+                        <div class="flex items-center justify-between px-3 py-2.5 text-white">
+                            <a href="{% url 'phancong:dashboard' %}" class="nav-item flex items-center gap-3 truncate flex-1">
+                                <span class="material-symbols-outlined text-sky-300 text-xl shrink-0">assignment_ind</span>
+                                <span class="nav-text truncate">Phân công Hướng dẫn</span>
+                            </a>
+                            <button type="button" onclick="toggleAccordion(event, 'sub-phancong')" title="Đóng/Mở mục con"
+                                    class="w-6 h-6 rounded flex items-center justify-center text-slate-400 hover:text-white hover:bg-white/10 transition shrink-0">
+                                <span class="nav-text material-symbols-outlined text-sm transition-transform duration-200 {% if active_sprint == 2 %}rotate-180{% endif %}" id="sub-phancong-arrow">expand_more</span>
+                            </button>
+                        </div>
+                        <div id="sub-phancong" class="submenu-container border-l-2 border-white/20 ml-7 pl-2.5 my-2 space-y-1.5 {% if active_sprint != 2 %}hidden{% endif %}">
+                            <a href="{% url 'phancong:dashboard' %}?view=board" 
+                               class="block py-1.5 px-2.5 rounded-lg text-[13px] font-medium transition {% if active_sprint == 2 and request.GET.view == 'board' or not request.GET.view and active_sprint == 2 %}text-amber-300 font-bold bg-white/10{% else %}text-slate-200 hover:text-white hover:bg-white/5{% endif %}">
+                                Bảng phân công cán bộ
+                            </a>
+                            <a href="{% url 'phancong:dashboard' %}?view=snake" 
+                               class="block py-1.5 px-2.5 rounded-lg text-[13px] font-medium transition {% if active_sprint == 2 and request.GET.view == 'snake' %}text-amber-300 font-bold bg-white/10{% else %}text-slate-200 hover:text-white hover:bg-white/5{% endif %}">
+                                Phân bổ cân bằng GPA
+                            </a>
+                            <a href="{% url 'phancong:dashboard' %}?view=publish" 
+                               class="block py-1.5 px-2.5 rounded-lg text-[13px] font-medium transition {% if active_sprint == 2 and request.GET.view == 'publish' %}text-amber-300 font-bold bg-white/10{% else %}text-slate-200 hover:text-white hover:bg-white/5{% endif %}">
+                                Kiểm tra & Công bố chính thức
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Module 3: Quản lý Đề tài -->
+                    <div class="rounded-xl transition {% if active_sprint == 3 %}bg-white/15 border border-white/20 shadow-xs border-l-4 border-l-amber-400{% else %}hover:bg-white/10{% endif %}">
+                        <div class="flex items-center justify-between px-3 py-2.5 text-white">
+                            <a href="{% url 'detai:dashboard' %}" class="nav-item flex items-center gap-3 truncate flex-1">
+                                <span class="material-symbols-outlined text-emerald-300 text-xl shrink-0">menu_book</span>
+                                <span class="nav-text truncate">Quản lý Đề tài</span>
+                            </a>
+                            <button type="button" onclick="toggleAccordion(event, 'sub-detai')" title="Đóng/Mở mục con"
+                                    class="w-6 h-6 rounded flex items-center justify-center text-slate-400 hover:text-white hover:bg-white/10 transition shrink-0">
+                                <span class="nav-text material-symbols-outlined text-sm transition-transform duration-200 {% if active_sprint == 3 %}rotate-180{% endif %}" id="sub-detai-arrow">expand_more</span>
+                            </button>
+                        </div>
+                        <div id="sub-detai" class="submenu-container border-l-2 border-white/20 ml-7 pl-2.5 my-2 space-y-1.5 {% if active_sprint != 3 %}hidden{% endif %}">
+                            <a href="{% url 'detai:dashboard' %}?tab=queue" 
+                               class="block py-1.5 px-2.5 rounded-lg text-[13px] font-medium transition {% if active_sprint == 3 and request.GET.tab == 'queue' or not request.GET.tab and active_sprint == 3 %}text-amber-300 font-bold bg-white/10{% else %}text-slate-200 hover:text-white hover:bg-white/5{% endif %}">
+                                Duyệt danh sách đề tài
+                            </a>
+                            <a href="{% url 'detai:dashboard' %}?tab=bank" 
+                               class="block py-1.5 px-2.5 rounded-lg text-[13px] font-medium transition {% if active_sprint == 3 and request.GET.tab == 'bank' %}text-amber-300 font-bold bg-white/10{% else %}text-slate-200 hover:text-white hover:bg-white/5{% endif %}">
+                                Ngân hàng đề tài gợi ý
+                            </a>
+                            <a href="{% url 'detai:dashboard' %}?tab=approved" 
+                               class="block py-1.5 px-2.5 rounded-lg text-[13px] font-medium transition {% if active_sprint == 3 and request.GET.tab == 'approved' %}text-amber-300 font-bold bg-white/10{% else %}text-slate-200 hover:text-white hover:bg-white/5{% endif %}">
+                                Danh sách đề tài đã chốt
+                            </a>
+                        </div>
+                    </div>
+                </nav>
+            </div>
+
+            <!-- NHÓM B: GIÁM SÁT & ĐÁNH GIÁ -->
+            <div class="space-y-1 pt-2 border-t border-white/10">
+                <p class="nav-text text-[10px] font-bold uppercase tracking-wider text-sky-300/70 px-3 mb-1.5 font-heading">
+                    B. GIÁM SÁT & ĐÁNH GIÁ
+                </p>
+                <nav class="space-y-1 text-sm font-semibold font-heading">
+                    <!-- Module 4: Giám sát Tiến độ & Minh chứng -->
+                    <div class="rounded-xl transition {% if active_sprint == 4 %}bg-white/15 border border-white/20 shadow-xs border-l-4 border-l-amber-400{% else %}hover:bg-white/10{% endif %}">
+                        <div class="flex items-center justify-between px-3 py-2.5 text-white">
+                            <a href="{% url 'thuchien:dashboard' %}" class="nav-item flex items-center gap-3 truncate flex-1">
+                                <span class="material-symbols-outlined text-indigo-300 text-xl shrink-0">timeline</span>
+                                <span class="nav-text truncate">Giám sát Tiến độ & Minh chứng</span>
+                            </a>
+                            <button type="button" onclick="toggleAccordion(event, 'sub-tiendo')" title="Đóng/Mở mục con"
+                                    class="w-6 h-6 rounded flex items-center justify-center text-slate-400 hover:text-white hover:bg-white/10 transition shrink-0">
+                                <span class="nav-text material-symbols-outlined text-sm transition-transform duration-200 {% if active_sprint == 4 %}rotate-180{% endif %}" id="sub-tiendo-arrow">expand_more</span>
+                            </button>
+                        </div>
+                        <div id="sub-tiendo" class="submenu-container border-l-2 border-white/20 ml-7 pl-2.5 my-2 space-y-1.5 {% if active_sprint != 4 %}hidden{% endif %}">
+                            <a href="{% url 'thuchien:dashboard' %}?tab=timeline" 
+                               class="block py-1.5 px-2.5 rounded-lg text-[13px] font-medium transition {% if active_sprint == 4 and request.GET.tab == 'timeline' or not request.GET.tab and active_sprint == 4 %}text-amber-300 font-bold bg-white/10{% else %}text-slate-200 hover:text-white hover:bg-white/5{% endif %}">
+                                Bảng theo dõi nộp báo cáo
+                            </a>
+                            <a href="{% url 'thuchien:dashboard' %}?tab=enterprise" 
+                               class="block py-1.5 px-2.5 rounded-lg text-[13px] font-medium transition {% if active_sprint == 4 and request.GET.tab == 'enterprise' %}text-amber-300 font-bold bg-white/10{% else %}text-slate-200 hover:text-white hover:bg-white/5{% endif %}">
+                                Hồ sơ Đơn vị thực tập
+                            </a>
+                            <a href="{% url 'thuchien:dashboard' %}?tab=warnings" 
+                               class="block py-1.5 px-2.5 rounded-lg text-[13px] font-medium transition {% if active_sprint == 4 and request.GET.tab == 'warnings' %}text-amber-300 font-bold bg-white/10{% else %}text-slate-200 hover:text-white hover:bg-white/5{% endif %}">
+                                Danh sách nộp chậm & Cảnh báo
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Module 5: Hội đồng & Chấm điểm -->
+                    <div class="rounded-xl transition {% if active_sprint == 5 %}bg-white/15 border border-white/20 shadow-xs border-l-4 border-l-amber-400{% else %}hover:bg-white/10{% endif %}">
+                        <div class="flex items-center justify-between px-3 py-2.5 text-white">
+                            <a href="{% url 'chamdiem:dashboard' %}" class="nav-item flex items-center gap-3 truncate flex-1">
+                                <span class="material-symbols-outlined text-amber-300 text-xl shrink-0">fact_check</span>
+                                <span class="nav-text truncate">Hội đồng & Chấm điểm</span>
+                            </a>
+                            <button type="button" onclick="toggleAccordion(event, 'sub-chamdiem')" title="Đóng/Mở mục con"
+                                    class="w-6 h-6 rounded flex items-center justify-center text-slate-400 hover:text-white hover:bg-white/10 transition shrink-0">
+                                <span class="nav-text material-symbols-outlined text-sm transition-transform duration-200 {% if active_sprint == 5 %}rotate-180{% endif %}" id="sub-chamdiem-arrow">expand_more</span>
+                            </button>
+                        </div>
+                        <div id="sub-chamdiem" class="submenu-container border-l-2 border-white/20 ml-7 pl-2.5 my-2 space-y-1.5 {% if active_sprint != 5 %}hidden{% endif %}">
+                            <a href="{% url 'chamdiem:dashboard' %}?tab=matrix" 
+                               class="block py-1.5 px-2.5 rounded-lg text-[13px] font-medium transition {% if active_sprint == 5 and request.GET.tab == 'matrix' or not request.GET.tab and active_sprint == 5 %}text-amber-300 font-bold bg-white/10{% else %}text-slate-200 hover:text-white hover:bg-white/5{% endif %}">
+                                Bảng ma trận điểm 3 thành phần
+                            </a>
+                            <a href="{% url 'chamdiem:dashboard' %}?tab=councils" 
+                               class="block py-1.5 px-2.5 rounded-lg text-[13px] font-medium transition {% if active_sprint == 5 and request.GET.tab == 'councils' %}text-amber-300 font-bold bg-white/10{% else %}text-slate-200 hover:text-white hover:bg-white/5{% endif %}">
+                                Lập Hội đồng & Lịch bảo vệ
+                            </a>
+                            <a href="{% url 'chamdiem:dashboard' %}?tab=reviewers" 
+                               class="block py-1.5 px-2.5 rounded-lg text-[13px] font-medium transition {% if active_sprint == 5 and request.GET.tab == 'reviewers' %}text-amber-300 font-bold bg-white/10{% else %}text-slate-200 hover:text-white hover:bg-white/5{% endif %}">
+                                Phân công cán bộ phản biện
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Module 6: Tổng kết & Khóa sổ -->
+                    <div class="rounded-xl transition {% if active_sprint == 6 %}bg-white/15 border border-white/20 shadow-xs border-l-4 border-l-amber-400{% else %}hover:bg-white/10{% endif %}">
+                        <div class="flex items-center justify-between px-3 py-2.5 text-white">
+                            <a href="{% url 'hethong:dashboard' %}" class="nav-item flex items-center gap-3 truncate flex-1">
+                                <span class="material-symbols-outlined text-rose-300 text-xl shrink-0">verified</span>
+                                <span class="nav-text truncate">Tổng kết & Khóa sổ</span>
+                            </a>
+                            <button type="button" onclick="toggleAccordion(event, 'sub-tongket')" title="Đóng/Mở mục con"
+                                    class="w-6 h-6 rounded flex items-center justify-center text-slate-400 hover:text-white hover:bg-white/10 transition shrink-0">
+                                <span class="nav-text material-symbols-outlined text-sm transition-transform duration-200 {% if active_sprint == 6 %}rotate-180{% endif %}" id="sub-tongket-arrow">expand_more</span>
+                            </button>
+                        </div>
+                        <div id="sub-tongket" class="submenu-container border-l-2 border-white/20 ml-7 pl-2.5 my-2 space-y-1.5 {% if active_sprint != 6 %}hidden{% endif %}">
+                            <a href="{% url 'hethong:dashboard' %}?tab=summary" 
+                               class="block py-1.5 px-2.5 rounded-lg text-[13px] font-medium transition {% if active_sprint == 6 and request.GET.tab == 'summary' or not request.GET.tab and active_sprint == 6 %}text-amber-300 font-bold bg-white/10{% else %}text-slate-200 hover:text-white hover:bg-white/5{% endif %}">
+                                Tổng hợp bảng điểm tốt nghiệp
+                            </a>
+                            <a href="{% url 'hethong:dashboard' %}?tab=audit" 
+                               class="block py-1.5 px-2.5 rounded-lg text-[13px] font-medium transition {% if active_sprint == 6 and request.GET.tab == 'audit' %}text-amber-300 font-bold bg-white/10{% else %}text-slate-200 hover:text-white hover:bg-white/5{% endif %}">
+                                Kiểm toán hồ sơ & Xác minh điểm
+                            </a>
+                            <a href="{% url 'hethong:dashboard' %}?tab=lock" 
+                               class="block py-1.5 px-2.5 rounded-lg text-[13px] font-medium transition {% if active_sprint == 6 and request.GET.tab == 'lock' %}text-amber-300 font-bold bg-white/10{% else %}text-slate-200 hover:text-white hover:bg-white/5{% endif %}">
+                                Thủ tục Khóa sổ & Lưu trữ
+                            </a>
+                        </div>
+                    </div>
+                </nav>
+            </div>
+
+            <!-- NHÓM C: HỆ THỐNG -->
+            <div class="pt-2 border-t border-white/10">
+                <p class="nav-text text-[10px] font-bold uppercase tracking-wider text-sky-300/70 px-3 mb-1.5 font-heading">
+                    C. HỆ THỐNG
+                </p>
+                <nav class="space-y-1 text-sm font-medium">
+                    <a href="{% url 'quantri' %}" 
+                       class="nav-item flex items-center gap-3 px-3 py-2 rounded-xl text-slate-300 hover:text-white hover:bg-white/10 transition">
+                        <span class="material-symbols-outlined text-sky-400 text-lg shrink-0">tune</span>
+                        <span class="nav-text truncate">Danh mục Đào tạo</span>
+                    </a>
+                    <a href="/admin/" target="_blank" 
+                       class="nav-item flex items-center gap-3 px-3 py-2 rounded-xl text-slate-300 hover:text-white hover:bg-white/10 transition">
+                        <span class="material-symbols-outlined text-sky-400 text-lg shrink-0">database</span>
+                        <span class="nav-text truncate">Django Admin CSDL</span>
+                    </a>
+                </nav>
+            </div>
+
+            {% elif current_role == 'lecturer' %}
+            <!-- ================= CÁC MODULE NGHIỆP VỤ CỦA GIẢNG VIÊN (TS. CAO THANH SƠN) ================= -->
+            
+            <!-- NHÓM A: CÔNG TÁC HƯỚNG DẪN -->
+            <div class="space-y-1">
+                <p class="nav-text text-[10px] font-bold uppercase tracking-wider text-sky-300/70 px-3 mb-1.5 font-heading">
+                    A. CÔNG TÁC HƯỚNG DẪN
+                </p>
+                <nav class="space-y-1 text-sm font-semibold font-heading">
+                    <!-- 1. Hướng dẫn Đồ án -->
+                    <div class="rounded-xl transition {% if active_tab == 'huongdan' or not active_tab %}bg-white/15 border border-white/20 shadow-xs border-l-4 border-l-amber-400{% else %}hover:bg-white/10{% endif %}">
+                        <div class="flex items-center justify-between px-3 py-2.5 text-white">
+                            <a href="{% url 'giangvien_portal' %}?tab=huongdan" class="nav-item flex items-center gap-3 truncate flex-1">
+                                <span class="material-symbols-outlined text-amber-300 text-xl shrink-0">school</span>
+                                <span class="nav-text truncate">Hướng dẫn Đồ án</span>
+                            </a>
+                            <button type="button" onclick="toggleAccordion(event, 'sub-gv-hd-main')" title="Đóng/Mở mục con"
+                                    class="w-6 h-6 rounded flex items-center justify-center text-slate-400 hover:text-white hover:bg-white/10 transition shrink-0">
+                                <span class="nav-text material-symbols-outlined text-sm transition-transform duration-200 {% if active_tab == 'huongdan' or not active_tab %}rotate-180{% endif %}" id="sub-gv-hd-main-arrow">expand_more</span>
+                            </button>
+                        </div>
+                        <div id="sub-gv-hd-main" class="submenu-container border-l-2 border-white/20 ml-7 pl-2.5 my-2 space-y-1.5 {% if active_tab != 'huongdan' and active_tab %}hidden{% endif %}">
+                            <a href="{% url 'giangvien_portal' %}?tab=huongdan&sub=sinhvien" 
+                               class="block py-1.5 px-2.5 rounded-lg text-[13px] font-medium transition {% if active_tab == 'huongdan' and request.GET.sub == 'sinhvien' or not request.GET.sub and active_tab == 'huongdan' %}text-amber-300 font-bold bg-white/10{% else %}text-slate-200 hover:text-white hover:bg-white/5{% endif %}">
+                                Danh sách sinh viên hướng dẫn
+                            </a>
+                            <a href="{% url 'giangvien_portal' %}?tab=huongdan&sub=detai" 
+                               class="block py-1.5 px-2.5 rounded-lg text-[13px] font-medium transition {% if active_tab == 'huongdan' and request.GET.sub == 'detai' %}text-amber-300 font-bold bg-white/10{% else %}text-slate-200 hover:text-white hover:bg-white/5{% endif %}">
+                                Đề tài & Ngân hàng gợi ý
+                            </a>
+                            <a href="{% url 'giangvien_portal' %}?tab=huongdan&sub=tiendo" 
+                               class="block py-1.5 px-2.5 rounded-lg text-[13px] font-medium transition {% if active_tab == 'huongdan' and request.GET.sub == 'tiendo' %}text-amber-300 font-bold bg-white/10{% else %}text-slate-200 hover:text-white hover:bg-white/5{% endif %}">
+                                Báo cáo tiến độ & Minh chứng
+                            </a>
+                            <a href="{% url 'giangvien_portal' %}?tab=huongdan&sub=chamdiem" 
+                               class="block py-1.5 px-2.5 rounded-lg text-[13px] font-medium transition {% if active_tab == 'huongdan' and request.GET.sub == 'chamdiem' %}text-amber-300 font-bold bg-white/10{% else %}text-slate-200 hover:text-white hover:bg-white/5{% endif %}">
+                                Đánh giá & Chấm điểm hướng dẫn
+                            </a>
+                        </div>
+                    </div>
+                </nav>
+            </div>
+
+            <!-- NHÓM B: PHẢN BIỆN & HỘI ĐỒNG -->
+            <div class="space-y-1 pt-2 border-t border-white/10">
+                <p class="nav-text text-[10px] font-bold uppercase tracking-wider text-sky-300/70 px-3 mb-1.5 font-heading">
+                    B. PHẢN BIỆN & HỘI ĐỒNG
+                </p>
+                <nav class="space-y-1 text-sm font-semibold font-heading">
+                    <!-- 2. Chấm Phản biện -->
+                    <a href="{% url 'giangvien_portal' %}?tab=phanbien" 
+                       class="nav-item flex items-center gap-3 px-3 py-2.5 rounded-xl transition {% if active_tab == 'phanbien' %}bg-white/15 text-white border-l-4 border-l-amber-400 shadow-xs{% else %}text-slate-300 hover:text-white hover:bg-white/10{% endif %}">
+                        <span class="material-symbols-outlined text-sky-300 text-xl shrink-0">rate_review</span>
+                        <span class="nav-text truncate">Chấm điểm Phản biện</span>
+                    </a>
+
+                    <!-- 3. Hội đồng Bảo vệ -->
+                    <a href="{% url 'giangvien_portal' %}?tab=hoidong" 
+                       class="nav-item flex items-center gap-3 px-3 py-2.5 rounded-xl transition {% if active_tab == 'hoidong' %}bg-white/15 text-white border-l-4 border-l-amber-400 shadow-xs{% else %}text-slate-300 hover:text-white hover:bg-white/10{% endif %}">
+                        <span class="material-symbols-outlined text-emerald-300 text-xl shrink-0">groups</span>
+                        <span class="nav-text truncate">Hội đồng Bảo vệ</span>
+                    </a>
+                </nav>
+            </div>
+
+            {% elif current_role == 'student' %}
+            <!-- ================= CÁC CHỨC NĂNG CỦA SINH VIÊN (NGUYỄN TRỌNG MẠNH) ================= -->
+            
+            <!-- NHÓM A: HỒ SƠ & ĐỀ TÀI -->
+            <div class="space-y-1">
+                <p class="nav-text text-[10px] font-bold uppercase tracking-wider text-emerald-300/80 px-3 mb-1.5 font-heading">
+                    A. HỒ SƠ & ĐỀ TÀI
+                </p>
+                <nav class="space-y-1 text-sm font-semibold font-heading">
+                    <!-- 1. Cán bộ Hướng dẫn -->
+                    <a href="{% url 'sinhvien_portal' %}?step=1" 
+                       class="nav-item flex items-center gap-3 px-3 py-2.5 rounded-xl transition {% if request.GET.step == '1' or not request.GET.step %}bg-white/15 text-white border-l-4 border-l-emerald-400 shadow-xs{% else %}text-slate-300 hover:text-white hover:bg-white/10{% endif %}">
+                        <span class="material-symbols-outlined text-emerald-300 text-xl shrink-0">person_pin</span>
+                        <span class="nav-text truncate">Cán bộ Hướng dẫn</span>
+                    </a>
+
+                    <!-- 2. Đề tài Khóa luận -->
+                    <div class="rounded-xl transition {% if request.GET.step == '2' %}bg-white/15 border border-white/20 shadow-xs border-l-4 border-l-emerald-400{% else %}hover:bg-white/10{% endif %}">
+                        <div class="flex items-center justify-between px-3 py-2.5 text-white">
+                            <a href="{% url 'sinhvien_portal' %}?step=2" class="nav-item flex items-center gap-3 truncate flex-1">
+                                <span class="material-symbols-outlined text-sky-300 text-xl shrink-0">menu_book</span>
+                                <span class="nav-text truncate">Đề tài Khóa luận</span>
+                            </a>
+                            <button type="button" onclick="toggleAccordion(event, 'sub-sv-detai')" title="Đóng/Mở mục con"
+                                    class="w-6 h-6 rounded flex items-center justify-center text-slate-400 hover:text-white hover:bg-white/10 transition shrink-0">
+                                <span class="nav-text material-symbols-outlined text-sm transition-transform duration-200 {% if request.GET.step == '2' %}rotate-180{% endif %}" id="sub-sv-detai-arrow">expand_more</span>
+                            </button>
+                        </div>
+                        <div id="sub-sv-detai" class="submenu-container border-l-2 border-white/20 ml-7 pl-2.5 my-2 space-y-1.5 {% if request.GET.step != '2' %}hidden{% endif %}">
+                            <a href="{% url 'sinhvien_portal' %}?step=2&sub=my-topic" 
+                               class="block py-1.5 px-2.5 rounded-lg text-[13px] font-medium transition {% if request.GET.step == '2' and request.GET.sub == 'my-topic' or not request.GET.sub and request.GET.step == '2' %}text-emerald-300 font-bold bg-white/10{% else %}text-slate-200 hover:text-white hover:bg-white/5{% endif %}">
+                                Đề tài của tôi
+                            </a>
+                            <a href="{% url 'sinhvien_portal' %}?step=2&sub=bank" 
+                               class="block py-1.5 px-2.5 rounded-lg text-[13px] font-medium transition {% if request.GET.step == '2' and request.GET.sub == 'bank' %}text-emerald-300 font-bold bg-white/10{% else %}text-slate-200 hover:text-white hover:bg-white/5{% endif %}">
+                                Ngân hàng đề tài gợi ý
+                            </a>
+                        </div>
+                    </div>
+                </nav>
+            </div>
+
+            <!-- NHÓM B: THỰC HIỆN & BÁO CÁO -->
+            <div class="space-y-1 pt-2 border-t border-white/10">
+                <p class="nav-text text-[10px] font-bold uppercase tracking-wider text-emerald-300/80 px-3 mb-1.5 font-heading">
+                    B. THỰC HIỆN & BÁO CÁO
+                </p>
+                <nav class="space-y-1 text-sm font-semibold font-heading">
+                    <!-- 3. Thực tập & Tiến độ tuần -->
+                    <div class="rounded-xl transition {% if request.GET.step == '3' %}bg-white/15 border border-white/20 shadow-xs border-l-4 border-l-emerald-400{% else %}hover:bg-white/10{% endif %}">
+                        <div class="flex items-center justify-between px-3 py-2.5 text-white">
+                            <a href="{% url 'sinhvien_portal' %}?step=3" class="nav-item flex items-center gap-3 truncate flex-1">
+                                <span class="material-symbols-outlined text-amber-300 text-xl shrink-0">apartment</span>
+                                <span class="nav-text truncate">Thực tập & Tiến độ</span>
+                            </a>
+                            <button type="button" onclick="toggleAccordion(event, 'sub-sv-tt')" title="Đóng/Mở mục con"
+                                    class="w-6 h-6 rounded flex items-center justify-center text-slate-400 hover:text-white hover:bg-white/10 transition shrink-0">
+                                <span class="nav-text material-symbols-outlined text-sm transition-transform duration-200 {% if request.GET.step == '3' %}rotate-180{% endif %}" id="sub-sv-tt-arrow">expand_more</span>
+                            </button>
+                        </div>
+                        <div id="sub-sv-tt" class="submenu-container border-l-2 border-white/20 ml-7 pl-2.5 my-2 space-y-1.5 {% if request.GET.step != '3' %}hidden{% endif %}">
+                            <a href="{% url 'sinhvien_portal' %}?step=3&sub=enterprise" 
+                               class="block py-1.5 px-2.5 rounded-lg text-[13px] font-medium transition {% if request.GET.step == '3' and request.GET.sub == 'enterprise' or not request.GET.sub and request.GET.step == '3' %}text-emerald-300 font-bold bg-white/10{% else %}text-slate-200 hover:text-white hover:bg-white/5{% endif %}">
+                                Đơn vị thực tập (UC16)
+                            </a>
+                            <a href="{% url 'sinhvien_portal' %}?step=3&sub=logs" 
+                               class="block py-1.5 px-2.5 rounded-lg text-[13px] font-medium transition {% if request.GET.step == '3' and request.GET.sub == 'logs' %}text-emerald-300 font-bold bg-white/10{% else %}text-slate-200 hover:text-white hover:bg-white/5{% endif %}">
+                                Báo cáo tuần & Minh chứng (UC17)
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- 4. Nộp Báo cáo & Điểm tốt nghiệp -->
+                    <div class="rounded-xl transition {% if request.GET.step == '4' %}bg-white/15 border border-white/20 shadow-xs border-l-4 border-l-emerald-400{% else %}hover:bg-white/10{% endif %}">
+                        <div class="flex items-center justify-between px-3 py-2.5 text-white">
+                            <a href="{% url 'sinhvien_portal' %}?step=4" class="nav-item flex items-center gap-3 truncate flex-1">
+                                <span class="material-symbols-outlined text-rose-300 text-xl shrink-0">upload_file</span>
+                                <span class="nav-text truncate">Báo cáo & Điểm số</span>
+                            </a>
+                            <button type="button" onclick="toggleAccordion(event, 'sub-sv-bc')" title="Đóng/Mở mục con"
+                                    class="w-6 h-6 rounded flex items-center justify-center text-slate-400 hover:text-white hover:bg-white/10 transition shrink-0">
+                                <span class="nav-text material-symbols-outlined text-sm transition-transform duration-200 {% if request.GET.step == '4' %}rotate-180{% endif %}" id="sub-sv-bc-arrow">expand_more</span>
+                            </button>
+                        </div>
+                        <div id="sub-sv-bc" class="submenu-container border-l-2 border-white/20 ml-7 pl-2.5 my-2 space-y-1.5 {% if request.GET.step != '4' %}hidden{% endif %}">
+                            <a href="{% url 'sinhvien_portal' %}?step=4&sub=report" 
+                               class="block py-1.5 px-2.5 rounded-lg text-[13px] font-medium transition {% if request.GET.step == '4' and request.GET.sub == 'report' or not request.GET.sub and request.GET.step == '4' %}text-emerald-300 font-bold bg-white/10{% else %}text-slate-200 hover:text-white hover:bg-white/5{% endif %}">
+                                Nộp báo cáo & Lịch bảo vệ
+                            </a>
+                            <a href="{% url 'sinhvien_portal' %}?step=4&sub=grades" 
+                               class="block py-1.5 px-2.5 rounded-lg text-[13px] font-medium transition {% if request.GET.step == '4' and request.GET.sub == 'grades' %}text-emerald-300 font-bold bg-white/10{% else %}text-slate-200 hover:text-white hover:bg-white/5{% endif %}">
+                                Tra cứu Điểm & Kết quả
+                            </a>
+                        </div>
+                    </div>
+                </nav>
+            </div>
+            {% endif %}
+
+        </div>
+
+        <!-- Chân Sidebar: Thông tin người dùng đang làm việc & Nút Đăng xuất -->
+        <div class="border-t border-white/10 p-3 bg-black/30 backdrop-blur-xs shrink-0 relative z-10">
+            <div class="flex items-center justify-between gap-2">
+                <div class="flex items-center gap-2.5 truncate">
+                    <div class="w-10 h-10 rounded-xl {% if current_role == 'dean' %}bg-amber-400 text-slate-900{% elif current_role == 'lecturer' %}bg-sky-400 text-slate-900{% else %}bg-emerald-400 text-slate-900{% endif %} flex items-center justify-center font-black text-sm font-heading shrink-0 shadow-xs">
+                        {{ persona_avatar }}
+                    </div>
+                    <div class="user-info-text flex flex-col truncate">
+                        <span class="text-sm font-bold text-white truncate font-heading leading-tight">{{ persona_name }}</span>
+                        <span class="text-xs text-sky-200/80 truncate">{{ persona_role_display }}</span>
+                    </div>
+                </div>
+
+                <!-- Nút Đăng xuất -->
+                <a href="{% url 'logout' %}" 
+                   title="Đăng xuất khỏi hệ thống"
+                   class="w-8 h-8 rounded-xl text-slate-300 hover:text-rose-400 hover:bg-rose-500/20 flex items-center justify-center transition shrink-0">
+                    <span class="material-symbols-outlined text-xl">logout</span>
+                </a>
+            </div>
+        </div>
+    </aside>
+
+    <!-- ================= 2. KHU VỰC LÀM VIỆC CHÍNH (MAIN WORKSPACE) ================= -->
+    <div class="flex-1 h-screen flex flex-col overflow-hidden bg-slate-100">
+
+        <!-- Top Header Bar mỏng, tối giản, thanh lịch với Logo to rõ ràng -->
+        <header class="h-20 bg-white border-b border-slate-200/80 px-4 sm:px-6 lg:px-8 flex items-center justify-between shrink-0 shadow-xs">
+            <!-- Bên trái: Logo Trường & Tiêu đề cổng (Không bao giờ gãy dòng, luôn 1 hàng) -->
+            <div class="flex items-center gap-3.5 min-w-0 pr-4">
+                <!-- Logo chuẩn Trường Đại học Vinh -->
+                <img src="{% static 'images/logo_vinhuni.png' %}?v=2026" 
+                     alt="Logo Trường Kỹ thuật và Công nghệ - ĐH Vinh" 
+                     class="w-13 h-13 sm:w-14 sm:h-14 object-contain shrink-0 drop-shadow-sm">
+                <div class="flex flex-col min-w-0">
+                    <span class="font-academic font-bold text-slate-900 text-sm sm:text-base md:text-lg leading-tight tracking-tight uppercase truncate">
+                        TRƯỜNG KỸ THUẬT VÀ CÔNG NGHỆ
+                    </span>
+                    <span class="font-sans text-xs text-slate-500 font-medium truncate">
+                        {% if current_role == 'dean' %}
+                            Hệ thống Điều hành & Quản trị Khóa luận Tốt nghiệp
+                        {% elif current_role == 'lecturer' %}
+                            Cổng Tác nghiệp Giảng viên Hướng dẫn & Hội đồng
+                        {% else %}
+                            Cổng Theo dõi & Báo cáo Khóa luận Sinh viên
+                        {% endif %}
+                    </span>
+                </div>
+            </div>
+
+            <!-- Bên phải: Bộ chọn đợt học thuật (Batch Switcher Dropdown) & Vai trò người dùng (Luôn 1 hàng, shrink-0) -->
+            <div class="flex items-center gap-2.5 sm:gap-4 text-xs font-sans shrink-0 whitespace-nowrap">
+                {% if current_dot %}
+                <!-- ACADEMIC BATCH SELECTOR DROPDOWN -->
+                <div class="relative" id="batchDropdownContainer">
+                    <button type="button" onclick="toggleBatchDropdown(event)" 
+                            class="flex items-center gap-2 px-3 py-1.5 rounded-xl border border-slate-200 bg-slate-50 hover:bg-slate-100 hover:border-slate-300 transition text-slate-800 cursor-pointer shadow-2xs"
+                            title="Nhấn để chuyển đổi đợt học thuật">
+                        <span class="material-symbols-outlined text-base text-blue-700">calendar_month</span>
+                        <div class="text-left flex items-center gap-1.5">
+                            <span class="font-bold text-slate-900 hidden md:inline">HK{{ current_dot.hoc_ky }} ({{ current_dot.nam_hoc }}):</span>
+                            <span class="font-semibold text-slate-800 truncate max-w-[140px] sm:max-w-[200px]">{{ current_dot.ten_dot }}</span>
+                        </div>
+                        {% if is_archived_batch %}
+                        <span class="inline-flex items-center px-1.5 py-0.5 rounded text-[10px] font-bold bg-slate-200 text-slate-700 border border-slate-300">
+                            Lưu trữ
+                        </span>
+                        {% else %}
+                        <span class="inline-flex items-center px-1.5 py-0.5 rounded text-[10px] font-bold bg-emerald-100 text-emerald-800 border border-emerald-200">
+                            {{ current_dot.get_trang_thai_display }}
+                        </span>
+                        {% endif %}
+                        <span class="material-symbols-outlined text-base text-slate-400 transition-transform duration-200" id="batchArrowIcon">expand_more</span>
+                    </button>
+
+                    <!-- DROPDOWN MENU -->
+                    <div id="batchDropdownMenu" class="hidden absolute right-0 top-full mt-2 w-80 sm:w-96 bg-white rounded-2xl shadow-xl border border-slate-200 z-50 p-2 space-y-2 text-xs">
+                        <div class="px-3 py-2 border-b border-slate-100 flex items-center justify-between">
+                            <div>
+                                <h4 class="font-bold text-slate-900 font-heading text-sm">Chuyển đổi đợt làm việc</h4>
+                                <p class="text-[11px] text-slate-500">Phân cấp: Năm học → Học kỳ → Đợt</p>
+                            </div>
+                            <span class="material-symbols-outlined text-slate-400 text-lg">sync_alt</span>
+                        </div>
+
+                        <div class="max-h-72 overflow-y-auto custom-scrollbar space-y-3 p-1">
+                            {% for nam, ds_dot in nhom_nam_hoc.items %}
+                            <div>
+                                <div class="px-2 py-1 text-[11px] font-bold text-slate-400 uppercase tracking-wider flex items-center gap-1.5 font-heading">
+                                    <span class="material-symbols-outlined text-sm">folder</span>
+                                    <span>Năm học {{ nam }}</span>
+                                </div>
+                                <div class="space-y-1 mt-1">
+                                    {% for d in ds_dot %}
+                                    <a href="{% url 'switch_dot' dot_id=d.id %}" 
+                                       class="p-2.5 rounded-xl flex items-center justify-between gap-2 transition {% if d.id == current_dot.id %}bg-blue-50 border border-blue-200 text-blue-900{% else %}hover:bg-slate-50 text-slate-700 border border-transparent{% endif %}">
+                                        <div class="flex items-center gap-2 overflow-hidden">
+                                            {% if d.id == current_dot.id %}
+                                            <span class="material-symbols-outlined text-base text-blue-600 shrink-0">check_circle</span>
+                                            {% else %}
+                                            <span class="material-symbols-outlined text-base text-slate-300 shrink-0">radio_button_unchecked</span>
+                                            {% endif %}
+                                            <div class="truncate text-left">
+                                                <div class="font-bold text-slate-900 truncate">
+                                                    HK{{ d.hoc_ky }} — {{ d.ten_dot }}
+                                                </div>
+                                                <div class="text-[11px] text-slate-500 font-mono">
+                                                    {{ d.ma_dot }}
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <span class="inline-flex items-center px-1.5 py-0.5 rounded text-[10px] font-semibold shrink-0 {% if d.trang_thai == 'HOAN_TAT' %}bg-slate-100 text-slate-600 border border-slate-200{% else %}bg-emerald-50 text-emerald-700 border border-emerald-200{% endif %}">
+                                            {% if d.trang_thai == 'HOAN_TAT' %}Đã lưu trữ{% else %}{{ d.get_trang_thai_display }}{% endif %}
+                                        </span>
+                                    </a>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+                {% endif %}
+
+                <div class="h-4 w-px bg-slate-200 hidden sm:block"></div>
+
+                <span class="font-bold uppercase tracking-wider text-slate-800">
+                    {{ persona_badge }}
+                </span>
+            </div>
+        </header>
+
+        <!-- Thân trang nội dung có thanh cuộn riêng biệt (Auto Overflow-Y) -->
+        <main class="flex-1 overflow-y-auto p-4 sm:p-6 lg:p-8 main-scrollbar">
+            <!-- Thông báo từ hệ thống (Messages) -->
+            {% if messages %}
+            <div class="mb-6 space-y-2">
+                {% for message in messages %}
+                <div class="p-4 rounded-xl text-sm flex items-center justify-between shadow-xs border {% if message.tags == 'error' %}bg-rose-50 text-rose-800 border-rose-200{% elif message.tags == 'success' %}bg-emerald-50 text-emerald-800 border-emerald-200{% else %}bg-blue-50 text-blue-800 border-blue-200{% endif %}">
+                    <div class="flex items-center gap-2.5">
+                        <span class="material-symbols-outlined text-lg">
+                            {% if message.tags == 'error' %}error{% elif message.tags == 'success' %}check_circle{% else %}info{% endif %}
+                        </span>
+                        <span class="font-medium">{{ message }}</span>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+            {% endif %}
+
+            <!-- Nội dung chi tiết của từng Trang con -->
+            <div class="max-w-7xl mx-auto space-y-6">
+                <!-- Cảnh báo chế độ Lưu trữ Lịch sử (Chỉ đọc) -->
+                {% if is_archived_batch %}
+                <div class="p-4 rounded-xl bg-amber-50 border border-amber-200 text-amber-900 text-xs sm:text-sm flex items-center justify-between gap-3 shadow-2xs">
+                    <div class="flex items-center gap-2.5">
+                        <span class="material-symbols-outlined text-amber-600 text-xl shrink-0">inventory_2</span>
+                        <div>
+                            <strong class="font-semibold">Bạn đang xem dữ liệu lưu trữ lịch sử:</strong>
+                            <span>{{ current_dot.ten_dot }} (Năm học {{ current_dot.nam_hoc }} - {{ current_dot.ma_dot }}). Hệ thống đang ở chế độ <strong>Chỉ xem (Read-only)</strong> để bảo toàn nguyên vẹn hồ sơ quá khứ.</span>
+                        </div>
+                    </div>
+                    <span class="px-2.5 py-1 rounded bg-amber-200/70 text-amber-900 text-[11px] font-bold uppercase tracking-wider shrink-0">
+                        Hồ sơ đã khóa sổ
+                    </span>
+                </div>
+                {% endif %}
+
+                {% block content %}{% endblock %}
+            </div>
+        </main>
+    </div>
+
+    <!-- Script điều khiển thu phóng Sidebar & Ghi nhớ trạng thái -->
+    <script>
+        // Bật/tắt menu Dropdown chuyển đổi đợt học thuật
+        function toggleBatchDropdown(event) {
+            if (event) {
+                event.preventDefault();
+                event.stopPropagation();
+            }
+            const menu = document.getElementById('batchDropdownMenu');
+            const arrow = document.getElementById('batchArrowIcon');
+            if (menu) {
+                const isHidden = menu.classList.contains('hidden');
+                if (isHidden) {
+                    menu.classList.remove('hidden');
+                    if (arrow) arrow.classList.add('rotate-180');
+                } else {
+                    menu.classList.add('hidden');
+                    if (arrow) arrow.classList.remove('rotate-180');
+                }
+            }
+        }
+
+        // Đóng dropdown khi click ra ngoài
+        document.addEventListener('click', function(e) {
+            const container = document.getElementById('batchDropdownContainer');
+            const menu = document.getElementById('batchDropdownMenu');
+            const arrow = document.getElementById('batchArrowIcon');
+            if (container && menu && !container.contains(e.target)) {
+                menu.classList.add('hidden');
+                if (arrow) arrow.classList.remove('rotate-180');
+            }
+        });
+
+        // Đóng/Mở Submenu dạng Accordion linh hoạt
+        function toggleAccordion(event, submenuId) {
+            if (event) {
+                event.preventDefault();
+                event.stopPropagation();
+            }
+            const sub = document.getElementById(submenuId);
+            const arrow = document.getElementById(submenuId + '-arrow');
+            if (sub) {
+                const isHidden = sub.classList.contains('hidden');
+                if (isHidden) {
+                    sub.classList.remove('hidden');
+                    if (arrow) arrow.classList.add('rotate-180');
+                } else {
+                    sub.classList.add('hidden');
+                    if (arrow) arrow.classList.remove('rotate-180');
+                }
+            }
+        }
+
+        // Script điều khiển thu phóng Sidebar & Ghi nhớ trạng thái
+        function toggleSidebar() {
+            const sidebar = document.getElementById('mainSidebar');
+            const icon = document.getElementById('toggleIcon');
+            const isExpanded = sidebar.classList.contains('sidebar-expanded');
+
+            if (isExpanded) {
+                sidebar.classList.remove('sidebar-expanded');
+                sidebar.classList.add('sidebar-collapsed');
+                icon.innerText = 'menu';
+                localStorage.setItem('vinhuni_sidebar', 'collapsed');
+            } else {
+                sidebar.classList.remove('sidebar-collapsed');
+                sidebar.classList.add('sidebar-expanded');
+                icon.innerText = 'menu_open';
+                localStorage.setItem('vinhuni_sidebar', 'expanded');
+            }
+        }
+
+        // Khôi phục trạng thái thu phóng khi tải trang
+        (function restoreSidebarState() {
+            const savedState = localStorage.getItem('vinhuni_sidebar');
+            if (savedState === 'collapsed') {
+                const sidebar = document.getElementById('mainSidebar');
+                const icon = document.getElementById('toggleIcon');
+                if (sidebar) {
+                    sidebar.classList.remove('sidebar-expanded');
+                    sidebar.classList.add('sidebar-collapsed');
+                    if (icon) icon.innerText = 'menu';
+                }
+            }
+        })();
+
+        // Hệ thống thông báo Toast học thuật trang trọng (Thay thế hoàn toàn alert thô)
+        function showToast(title, message, type = 'success') {
+            let container = document.getElementById('toastContainer');
+            if (!container) return;
+
+            const toast = document.createElement('div');
+            const bgClass = type === 'error' ? 'bg-rose-900/95 text-rose-50 border-rose-700' :
+                            (type === 'info' ? 'bg-blue-900/95 text-blue-50 border-blue-700' :
+                            'bg-slate-900/95 text-white border-slate-700');
+            const iconName = type === 'error' ? 'error' : (type === 'info' ? 'info' : 'check_circle');
+            const iconColor = type === 'error' ? 'text-rose-400' : (type === 'info' ? 'text-sky-300' : 'text-emerald-400');
+
+            toast.className = `pointer-events-auto flex items-start gap-3 p-3.5 sm:p-4 rounded-xl shadow-2xl border backdrop-blur-md transition-all duration-300 transform translate-y-3 opacity-0 text-xs font-sans ${bgClass}`;
+
+            toast.innerHTML = `
+                <span class="material-symbols-outlined text-xl ${iconColor} shrink-0 mt-0.5">${iconName}</span>
+                <div class="flex-1 pr-2">
+                    <p class="font-bold font-heading text-sm text-white">${title}</p>
+                    <p class="mt-0.5 text-slate-200 leading-relaxed font-sans">${message}</p>
+                </div>
+                <button type="button" onclick="this.closest('div').remove()" class="text-slate-400 hover:text-white transition shrink-0 p-0.5">
+                    <span class="material-symbols-outlined text-base">close</span>
+                </button>
+            `;
+
+            container.appendChild(toast);
+            setTimeout(() => {
+                toast.classList.remove('translate-y-3', 'opacity-0');
+                toast.classList.add('translate-y-0', 'opacity-100');
+            }, 10);
+
+            setTimeout(() => {
+                toast.classList.remove('opacity-100');
+                toast.classList.add('opacity-0');
+                setTimeout(() => toast.remove(), 300);
+            }, 4200);
+        }
+    </script>
+
+    <!-- CONTAINER CHỨA TOAST NOTIFICATION HỌC THUẬT -->
+    <div id="toastContainer" class="fixed bottom-5 right-5 z-[99999] flex flex-col gap-2.5 max-w-sm w-full pointer-events-none px-4 sm:px-0"></div>
+
+    {% block extra_js %}{% endblock %}
+</body>
+</html>
