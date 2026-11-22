@@ -35,12 +35,13 @@ def sprint1_dashboard(request, dot_id=None):
     if not current_dot:
         return render(request, "sprint1/dashboard.html", {"error": "Chưa có đợt thực tập nào được khởi tạo!"})
 
-    # Bộ lọc tìm kiếm
+    # Bộ lọc tìm kiếm & điều kiện tốt nghiệp (UC06)
     q = request.GET.get("q", "").strip()
     lop_filter = request.GET.get("lop", "").strip()
+    status_filter = request.GET.get("status", "all").strip()
 
     # Truy vấn qua Selector tầng dữ liệu (Data Access Layer)
-    ho_so_qs = get_hoso_queryset_for_dot(current_dot, q=q, lop=lop_filter)
+    ho_so_qs = get_hoso_queryset_for_dot(current_dot, q=q, lop=lop_filter, status_filter=status_filter)
     stats = get_hoso_statistics_for_dot(current_dot)
     danh_sach_lop = get_distinct_classes_for_dot(current_dot)
     moc_thoi_gian, trong_so, cac_lan_nhap = get_dot_milestones_and_weights(current_dot)
@@ -55,12 +56,16 @@ def sprint1_dashboard(request, dot_id=None):
         "co_diem_count": stats["co_diem_count"],
         "thieu_diem_count": stats["thieu_diem_count"],
         "tyle_diem": stats["tyle_diem"],
+        "du_dieu_kien_count": stats["du_dieu_kien_count"],
+        "chua_du_dieu_kien_count": stats["chua_du_dieu_kien_count"],
+        "tyle_du_dieu_kien": stats["tyle_du_dieu_kien"],
         "danh_sach_lop": danh_sach_lop,
         "moc_thoi_gian": moc_thoi_gian,
         "trong_so": trong_so,
         "cac_lan_nhap": cac_lan_nhap,
         "q": q,
         "lop_filter": lop_filter,
+        "status_filter": status_filter,
         "active_section": active_section,
     }
     return render(request, "sprint1/dashboard.html", context)

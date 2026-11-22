@@ -2,10 +2,14 @@
 Tầng Views cho app dots (Quản lý Đợt).
 Tuân thủ mô hình View mỏng: nhận request, gọi selector/service, xử lý thông báo và redirect.
 """
+from datetime import datetime
 from django.shortcuts import redirect
 from django.http import Http404
 from django.contrib import messages
+from django.utils import timezone
 from dots.selectors import get_dot_by_id
+from dots.services import cap_nhat_cau_hinh_dot_preset
+from accounts.models import nguoi_dung
 
 
 def switch_dot_view(request, dot_id):
@@ -29,3 +33,53 @@ def switch_dot_view(request, dot_id):
     if referer:
         return redirect(referer)
     return redirect('/')
+
+
+def update_batch_preset_view(request, dot_id):
+    """
+    Xử lý lưu cấu hình thời lượng đợt và tự động sinh mốc tiến độ (UC03).
+    Hỗ trợ 3 mẫu quy chuẩn (15 tuần, 10 tuần, 8 tuần) và 1 mẫu tùy chỉnh.
+    """
+    if request.method != 'POST':
+        return redirect('sprint1_dashboard_dot', dot_id=dot_id)
+
+    dot_obj = get_dot_by_id(dot_id)
+    if not dot_obj:
+        raise Http404("Không tìm thấy đợt.")
+
+    preset_option = request.POST.get('preset_option', 'DO_AN_15_TUAN')
+    raw_start_date = request.POST.get('start_date', '')
+    raw_weeks = request.POST.get('total_weeks', '15')
+
+    try:
+        total_weeks = int(raw_weeks)
+    except (ValueError, TypeError):
+        total_weeks = 15
+
+    if raw_start_date:
+        try:
+            start_date = timezone.make_aware(datetime.strptime(raw_start_date, '%Y-%m-%d'))
+        except Exception:
+            start_date = timezone.now()
+    else:
+        start_date = timezone.now()
+
+    # Lấy tài khoản người thực hiện (Trưởng khoa)
+    current_user = nguoi_dung.objects.filter(ma_dinh_danh_cong='CB_TK01').first()
+
+    # Gọi service nghiệp vụ tập trung
+    _, ten_preset, so_tuan = cap_nhat_cau_hinh_dot_preset(
+        dot_obj=dot_obj,
+        preset_key=preset_option,
+        ngay_bat_dau=start_date,
+        tong_so_tuan=total_weeks,
+        nguoi_thuc_hien=current_user,
+        ip_address=request.META.get('REMOTE_ADDR')
+    )
+
+    messages.success(
+        request,
+        f"Đã cập nhật cấu hình đợt: {ten_preset} ({so_tuan} tuần). Các mốc tiến độ và tỷ trọng điểm đã được tự động tính toán lại vào CSDL!"
+    )
+
+    return redirect(f"/sprint1/?section=milestones")

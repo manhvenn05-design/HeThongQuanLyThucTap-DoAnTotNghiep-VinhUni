@@ -167,38 +167,59 @@
 
     <!-- ================= SECTION 1: DANH SÁCH SINH VIÊN (CHUYÊN TRÁCH) ================= -->
     {% if active_section == 'students' or not active_section %}
-    <!-- KPI THỐNG KÊ GỌN GÀNG - CHUẨN HỌC THUẬT QUỐC TẾ (KHÔNG ICON MÀU MÈ) -->
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+    <!-- KPI THỐNG KÊ GỌN GÀNG - CHUẨN HỌC THUẬT (UC06: KIỂM SOÁT ĐIỀU KIỆN ĐỒ ÁN) -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         <div class="bg-white rounded-xl p-5 border border-slate-200 shadow-xs">
-            <p class="text-xs font-semibold uppercase tracking-wider text-slate-500 font-sans">Tổng sinh viên đủ điều kiện</p>
-            <p class="text-3xl font-bold text-slate-900 font-sans mt-1.5">{{ tong_ho_so }} <span class="text-sm font-normal text-slate-500">hồ sơ</span></p>
+            <p class="text-xs font-semibold uppercase tracking-wider text-slate-500 font-sans">Tổng sinh viên tiếp nhận</p>
+            <p class="text-3xl font-bold text-slate-900 font-heading mt-1.5">{{ tong_ho_so }} <span class="text-sm font-normal text-slate-500">hồ sơ</span></p>
         </div>
 
         <div class="bg-white rounded-xl p-5 border border-slate-200 shadow-xs">
-            <p class="text-xs font-semibold uppercase tracking-wider text-slate-500 font-sans">Đã đồng bộ điểm USMART</p>
-            <p class="text-3xl font-bold text-slate-900 font-sans mt-1.5">{{ co_diem_count }} <span class="text-sm font-medium text-slate-500">({{ tyle_diem }}%)</span></p>
+            <p class="text-xs font-semibold uppercase tracking-wider text-emerald-600 font-sans">Đủ điều kiện (≥110 TC)</p>
+            <p class="text-3xl font-bold text-emerald-700 font-heading mt-1.5">{{ du_dieu_kien_count }} <span class="text-sm font-medium text-slate-500">({{ tyle_du_dieu_kien }}%)</span></p>
         </div>
 
         <div class="bg-white rounded-xl p-5 border border-slate-200 shadow-xs">
-            <p class="text-xs font-semibold uppercase tracking-wider text-slate-500 font-sans">Chưa có điểm tích lũy</p>
-            <p class="text-3xl font-bold text-slate-900 font-sans mt-1.5">{{ thieu_diem_count }} <span class="text-sm font-normal text-slate-500">hồ sơ</span></p>
+            <p class="text-xs font-semibold uppercase tracking-wider text-amber-600 font-sans">Chưa đủ điều kiện / Hậu kiểm</p>
+            <p class="text-3xl font-bold text-amber-700 font-heading mt-1.5">{{ chua_du_dieu_kien_count }} <span class="text-sm font-normal text-slate-500">hồ sơ</span></p>
+        </div>
+
+        <div class="bg-white rounded-xl p-5 border border-slate-200 shadow-xs">
+            <p class="text-xs font-semibold uppercase tracking-wider text-blue-600 font-sans">Đồng bộ dữ liệu USMART</p>
+            <p class="text-3xl font-bold text-slate-900 font-heading mt-1.5">{{ co_diem_count }} <span class="text-sm font-medium text-slate-500">/ {{ tong_ho_so }} ({{ tyle_diem }}%)</span></p>
         </div>
     </div>
 
     <!-- BẢNG DANH SÁCH SINH VIÊN (CHỮ TO RÕ RÀNG, CHUẨN HỌC THUẬT) -->
     <div class="bg-white rounded-xl border border-slate-200 shadow-xs overflow-hidden">
-        <!-- Bộ lọc -->
-        <div class="p-5 border-b border-slate-200 flex flex-col md:flex-row md:items-center justify-between gap-4">
-            <div>
-                <h2 class="text-base font-bold font-sans text-slate-900">Danh sách sinh viên</h2>
+        <!-- Bộ lọc & Tab phân loại UC06 -->
+        <div class="p-5 border-b border-slate-200 flex flex-col xl:flex-row xl:items-center justify-between gap-4">
+            <!-- 3 Tabs lọc nhanh điều kiện -->
+            <div class="flex items-center gap-1.5 p-1 bg-slate-100 rounded-xl text-xs font-semibold font-sans overflow-x-auto custom-scrollbar">
+                <a href="?section=students&status=all{% if q %}&q={{ q }}{% endif %}{% if lop_filter %}&lop={{ lop_filter }}{% endif %}" 
+                   class="px-3 py-1.5 rounded-lg transition whitespace-nowrap {% if status_filter == 'all' or not status_filter %}bg-white text-slate-900 shadow-xs font-bold{% else %}text-slate-600 hover:text-slate-900{% endif %}">
+                    Tất cả ({{ tong_ho_so }})
+                </a>
+                <a href="?section=students&status=eligible{% if q %}&q={{ q }}{% endif %}{% if lop_filter %}&lop={{ lop_filter }}{% endif %}" 
+                   class="px-3 py-1.5 rounded-lg transition whitespace-nowrap flex items-center gap-1.5 {% if status_filter == 'eligible' %}bg-white text-emerald-800 shadow-xs font-bold{% else %}text-slate-600 hover:text-emerald-700{% endif %}">
+                    <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
+                    Đủ điều kiện làm đồ án ({{ du_dieu_kien_count }})
+                </a>
+                <a href="?section=students&status=ineligible{% if q %}&q={{ q }}{% endif %}{% if lop_filter %}&lop={{ lop_filter }}{% endif %}" 
+                   class="px-3 py-1.5 rounded-lg transition whitespace-nowrap flex items-center gap-1.5 {% if status_filter == 'ineligible' %}bg-white text-rose-800 shadow-xs font-bold{% else %}text-slate-600 hover:text-rose-700{% endif %}">
+                    <span class="w-2 h-2 rounded-full bg-rose-500"></span>
+                    Chưa đủ điều kiện ({{ chua_du_dieu_kien_count }})
+                </a>
             </div>
 
+            <!-- Form tìm kiếm & Lọc theo lớp -->
             <form method="GET" class="flex flex-wrap items-center gap-3">
                 <input type="hidden" name="section" value="students">
+                <input type="hidden" name="status" value="{{ status_filter }}">
                 <!-- Ô tìm kiếm -->
                 <div class="relative">
                     <span class="material-symbols-outlined absolute left-3 top-2.5 text-slate-400 text-lg">search</span>
-                    <input type="text" name="q" value="{{ q }}" placeholder="Tìm theo mã sinh viên hoặc họ tên..." 
+                    <input type="text" name="q" value="{{ q }}" placeholder="Tìm theo MSSV hoặc họ tên..." 
                            class="pl-9 pr-3 py-2 text-sm bg-slate-50 border border-slate-300 rounded-lg focus:bg-white focus:ring-2 focus:ring-blue-800 w-64 font-sans">
                 </div>
 
@@ -211,13 +232,13 @@
                     {% endfor %}
                 </select>
 
-                {% if q or lop_filter %}
+                {% if q or lop_filter or status_filter != 'all' %}
                 <a href="?section=students" class="text-xs font-semibold text-rose-600 hover:underline">Xóa lọc</a>
                 {% endif %}
             </form>
         </div>
 
-        <!-- Bảng hiển thị (Đã bỏ hoàn toàn viền bọc xanh AI lòe loẹt và ngôi sao thừa) -->
+        <!-- Bảng hiển thị chuẩn học thuật quốc tế -->
         <div class="overflow-x-auto">
             <table class="w-full text-left text-sm font-sans">
                 <thead>
@@ -227,7 +248,8 @@
                         <th class="py-3.5 px-4">Họ và tên</th>
                         <th class="py-3.5 px-4">Lớp sinh hoạt</th>
                         <th class="py-3.5 px-4">Điểm TB tích lũy (USMART)</th>
-                        <th class="py-3.5 px-4">Số tín chỉ</th>
+                        <th class="py-3.5 px-4">Tín chỉ tích lũy</th>
+                        <th class="py-3.5 px-4 text-center">Thẩm định điều kiện</th>
                         <th class="py-3.5 px-4 text-center">Trạng thái hồ sơ</th>
                     </tr>
                 </thead>
@@ -238,7 +260,7 @@
                         <td class="py-3.5 px-4 font-bold text-slate-900 font-mono">{{ hs.sinh_vien.ma_sinh_vien }}</td>
                         <td class="py-3.5 px-4 font-semibold text-slate-800">{{ hs.sinh_vien.nguoi_dung.ho_ten }}</td>
                         <td class="py-3.5 px-4 text-slate-600">{{ hs.sinh_vien.lop|default:"—" }}</td>
-                        <!-- Cột điểm: Đã đổi sang chuẩn học thuật quốc tế thuần túy -->
+                        <!-- Cột điểm TB hệ 4 -->
                         <td class="py-3.5 px-4 font-mono text-[14px]">
                             {% if hs.diem_dau_vao.diem_tb_he4 %}
                             <span class="font-bold text-slate-900">{{ hs.diem_dau_vao.diem_tb_he4 }}</span>
@@ -247,22 +269,42 @@
                             <span class="text-xs text-slate-400 italic font-sans">Chưa có điểm</span>
                             {% endif %}
                         </td>
-                        <td class="py-3.5 px-4 font-mono text-slate-600 text-xs">
+                        <!-- Cột số tín chỉ tích lũy -->
+                        <td class="py-3.5 px-4 font-mono text-xs font-semibold text-slate-700">
                             {% if hs.diem_dau_vao.tin_chi_tich_luy %}
                             {{ hs.diem_dau_vao.tin_chi_tich_luy }} TC
                             {% else %}
-                            —
+                            <span class="text-slate-400 font-normal italic">—</span>
                             {% endif %}
                         </td>
-                        <!-- Cột trạng thái: Chữ thanh lịch, không viền bọc lòe loẹt -->
+                        <!-- Cột thẩm định điều kiện đồ án (UC06) -->
+                        <td class="py-3.5 px-4 text-center">
+                            {% if hs.diem_dau_vao.tin_chi_tich_luy >= 110 and hs.diem_dau_vao.diem_tb_he4 >= 2.0 %}
+                            <span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-semibold bg-emerald-50 text-emerald-700 border border-emerald-200">
+                                <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
+                                Đủ điều kiện
+                            </span>
+                            {% elif not hs.diem_dau_vao or not hs.diem_dau_vao.diem_tb_he4 %}
+                            <span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-semibold bg-amber-50 text-amber-700 border border-amber-200">
+                                <span class="w-1.5 h-1.5 rounded-full bg-amber-500"></span>
+                                Chưa có điểm USMART
+                            </span>
+                            {% else %}
+                            <span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-semibold bg-rose-50 text-rose-700 border border-rose-200">
+                                <span class="w-1.5 h-1.5 rounded-full bg-rose-500"></span>
+                                Thiếu tín chỉ (<110)
+                            </span>
+                            {% endif %}
+                        </td>
+                        <!-- Cột trạng thái hồ sơ -->
                         <td class="py-3.5 px-4 text-center text-xs font-semibold text-slate-700">
                             {{ hs.get_trang_thai_display }}
                         </td>
                     </tr>
                     {% empty %}
                     <tr>
-                        <td colspan="7" class="py-12 text-center text-slate-400 text-sm">
-                            Chưa có dữ liệu sinh viên. Vui lòng bấm <b>"Nhập danh sách Excel"</b> ở trên.
+                        <td colspan="8" class="py-12 text-center text-slate-400 text-sm">
+                            Không tìm thấy hồ sơ sinh viên phù hợp với tiêu chí lọc.
                         </td>
                     </tr>
                     {% endfor %}
@@ -409,8 +451,10 @@
             <!-- 4 Thẻ Mẫu Preset chọn nhanh -->
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3.5">
                 <!-- Mẫu 1: Đồ án chính quy 15 tuần -->
-                <div class="p-4 rounded-xl border-2 border-slate-900 bg-slate-50/80 space-y-2 relative cursor-pointer hover:shadow-xs transition">
-                    <span class="absolute top-3 right-3 text-xs font-bold px-2 py-0.5 bg-slate-900 text-white rounded-full">Đang dùng</span>
+                <div onclick="selectPreset('DO_AN_15_TUAN')" class="p-4 rounded-xl border-2 {% if current_dot.loai == 'DO_AN_TOT_NGHIEP' %}border-slate-900 bg-slate-50/80{% else %}border-slate-200 bg-white hover:border-slate-400{% endif %} space-y-2 relative cursor-pointer hover:shadow-xs transition">
+                    {% if current_dot.loai == 'DO_AN_TOT_NGHIEP' %}
+                    <span class="absolute top-3 right-3 text-xs font-bold px-2 py-0.5 bg-slate-900 text-white rounded-full">Đang áp dụng</span>
+                    {% endif %}
                     <span class="text-xs font-semibold text-slate-500 uppercase tracking-wider block">Mẫu 1</span>
                     <h3 class="text-sm font-bold text-slate-900 font-sans">Đồ án tốt nghiệp chính quy</h3>
                     <div class="text-xl font-bold text-slate-900 font-heading">15 <span class="text-xs font-normal text-slate-500">tuần học kỳ</span></div>
@@ -418,7 +462,10 @@
                 </div>
 
                 <!-- Mẫu 2: Thực tập doanh nghiệp 10 tuần -->
-                <div onclick="selectPreset('thuc_tap_10')" class="p-4 rounded-xl border border-slate-200 bg-white hover:border-slate-400 space-y-2 cursor-pointer hover:shadow-xs transition">
+                <div onclick="selectPreset('THUC_TAP_10_TUAN')" class="p-4 rounded-xl border {% if current_dot.loai == 'THUC_TAP' and moc_thoi_gian|length != 8 %}border-slate-900 bg-slate-50/80{% else %}border-slate-200 bg-white hover:border-slate-400{% endif %} space-y-2 relative cursor-pointer hover:shadow-xs transition">
+                    {% if current_dot.loai == 'THUC_TAP' and moc_thoi_gian|length != 8 %}
+                    <span class="absolute top-3 right-3 text-xs font-bold px-2 py-0.5 bg-slate-900 text-white rounded-full">Đang áp dụng</span>
+                    {% endif %}
                     <span class="text-xs font-semibold text-slate-500 uppercase tracking-wider block">Mẫu 2</span>
                     <h3 class="text-sm font-bold text-slate-900 font-sans">Thực tập tốt nghiệp</h3>
                     <div class="text-xl font-bold text-slate-900 font-heading">10 <span class="text-xs font-normal text-slate-500">tuần tại DN</span></div>
@@ -426,7 +473,7 @@
                 </div>
 
                 <!-- Mẫu 3: Học kỳ hè rút gọn 8 tuần -->
-                <div onclick="selectPreset('he_8')" class="p-4 rounded-xl border border-slate-200 bg-white hover:border-slate-400 space-y-2 cursor-pointer hover:shadow-xs transition">
+                <div onclick="selectPreset('HE_RUT_GON_8_TUAN')" class="p-4 rounded-xl border border-slate-200 bg-white hover:border-slate-400 space-y-2 cursor-pointer hover:shadow-xs transition">
                     <span class="text-xs font-semibold text-slate-500 uppercase tracking-wider block">Mẫu 3</span>
                     <h3 class="text-sm font-bold text-slate-900 font-sans">Học kỳ hè rút gọn</h3>
                     <div class="text-xl font-bold text-slate-900 font-heading">8 <span class="text-xs font-normal text-slate-500">tuần học kỳ phụ</span></div>
@@ -434,7 +481,7 @@
                 </div>
 
                 <!-- Mẫu 4: Tùy chỉnh số tuần -->
-                <div onclick="openBatchConfigModal()" class="p-4 rounded-xl border border-dashed border-slate-300 bg-white hover:border-slate-600 hover:bg-slate-50/50 space-y-2 cursor-pointer transition">
+                <div onclick="selectPreset('CUSTOM')" class="p-4 rounded-xl border border-dashed border-slate-300 bg-white hover:border-slate-600 hover:bg-slate-50/50 space-y-2 cursor-pointer transition">
                     <span class="text-xs font-semibold text-slate-500 uppercase tracking-wider block">Mẫu 4</span>
                     <h3 class="text-sm font-bold text-slate-900 font-sans">Tùy chỉnh linh hoạt</h3>
                     <div class="text-xl font-bold text-blue-700 font-heading">Tự chọn <span class="text-xs font-normal text-slate-500">số tuần</span></div>
@@ -447,11 +494,11 @@
         <div class="bg-white rounded-xl border border-slate-200 shadow-xs p-6 space-y-4">
             <div class="flex items-center justify-between border-b border-slate-100 pb-3">
                 <div>
-                    <h2 class="text-base font-bold font-sans text-slate-900">Danh sách mốc thời gian đang áp dụng (Khung 15 tuần)</h2>
+                    <h2 class="text-base font-bold font-sans text-slate-900">Danh sách mốc thời gian đang áp dụng ({{ current_dot.ten_dot }})</h2>
                     <p class="text-xs text-slate-500 mt-0.5">Sinh viên và giảng viên căn cứ các mốc này để thực hiện và nộp minh chứng</p>
                 </div>
                 <span class="text-xs font-semibold px-2.5 py-1 bg-slate-100 text-slate-700 rounded-lg border border-slate-200">
-                    5 mốc tiến độ chính
+                    {{ moc_thoi_gian|length }} mốc sự kiện
                 </span>
             </div>
 
@@ -461,15 +508,16 @@
                     <div class="flex-1">
                         <div class="flex items-center gap-2">
                             <span class="w-6 h-6 rounded-full bg-slate-900 text-white font-mono font-bold text-xs flex items-center justify-center">{{ forloop.counter }}</span>
-                            <p class="text-sm font-bold text-slate-900 font-sans">{{ m.get_loai_moc_display }}</p>
+                            <p class="text-sm font-bold text-slate-900 font-sans">{{ m.ten_moc }}</p>
                         </div>
-                        <p class="text-xs text-slate-500 mt-2">Hạn chót nộp:</p>
-                        <p class="text-sm font-mono font-bold text-blue-900 mt-0.5">{{ m.thoi_gian_ket_thuc|date:"d/m/Y H:i" }}</p>
+                        <p class="text-xs text-slate-500 mt-2">Phân loại: <span class="font-medium text-slate-700">{{ m.get_loai_moc_display }}</span></p>
+                        <p class="text-xs text-slate-500 mt-1">Hạn chót:</p>
+                        <p class="text-sm font-mono font-bold text-blue-900 mt-0.5">{{ m.han_cuoi|date:"d/m/Y H:i" }}</p>
                     </div>
                 </div>
                 {% empty %}
                 <div class="col-span-3 py-8 text-center text-slate-400 text-sm">
-                    Đợt đang áp dụng khung mốc thời gian chuẩn của Trường Đại học Vinh.
+                    Đợt chưa có mốc thời gian nào. Vui lòng bấm <b>"Cấu hình đợt"</b> ở trên để chọn mẫu tiến độ.
                 </div>
                 {% endfor %}
             </div>
@@ -553,106 +601,112 @@
             </button>
         </div>
 
-        <!-- 4 Lựa chọn Mẫu (Preset Radios) -->
-        <div>
-            <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-2 font-heading">
-                Chọn Mẫu thời lượng tiến độ:
-            </label>
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                <label class="p-3.5 rounded-xl border-2 border-slate-900 bg-slate-50 flex items-start gap-3 cursor-pointer">
-                    <input type="radio" name="preset_option" value="15" checked class="mt-1 text-slate-900 focus:ring-slate-800" onchange="updatePresetView(15)">
-                    <div>
-                        <div class="text-sm font-bold text-slate-900">Mẫu 1: Đồ án chính quy (15 tuần)</div>
-                        <p class="text-[11px] text-slate-500 mt-0.5">Chuẩn học kỳ chính. Chốt đề tài $\rightarrow$ Giữa kỳ $\rightarrow$ Phản biện $\rightarrow$ Hội đồng.</p>
-                    </div>
-                </label>
-
-                <label class="p-3.5 rounded-xl border border-slate-200 hover:border-slate-400 bg-white flex items-start gap-3 cursor-pointer">
-                    <input type="radio" name="preset_option" value="10" class="mt-1 text-slate-900 focus:ring-slate-800" onchange="updatePresetView(10)">
-                    <div>
-                        <div class="text-sm font-bold text-slate-900">Mẫu 2: Thực tập DN (10 tuần)</div>
-                        <p class="text-[11px] text-slate-500 mt-0.5">Tiếp nhận doanh nghiệp, 4 mốc nhật ký tuần, xác nhận công ty.</p>
-                    </div>
-                </label>
-
-                <label class="p-3.5 rounded-xl border border-slate-200 hover:border-slate-400 bg-white flex items-start gap-3 cursor-pointer">
-                    <input type="radio" name="preset_option" value="8" class="mt-1 text-slate-900 focus:ring-slate-800" onchange="updatePresetView(8)">
-                    <div>
-                        <div class="text-sm font-bold text-slate-900">Mẫu 3: Học kỳ hè (8 tuần)</div>
-                        <p class="text-[11px] text-slate-500 mt-0.5">Học kỳ phụ rút gọn. Tiến độ cô đọng, bảo vệ nhanh chóng.</p>
-                    </div>
-                </label>
-
-                <label class="p-3.5 rounded-xl border border-dashed border-slate-300 hover:border-slate-600 bg-white flex items-start gap-3 cursor-pointer">
-                    <input type="radio" name="preset_option" value="custom" class="mt-1 text-blue-600 focus:ring-blue-600" onchange="updatePresetView('custom')">
-                    <div>
-                        <div class="text-sm font-bold text-blue-700">Mẫu 4: Tùy chỉnh số tuần</div>
-                        <p class="text-[11px] text-slate-500 mt-0.5">Nhập số tuần bất kỳ theo kế hoạch riêng của Khoa.</p>
-                    </div>
-                </label>
-            </div>
-        </div>
-
-        <!-- Khung nhập ngày bắt đầu & số tuần tùy chỉnh -->
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 p-4 bg-slate-50 border border-slate-200 rounded-xl text-xs">
+        <form action="{% url 'update_batch_preset' dot_id=current_dot.id %}" method="POST" class="space-y-5">
+            {% csrf_token %}
+            <!-- 4 Lựa chọn Mẫu (Preset Radios) -->
             <div>
-                <label class="block font-bold text-slate-700 uppercase tracking-wide mb-1.5 font-heading">
-                    Ngày bắt đầu đợt:
+                <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-2 font-heading">
+                    Chọn Mẫu thời lượng tiến độ:
                 </label>
-                <input type="date" id="inputStartDate" value="2026-09-01" class="w-full p-2.5 bg-white border border-slate-300 rounded-lg font-medium text-slate-800">
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    <label id="label_DO_AN_15_TUAN" class="p-3.5 rounded-xl border-2 border-slate-900 bg-slate-50 flex items-start gap-3 cursor-pointer">
+                        <input type="radio" name="preset_option" value="DO_AN_15_TUAN" checked class="mt-1 text-slate-900 focus:ring-slate-800" onchange="updatePresetView('DO_AN_15_TUAN')">
+                        <div>
+                            <div class="text-sm font-bold text-slate-900">Mẫu 1: Đồ án chính quy (15 tuần)</div>
+                            <p class="text-[11px] text-slate-500 mt-0.5">Chuẩn học kỳ chính. Chốt đề tài $\rightarrow$ Giữa kỳ $\rightarrow$ Phản biện $\rightarrow$ Hội đồng.</p>
+                        </div>
+                    </label>
+
+                    <label id="label_THUC_TAP_10_TUAN" class="p-3.5 rounded-xl border border-slate-200 hover:border-slate-400 bg-white flex items-start gap-3 cursor-pointer">
+                        <input type="radio" name="preset_option" value="THUC_TAP_10_TUAN" class="mt-1 text-slate-900 focus:ring-slate-800" onchange="updatePresetView('THUC_TAP_10_TUAN')">
+                        <div>
+                            <div class="text-sm font-bold text-slate-900">Mẫu 2: Thực tập DN (10 tuần)</div>
+                            <p class="text-[11px] text-slate-500 mt-0.5">Tiếp nhận doanh nghiệp, nhật ký tuần, xác nhận công ty.</p>
+                        </div>
+                    </label>
+
+                    <label id="label_HE_RUT_GON_8_TUAN" class="p-3.5 rounded-xl border border-slate-200 hover:border-slate-400 bg-white flex items-start gap-3 cursor-pointer">
+                        <input type="radio" name="preset_option" value="HE_RUT_GON_8_TUAN" class="mt-1 text-slate-900 focus:ring-slate-800" onchange="updatePresetView('HE_RUT_GON_8_TUAN')">
+                        <div>
+                            <div class="text-sm font-bold text-slate-900">Mẫu 3: Học kỳ hè (8 tuần)</div>
+                            <p class="text-[11px] text-slate-500 mt-0.5">Học kỳ phụ rút gọn. Tiến độ cô đọng, bảo vệ nhanh chóng.</p>
+                        </div>
+                    </label>
+
+                    <label id="label_CUSTOM" class="p-3.5 rounded-xl border border-dashed border-slate-300 hover:border-slate-600 bg-white flex items-start gap-3 cursor-pointer">
+                        <input type="radio" name="preset_option" value="CUSTOM" class="mt-1 text-blue-600 focus:ring-blue-600" onchange="updatePresetView('CUSTOM')">
+                        <div>
+                            <div class="text-sm font-bold text-blue-700">Mẫu 4: Tùy chỉnh số tuần</div>
+                            <p class="text-[11px] text-slate-500 mt-0.5">Nhập số tuần bất kỳ theo kế hoạch riêng của Khoa.</p>
+                        </div>
+                    </label>
+                </div>
             </div>
+
+            <!-- Khung nhập ngày bắt đầu & số tuần tùy chỉnh -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 p-4 bg-slate-50 border border-slate-200 rounded-xl text-xs">
+                <div>
+                    <label class="block font-bold text-slate-700 uppercase tracking-wide mb-1.5 font-heading">
+                        Ngày bắt đầu đợt:
+                    </label>
+                    <input type="date" name="start_date" id="inputStartDate" value="2026-09-01" class="w-full p-2.5 bg-white border border-slate-300 rounded-lg font-medium text-slate-800">
+                </div>
+                <div>
+                    <label class="block font-bold text-slate-700 uppercase tracking-wide mb-1.5 font-heading">
+                        Tổng số tuần thực hiện:
+                    </label>
+                    <div class="flex items-center gap-2">
+                        <input type="number" name="total_weeks" id="inputTotalWeeks" min="4" max="24" value="15" readonly class="w-full p-2.5 bg-white border border-slate-300 rounded-lg font-bold font-mono text-slate-900">
+                        <span class="font-bold text-slate-600 whitespace-nowrap">tuần</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Bảng xem trước các mốc sẽ được hệ thống sinh tự động -->
             <div>
-                <label class="block font-bold text-slate-700 uppercase tracking-wide mb-1.5 font-heading">
-                    Tổng số tuần thực hiện:
-                </label>
-                <div class="flex items-center gap-2">
-                    <input type="number" id="inputTotalWeeks" min="4" max="24" value="15" class="w-full p-2.5 bg-white border border-slate-300 rounded-lg font-bold font-mono text-slate-900">
-                    <span class="font-bold text-slate-600 whitespace-nowrap">tuần</span>
+                <div class="flex items-center justify-between mb-2">
+                    <span class="text-xs font-bold text-slate-700 uppercase tracking-wider font-heading">Xem trước các mốc tiến độ tự động:</span>
+                    <span class="text-[11px] font-semibold text-slate-600" id="previewWeeksLabel">Áp dụng khung: 15 tuần</span>
+                </div>
+                <div class="space-y-1.5 border border-slate-200 rounded-xl p-3 bg-white max-h-48 overflow-y-auto text-xs divide-y divide-slate-100" id="presetMilestonesPreview">
+                    <div class="py-1.5 flex items-center justify-between">
+                        <span class="font-bold text-slate-800">Tuần 1 - 2: Đăng ký nguyện vọng & Chốt danh sách</span>
+                        <span class="font-mono text-slate-500">Mốc 1</span>
+                    </div>
+                    <div class="py-1.5 flex items-center justify-between">
+                        <span class="font-bold text-slate-800">Tuần 3 - 4: Thống nhất & Chốt đề tài với GVHD</span>
+                        <span class="font-mono text-slate-500">Mốc 2</span>
+                    </div>
+                    <div class="py-1.5 flex items-center justify-between">
+                        <span class="font-bold text-slate-800">Tuần 5 - 7: Báo cáo tiến độ đợt 1 (30% khối lượng)</span>
+                        <span class="font-mono text-slate-500">Mốc 3</span>
+                    </div>
+                    <div class="py-1.5 flex items-center justify-between">
+                        <span class="font-bold text-slate-800">Tuần 8 - 11: Báo cáo tiến độ đợt 2 (70% khối lượng)</span>
+                        <span class="font-mono text-slate-500">Mốc 4</span>
+                    </div>
+                    <div class="py-1.5 flex items-center justify-between">
+                        <span class="font-bold text-slate-800">Tuần 12 - 14: Nộp quyển báo cáo toàn văn & Source code</span>
+                        <span class="font-mono text-slate-500">Mốc 5</span>
+                    </div>
+                    <div class="py-1.5 flex items-center justify-between">
+                        <span class="font-bold text-slate-800">Tuần 15: Chấm phản biện & Bảo vệ trước Hội đồng</span>
+                        <span class="font-mono text-slate-500">Mốc 6</span>
+                    </div>
                 </div>
             </div>
-        </div>
 
-        <!-- Bảng xem trước các mốc sẽ được hệ thống sinh tự động -->
-        <div>
-            <div class="flex items-center justify-between mb-2">
-                <span class="text-xs font-bold text-slate-700 uppercase tracking-wider font-heading">Xem trước các mốc tiến độ tự động:</span>
-                <span class="text-[11px] text-slate-500" id="previewWeeksLabel">Áp dụng khung: 15 tuần</span>
+            <div class="flex items-center justify-end gap-2 pt-3 border-t border-slate-200">
+                <button type="button" onclick="closeBatchConfigModal()" class="px-4 py-2 border border-slate-300 rounded-xl text-xs sm:text-sm font-semibold text-slate-700 hover:bg-slate-50">
+                    Đóng
+                </button>
+                <button type="submit" class="px-5 py-2 bg-slate-900 hover:bg-slate-800 text-white rounded-xl text-xs sm:text-sm font-bold shadow-xs">
+                    Áp dụng mẫu thời lượng này vào CSDL
+                </button>
             </div>
-            <div class="space-y-1.5 border border-slate-200 rounded-xl p-3 bg-white max-h-48 overflow-y-auto text-xs divide-y divide-slate-100" id="presetMilestonesPreview">
-                <div class="py-1.5 flex items-center justify-between">
-                    <span class="font-bold text-slate-800">Tuần 1 - 3: Phân công & Chốt đề tài</span>
-                    <span class="font-mono text-slate-500">21/09/2026</span>
-                </div>
-                <div class="py-1.5 flex items-center justify-between">
-                    <span class="font-bold text-slate-800">Tuần 4 - 8: Báo cáo tiến độ đợt 1 (Giữa kỳ)</span>
-                    <span class="font-mono text-slate-500">26/10/2026</span>
-                </div>
-                <div class="py-1.5 flex items-center justify-between">
-                    <span class="font-bold text-slate-800">Tuần 9 - 13: Báo cáo thử nghiệm & Hoàn thiện</span>
-                    <span class="font-mono text-slate-500">30/11/2026</span>
-                </div>
-                <div class="py-1.5 flex items-center justify-between">
-                    <span class="font-bold text-slate-800">Tuần 14: Chấm phản biện & Nộp toàn văn</span>
-                    <span class="font-mono text-slate-500">07/12/2026</span>
-                </div>
-                <div class="py-1.5 flex items-center justify-between">
-                    <span class="font-bold text-slate-800">Tuần 15: Tổ chức Hội đồng bảo vệ & Tổng kết</span>
-                    <span class="font-mono text-slate-500">14/12/2026</span>
-                </div>
-            </div>
-        </div>
-
-        <div class="flex items-center justify-end gap-2 pt-3 border-t border-slate-200">
-            <button type="button" onclick="closeBatchConfigModal()" class="px-4 py-2 border border-slate-300 rounded-xl text-xs sm:text-sm font-semibold text-slate-700 hover:bg-slate-50">
-                Đóng
-            </button>
-            <button type="button" onclick="saveBatchPreset()" class="px-5 py-2 bg-slate-900 hover:bg-slate-800 text-white rounded-xl text-xs sm:text-sm font-bold shadow-xs">
-                Áp dụng mẫu thời lượng này
-            </button>
-        </div>
+        </form>
     </div>
-
-/div>
+</div>
 
 <script>
     function openBatchConfigModal() {
@@ -665,9 +719,11 @@
 
     function selectPreset(type) {
         openBatchConfigModal();
-        const weeks = type === 'thuc_tap_10' ? 10 : (type === 'he_8' ? 8 : 15);
-        document.querySelector(`input[name="preset_option"][value="${weeks}"]`).checked = true;
-        updatePresetView(weeks);
+        const radio = document.querySelector(`input[name="preset_option"][value="${type}"]`);
+        if (radio) {
+            radio.checked = true;
+            updatePresetView(type);
+        }
     }
 
     function updatePresetView(val) {
@@ -675,45 +731,61 @@
         const previewLabel = document.getElementById('previewWeeksLabel');
         const container = document.getElementById('presetMilestonesPreview');
 
-        if (val === 'custom') {
-            previewLabel.innerText = 'Áp dụng khung: Tùy chỉnh';
-            weeksInput.disabled = false;
-            weeksInput.focus();
-        } else {
-            weeksInput.value = val;
-            weeksInput.disabled = true;
-            previewLabel.innerText = `Áp dụng khung: ${val} tuần`;
-            
-            if (val == 10) {
-                container.innerHTML = `
-                    <div class="py-1.5 flex items-center justify-between"><span class="font-bold text-slate-800">Tuần 1 - 2: Tiếp nhận đơn vị thực tập & Giấy giới thiệu</span><span class="font-mono text-slate-500">14/09/2026</span></div>
-                    <div class="py-1.5 flex items-center justify-between"><span class="font-bold text-slate-800">Tuần 3 - 6: Nhật ký công việc thực tế tại doanh nghiệp</span><span class="font-mono text-slate-500">12/10/2026</span></div>
-                    <div class="py-1.5 flex items-center justify-between"><span class="font-bold text-slate-800">Tuần 7 - 9: Hoàn thiện báo cáo thực tập & Xin xác nhận</span><span class="font-mono text-slate-500">02/11/2026</span></div>
-                    <div class="py-1.5 flex items-center justify-between"><span class="font-bold text-slate-800">Tuần 10: Nộp báo cáo xác nhận doanh nghiệp & Vào điểm</span><span class="font-mono text-slate-500">09/11/2026</span></div>
-                `;
-            } else if (val == 8) {
-                container.innerHTML = `
-                    <div class="py-1.5 flex items-center justify-between"><span class="font-bold text-slate-800">Tuần 1: Chốt đề tài rút gọn</span><span class="font-mono text-slate-500">07/07/2026</span></div>
-                    <div class="py-1.5 flex items-center justify-between"><span class="font-bold text-slate-800">Tuần 2 - 4: Tiến độ giai đoạn 1</span><span class="font-mono text-slate-500">28/07/2026</span></div>
-                    <div class="py-1.5 flex items-center justify-between"><span class="font-bold text-slate-800">Tuần 5 - 7: Hoàn thiện sản phẩm & Chấm phản biện</span><span class="font-mono text-slate-500">18/08/2026</span></div>
-                    <div class="py-1.5 flex items-center justify-between"><span class="font-bold text-slate-800">Tuần 8: Bảo vệ hội đồng kết thúc học kỳ hè</span><span class="font-mono text-slate-500">25/08/2026</span></div>
-                `;
-            } else {
-                container.innerHTML = `
-                    <div class="py-1.5 flex items-center justify-between"><span class="font-bold text-slate-800">Tuần 1 - 3: Phân công & Chốt đề tài</span><span class="font-mono text-slate-500">21/09/2026</span></div>
-                    <div class="py-1.5 flex items-center justify-between"><span class="font-bold text-slate-800">Tuần 4 - 8: Báo cáo tiến độ đợt 1 (Giữa kỳ)</span><span class="font-mono text-slate-500">26/10/2026</span></div>
-                    <div class="py-1.5 flex items-center justify-between"><span class="font-bold text-slate-800">Tuần 9 - 13: Báo cáo thử nghiệm & Hoàn thiện</span><span class="font-mono text-slate-500">30/11/2026</span></div>
-                    <div class="py-1.5 flex items-center justify-between"><span class="font-bold text-slate-800">Tuần 14: Chấm phản biện & Nộp toàn văn</span><span class="font-mono text-slate-500">07/12/2026</span></div>
-                    <div class="py-1.5 flex items-center justify-between"><span class="font-bold text-slate-800">Tuần 15: Tổ chức Hội đồng bảo vệ & Tổng kết</span><span class="font-mono text-slate-500">14/12/2026</span></div>
-                `;
+        // Đổi style viền các thẻ label
+        ['DO_AN_15_TUAN', 'THUC_TAP_10_TUAN', 'HE_RUT_GON_8_TUAN', 'CUSTOM'].forEach(k => {
+            const el = document.getElementById('label_' + k);
+            if (el) {
+                if (k === val) {
+                    el.className = 'p-3.5 rounded-xl border-2 border-slate-900 bg-slate-50 flex items-start gap-3 cursor-pointer';
+                } else {
+                    el.className = 'p-3.5 rounded-xl border border-slate-200 hover:border-slate-400 bg-white flex items-start gap-3 cursor-pointer';
+                }
             }
-        }
-    }
+        });
 
-    function saveBatchPreset() {
-        const weeks = document.getElementById('inputTotalWeeks').value;
-        showToast('Áp dụng thời lượng', `Đã cấu hình thời lượng đợt thành công: ${weeks} tuần với các mốc thời gian tương ứng!`, 'success');
-        closeBatchConfigModal();
+        if (val === 'CUSTOM') {
+            previewLabel.innerText = 'Áp dụng khung: Tùy chỉnh linh hoạt';
+            weeksInput.readOnly = false;
+            weeksInput.focus();
+            container.innerHTML = `
+                <div class="py-1.5 flex items-center justify-between"><span class="font-bold text-slate-800">Tuần 1 - 2: Khởi động & Chốt danh sách sinh viên</span><span class="font-mono text-slate-500">Mốc 1</span></div>
+                <div class="py-1.5 flex items-center justify-between"><span class="font-bold text-slate-800">Giữa kỳ: Báo cáo tiến độ giữa kỳ</span><span class="font-mono text-slate-500">Mốc 2</span></div>
+                <div class="py-1.5 flex items-center justify-between"><span class="font-bold text-slate-800">Áp chót: Nộp báo cáo và minh chứng đầy đủ</span><span class="font-mono text-slate-500">Mốc 3</span></div>
+                <div class="py-1.5 flex items-center justify-between"><span class="font-bold text-slate-800">Cuối kỳ: Đánh giá & Tổng kết điểm</span><span class="font-mono text-slate-500">Mốc 4</span></div>
+            `;
+        } else if (val === 'THUC_TAP_10_TUAN') {
+            weeksInput.value = 10;
+            weeksInput.readOnly = true;
+            previewLabel.innerText = 'Áp dụng khung: Thực tập doanh nghiệp (10 tuần)';
+            container.innerHTML = `
+                <div class="py-1.5 flex items-center justify-between"><span class="font-bold text-slate-800">Tuần 1 - 2: Xác nhận đơn vị thực tập doanh nghiệp</span><span class="font-mono text-slate-500">Mốc 1</span></div>
+                <div class="py-1.5 flex items-center justify-between"><span class="font-bold text-slate-800">Tuần 3 - 5: Báo cáo tiến độ giữa đợt tại doanh nghiệp</span><span class="font-mono text-slate-500">Mốc 2</span></div>
+                <div class="py-1.5 flex items-center justify-between"><span class="font-bold text-slate-800">Tuần 6 - 9: Nộp nhật ký thực tập & Giấy xác nhận DN</span><span class="font-mono text-slate-500">Mốc 3</span></div>
+                <div class="py-1.5 flex items-center justify-between"><span class="font-bold text-slate-800">Tuần 10: Đánh giá GVHD & Đơn vị thực tập</span><span class="font-mono text-slate-500">Mốc 4</span></div>
+            `;
+        } else if (val === 'HE_RUT_GON_8_TUAN') {
+            weeksInput.value = 8;
+            weeksInput.readOnly = true;
+            previewLabel.innerText = 'Áp dụng khung: Học kỳ hè rút gọn (8 tuần)';
+            container.innerHTML = `
+                <div class="py-1.5 flex items-center justify-between"><span class="font-bold text-slate-800">Tuần 1: Đăng ký đơn vị & Bắt đầu thực tập</span><span class="font-mono text-slate-500">Mốc 1</span></div>
+                <div class="py-1.5 flex items-center justify-between"><span class="font-bold text-slate-800">Tuần 2 - 4: Báo cáo tiến độ tuần 4</span><span class="font-mono text-slate-500">Mốc 2</span></div>
+                <div class="py-1.5 flex items-center justify-between"><span class="font-bold text-slate-800">Tuần 5 - 7: Nộp minh chứng & Báo cáo hoàn thành</span><span class="font-mono text-slate-500">Mốc 3</span></div>
+                <div class="py-1.5 flex items-center justify-between"><span class="font-bold text-slate-800">Tuần 8: Tổng kết đánh giá điểm thực tập hè</span><span class="font-mono text-slate-500">Mốc 4</span></div>
+            `;
+        } else {
+            weeksInput.value = 15;
+            weeksInput.readOnly = true;
+            previewLabel.innerText = 'Áp dụng khung: Đồ án chính quy (15 tuần)';
+            container.innerHTML = `
+                <div class="py-1.5 flex items-center justify-between"><span class="font-bold text-slate-800">Tuần 1 - 2: Đăng ký nguyện vọng & Chốt danh sách</span><span class="font-mono text-slate-500">Mốc 1</span></div>
+                <div class="py-1.5 flex items-center justify-between"><span class="font-bold text-slate-800">Tuần 3 - 4: Thống nhất & Chốt đề tài với GVHD</span><span class="font-mono text-slate-500">Mốc 2</span></div>
+                <div class="py-1.5 flex items-center justify-between"><span class="font-bold text-slate-800">Tuần 5 - 7: Báo cáo tiến độ đợt 1 (30% khối lượng)</span><span class="font-mono text-slate-500">Mốc 3</span></div>
+                <div class="py-1.5 flex items-center justify-between"><span class="font-bold text-slate-800">Tuần 8 - 11: Báo cáo tiến độ đợt 2 (70% khối lượng)</span><span class="font-mono text-slate-500">Mốc 4</span></div>
+                <div class="py-1.5 flex items-center justify-between"><span class="font-bold text-slate-800">Tuần 12 - 14: Nộp quyển báo cáo toàn văn & Source code</span><span class="font-mono text-slate-500">Mốc 5</span></div>
+                <div class="py-1.5 flex items-center justify-between"><span class="font-bold text-slate-800">Tuần 15: Chấm phản biện & Bảo vệ trước Hội đồng</span><span class="font-mono text-slate-500">Mốc 6</span></div>
+            `;
+        }
     }
 </script>
 {% endblock %}

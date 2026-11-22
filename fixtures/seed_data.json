@@ -20,7 +20,7 @@
   "model": "auth.user",
   "fields": {
     "password": "pbkdf2_sha256$1500000$iWXUy8IRVWjeLXDgiKpOLE$30Ezi4i92z4yV9JP8TnEWGMLgqm5KCgQxXeMAydP/pc=",
-    "last_login": "2026-11-09T14:07:19.894Z",
+    "last_login": "2026-11-11T15:12:43.711Z",
     "is_superuser": false,
     "username": "truongkhoa",
     "first_name": "Phong",
@@ -65,14 +65,6 @@
     "date_joined": "2026-11-08T14:34:18.166Z",
     "groups": [],
     "user_permissions": []
-  }
-},
-{
-  "model": "sessions.session",
-  "pk": "16gmgiarpx7iqg3pr1b0mk2tb16gtqar",
-  "fields": {
-    "session_data": ".eJxVjsEOwiAQRP-FsyFLC8V69N5vIAu7SLWBhLYn479bkh70Om_mZd7C4b4lt69c3UziJjpx-c08hhfnBuiJ-VFkKHmrs5etIk-6yqkQL_ez-ydIuKZjrehqlGHWUfshAhEG6HyIqMAaqxlV5GA99TAaMjh2doygBrK9AgTQhzTstXLeXC0Ltz-MWXy-KkM_sQ:1xQQ1n:xXAr6RgM3qlrTwI700Oso5TxZvJHWiIUtT6W6m14UFU",
-    "expire_date": "2026-11-23T14:07:19.919Z"
   }
 },
 {
@@ -245,6 +237,22 @@
 },
 {
   "model": "sessions.session",
+  "pk": "ghajvfnj5qmxew7qkc04s733nc8z0r3l",
+  "fields": {
+    "session_data": ".eJxVjsEOwiAQRP-FsyFLC8V69N5vIAu7SLWBhLYn479bkh70Om_mZd7C4b4lt69c3UziJjpx-c08hhfnBuiJ-VFkKHmrs5etIk-6yqkQL_ez-ydIuKZjrehqlGHWUfshAhEG6HyIqMAaqxlV5GA99TAaMjh2doygBrK9AgTQhzTstXLeXC0Ltz-MWXy-KkM_sQ:1xRA0B:t9ArbADBwTWkAV5Bev9rD1nbH5DBcf9xH3VcpGSUJ3g",
+    "expire_date": "2026-11-25T15:12:43.727Z"
+  }
+},
+{
+  "model": "sessions.session",
+  "pk": "gtpap3pfl6bfzpm9ej4n44s1xx0zky65",
+  "fields": {
+    "session_data": ".eJxVjsEOwiAQRP-FsyFLC8V69N5vIAu7SLWBhLYn479bkh70Om_mZd7C4b4lt69c3UziJjpx-c08hhfnBuiJ-VFkKHmrs5etIk-6yqkQL_ez-ydIuKZjrehqlGHWUfshAhEG6HyIqMAaqxlV5GA99TAaMjh2doygBrK9AgTQhzTstXLeXC0Ltz-MWXy-KkM_sQ:1xRA08:A3SVpE2dThA_dss74VmDGmIsuoKpOTW_Qw9SfzvekhI",
+    "expire_date": "2026-11-25T15:12:40.405Z"
+  }
+},
+{
+  "model": "sessions.session",
   "pk": "iskvbs96cvfaxqgbxfoom6kapg0kpbo0",
   "fields": {
     "session_data": ".eJxVjMEOwiAQRP-FsyG2XRA8evcbCCxbW20gWeBk_Hdp0oPeJjNv3ls43-riWiF2axRXMYnTbxc8vijtQ3z69MgSc6q8Brkj8liLvOdI2-1g_wSLL0t_I1g96vM4ebAYFFgDIU56tDP2iGT8oAOANkNApRToIRoT1cUSzhqU6VJszJSq47xRN26EtTGx-HwB1QdAdQ:1xQPGe:GMFKkulhAt9bAl0k03IMRzTZNBeHMW98ED_ACYjbP78",
@@ -257,6 +265,14 @@
   "fields": {
     "session_data": ".eJxNjbsKwzAMRX_FaO5gpymUbv2AZGnGgBG2SQyOHPwIhNJ_r53Jk450uFdfUDkEQ0kG7wy8IKasywo32E2InlASblWMSz7nLIx6EJvCRZoWNlRCQWuTUF7XRCeE4M_u3jcKD0wYat3QXOtvqW3cHZ7FfSyt7LBz5twgMXcB31iZpfE9jfD7A9r7PY0:1xQ6mC:SiFDAoVzVxWW4whrcyw5L08faeQiP5-HUu6037ledHc",
     "expire_date": "2026-11-22T17:33:56.993Z"
+  }
+},
+{
+  "model": "sessions.session",
+  "pk": "ke9z73hokf3fn7lpngssvbkh8pwciifg",
+  "fields": {
+    "session_data": ".eJxVjsEOwiAQRP-FsyFLC8V69N5vIAu7SLWBhLYn479bkh70Om_mZd7C4b4lt69c3UziJjpx-c08hhfnBuiJ-VFkKHmrs5etIk-6yqkQL_ez-ydIuKZjrehqlGHWUfshAhEG6HyIqMAaqxlV5GA99TAaMjh2doygBrK9AgTQhzTstXLeXC0Ltz-MWXy-KkM_sQ:1xRA06:FzWLL8EpiIr5civAHSRAM4OOoWLL8ebDHkjEX-D1nbQ",
+    "expire_date": "2026-11-25T15:12:38.767Z"
   }
 },
 {
@@ -1103,13 +1119,13 @@
   "fields": {
     "ma_dot": "DOT26_HK2_CNTT_01",
     "ten_dot": "Thực tập tốt nghiệp HK2 (2026 - 2027)",
-    "loai": "THUC_TAP",
+    "loai": "DO_AN",
     "hoc_ky": 2,
     "nam_hoc": "2026-2027",
     "khoa": 1,
     "trang_thai": "CHUAN_BI",
     "so_sv_toi_da_moi_gv": 15,
-    "hinh_thuc_cham": "PHAN_BIEN",
+    "hinh_thuc_cham": "HOI_DONG",
     "nguoi_tao": 1,
     "ngay_tao": "2026-11-08T09:11:27.978Z"
   }
@@ -1167,101 +1183,1901 @@
 },
 {
   "model": "dots.dot_moc_thoi_gian",
-  "pk": 1,
+  "pk": 27,
   "fields": {
     "dot": 1,
-    "ma_moc": "MOC_PHAN_CONG",
-    "ten_moc": "Hạn phân công GVHD",
+    "ma_moc": "MOC_DANG_KY",
+    "ten_moc": "Đăng ký nguyện vọng & Chốt danh sách",
     "loai_moc": "PHAN_CONG",
     "thu_tu": 1,
-    "han_cuoi": "2026-11-15T09:11:27.985Z"
+    "han_cuoi": "2026-09-14T17:00:00Z"
   }
 },
 {
   "model": "dots.dot_moc_thoi_gian",
-  "pk": 2,
+  "pk": 28,
   "fields": {
     "dot": 1,
     "ma_moc": "MOC_CHOT_DE_TAI",
-    "ten_moc": "Hạn chốt đề tài thực tập",
+    "ten_moc": "Thống nhất & Chốt đề tài với GVHD",
     "loai_moc": "CHOT_DE_TAI",
     "thu_tu": 2,
-    "han_cuoi": "2026-11-22T09:11:27.985Z"
+    "han_cuoi": "2026-09-28T17:00:00Z"
   }
 },
 {
   "model": "dots.dot_moc_thoi_gian",
-  "pk": 3,
+  "pk": 29,
   "fields": {
     "dot": 1,
-    "ma_moc": "MOC_TIEN_DO_1",
-    "ten_moc": "Hạn nộp minh chứng đợt 1",
+    "ma_moc": "MOC_BC_TIEN_DO_1",
+    "ten_moc": "Báo cáo tiến độ đợt 1 (30% khối lượng)",
     "loai_moc": "NOP_TIEN_DO",
     "thu_tu": 3,
-    "han_cuoi": "2026-12-08T09:11:27.985Z"
+    "han_cuoi": "2026-10-19T17:00:00Z"
   }
 },
 {
   "model": "dots.dot_moc_thoi_gian",
-  "pk": 4,
+  "pk": 30,
   "fields": {
     "dot": 1,
-    "ma_moc": "MOC_TIEN_DO_2",
-    "ten_moc": "Hạn nộp minh chứng đợt 2",
+    "ma_moc": "MOC_BC_TIEN_DO_2",
+    "ten_moc": "Báo cáo tiến độ đợt 2 (70% khối lượng)",
     "loai_moc": "NOP_TIEN_DO",
     "thu_tu": 4,
-    "han_cuoi": "2026-12-28T09:11:27.985Z"
+    "han_cuoi": "2026-11-16T17:00:00Z"
   }
 },
 {
   "model": "dots.dot_moc_thoi_gian",
-  "pk": 5,
+  "pk": 31,
   "fields": {
     "dot": 1,
-    "ma_moc": "MOC_BAO_CAO_CUOI",
-    "ten_moc": "Hạn nộp báo cáo cuối đợt",
+    "ma_moc": "MOC_NOP_TOAN_VAN",
+    "ten_moc": "Nộp quyển báo cáo toàn văn & Source code",
     "loai_moc": "NOP_BAO_CAO",
     "thu_tu": 5,
-    "han_cuoi": "2027-01-17T09:11:27.985Z"
+    "han_cuoi": "2026-12-07T17:00:00Z"
   }
 },
 {
   "model": "dots.dot_moc_thoi_gian",
-  "pk": 6,
+  "pk": 32,
   "fields": {
     "dot": 1,
-    "ma_moc": "MOC_CHAM_DIEM",
-    "ten_moc": "Hạn hoàn tất chấm điểm",
+    "ma_moc": "MOC_CHAM_PB_HD",
+    "ten_moc": "Chấm phản biện & Bảo vệ trước Hội đồng",
     "loai_moc": "CHAM_DIEM",
     "thu_tu": 6,
-    "han_cuoi": "2027-01-27T09:11:27.985Z"
+    "han_cuoi": "2026-12-14T17:00:00Z"
   }
 },
 {
   "model": "dots.dot_trong_so",
-  "pk": 1,
+  "pk": 16,
   "fields": {
     "dot": 1,
     "thanh_phan": "HUONG_DAN",
-    "trong_so": "50.00"
-  }
-},
-{
-  "model": "dots.dot_trong_so",
-  "pk": 2,
-  "fields": {
-    "dot": 1,
-    "thanh_phan": "NOI_THUC_TAP",
     "trong_so": "30.00"
   }
 },
 {
   "model": "dots.dot_trong_so",
-  "pk": 3,
+  "pk": 17,
   "fields": {
     "dot": 1,
     "thanh_phan": "PHAN_BIEN",
     "trong_so": "20.00"
+  }
+},
+{
+  "model": "dots.dot_trong_so",
+  "pk": 18,
+  "fields": {
+    "dot": 1,
+    "thanh_phan": "HOI_DONG",
+    "trong_so": "50.00"
+  }
+},
+{
+  "model": "hoso.lan_nhap_danh_sach",
+  "pk": 3,
+  "fields": {
+    "dot": 1,
+    "nguoi_tai": 1,
+    "ten_tep": "danh_sach_sinh_vien_mau.xlsx",
+    "duong_dan": "C:\\Users\\Admin\\Documents\\ProjectA\\media\\excel_imports\\20261110_100607_danh_sach_sinh_vien_mau.xlsx",
+    "tong_dong": 22,
+    "dong_hop_le": 20,
+    "dong_loi": 2,
+    "trang_thai": "XEM_TRUOC",
+    "ngay_tai": "2026-11-10T10:06:07.487Z"
+  }
+},
+{
+  "model": "hoso.lan_nhap_danh_sach",
+  "pk": 4,
+  "fields": {
+    "dot": 1,
+    "nguoi_tai": 1,
+    "ten_tep": "danh_sach_sinh_vien_mau.xlsx",
+    "duong_dan": "C:\\Users\\Admin\\Documents\\ProjectA\\media\\excel_imports\\20261110_100614_danh_sach_sinh_vien_mau.xlsx",
+    "tong_dong": 22,
+    "dong_hop_le": 20,
+    "dong_loi": 2,
+    "trang_thai": "XEM_TRUOC",
+    "ngay_tai": "2026-11-10T10:06:14.920Z"
+  }
+},
+{
+  "model": "hoso.lan_nhap_danh_sach",
+  "pk": 5,
+  "fields": {
+    "dot": 1,
+    "nguoi_tai": 1,
+    "ten_tep": "danh_sach_sinh_vien_mau.xlsx",
+    "duong_dan": "C:\\Users\\Admin\\Documents\\ProjectA\\media\\excel_imports\\20261110_100623_danh_sach_sinh_vien_mau.xlsx",
+    "tong_dong": 22,
+    "dong_hop_le": 20,
+    "dong_loi": 2,
+    "trang_thai": "DA_XAC_NHAN",
+    "ngay_tai": "2026-11-10T10:06:23.478Z"
+  }
+},
+{
+  "model": "hoso.lan_nhap_danh_sach",
+  "pk": 6,
+  "fields": {
+    "dot": 1,
+    "nguoi_tai": 1,
+    "ten_tep": "danh_sach_sinh_vien_mau.xlsx",
+    "duong_dan": "C:\\Users\\Admin\\Documents\\ProjectA\\media\\excel_imports\\20261111_152435_danh_sach_sinh_vien_mau.xlsx",
+    "tong_dong": 22,
+    "dong_hop_le": 0,
+    "dong_loi": 22,
+    "trang_thai": "XEM_TRUOC",
+    "ngay_tai": "2026-11-11T15:24:35.085Z"
+  }
+},
+{
+  "model": "hoso.dong_nhap_danh_sach",
+  "pk": 45,
+  "fields": {
+    "lan_nhap": 3,
+    "so_dong": 2,
+    "ma_sinh_vien": "22A1001",
+    "ho_ten": "Nguyễn Văn An",
+    "lop": "63KTPM1",
+    "diem_tb": "3.45",
+    "trang_thai_dong": "HOP_LE",
+    "loi": null
+  }
+},
+{
+  "model": "hoso.dong_nhap_danh_sach",
+  "pk": 46,
+  "fields": {
+    "lan_nhap": 3,
+    "so_dong": 3,
+    "ma_sinh_vien": "22A1002",
+    "ho_ten": "Trần Thị Bình",
+    "lop": "63KTPM1",
+    "diem_tb": "3.12",
+    "trang_thai_dong": "HOP_LE",
+    "loi": null
+  }
+},
+{
+  "model": "hoso.dong_nhap_danh_sach",
+  "pk": 47,
+  "fields": {
+    "lan_nhap": 3,
+    "so_dong": 4,
+    "ma_sinh_vien": "22A1003",
+    "ho_ten": "Lê Hoàng Cường",
+    "lop": "63KTPM1",
+    "diem_tb": "2.85",
+    "trang_thai_dong": "HOP_LE",
+    "loi": null
+  }
+},
+{
+  "model": "hoso.dong_nhap_danh_sach",
+  "pk": 48,
+  "fields": {
+    "lan_nhap": 3,
+    "so_dong": 5,
+    "ma_sinh_vien": "22A1004",
+    "ho_ten": "Phạm Minh Đức",
+    "lop": "63KTPM2",
+    "diem_tb": "3.60",
+    "trang_thai_dong": "HOP_LE",
+    "loi": null
+  }
+},
+{
+  "model": "hoso.dong_nhap_danh_sach",
+  "pk": 49,
+  "fields": {
+    "lan_nhap": 3,
+    "so_dong": 6,
+    "ma_sinh_vien": "22A1005",
+    "ho_ten": "Hoàng Thị Dung",
+    "lop": "63HTTT1",
+    "diem_tb": "2.50",
+    "trang_thai_dong": "HOP_LE",
+    "loi": null
+  }
+},
+{
+  "model": "hoso.dong_nhap_danh_sach",
+  "pk": 50,
+  "fields": {
+    "lan_nhap": 3,
+    "so_dong": 7,
+    "ma_sinh_vien": "22A1006",
+    "ho_ten": "Vũ Quốc Hùng",
+    "lop": "63HTTT1",
+    "diem_tb": "3.75",
+    "trang_thai_dong": "HOP_LE",
+    "loi": null
+  }
+},
+{
+  "model": "hoso.dong_nhap_danh_sach",
+  "pk": 51,
+  "fields": {
+    "lan_nhap": 3,
+    "so_dong": 8,
+    "ma_sinh_vien": "22A1007",
+    "ho_ten": "Đặng Thị Mai",
+    "lop": "63MMT1",
+    "diem_tb": "2.95",
+    "trang_thai_dong": "HOP_LE",
+    "loi": null
+  }
+},
+{
+  "model": "hoso.dong_nhap_danh_sach",
+  "pk": 52,
+  "fields": {
+    "lan_nhap": 3,
+    "so_dong": 9,
+    "ma_sinh_vien": "22A1008",
+    "ho_ten": "Ngô Thành Nam",
+    "lop": "63MMT1",
+    "diem_tb": "3.20",
+    "trang_thai_dong": "HOP_LE",
+    "loi": null
+  }
+},
+{
+  "model": "hoso.dong_nhap_danh_sach",
+  "pk": 53,
+  "fields": {
+    "lan_nhap": 3,
+    "so_dong": 10,
+    "ma_sinh_vien": "22A1009",
+    "ho_ten": "Bùi Văn Phúc",
+    "lop": "63KTPM2",
+    "diem_tb": "2.40",
+    "trang_thai_dong": "HOP_LE",
+    "loi": null
+  }
+},
+{
+  "model": "hoso.dong_nhap_danh_sach",
+  "pk": 54,
+  "fields": {
+    "lan_nhap": 3,
+    "so_dong": 11,
+    "ma_sinh_vien": "22A1010",
+    "ho_ten": "Dương Thị Quyên",
+    "lop": "63HTTT2",
+    "diem_tb": "3.82",
+    "trang_thai_dong": "HOP_LE",
+    "loi": null
+  }
+},
+{
+  "model": "hoso.dong_nhap_danh_sach",
+  "pk": 55,
+  "fields": {
+    "lan_nhap": 3,
+    "so_dong": 12,
+    "ma_sinh_vien": "22A1011",
+    "ho_ten": "Đỗ Minh Sang",
+    "lop": "63KTPM1",
+    "diem_tb": "3.15",
+    "trang_thai_dong": "HOP_LE",
+    "loi": null
+  }
+},
+{
+  "model": "hoso.dong_nhap_danh_sach",
+  "pk": 56,
+  "fields": {
+    "lan_nhap": 3,
+    "so_dong": 13,
+    "ma_sinh_vien": "22A1012",
+    "ho_ten": "Hồ Thị Thảo",
+    "lop": "63MMT1",
+    "diem_tb": "2.75",
+    "trang_thai_dong": "HOP_LE",
+    "loi": null
+  }
+},
+{
+  "model": "hoso.dong_nhap_danh_sach",
+  "pk": 57,
+  "fields": {
+    "lan_nhap": 3,
+    "so_dong": 14,
+    "ma_sinh_vien": "22A1013",
+    "ho_ten": "Lý Quốc Tuấn",
+    "lop": "63HTTT1",
+    "diem_tb": "3.30",
+    "trang_thai_dong": "HOP_LE",
+    "loi": null
+  }
+},
+{
+  "model": "hoso.dong_nhap_danh_sach",
+  "pk": 58,
+  "fields": {
+    "lan_nhap": 3,
+    "so_dong": 15,
+    "ma_sinh_vien": "22A1014",
+    "ho_ten": "Võ Văn Uy",
+    "lop": "63KTPM2",
+    "diem_tb": "2.65",
+    "trang_thai_dong": "HOP_LE",
+    "loi": null
+  }
+},
+{
+  "model": "hoso.dong_nhap_danh_sach",
+  "pk": 59,
+  "fields": {
+    "lan_nhap": 3,
+    "so_dong": 16,
+    "ma_sinh_vien": "22A1015",
+    "ho_ten": "Trịnh Thị Vân",
+    "lop": "63MMT1",
+    "diem_tb": "3.50",
+    "trang_thai_dong": "HOP_LE",
+    "loi": null
+  }
+},
+{
+  "model": "hoso.dong_nhap_danh_sach",
+  "pk": 60,
+  "fields": {
+    "lan_nhap": 3,
+    "so_dong": 17,
+    "ma_sinh_vien": "22A1016",
+    "ho_ten": "Nguyễn Đắc Xuân",
+    "lop": "63HTTT2",
+    "diem_tb": "3.05",
+    "trang_thai_dong": "HOP_LE",
+    "loi": null
+  }
+},
+{
+  "model": "hoso.dong_nhap_danh_sach",
+  "pk": 61,
+  "fields": {
+    "lan_nhap": 3,
+    "so_dong": 18,
+    "ma_sinh_vien": "22A1017",
+    "ho_ten": "Lê Văn Yên",
+    "lop": "63KTPM1",
+    "diem_tb": "2.90",
+    "trang_thai_dong": "HOP_LE",
+    "loi": null
+  }
+},
+{
+  "model": "hoso.dong_nhap_danh_sach",
+  "pk": 62,
+  "fields": {
+    "lan_nhap": 3,
+    "so_dong": 19,
+    "ma_sinh_vien": "22A1018",
+    "ho_ten": "Phan Thị Ánh",
+    "lop": "63KTPM2",
+    "diem_tb": "3.68",
+    "trang_thai_dong": "HOP_LE",
+    "loi": null
+  }
+},
+{
+  "model": "hoso.dong_nhap_danh_sach",
+  "pk": 63,
+  "fields": {
+    "lan_nhap": 3,
+    "so_dong": 20,
+    "ma_sinh_vien": "22A1019",
+    "ho_ten": "Trần Đình Bắc",
+    "lop": "63MMT1",
+    "diem_tb": "2.35",
+    "trang_thai_dong": "HOP_LE",
+    "loi": null
+  }
+},
+{
+  "model": "hoso.dong_nhap_danh_sach",
+  "pk": 64,
+  "fields": {
+    "lan_nhap": 3,
+    "so_dong": 21,
+    "ma_sinh_vien": "22A1020",
+    "ho_ten": "Cao Thị Cẩm",
+    "lop": "63HTTT1",
+    "diem_tb": "3.40",
+    "trang_thai_dong": "HOP_LE",
+    "loi": null
+  }
+},
+{
+  "model": "hoso.dong_nhap_danh_sach",
+  "pk": 65,
+  "fields": {
+    "lan_nhap": 3,
+    "so_dong": 22,
+    "ma_sinh_vien": "22A1001",
+    "ho_ten": "Nguyễn Văn An (Trùng lặp)",
+    "lop": "63KTPM1",
+    "diem_tb": "3.45",
+    "trang_thai_dong": "TRUNG",
+    "loi": "Trùng lặp MSSV với dòng trước trong cùng file"
+  }
+},
+{
+  "model": "hoso.dong_nhap_danh_sach",
+  "pk": 66,
+  "fields": {
+    "lan_nhap": 3,
+    "so_dong": 23,
+    "ma_sinh_vien": "99",
+    "ho_ten": "Nguyễn Thị Lỗi",
+    "lop": "63KTPM1",
+    "diem_tb": "2.10",
+    "trang_thai_dong": "LOI",
+    "loi": "Mã sinh viên quá ngắn hoặc không đúng định dạng"
+  }
+},
+{
+  "model": "hoso.dong_nhap_danh_sach",
+  "pk": 67,
+  "fields": {
+    "lan_nhap": 4,
+    "so_dong": 2,
+    "ma_sinh_vien": "22A1001",
+    "ho_ten": "Nguyễn Văn An",
+    "lop": "63KTPM1",
+    "diem_tb": "3.45",
+    "trang_thai_dong": "HOP_LE",
+    "loi": null
+  }
+},
+{
+  "model": "hoso.dong_nhap_danh_sach",
+  "pk": 68,
+  "fields": {
+    "lan_nhap": 4,
+    "so_dong": 3,
+    "ma_sinh_vien": "22A1002",
+    "ho_ten": "Trần Thị Bình",
+    "lop": "63KTPM1",
+    "diem_tb": "3.12",
+    "trang_thai_dong": "HOP_LE",
+    "loi": null
+  }
+},
+{
+  "model": "hoso.dong_nhap_danh_sach",
+  "pk": 69,
+  "fields": {
+    "lan_nhap": 4,
+    "so_dong": 4,
+    "ma_sinh_vien": "22A1003",
+    "ho_ten": "Lê Hoàng Cường",
+    "lop": "63KTPM1",
+    "diem_tb": "2.85",
+    "trang_thai_dong": "HOP_LE",
+    "loi": null
+  }
+},
+{
+  "model": "hoso.dong_nhap_danh_sach",
+  "pk": 70,
+  "fields": {
+    "lan_nhap": 4,
+    "so_dong": 5,
+    "ma_sinh_vien": "22A1004",
+    "ho_ten": "Phạm Minh Đức",
+    "lop": "63KTPM2",
+    "diem_tb": "3.60",
+    "trang_thai_dong": "HOP_LE",
+    "loi": null
+  }
+},
+{
+  "model": "hoso.dong_nhap_danh_sach",
+  "pk": 71,
+  "fields": {
+    "lan_nhap": 4,
+    "so_dong": 6,
+    "ma_sinh_vien": "22A1005",
+    "ho_ten": "Hoàng Thị Dung",
+    "lop": "63HTTT1",
+    "diem_tb": "2.50",
+    "trang_thai_dong": "HOP_LE",
+    "loi": null
+  }
+},
+{
+  "model": "hoso.dong_nhap_danh_sach",
+  "pk": 72,
+  "fields": {
+    "lan_nhap": 4,
+    "so_dong": 7,
+    "ma_sinh_vien": "22A1006",
+    "ho_ten": "Vũ Quốc Hùng",
+    "lop": "63HTTT1",
+    "diem_tb": "3.75",
+    "trang_thai_dong": "HOP_LE",
+    "loi": null
+  }
+},
+{
+  "model": "hoso.dong_nhap_danh_sach",
+  "pk": 73,
+  "fields": {
+    "lan_nhap": 4,
+    "so_dong": 8,
+    "ma_sinh_vien": "22A1007",
+    "ho_ten": "Đặng Thị Mai",
+    "lop": "63MMT1",
+    "diem_tb": "2.95",
+    "trang_thai_dong": "HOP_LE",
+    "loi": null
+  }
+},
+{
+  "model": "hoso.dong_nhap_danh_sach",
+  "pk": 74,
+  "fields": {
+    "lan_nhap": 4,
+    "so_dong": 9,
+    "ma_sinh_vien": "22A1008",
+    "ho_ten": "Ngô Thành Nam",
+    "lop": "63MMT1",
+    "diem_tb": "3.20",
+    "trang_thai_dong": "HOP_LE",
+    "loi": null
+  }
+},
+{
+  "model": "hoso.dong_nhap_danh_sach",
+  "pk": 75,
+  "fields": {
+    "lan_nhap": 4,
+    "so_dong": 10,
+    "ma_sinh_vien": "22A1009",
+    "ho_ten": "Bùi Văn Phúc",
+    "lop": "63KTPM2",
+    "diem_tb": "2.40",
+    "trang_thai_dong": "HOP_LE",
+    "loi": null
+  }
+},
+{
+  "model": "hoso.dong_nhap_danh_sach",
+  "pk": 76,
+  "fields": {
+    "lan_nhap": 4,
+    "so_dong": 11,
+    "ma_sinh_vien": "22A1010",
+    "ho_ten": "Dương Thị Quyên",
+    "lop": "63HTTT2",
+    "diem_tb": "3.82",
+    "trang_thai_dong": "HOP_LE",
+    "loi": null
+  }
+},
+{
+  "model": "hoso.dong_nhap_danh_sach",
+  "pk": 77,
+  "fields": {
+    "lan_nhap": 4,
+    "so_dong": 12,
+    "ma_sinh_vien": "22A1011",
+    "ho_ten": "Đỗ Minh Sang",
+    "lop": "63KTPM1",
+    "diem_tb": "3.15",
+    "trang_thai_dong": "HOP_LE",
+    "loi": null
+  }
+},
+{
+  "model": "hoso.dong_nhap_danh_sach",
+  "pk": 78,
+  "fields": {
+    "lan_nhap": 4,
+    "so_dong": 13,
+    "ma_sinh_vien": "22A1012",
+    "ho_ten": "Hồ Thị Thảo",
+    "lop": "63MMT1",
+    "diem_tb": "2.75",
+    "trang_thai_dong": "HOP_LE",
+    "loi": null
+  }
+},
+{
+  "model": "hoso.dong_nhap_danh_sach",
+  "pk": 79,
+  "fields": {
+    "lan_nhap": 4,
+    "so_dong": 14,
+    "ma_sinh_vien": "22A1013",
+    "ho_ten": "Lý Quốc Tuấn",
+    "lop": "63HTTT1",
+    "diem_tb": "3.30",
+    "trang_thai_dong": "HOP_LE",
+    "loi": null
+  }
+},
+{
+  "model": "hoso.dong_nhap_danh_sach",
+  "pk": 80,
+  "fields": {
+    "lan_nhap": 4,
+    "so_dong": 15,
+    "ma_sinh_vien": "22A1014",
+    "ho_ten": "Võ Văn Uy",
+    "lop": "63KTPM2",
+    "diem_tb": "2.65",
+    "trang_thai_dong": "HOP_LE",
+    "loi": null
+  }
+},
+{
+  "model": "hoso.dong_nhap_danh_sach",
+  "pk": 81,
+  "fields": {
+    "lan_nhap": 4,
+    "so_dong": 16,
+    "ma_sinh_vien": "22A1015",
+    "ho_ten": "Trịnh Thị Vân",
+    "lop": "63MMT1",
+    "diem_tb": "3.50",
+    "trang_thai_dong": "HOP_LE",
+    "loi": null
+  }
+},
+{
+  "model": "hoso.dong_nhap_danh_sach",
+  "pk": 82,
+  "fields": {
+    "lan_nhap": 4,
+    "so_dong": 17,
+    "ma_sinh_vien": "22A1016",
+    "ho_ten": "Nguyễn Đắc Xuân",
+    "lop": "63HTTT2",
+    "diem_tb": "3.05",
+    "trang_thai_dong": "HOP_LE",
+    "loi": null
+  }
+},
+{
+  "model": "hoso.dong_nhap_danh_sach",
+  "pk": 83,
+  "fields": {
+    "lan_nhap": 4,
+    "so_dong": 18,
+    "ma_sinh_vien": "22A1017",
+    "ho_ten": "Lê Văn Yên",
+    "lop": "63KTPM1",
+    "diem_tb": "2.90",
+    "trang_thai_dong": "HOP_LE",
+    "loi": null
+  }
+},
+{
+  "model": "hoso.dong_nhap_danh_sach",
+  "pk": 84,
+  "fields": {
+    "lan_nhap": 4,
+    "so_dong": 19,
+    "ma_sinh_vien": "22A1018",
+    "ho_ten": "Phan Thị Ánh",
+    "lop": "63KTPM2",
+    "diem_tb": "3.68",
+    "trang_thai_dong": "HOP_LE",
+    "loi": null
+  }
+},
+{
+  "model": "hoso.dong_nhap_danh_sach",
+  "pk": 85,
+  "fields": {
+    "lan_nhap": 4,
+    "so_dong": 20,
+    "ma_sinh_vien": "22A1019",
+    "ho_ten": "Trần Đình Bắc",
+    "lop": "63MMT1",
+    "diem_tb": "2.35",
+    "trang_thai_dong": "HOP_LE",
+    "loi": null
+  }
+},
+{
+  "model": "hoso.dong_nhap_danh_sach",
+  "pk": 86,
+  "fields": {
+    "lan_nhap": 4,
+    "so_dong": 21,
+    "ma_sinh_vien": "22A1020",
+    "ho_ten": "Cao Thị Cẩm",
+    "lop": "63HTTT1",
+    "diem_tb": "3.40",
+    "trang_thai_dong": "HOP_LE",
+    "loi": null
+  }
+},
+{
+  "model": "hoso.dong_nhap_danh_sach",
+  "pk": 87,
+  "fields": {
+    "lan_nhap": 4,
+    "so_dong": 22,
+    "ma_sinh_vien": "22A1001",
+    "ho_ten": "Nguyễn Văn An (Trùng lặp)",
+    "lop": "63KTPM1",
+    "diem_tb": "3.45",
+    "trang_thai_dong": "TRUNG",
+    "loi": "Trùng lặp MSSV với dòng trước trong cùng file"
+  }
+},
+{
+  "model": "hoso.dong_nhap_danh_sach",
+  "pk": 88,
+  "fields": {
+    "lan_nhap": 4,
+    "so_dong": 23,
+    "ma_sinh_vien": "99",
+    "ho_ten": "Nguyễn Thị Lỗi",
+    "lop": "63KTPM1",
+    "diem_tb": "2.10",
+    "trang_thai_dong": "LOI",
+    "loi": "Mã sinh viên quá ngắn hoặc không đúng định dạng"
+  }
+},
+{
+  "model": "hoso.dong_nhap_danh_sach",
+  "pk": 89,
+  "fields": {
+    "lan_nhap": 5,
+    "so_dong": 2,
+    "ma_sinh_vien": "22A1001",
+    "ho_ten": "Nguyễn Văn An",
+    "lop": "63KTPM1",
+    "diem_tb": "3.45",
+    "trang_thai_dong": "HOP_LE",
+    "loi": null
+  }
+},
+{
+  "model": "hoso.dong_nhap_danh_sach",
+  "pk": 90,
+  "fields": {
+    "lan_nhap": 5,
+    "so_dong": 3,
+    "ma_sinh_vien": "22A1002",
+    "ho_ten": "Trần Thị Bình",
+    "lop": "63KTPM1",
+    "diem_tb": "3.12",
+    "trang_thai_dong": "HOP_LE",
+    "loi": null
+  }
+},
+{
+  "model": "hoso.dong_nhap_danh_sach",
+  "pk": 91,
+  "fields": {
+    "lan_nhap": 5,
+    "so_dong": 4,
+    "ma_sinh_vien": "22A1003",
+    "ho_ten": "Lê Hoàng Cường",
+    "lop": "63KTPM1",
+    "diem_tb": "2.85",
+    "trang_thai_dong": "HOP_LE",
+    "loi": null
+  }
+},
+{
+  "model": "hoso.dong_nhap_danh_sach",
+  "pk": 92,
+  "fields": {
+    "lan_nhap": 5,
+    "so_dong": 5,
+    "ma_sinh_vien": "22A1004",
+    "ho_ten": "Phạm Minh Đức",
+    "lop": "63KTPM2",
+    "diem_tb": "3.60",
+    "trang_thai_dong": "HOP_LE",
+    "loi": null
+  }
+},
+{
+  "model": "hoso.dong_nhap_danh_sach",
+  "pk": 93,
+  "fields": {
+    "lan_nhap": 5,
+    "so_dong": 6,
+    "ma_sinh_vien": "22A1005",
+    "ho_ten": "Hoàng Thị Dung",
+    "lop": "63HTTT1",
+    "diem_tb": "2.50",
+    "trang_thai_dong": "HOP_LE",
+    "loi": null
+  }
+},
+{
+  "model": "hoso.dong_nhap_danh_sach",
+  "pk": 94,
+  "fields": {
+    "lan_nhap": 5,
+    "so_dong": 7,
+    "ma_sinh_vien": "22A1006",
+    "ho_ten": "Vũ Quốc Hùng",
+    "lop": "63HTTT1",
+    "diem_tb": "3.75",
+    "trang_thai_dong": "HOP_LE",
+    "loi": null
+  }
+},
+{
+  "model": "hoso.dong_nhap_danh_sach",
+  "pk": 95,
+  "fields": {
+    "lan_nhap": 5,
+    "so_dong": 8,
+    "ma_sinh_vien": "22A1007",
+    "ho_ten": "Đặng Thị Mai",
+    "lop": "63MMT1",
+    "diem_tb": "2.95",
+    "trang_thai_dong": "HOP_LE",
+    "loi": null
+  }
+},
+{
+  "model": "hoso.dong_nhap_danh_sach",
+  "pk": 96,
+  "fields": {
+    "lan_nhap": 5,
+    "so_dong": 9,
+    "ma_sinh_vien": "22A1008",
+    "ho_ten": "Ngô Thành Nam",
+    "lop": "63MMT1",
+    "diem_tb": "3.20",
+    "trang_thai_dong": "HOP_LE",
+    "loi": null
+  }
+},
+{
+  "model": "hoso.dong_nhap_danh_sach",
+  "pk": 97,
+  "fields": {
+    "lan_nhap": 5,
+    "so_dong": 10,
+    "ma_sinh_vien": "22A1009",
+    "ho_ten": "Bùi Văn Phúc",
+    "lop": "63KTPM2",
+    "diem_tb": "2.40",
+    "trang_thai_dong": "HOP_LE",
+    "loi": null
+  }
+},
+{
+  "model": "hoso.dong_nhap_danh_sach",
+  "pk": 98,
+  "fields": {
+    "lan_nhap": 5,
+    "so_dong": 11,
+    "ma_sinh_vien": "22A1010",
+    "ho_ten": "Dương Thị Quyên",
+    "lop": "63HTTT2",
+    "diem_tb": "3.82",
+    "trang_thai_dong": "HOP_LE",
+    "loi": null
+  }
+},
+{
+  "model": "hoso.dong_nhap_danh_sach",
+  "pk": 99,
+  "fields": {
+    "lan_nhap": 5,
+    "so_dong": 12,
+    "ma_sinh_vien": "22A1011",
+    "ho_ten": "Đỗ Minh Sang",
+    "lop": "63KTPM1",
+    "diem_tb": "3.15",
+    "trang_thai_dong": "HOP_LE",
+    "loi": null
+  }
+},
+{
+  "model": "hoso.dong_nhap_danh_sach",
+  "pk": 100,
+  "fields": {
+    "lan_nhap": 5,
+    "so_dong": 13,
+    "ma_sinh_vien": "22A1012",
+    "ho_ten": "Hồ Thị Thảo",
+    "lop": "63MMT1",
+    "diem_tb": "2.75",
+    "trang_thai_dong": "HOP_LE",
+    "loi": null
+  }
+},
+{
+  "model": "hoso.dong_nhap_danh_sach",
+  "pk": 101,
+  "fields": {
+    "lan_nhap": 5,
+    "so_dong": 14,
+    "ma_sinh_vien": "22A1013",
+    "ho_ten": "Lý Quốc Tuấn",
+    "lop": "63HTTT1",
+    "diem_tb": "3.30",
+    "trang_thai_dong": "HOP_LE",
+    "loi": null
+  }
+},
+{
+  "model": "hoso.dong_nhap_danh_sach",
+  "pk": 102,
+  "fields": {
+    "lan_nhap": 5,
+    "so_dong": 15,
+    "ma_sinh_vien": "22A1014",
+    "ho_ten": "Võ Văn Uy",
+    "lop": "63KTPM2",
+    "diem_tb": "2.65",
+    "trang_thai_dong": "HOP_LE",
+    "loi": null
+  }
+},
+{
+  "model": "hoso.dong_nhap_danh_sach",
+  "pk": 103,
+  "fields": {
+    "lan_nhap": 5,
+    "so_dong": 16,
+    "ma_sinh_vien": "22A1015",
+    "ho_ten": "Trịnh Thị Vân",
+    "lop": "63MMT1",
+    "diem_tb": "3.50",
+    "trang_thai_dong": "HOP_LE",
+    "loi": null
+  }
+},
+{
+  "model": "hoso.dong_nhap_danh_sach",
+  "pk": 104,
+  "fields": {
+    "lan_nhap": 5,
+    "so_dong": 17,
+    "ma_sinh_vien": "22A1016",
+    "ho_ten": "Nguyễn Đắc Xuân",
+    "lop": "63HTTT2",
+    "diem_tb": "3.05",
+    "trang_thai_dong": "HOP_LE",
+    "loi": null
+  }
+},
+{
+  "model": "hoso.dong_nhap_danh_sach",
+  "pk": 105,
+  "fields": {
+    "lan_nhap": 5,
+    "so_dong": 18,
+    "ma_sinh_vien": "22A1017",
+    "ho_ten": "Lê Văn Yên",
+    "lop": "63KTPM1",
+    "diem_tb": "2.90",
+    "trang_thai_dong": "HOP_LE",
+    "loi": null
+  }
+},
+{
+  "model": "hoso.dong_nhap_danh_sach",
+  "pk": 106,
+  "fields": {
+    "lan_nhap": 5,
+    "so_dong": 19,
+    "ma_sinh_vien": "22A1018",
+    "ho_ten": "Phan Thị Ánh",
+    "lop": "63KTPM2",
+    "diem_tb": "3.68",
+    "trang_thai_dong": "HOP_LE",
+    "loi": null
+  }
+},
+{
+  "model": "hoso.dong_nhap_danh_sach",
+  "pk": 107,
+  "fields": {
+    "lan_nhap": 5,
+    "so_dong": 20,
+    "ma_sinh_vien": "22A1019",
+    "ho_ten": "Trần Đình Bắc",
+    "lop": "63MMT1",
+    "diem_tb": "2.35",
+    "trang_thai_dong": "HOP_LE",
+    "loi": null
+  }
+},
+{
+  "model": "hoso.dong_nhap_danh_sach",
+  "pk": 108,
+  "fields": {
+    "lan_nhap": 5,
+    "so_dong": 21,
+    "ma_sinh_vien": "22A1020",
+    "ho_ten": "Cao Thị Cẩm",
+    "lop": "63HTTT1",
+    "diem_tb": "3.40",
+    "trang_thai_dong": "HOP_LE",
+    "loi": null
+  }
+},
+{
+  "model": "hoso.dong_nhap_danh_sach",
+  "pk": 109,
+  "fields": {
+    "lan_nhap": 5,
+    "so_dong": 22,
+    "ma_sinh_vien": "22A1001",
+    "ho_ten": "Nguyễn Văn An (Trùng lặp)",
+    "lop": "63KTPM1",
+    "diem_tb": "3.45",
+    "trang_thai_dong": "TRUNG",
+    "loi": "Trùng lặp MSSV với dòng trước trong cùng file"
+  }
+},
+{
+  "model": "hoso.dong_nhap_danh_sach",
+  "pk": 110,
+  "fields": {
+    "lan_nhap": 5,
+    "so_dong": 23,
+    "ma_sinh_vien": "99",
+    "ho_ten": "Nguyễn Thị Lỗi",
+    "lop": "63KTPM1",
+    "diem_tb": "2.10",
+    "trang_thai_dong": "LOI",
+    "loi": "Mã sinh viên quá ngắn hoặc không đúng định dạng"
+  }
+},
+{
+  "model": "hoso.dong_nhap_danh_sach",
+  "pk": 111,
+  "fields": {
+    "lan_nhap": 6,
+    "so_dong": 2,
+    "ma_sinh_vien": "22A1001",
+    "ho_ten": "Nguyễn Văn An",
+    "lop": "63KTPM1",
+    "diem_tb": "3.45",
+    "trang_thai_dong": "TRUNG",
+    "loi": "Sinh viên đã có hồ sơ trong đợt này"
+  }
+},
+{
+  "model": "hoso.dong_nhap_danh_sach",
+  "pk": 112,
+  "fields": {
+    "lan_nhap": 6,
+    "so_dong": 3,
+    "ma_sinh_vien": "22A1002",
+    "ho_ten": "Trần Thị Bình",
+    "lop": "63KTPM1",
+    "diem_tb": "3.12",
+    "trang_thai_dong": "TRUNG",
+    "loi": "Sinh viên đã có hồ sơ trong đợt này"
+  }
+},
+{
+  "model": "hoso.dong_nhap_danh_sach",
+  "pk": 113,
+  "fields": {
+    "lan_nhap": 6,
+    "so_dong": 4,
+    "ma_sinh_vien": "22A1003",
+    "ho_ten": "Lê Hoàng Cường",
+    "lop": "63KTPM1",
+    "diem_tb": "2.85",
+    "trang_thai_dong": "TRUNG",
+    "loi": "Sinh viên đã có hồ sơ trong đợt này"
+  }
+},
+{
+  "model": "hoso.dong_nhap_danh_sach",
+  "pk": 114,
+  "fields": {
+    "lan_nhap": 6,
+    "so_dong": 5,
+    "ma_sinh_vien": "22A1004",
+    "ho_ten": "Phạm Minh Đức",
+    "lop": "63KTPM2",
+    "diem_tb": "3.60",
+    "trang_thai_dong": "TRUNG",
+    "loi": "Sinh viên đã có hồ sơ trong đợt này"
+  }
+},
+{
+  "model": "hoso.dong_nhap_danh_sach",
+  "pk": 115,
+  "fields": {
+    "lan_nhap": 6,
+    "so_dong": 6,
+    "ma_sinh_vien": "22A1005",
+    "ho_ten": "Hoàng Thị Dung",
+    "lop": "63HTTT1",
+    "diem_tb": "2.50",
+    "trang_thai_dong": "TRUNG",
+    "loi": "Sinh viên đã có hồ sơ trong đợt này"
+  }
+},
+{
+  "model": "hoso.dong_nhap_danh_sach",
+  "pk": 116,
+  "fields": {
+    "lan_nhap": 6,
+    "so_dong": 7,
+    "ma_sinh_vien": "22A1006",
+    "ho_ten": "Vũ Quốc Hùng",
+    "lop": "63HTTT1",
+    "diem_tb": "3.75",
+    "trang_thai_dong": "TRUNG",
+    "loi": "Sinh viên đã có hồ sơ trong đợt này"
+  }
+},
+{
+  "model": "hoso.dong_nhap_danh_sach",
+  "pk": 117,
+  "fields": {
+    "lan_nhap": 6,
+    "so_dong": 8,
+    "ma_sinh_vien": "22A1007",
+    "ho_ten": "Đặng Thị Mai",
+    "lop": "63MMT1",
+    "diem_tb": "2.95",
+    "trang_thai_dong": "TRUNG",
+    "loi": "Sinh viên đã có hồ sơ trong đợt này"
+  }
+},
+{
+  "model": "hoso.dong_nhap_danh_sach",
+  "pk": 118,
+  "fields": {
+    "lan_nhap": 6,
+    "so_dong": 9,
+    "ma_sinh_vien": "22A1008",
+    "ho_ten": "Ngô Thành Nam",
+    "lop": "63MMT1",
+    "diem_tb": "3.20",
+    "trang_thai_dong": "TRUNG",
+    "loi": "Sinh viên đã có hồ sơ trong đợt này"
+  }
+},
+{
+  "model": "hoso.dong_nhap_danh_sach",
+  "pk": 119,
+  "fields": {
+    "lan_nhap": 6,
+    "so_dong": 10,
+    "ma_sinh_vien": "22A1009",
+    "ho_ten": "Bùi Văn Phúc",
+    "lop": "63KTPM2",
+    "diem_tb": "2.40",
+    "trang_thai_dong": "TRUNG",
+    "loi": "Sinh viên đã có hồ sơ trong đợt này"
+  }
+},
+{
+  "model": "hoso.dong_nhap_danh_sach",
+  "pk": 120,
+  "fields": {
+    "lan_nhap": 6,
+    "so_dong": 11,
+    "ma_sinh_vien": "22A1010",
+    "ho_ten": "Dương Thị Quyên",
+    "lop": "63HTTT2",
+    "diem_tb": "3.82",
+    "trang_thai_dong": "TRUNG",
+    "loi": "Sinh viên đã có hồ sơ trong đợt này"
+  }
+},
+{
+  "model": "hoso.dong_nhap_danh_sach",
+  "pk": 121,
+  "fields": {
+    "lan_nhap": 6,
+    "so_dong": 12,
+    "ma_sinh_vien": "22A1011",
+    "ho_ten": "Đỗ Minh Sang",
+    "lop": "63KTPM1",
+    "diem_tb": "3.15",
+    "trang_thai_dong": "TRUNG",
+    "loi": "Sinh viên đã có hồ sơ trong đợt này"
+  }
+},
+{
+  "model": "hoso.dong_nhap_danh_sach",
+  "pk": 122,
+  "fields": {
+    "lan_nhap": 6,
+    "so_dong": 13,
+    "ma_sinh_vien": "22A1012",
+    "ho_ten": "Hồ Thị Thảo",
+    "lop": "63MMT1",
+    "diem_tb": "2.75",
+    "trang_thai_dong": "TRUNG",
+    "loi": "Sinh viên đã có hồ sơ trong đợt này"
+  }
+},
+{
+  "model": "hoso.dong_nhap_danh_sach",
+  "pk": 123,
+  "fields": {
+    "lan_nhap": 6,
+    "so_dong": 14,
+    "ma_sinh_vien": "22A1013",
+    "ho_ten": "Lý Quốc Tuấn",
+    "lop": "63HTTT1",
+    "diem_tb": "3.30",
+    "trang_thai_dong": "TRUNG",
+    "loi": "Sinh viên đã có hồ sơ trong đợt này"
+  }
+},
+{
+  "model": "hoso.dong_nhap_danh_sach",
+  "pk": 124,
+  "fields": {
+    "lan_nhap": 6,
+    "so_dong": 15,
+    "ma_sinh_vien": "22A1014",
+    "ho_ten": "Võ Văn Uy",
+    "lop": "63KTPM2",
+    "diem_tb": "2.65",
+    "trang_thai_dong": "TRUNG",
+    "loi": "Sinh viên đã có hồ sơ trong đợt này"
+  }
+},
+{
+  "model": "hoso.dong_nhap_danh_sach",
+  "pk": 125,
+  "fields": {
+    "lan_nhap": 6,
+    "so_dong": 16,
+    "ma_sinh_vien": "22A1015",
+    "ho_ten": "Trịnh Thị Vân",
+    "lop": "63MMT1",
+    "diem_tb": "3.50",
+    "trang_thai_dong": "TRUNG",
+    "loi": "Sinh viên đã có hồ sơ trong đợt này"
+  }
+},
+{
+  "model": "hoso.dong_nhap_danh_sach",
+  "pk": 126,
+  "fields": {
+    "lan_nhap": 6,
+    "so_dong": 17,
+    "ma_sinh_vien": "22A1016",
+    "ho_ten": "Nguyễn Đắc Xuân",
+    "lop": "63HTTT2",
+    "diem_tb": "3.05",
+    "trang_thai_dong": "TRUNG",
+    "loi": "Sinh viên đã có hồ sơ trong đợt này"
+  }
+},
+{
+  "model": "hoso.dong_nhap_danh_sach",
+  "pk": 127,
+  "fields": {
+    "lan_nhap": 6,
+    "so_dong": 18,
+    "ma_sinh_vien": "22A1017",
+    "ho_ten": "Lê Văn Yên",
+    "lop": "63KTPM1",
+    "diem_tb": "2.90",
+    "trang_thai_dong": "TRUNG",
+    "loi": "Sinh viên đã có hồ sơ trong đợt này"
+  }
+},
+{
+  "model": "hoso.dong_nhap_danh_sach",
+  "pk": 128,
+  "fields": {
+    "lan_nhap": 6,
+    "so_dong": 19,
+    "ma_sinh_vien": "22A1018",
+    "ho_ten": "Phan Thị Ánh",
+    "lop": "63KTPM2",
+    "diem_tb": "3.68",
+    "trang_thai_dong": "TRUNG",
+    "loi": "Sinh viên đã có hồ sơ trong đợt này"
+  }
+},
+{
+  "model": "hoso.dong_nhap_danh_sach",
+  "pk": 129,
+  "fields": {
+    "lan_nhap": 6,
+    "so_dong": 20,
+    "ma_sinh_vien": "22A1019",
+    "ho_ten": "Trần Đình Bắc",
+    "lop": "63MMT1",
+    "diem_tb": "2.35",
+    "trang_thai_dong": "TRUNG",
+    "loi": "Sinh viên đã có hồ sơ trong đợt này"
+  }
+},
+{
+  "model": "hoso.dong_nhap_danh_sach",
+  "pk": 130,
+  "fields": {
+    "lan_nhap": 6,
+    "so_dong": 21,
+    "ma_sinh_vien": "22A1020",
+    "ho_ten": "Cao Thị Cẩm",
+    "lop": "63HTTT1",
+    "diem_tb": "3.40",
+    "trang_thai_dong": "TRUNG",
+    "loi": "Sinh viên đã có hồ sơ trong đợt này"
+  }
+},
+{
+  "model": "hoso.dong_nhap_danh_sach",
+  "pk": 131,
+  "fields": {
+    "lan_nhap": 6,
+    "so_dong": 22,
+    "ma_sinh_vien": "22A1001",
+    "ho_ten": "Nguyễn Văn An (Trùng lặp)",
+    "lop": "63KTPM1",
+    "diem_tb": "3.45",
+    "trang_thai_dong": "TRUNG",
+    "loi": "Trùng lặp MSSV với dòng trước trong cùng file; Sinh viên đã có hồ sơ trong đợt này"
+  }
+},
+{
+  "model": "hoso.dong_nhap_danh_sach",
+  "pk": 132,
+  "fields": {
+    "lan_nhap": 6,
+    "so_dong": 23,
+    "ma_sinh_vien": "99",
+    "ho_ten": "Nguyễn Thị Lỗi",
+    "lop": "63KTPM1",
+    "diem_tb": "2.10",
+    "trang_thai_dong": "LOI",
+    "loi": "Mã sinh viên quá ngắn hoặc không đúng định dạng"
+  }
+},
+{
+  "model": "hoso.ho_so",
+  "pk": 21,
+  "fields": {
+    "dot": 1,
+    "sinh_vien": 1,
+    "trang_thai": "TRONG_DANH_SACH",
+    "giang_vien_huong_dan": null,
+    "de_tai_hien_tai": null,
+    "ngay_tao": "2026-11-10T10:06:23.506Z",
+    "ngay_cap_nhat": "2026-11-10T10:06:23.506Z"
+  }
+},
+{
+  "model": "hoso.ho_so",
+  "pk": 22,
+  "fields": {
+    "dot": 1,
+    "sinh_vien": 2,
+    "trang_thai": "TRONG_DANH_SACH",
+    "giang_vien_huong_dan": null,
+    "de_tai_hien_tai": null,
+    "ngay_tao": "2026-11-10T10:06:23.509Z",
+    "ngay_cap_nhat": "2026-11-10T10:06:23.509Z"
+  }
+},
+{
+  "model": "hoso.ho_so",
+  "pk": 23,
+  "fields": {
+    "dot": 1,
+    "sinh_vien": 3,
+    "trang_thai": "TRONG_DANH_SACH",
+    "giang_vien_huong_dan": null,
+    "de_tai_hien_tai": null,
+    "ngay_tao": "2026-11-10T10:06:23.509Z",
+    "ngay_cap_nhat": "2026-11-10T10:06:23.509Z"
+  }
+},
+{
+  "model": "hoso.ho_so",
+  "pk": 24,
+  "fields": {
+    "dot": 1,
+    "sinh_vien": 4,
+    "trang_thai": "TRONG_DANH_SACH",
+    "giang_vien_huong_dan": null,
+    "de_tai_hien_tai": null,
+    "ngay_tao": "2026-11-10T10:06:23.511Z",
+    "ngay_cap_nhat": "2026-11-10T10:06:23.511Z"
+  }
+},
+{
+  "model": "hoso.ho_so",
+  "pk": 25,
+  "fields": {
+    "dot": 1,
+    "sinh_vien": 5,
+    "trang_thai": "TRONG_DANH_SACH",
+    "giang_vien_huong_dan": null,
+    "de_tai_hien_tai": null,
+    "ngay_tao": "2026-11-10T10:06:23.513Z",
+    "ngay_cap_nhat": "2026-11-10T10:06:23.513Z"
+  }
+},
+{
+  "model": "hoso.ho_so",
+  "pk": 26,
+  "fields": {
+    "dot": 1,
+    "sinh_vien": 6,
+    "trang_thai": "TRONG_DANH_SACH",
+    "giang_vien_huong_dan": null,
+    "de_tai_hien_tai": null,
+    "ngay_tao": "2026-11-10T10:06:23.514Z",
+    "ngay_cap_nhat": "2026-11-10T10:06:23.514Z"
+  }
+},
+{
+  "model": "hoso.ho_so",
+  "pk": 27,
+  "fields": {
+    "dot": 1,
+    "sinh_vien": 7,
+    "trang_thai": "TRONG_DANH_SACH",
+    "giang_vien_huong_dan": null,
+    "de_tai_hien_tai": null,
+    "ngay_tao": "2026-11-10T10:06:23.516Z",
+    "ngay_cap_nhat": "2026-11-10T10:06:23.516Z"
+  }
+},
+{
+  "model": "hoso.ho_so",
+  "pk": 28,
+  "fields": {
+    "dot": 1,
+    "sinh_vien": 8,
+    "trang_thai": "TRONG_DANH_SACH",
+    "giang_vien_huong_dan": null,
+    "de_tai_hien_tai": null,
+    "ngay_tao": "2026-11-10T10:06:23.518Z",
+    "ngay_cap_nhat": "2026-11-10T10:06:23.518Z"
+  }
+},
+{
+  "model": "hoso.ho_so",
+  "pk": 29,
+  "fields": {
+    "dot": 1,
+    "sinh_vien": 9,
+    "trang_thai": "TRONG_DANH_SACH",
+    "giang_vien_huong_dan": null,
+    "de_tai_hien_tai": null,
+    "ngay_tao": "2026-11-10T10:06:23.519Z",
+    "ngay_cap_nhat": "2026-11-10T10:06:23.520Z"
+  }
+},
+{
+  "model": "hoso.ho_so",
+  "pk": 30,
+  "fields": {
+    "dot": 1,
+    "sinh_vien": 10,
+    "trang_thai": "TRONG_DANH_SACH",
+    "giang_vien_huong_dan": null,
+    "de_tai_hien_tai": null,
+    "ngay_tao": "2026-11-10T10:06:23.521Z",
+    "ngay_cap_nhat": "2026-11-10T10:06:23.521Z"
+  }
+},
+{
+  "model": "hoso.ho_so",
+  "pk": 31,
+  "fields": {
+    "dot": 1,
+    "sinh_vien": 11,
+    "trang_thai": "TRONG_DANH_SACH",
+    "giang_vien_huong_dan": null,
+    "de_tai_hien_tai": null,
+    "ngay_tao": "2026-11-10T10:06:23.522Z",
+    "ngay_cap_nhat": "2026-11-10T10:06:23.522Z"
+  }
+},
+{
+  "model": "hoso.ho_so",
+  "pk": 32,
+  "fields": {
+    "dot": 1,
+    "sinh_vien": 12,
+    "trang_thai": "TRONG_DANH_SACH",
+    "giang_vien_huong_dan": null,
+    "de_tai_hien_tai": null,
+    "ngay_tao": "2026-11-10T10:06:23.524Z",
+    "ngay_cap_nhat": "2026-11-10T10:06:23.524Z"
+  }
+},
+{
+  "model": "hoso.ho_so",
+  "pk": 33,
+  "fields": {
+    "dot": 1,
+    "sinh_vien": 13,
+    "trang_thai": "TRONG_DANH_SACH",
+    "giang_vien_huong_dan": null,
+    "de_tai_hien_tai": null,
+    "ngay_tao": "2026-11-10T10:06:23.525Z",
+    "ngay_cap_nhat": "2026-11-10T10:06:23.525Z"
+  }
+},
+{
+  "model": "hoso.ho_so",
+  "pk": 34,
+  "fields": {
+    "dot": 1,
+    "sinh_vien": 14,
+    "trang_thai": "TRONG_DANH_SACH",
+    "giang_vien_huong_dan": null,
+    "de_tai_hien_tai": null,
+    "ngay_tao": "2026-11-10T10:06:23.526Z",
+    "ngay_cap_nhat": "2026-11-10T10:06:23.526Z"
+  }
+},
+{
+  "model": "hoso.ho_so",
+  "pk": 35,
+  "fields": {
+    "dot": 1,
+    "sinh_vien": 15,
+    "trang_thai": "TRONG_DANH_SACH",
+    "giang_vien_huong_dan": null,
+    "de_tai_hien_tai": null,
+    "ngay_tao": "2026-11-10T10:06:23.528Z",
+    "ngay_cap_nhat": "2026-11-10T10:06:23.528Z"
+  }
+},
+{
+  "model": "hoso.ho_so",
+  "pk": 36,
+  "fields": {
+    "dot": 1,
+    "sinh_vien": 16,
+    "trang_thai": "TRONG_DANH_SACH",
+    "giang_vien_huong_dan": null,
+    "de_tai_hien_tai": null,
+    "ngay_tao": "2026-11-10T10:06:23.529Z",
+    "ngay_cap_nhat": "2026-11-10T10:06:23.529Z"
+  }
+},
+{
+  "model": "hoso.ho_so",
+  "pk": 37,
+  "fields": {
+    "dot": 1,
+    "sinh_vien": 17,
+    "trang_thai": "TRONG_DANH_SACH",
+    "giang_vien_huong_dan": null,
+    "de_tai_hien_tai": null,
+    "ngay_tao": "2026-11-10T10:06:23.530Z",
+    "ngay_cap_nhat": "2026-11-10T10:06:23.531Z"
+  }
+},
+{
+  "model": "hoso.ho_so",
+  "pk": 38,
+  "fields": {
+    "dot": 1,
+    "sinh_vien": 18,
+    "trang_thai": "TRONG_DANH_SACH",
+    "giang_vien_huong_dan": null,
+    "de_tai_hien_tai": null,
+    "ngay_tao": "2026-11-10T10:06:23.533Z",
+    "ngay_cap_nhat": "2026-11-10T10:06:23.533Z"
+  }
+},
+{
+  "model": "hoso.ho_so",
+  "pk": 39,
+  "fields": {
+    "dot": 1,
+    "sinh_vien": 19,
+    "trang_thai": "TRONG_DANH_SACH",
+    "giang_vien_huong_dan": null,
+    "de_tai_hien_tai": null,
+    "ngay_tao": "2026-11-10T10:06:23.535Z",
+    "ngay_cap_nhat": "2026-11-10T10:06:23.535Z"
+  }
+},
+{
+  "model": "hoso.ho_so",
+  "pk": 40,
+  "fields": {
+    "dot": 1,
+    "sinh_vien": 20,
+    "trang_thai": "TRONG_DANH_SACH",
+    "giang_vien_huong_dan": null,
+    "de_tai_hien_tai": null,
+    "ngay_tao": "2026-11-10T10:06:23.536Z",
+    "ngay_cap_nhat": "2026-11-10T10:06:23.537Z"
+  }
+},
+{
+  "model": "hoso.diem_dau_vao",
+  "pk": 21,
+  "fields": {
+    "ho_so": 21,
+    "diem_tb_he4": null,
+    "tin_chi_tich_luy": null,
+    "ngay_lay": "2026-11-10T10:06:42.280Z",
+    "nguon": "KHONG_CO"
+  }
+},
+{
+  "model": "hoso.diem_dau_vao",
+  "pk": 22,
+  "fields": {
+    "ho_so": 22,
+    "diem_tb_he4": "2.29",
+    "tin_chi_tich_luy": 121,
+    "ngay_lay": "2026-11-10T10:06:42.283Z",
+    "nguon": "USMART"
+  }
+},
+{
+  "model": "hoso.diem_dau_vao",
+  "pk": 23,
+  "fields": {
+    "ho_so": 23,
+    "diem_tb_he4": "2.90",
+    "tin_chi_tich_luy": 114,
+    "ngay_lay": "2026-11-10T10:06:42.284Z",
+    "nguon": "USMART"
+  }
+},
+{
+  "model": "hoso.diem_dau_vao",
+  "pk": 24,
+  "fields": {
+    "ho_so": 24,
+    "diem_tb_he4": "2.99",
+    "tin_chi_tich_luy": 101,
+    "ngay_lay": "2026-11-10T10:06:42.285Z",
+    "nguon": "USMART"
+  }
+},
+{
+  "model": "hoso.diem_dau_vao",
+  "pk": 25,
+  "fields": {
+    "ho_so": 25,
+    "diem_tb_he4": "3.33",
+    "tin_chi_tich_luy": 110,
+    "ngay_lay": "2026-11-10T10:06:42.286Z",
+    "nguon": "USMART"
+  }
+},
+{
+  "model": "hoso.diem_dau_vao",
+  "pk": 26,
+  "fields": {
+    "ho_so": 26,
+    "diem_tb_he4": "2.91",
+    "tin_chi_tich_luy": 99,
+    "ngay_lay": "2026-11-10T10:06:42.286Z",
+    "nguon": "USMART"
+  }
+},
+{
+  "model": "hoso.diem_dau_vao",
+  "pk": 27,
+  "fields": {
+    "ho_so": 27,
+    "diem_tb_he4": null,
+    "tin_chi_tich_luy": null,
+    "ngay_lay": "2026-11-10T10:06:42.287Z",
+    "nguon": "KHONG_CO"
+  }
+},
+{
+  "model": "hoso.diem_dau_vao",
+  "pk": 28,
+  "fields": {
+    "ho_so": 28,
+    "diem_tb_he4": "3.28",
+    "tin_chi_tich_luy": 122,
+    "ngay_lay": "2026-11-10T10:06:42.287Z",
+    "nguon": "USMART"
+  }
+},
+{
+  "model": "hoso.diem_dau_vao",
+  "pk": 29,
+  "fields": {
+    "ho_so": 29,
+    "diem_tb_he4": "3.36",
+    "tin_chi_tich_luy": 99,
+    "ngay_lay": "2026-11-10T10:06:42.288Z",
+    "nguon": "USMART"
+  }
+},
+{
+  "model": "hoso.diem_dau_vao",
+  "pk": 30,
+  "fields": {
+    "ho_so": 30,
+    "diem_tb_he4": "2.11",
+    "tin_chi_tich_luy": 102,
+    "ngay_lay": "2026-11-10T10:06:42.288Z",
+    "nguon": "USMART"
+  }
+},
+{
+  "model": "hoso.diem_dau_vao",
+  "pk": 31,
+  "fields": {
+    "ho_so": 31,
+    "diem_tb_he4": "3.29",
+    "tin_chi_tich_luy": 107,
+    "ngay_lay": "2026-11-10T10:06:42.289Z",
+    "nguon": "USMART"
+  }
+},
+{
+  "model": "hoso.diem_dau_vao",
+  "pk": 32,
+  "fields": {
+    "ho_so": 32,
+    "diem_tb_he4": "2.08",
+    "tin_chi_tich_luy": 115,
+    "ngay_lay": "2026-11-10T10:06:42.289Z",
+    "nguon": "USMART"
+  }
+},
+{
+  "model": "hoso.diem_dau_vao",
+  "pk": 33,
+  "fields": {
+    "ho_so": 33,
+    "diem_tb_he4": "3.12",
+    "tin_chi_tich_luy": 126,
+    "ngay_lay": "2026-11-10T10:06:42.290Z",
+    "nguon": "USMART"
+  }
+},
+{
+  "model": "hoso.diem_dau_vao",
+  "pk": 34,
+  "fields": {
+    "ho_so": 34,
+    "diem_tb_he4": null,
+    "tin_chi_tich_luy": null,
+    "ngay_lay": "2026-11-10T10:06:42.291Z",
+    "nguon": "KHONG_CO"
+  }
+},
+{
+  "model": "hoso.diem_dau_vao",
+  "pk": 35,
+  "fields": {
+    "ho_so": 35,
+    "diem_tb_he4": "2.68",
+    "tin_chi_tich_luy": 117,
+    "ngay_lay": "2026-11-10T10:06:42.291Z",
+    "nguon": "USMART"
+  }
+},
+{
+  "model": "hoso.diem_dau_vao",
+  "pk": 36,
+  "fields": {
+    "ho_so": 36,
+    "diem_tb_he4": "2.82",
+    "tin_chi_tich_luy": 115,
+    "ngay_lay": "2026-11-10T10:06:42.292Z",
+    "nguon": "USMART"
+  }
+},
+{
+  "model": "hoso.diem_dau_vao",
+  "pk": 37,
+  "fields": {
+    "ho_so": 37,
+    "diem_tb_he4": null,
+    "tin_chi_tich_luy": null,
+    "ngay_lay": "2026-11-10T10:06:42.292Z",
+    "nguon": "KHONG_CO"
+  }
+},
+{
+  "model": "hoso.diem_dau_vao",
+  "pk": 38,
+  "fields": {
+    "ho_so": 38,
+    "diem_tb_he4": null,
+    "tin_chi_tich_luy": null,
+    "ngay_lay": "2026-11-10T10:06:42.293Z",
+    "nguon": "KHONG_CO"
+  }
+},
+{
+  "model": "hoso.diem_dau_vao",
+  "pk": 39,
+  "fields": {
+    "ho_so": 39,
+    "diem_tb_he4": "2.78",
+    "tin_chi_tich_luy": 130,
+    "ngay_lay": "2026-11-10T10:06:42.293Z",
+    "nguon": "USMART"
+  }
+},
+{
+  "model": "hoso.diem_dau_vao",
+  "pk": 40,
+  "fields": {
+    "ho_so": 40,
+    "diem_tb_he4": "2.22",
+    "tin_chi_tich_luy": 114,
+    "ngay_lay": "2026-11-10T10:06:42.294Z",
+    "nguon": "USMART"
+  }
+},
+{
+  "model": "hoso.lan_lay_diem",
+  "pk": 2,
+  "fields": {
+    "dot": 1,
+    "nguoi_thuc_hien": 1,
+    "nguon": "USMART",
+    "ngay_lay": "2026-11-10T10:06:33.105Z",
+    "so_sv_co_diem": 15,
+    "so_sv_thieu": 5,
+    "trang_thai": "MOT_PHAN",
+    "chi_tiet_loi": null
+  }
+},
+{
+  "model": "hoso.lan_lay_diem",
+  "pk": 3,
+  "fields": {
+    "dot": 1,
+    "nguoi_thuc_hien": 1,
+    "nguon": "USMART",
+    "ngay_lay": "2026-11-10T10:06:42.294Z",
+    "so_sv_co_diem": 15,
+    "so_sv_thieu": 5,
+    "trang_thai": "MOT_PHAN",
+    "chi_tiet_loi": null
   }
 },
 {
@@ -1273,6 +3089,110 @@
     "nguoi_tao": 1,
     "ngay_gui": null,
     "ngay_cong_bo": null
+  }
+},
+{
+  "model": "hethong.nhat_ky_he_thong",
+  "pk": 4,
+  "fields": {
+    "nguoi_thuc_hien": 1,
+    "hanh_dong": "XAC_NHAN_DANH_SACH_SINH_VIEN",
+    "doi_tuong_loai": "lan_nhap_danh_sach",
+    "doi_tuong_id": 5,
+    "mo_ta": "Xác nhận danh sách file danh_sach_sinh_vien_mau.xlsx: Tạo mới 20 hồ sơ sinh viên vào đợt DOT26_HK2_CNTT_01",
+    "dia_chi_ip": null,
+    "thoi_gian": "2026-11-10T10:06:23.537Z"
+  }
+},
+{
+  "model": "hethong.nhat_ky_he_thong",
+  "pk": 5,
+  "fields": {
+    "nguoi_thuc_hien": 1,
+    "hanh_dong": "DONG_BO_DIEM_USMART",
+    "doi_tuong_loai": "dot",
+    "doi_tuong_id": 1,
+    "mo_ta": "Đồng bộ điểm USMART cho đợt DOT26_HK2_CNTT_01: 15 có điểm, 5 thiếu điểm.",
+    "dia_chi_ip": null,
+    "thoi_gian": "2026-11-10T10:06:33.105Z"
+  }
+},
+{
+  "model": "hethong.nhat_ky_he_thong",
+  "pk": 6,
+  "fields": {
+    "nguoi_thuc_hien": 1,
+    "hanh_dong": "DONG_BO_DIEM_USMART",
+    "doi_tuong_loai": "dot",
+    "doi_tuong_id": 1,
+    "mo_ta": "Đồng bộ điểm USMART cho đợt DOT26_HK2_CNTT_01: 15 có điểm, 5 thiếu điểm.",
+    "dia_chi_ip": null,
+    "thoi_gian": "2026-11-10T10:06:42.295Z"
+  }
+},
+{
+  "model": "hethong.nhat_ky_he_thong",
+  "pk": 7,
+  "fields": {
+    "nguoi_thuc_hien": 1,
+    "hanh_dong": "CAP_NHAT_CAU_HINH_DOT",
+    "doi_tuong_loai": "dot",
+    "doi_tuong_id": 1,
+    "mo_ta": "Cập nhật cấu hình đợt sang: Đồ án tốt nghiệp chính quy (15 tuần). Thời lượng 15 tuần.",
+    "dia_chi_ip": null,
+    "thoi_gian": "2026-11-10T10:11:05.867Z"
+  }
+},
+{
+  "model": "hethong.nhat_ky_he_thong",
+  "pk": 8,
+  "fields": {
+    "nguoi_thuc_hien": 1,
+    "hanh_dong": "CAP_NHAT_CAU_HINH_DOT",
+    "doi_tuong_loai": "dot",
+    "doi_tuong_id": 1,
+    "mo_ta": "Cập nhật cấu hình đợt sang: Thực tập tốt nghiệp doanh nghiệp (10 tuần). Thời lượng 10 tuần.",
+    "dia_chi_ip": null,
+    "thoi_gian": "2026-11-10T10:11:22.021Z"
+  }
+},
+{
+  "model": "hethong.nhat_ky_he_thong",
+  "pk": 9,
+  "fields": {
+    "nguoi_thuc_hien": 1,
+    "hanh_dong": "CAP_NHAT_CAU_HINH_DOT",
+    "doi_tuong_loai": "dot",
+    "doi_tuong_id": 1,
+    "mo_ta": "Cập nhật cấu hình đợt sang: Đồ án tốt nghiệp chính quy (15 tuần). Thời lượng 15 tuần.",
+    "dia_chi_ip": null,
+    "thoi_gian": "2026-11-10T10:11:28.916Z"
+  }
+},
+{
+  "model": "hethong.nhat_ky_he_thong",
+  "pk": 10,
+  "fields": {
+    "nguoi_thuc_hien": 1,
+    "hanh_dong": "CAP_NHAT_CAU_HINH_DOT",
+    "doi_tuong_loai": "dot",
+    "doi_tuong_id": 1,
+    "mo_ta": "Cập nhật cấu hình đợt sang: Thực tập tốt nghiệp doanh nghiệp (10 tuần). Thời lượng 10 tuần.",
+    "dia_chi_ip": "127.0.0.1",
+    "thoi_gian": "2026-11-11T15:30:49.253Z"
+  }
+},
+{
+  "model": "hethong.nhat_ky_he_thong",
+  "pk": 11,
+  "fields": {
+    "nguoi_thuc_hien": 1,
+    "hanh_dong": "CAP_NHAT_CAU_HINH_DOT",
+    "doi_tuong_loai": "dot",
+    "doi_tuong_id": 1,
+    "mo_ta": "Cập nhật cấu hình đợt sang: Đồ án tốt nghiệp chính quy (15 tuần). Thời lượng 15 tuần.",
+    "dia_chi_ip": "127.0.0.1",
+    "thoi_gian": "2026-11-11T15:31:37.011Z"
   }
 },
 {

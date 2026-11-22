@@ -8,7 +8,7 @@ from django.conf.urls.static import static
 from hethong.views import quantri_view
 from organization.views import giangvien_portal_view, sinhvien_portal_view
 from accounts.views import login_view, logout_view
-from dots.views import switch_dot_view
+from dots.views import switch_dot_view, update_batch_preset_view
 from hoso.views import (
     sprint1_dashboard,
     upload_excel_view,
@@ -29,6 +29,7 @@ urlpatterns = [
     # Sprint 1 (CHUAN_BI) routes (Bảng điều khiển Trưởng khoa)
     path('sprint1/', sprint1_dashboard, name='sprint1_dashboard'),
     path('dots/switch/<int:dot_id>/', switch_dot_view, name='switch_dot'),
+    path('dot/<int:dot_id>/config-preset/', update_batch_preset_view, name='update_batch_preset'),
     path('dot/<int:dot_id>/', sprint1_dashboard, name='sprint1_dashboard_dot'),
     path('dot/<int:dot_id>/upload-excel/', upload_excel_view, name='upload_excel'),
     path('import/<int:lan_nhap_id>/preview/', preview_excel_view, name='preview_excel'),
