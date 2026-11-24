@@ -10,13 +10,20 @@ from django.contrib.auth.models import User
 from organization.models import giang_vien, sinh_vien
 from hoso.models import ho_so
 from phancong.models import ban_phan_cong, phan_cong_huong_dan
+from detai.models import de_tai, de_tai_goi_y
 from core.constants import (
     DotTrangThai,
     BanPhanCongTrangThai,
     PhanCongHuongDanTrangThai,
     HoSoTrangThai,
+    DeTaiTrangThai,
 )
 from phancong.selectors import lay_dot_phan_cong
+from detai.selectors import (
+    lay_danh_sach_de_tai_goi_y_cua_gv,
+    lay_hang_doi_duyet_de_tai_cho_gv,
+    lay_de_tai_goi_y_cho_sinh_vien,
+)
 
 
 def get_current_lecturer(user: Optional[User]) -> Optional[giang_vien]:
@@ -117,7 +124,19 @@ def lay_du_lieu_cong_giang_vien(user: Optional[User], dot_id: Optional[int] = No
                     trang_thai_text = "Dự thảo phân công"
 
                 # Đề tài (Sprint 3)
-                de_tai_ten = hs.de_tai_hien_tai.ten_de_tai if getattr(hs, 'de_tai_hien_tai', None) else "Chưa đăng ký đề tài chính thức"
+                dt_obj = de_tai.objects.filter(ho_so=hs).order_by("-id").first()
+                if dt_obj:
+                    de_tai_ten = dt_obj.ten_de_tai
+                    de_tai_id = dt_obj.id
+                    trang_thai_dt = dt_obj.trang_thai
+                    mo_ta_dt = dt_obj.mo_ta
+                    gop_y_dt = dt_obj.gop_y_cua_gv
+                else:
+                    de_tai_ten = "Chưa đăng ký đề tài"
+                    de_tai_id = None
+                    trang_thai_dt = "CHUA_GUI"
+                    mo_ta_dt = ""
+                    gop_y_dt = ""
 
                 danh_sach_huong_dan.append({
                     "id": hs.id,
@@ -126,7 +145,11 @@ def lay_du_lieu_cong_giang_vien(user: Optional[User], dot_id: Optional[int] = No
                     "ten_sv": sv.nguoi_dung.ho_ten,
                     "lop": sv.lop or "--",
                     "de_tai": de_tai_ten,
-                    "trang_thai_de_tai": hs.trang_thai,
+                    "de_tai_id": de_tai_id,
+                    "mo_ta_de_tai": mo_ta_dt,
+                    "gop_y_cua_gv": gop_y_dt,
+                    "trang_thai_de_tai": trang_thai_dt,
+                    "trang_thai_ho_so": hs.trang_thai,
                     "trang_thai_text": trang_thai_text,
                     "trang_thai_pc": pc.trang_thai,
                     "tien_do": "Tuần 1 / 15",
@@ -135,6 +158,11 @@ def lay_du_lieu_cong_giang_vien(user: Optional[User], dot_id: Optional[int] = No
 
             if bpc.trang_thai == BanPhanCongTrangThai.DA_GUI and cho_xac_nhan_count > 0:
                 can_xac_nhan = True
+
+    # Ngân hàng đề tài gợi ý & Hàng đợi đề tài của GV (Sprint 3)
+    de_tai_goi_y_list = lay_danh_sach_de_tai_goi_y_cua_gv(gv, current_dot) if (gv and current_dot) else []
+    hang_doi_dt = lay_hang_doi_duyet_de_tai_cho_gv(gv, current_dot) if (gv and current_dot) else {}
+    de_tai_cho_duyet_count = hang_doi_dt.get("cho_duyet_count", 0)
 
     # Nếu chưa có phân công trong CSDL (trước khi Snake draft chạy), hiển thị danh sách rỗng hoặc mẫu thông báo
     so_sv_huong_dan = len([d for d in danh_sach_huong_dan if d.get("trang_thai_pc") != PhanCongHuongDanTrangThai.TU_CHOI])
@@ -149,6 +177,9 @@ def lay_du_lieu_cong_giang_vien(user: Optional[User], dot_id: Optional[int] = No
         "current_dot": current_dot,
         "ban_phan_cong": bpc,
         "danh_sach_huong_dan": danh_sach_huong_dan,
+        "de_tai_goi_y_list": de_tai_goi_y_list,
+        "hang_doi_dt": hang_doi_dt,
+        "de_tai_cho_duyet_count": de_tai_cho_duyet_count,
         "so_sv_huong_dan": so_sv_huong_dan,
         "so_sv_toi_da": so_sv_toi_da,
         "cho_xac_nhan_count": cho_xac_nhan_count,
@@ -240,11 +271,34 @@ def lay_du_lieu_cong_sinh_vien(user: Optional[User], dot_id: Optional[int] = Non
     words = persona_name.split()
     persona_avatar = "".join([w[0].upper() for w in words[-2:]]) if len(words) >= 2 else (words[0][:2].upper() if words else "SV")
 
+    # Đề tài hiện tại của sinh viên (Sprint 3)
+    dt_obj = de_tai.objects.filter(ho_so=hs).order_by("-id").first() if hs else None
+    if dt_obj:
+        de_tai_cua_toi = {
+            "id": dt_obj.id,
+            "ten_de_tai": dt_obj.ten_de_tai,
+            "mo_ta": dt_obj.mo_ta,
+            "nguon": dt_obj.nguon,
+            "nguon_text": "Sinh viên tự đề xuất" if dt_obj.nguon == DeTaiNguon.SV_DE_XUAT else "Chọn từ gợi ý của GVHD",
+            "trang_thai": dt_obj.trang_thai,
+            "trang_thai_text": dt_obj.get_trang_thai_display(),
+            "gop_y": dt_obj.gop_y_cua_gv,
+            "ngay_nop": dt_obj.ngay_gui.strftime("%d/%m/%Y") if dt_obj.ngay_gui else "--",
+            "ngay_chot": dt_obj.ngay_chot.strftime("%d/%m/%Y") if dt_obj.ngay_chot else None,
+        }
+    else:
+        de_tai_cua_toi = None
+
+    # Ngân hàng đề tài gợi ý của GVHD phụ trách sinh viên này (UC13)
+    de_tai_goi_y_list = lay_de_tai_goi_y_cho_sinh_vien(hs) if hs else []
+
     return {
         "sinh_vien": sv,
         "ho_so": hs,
         "current_dot": current_dot or (hs.dot if hs else None),
         "thong_tin_sv": thong_tin_sv,
+        "de_tai_cua_toi": de_tai_cua_toi,
+        "de_tai_goi_y_list": de_tai_goi_y_list,
         "persona_name": persona_name,
         "persona_code": persona_code,
         "persona_avatar": persona_avatar,

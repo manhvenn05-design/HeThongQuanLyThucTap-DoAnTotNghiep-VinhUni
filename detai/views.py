@@ -1,178 +1,238 @@
 """
-Views cho Sprint 3: Chọn & Chốt đề tài (UC12, UC13, UC14, UC15).
-Cung cấp đầy đủ giao diện và dữ liệu mẫu phong phú để duyệt, điều phối 2 chiều giữa GV và SV.
+Views cho Sprint 3: Đăng ký & Chốt đề tài (UC12, UC13, UC14, UC15).
+Phân tầng kiến trúc rõ ràng: View mỏng, chỉ nhận request, gọi Selector/Service, trả về Response.
 """
-from django.shortcuts import render
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
+from django.views.decorators.http import require_POST
+from django.http import HttpResponse, Http404
+from core.constants import DotTrangThai, DeTaiGoiYTrangThai, DeTaiNguon, DeTaiTrangThai
 from dots.models import dot
-from organization.models import giang_vien, bo_mon
+from organization.models import giang_vien, sinh_vien
+from hoso.models import ho_so
+from detai.models import de_tai_goi_y, de_tai
+from accounts.selectors import get_nguoi_dung_by_identifier
+from organization.selectors import get_current_lecturer, get_current_student
+from detai.selectors import (
+    lay_dot_chot_de_tai,
+    lay_du_lieu_dashboard_sprint3,
+    lay_danh_sach_de_tai_goi_y_cua_gv,
+    lay_hang_doi_duyet_de_tai_cho_gv,
+    lay_de_tai_goi_y_cho_sinh_vien,
+)
+from detai.services.topic_service import (
+    tao_de_tai_goi_y,
+    dong_hoac_mo_de_tai_goi_y,
+    sinh_vien_chon_de_tai_goi_y,
+    sinh_vien_de_xuat_de_tai,
+    gvhd_phe_duyet_de_tai,
+    gvhd_duyet_hang_loat_de_tai,
+    TopicValidationError,
+)
+from core.state import chuyen_trang_thai_dot, StateTransitionError
+
+
+def _lay_nguoi_thuc_hien(request, dot_obj):
+    """Lấy bản ghi nguoi_dung từ request hoặc fallback người tạo đợt nếu chưa login"""
+    if request.user.is_authenticated:
+        nd = get_nguoi_dung_by_identifier(request.user.username)
+        if not nd and request.user.email:
+            nd = get_nguoi_dung_by_identifier(request.user.email)
+        if nd:
+            return nd
+    return dot_obj.nguoi_tao
 
 
 def sprint3_dashboard_view(request, dot_id=None):
-    """Màn hình chính Sprint 3: Quản lý Hàng đợi & Duyệt Đề tài Hai Chiều (UC12 - UC15)"""
-    current_dot = dot.objects.filter(id=dot_id).first() if dot_id else dot.objects.first()
+    """Màn hình chính Sprint 3: Bảng điều hành giám sát & định hướng đề tài toàn khoa (Dành cho Trưởng khoa)"""
+    dot_obj = lay_dot_chot_de_tai(dot_id)
+    if not dot_obj:
+        messages.error(request, "Chưa có đợt thực tập / đồ án nào trong hệ thống!")
+        return redirect("/dots/")
 
-    # Dữ liệu mẫu phong phú cho hàng đợi duyệt đề tài (UC15)
-    danh_sach_cho_duyet = [
-        {
-            "id": 1,
-            "ma_sv": "211108234",
-            "ten_sv": "Nguyễn Hoàng Long",
-            "lop": "62K1-CNTT",
-            "ten_de_tai": "Nghiên cứu mô hình ngôn ngữ lớn (LLM) và ứng dụng trợ lý học tập cho sinh viên Đại học Vinh",
-            "gvhd": "TS. Nguyễn Văn An",
-            "bo_mon": "Kỹ thuật phần mềm",
-            "nguon": "SV_DE_XUAT",
-            "nguon_text": "Sinh viên tự đề xuất",
-            "trang_thai": "CHO_GVHD_DUYET",
-            "trang_thai_text": "Chờ GVHD phê duyệt",
-            "ngay_nop": "06/03/2026 14:30",
-            "muc_tieu": "Xây dựng pipeline RAG kết hợp LLM nguồn mở để tra cứu giáo trình và quy chế đào tạo tín chỉ.",
-            "cong_nghe": "Python, LangChain, FAISS, PyTorch, FastAPI",
-        },
-        {
-            "id": 2,
-            "ma_sv": "211108119",
-            "ten_sv": "Phạm Thảo Vy",
-            "lop": "62K2-KTPM",
-            "ten_de_tai": "Xây dựng hệ sinh thái Microservices quản lý logistics dựa trên kiến trúc Event-Driven và Kubernetes",
-            "gvhd": "ThS. Trần Thị Bình",
-            "bo_mon": "Kỹ thuật phần mềm",
-            "nguon": "SV_DE_XUAT",
-            "nguon_text": "Sinh viên tự đề xuất",
-            "trang_thai": "CHO_GVHD_DUYET",
-            "trang_thai_text": "Chờ GVHD phê duyệt",
-            "ngay_nop": "07/03/2026 09:15",
-            "muc_tieu": "Thiết kế kiến trúc chịu tải cao với Apache Kafka, gRPC và triển khai hạ tầng tự động CI/CD.",
-            "cong_nghe": "Golang, Docker, Kubernetes, Apache Kafka, PostgreSQL",
-        },
-    ]
-
-    # Danh sách đề tài đã chốt chính thức
-    danh_sach_da_chot = [
-        {
-            "id": 3,
-            "ma_sv": "211108450",
-            "ten_sv": "Trần Quốc Anh",
-            "lop": "62K1-CNTT",
-            "ten_de_tai": "Hệ thống IoT cảnh báo ngập úng đô thị dựa trên mạng cảm biến không dây và học sâu dự báo mực nước",
-            "gvhd": "ThS. Lê Quốc Cường",
-            "bo_mon": "Mạng máy tính & TT",
-            "nguon": "GV_GOI_Y",
-            "nguon_text": "Ngân hàng đề tài GV",
-            "trang_thai": "DA_CHOT",
-            "trang_thai_text": "Đã chốt chính thức",
-            "ngay_chot": "04/03/2026",
-            "muc_tieu": "Thu thập dữ liệu mực nước thời gian thực qua LoRaWAN và cảnh báo qua ứng dụng di động.",
-            "cong_nghe": "ESP32, LoRaWAN, Node.js, TensorFlow Lite, Flutter",
-        },
-        {
-            "id": 4,
-            "ma_sv": "211108032",
-            "ten_sv": "Lê Thị Hương",
-            "lop": "62K3-HTTT",
-            "ten_de_tai": "Ứng dụng công nghệ xử lý ảnh và YOLOv8 trong giám sát an toàn lao động tại công trường xây dựng",
-            "gvhd": "TS. Phạm Minh Đức",
-            "bo_mon": "Hệ thống thông tin",
-            "nguon": "GV_GOI_Y",
-            "nguon_text": "Ngân hàng đề tài GV",
-            "trang_thai": "DA_CHOT",
-            "trang_thai_text": "Đã chốt chính thức",
-            "ngay_chot": "05/03/2026",
-            "muc_tieu": "Nhận diện người lao động không đội mũ bảo hộ, cảnh báo thời gian thực với độ trễ dưới 200ms.",
-            "cong_nghe": "Python, OpenCV, YOLOv8, TensorRT, Flask",
-        },
-        {
-            "id": 5,
-            "ma_sv": "211108620",
-            "ten_sv": "Vũ Hoài An",
-            "lop": "62K2-KTPM",
-            "ten_de_tai": "Hệ thống số hóa văn bản lưu trữ trường đại học áp dụng OCR nhận dạng chữ tiếng Việt viết tay",
-            "gvhd": "ThS. Hoàng Thị Dung",
-            "bo_mon": "Kỹ thuật phần mềm",
-            "nguon": "SV_DE_XUAT",
-            "nguon_text": "Sinh viên tự đề xuất",
-            "trang_thai": "DA_CHOT",
-            "trang_thai_text": "Đã chốt chính thức",
-            "ngay_chot": "05/03/2026",
-            "muc_tieu": "Trích xuất thông tin tự động từ hồ sơ sinh viên scan với độ chính xác trên 92%.",
-            "cong_nghe": "Python, Tesseract OCR, CRNN, ReactJS, MongoDB",
-        },
-    ]
-
-    # Ngân hàng đề tài gợi ý của giảng viên (UC12)
-    ngan_hang_goi_y = [
-        {
-            "id": 101,
-            "ma_de_tai": "DT-KTPM-01",
-            "ten_de_tai": "Nền tảng thi trắc nghiệm trực tuyến chống gian lận ứng dụng AI theo dõi chuyển động mắt và gương mặt",
-            "gv_de_xuat": "TS. Nguyễn Văn An",
-            "bo_mon": "Kỹ thuật phần mềm",
-            "so_sv_toi_da": 2,
-            "da_dang_ky": 2,
-            "con_lai": 0,
-            "trang_thai": "DA_HET_CHO",
-            "trang_thai_text": "Đã nhận đủ",
-            "mo_ta": "Tích hợp MediaPipe theo dõi ánh mắt và phát hiện có người thứ hai qua webcam của thí sinh.",
-        },
-        {
-            "id": 102,
-            "ma_de_tai": "DT-MMT-02",
-            "ten_de_tai": "Xây dựng hệ thống phát hiện tấn công DDoS trên mạng cục bộ sử dụng mô hình học máy Random Forest",
-            "gv_de_xuat": "ThS. Lê Quốc Cường",
-            "bo_mon": "Mạng máy tính & TT",
-            "so_sv_toi_da": 2,
-            "da_dang_ky": 1,
-            "con_lai": 1,
-            "trang_thai": "CON_CHO",
-            "trang_thai_text": "Còn 1 chỗ",
-            "mo_ta": "Bắt gói tin mạng với Scapy, trích xuất đặc trưng lưu lượng và huấn luyện bộ phân lớp.",
-        },
-        {
-            "id": 103,
-            "ma_de_tai": "DT-HTTT-03",
-            "ten_de_tai": "Hệ thống gợi ý học phần và lộ trình chứng chỉ công nghệ thông tin cho sinh viên dựa trên Collaborative Filtering",
-            "gv_de_xuat": "TS. Phạm Minh Đức",
-            "bo_mon": "Hệ thống thông tin",
-            "so_sv_toi_da": 2,
-            "da_dang_ky": 0,
-            "con_lai": 2,
-            "trang_thai": "MO",
-            "trang_thai_text": "Đang mở (2 chỗ)",
-            "mo_ta": "Phân tích bảng điểm và sở thích hướng nghiệp để đề xuất môn học tự chọn phù hợp nhất.",
-        },
-        {
-            "id": 104,
-            "ma_de_tai": "DT-KTPM-04",
-            "ten_de_tai": "Xây dựng cổng thanh toán học phí tích hợp VietQR động và đối soát giao dịch ngân hàng tự động",
-            "gv_de_xuat": "ThS. Hoàng Thị Dung",
-            "bo_mon": "Kỹ thuật phần mềm",
-            "so_sv_toi_da": 1,
-            "da_dang_ky": 0,
-            "con_lai": 1,
-            "trang_thai": "MO",
-            "trang_thai_text": "Đang mở (1 chỗ)",
-            "mo_ta": "Giao tiếp Webhook cổng Napas và đối chiếu dữ liệu giao dịch định kỳ theo chuẩn ngân hàng.",
-        },
-    ]
-
+    bo_mon_id = request.GET.get("bo_mon")
+    bo_mon_id = int(bo_mon_id) if bo_mon_id and bo_mon_id.isdigit() else None
+    search_query = request.GET.get("q")
     active_tab = request.GET.get("tab", "queue")
 
-    context = {
-        "active_sprint": 3,
-        "current_dot": current_dot,
-        "active_tab": active_tab,
-        "danh_sach_cho_duyet": danh_sach_cho_duyet,
-        "danh_sach_da_chot": danh_sach_da_chot,
-        "ngan_hang_goi_y": ngan_hang_goi_y,
-        "kpi": {
-            "quota_tong": 20,
-            "quota_phan_bo": 20,
-            "da_chot": len(danh_sach_da_chot),
-            "cho_duyet": len(danh_sach_cho_duyet),
-            "goi_y_tong": len(ngan_hang_goi_y),
-            "goi_y_con_cho": 2,
-            "phan_tram_chot": 60,
-        }
-    }
-    return render(request, "sprint3/dashboard.html", context)
+    context_data = lay_du_lieu_dashboard_sprint3(
+        dot_obj=dot_obj,
+        bo_mon_id=bo_mon_id,
+        search_query=search_query
+    )
+    context_data["active_sprint"] = 3
+    context_data["active_tab"] = active_tab
+
+    return render(request, "sprint3/dashboard.html", context_data)
+
+
+@require_POST
+def tao_de_tai_goi_y_action(request):
+    """Giảng viên hướng dẫn tạo đề tài gợi ý mới (UC12)"""
+    dot_id = request.POST.get("dot_id")
+    dot_obj = get_object_or_404(dot, id=dot_id)
+    gv = get_current_lecturer(request.user)
+
+    if not gv:
+        messages.error(request, "Không xác định được danh tính Giảng viên hướng dẫn!")
+        return redirect(request.META.get("HTTP_REFERER", "/giangvien/?tab=huongdan&sub=detai"))
+
+    ten_de_tai = request.POST.get("ten_de_tai", "").strip()
+    mo_ta = request.POST.get("mo_ta", "").strip()
+    so_luong_str = request.POST.get("so_luong_toi_da", "1").strip()
+    so_luong_toi_da = int(so_luong_str) if so_luong_str.isdigit() else 1
+
+    try:
+        ip = request.META.get("REMOTE_ADDR")
+        nguoi_dung = _lay_nguoi_thuc_hien(request, dot_obj)
+        tao_de_tai_goi_y(
+            dot_obj=dot_obj,
+            giang_vien_obj=gv,
+            ten_de_tai=ten_de_tai,
+            mo_ta=mo_ta,
+            so_luong_toi_da=so_luong_toi_da,
+            nguoi_thuc_hien=nguoi_dung,
+            ip_address=ip
+        )
+        messages.success(request, f"Đã thêm thành công đề tài gợi ý: '{ten_de_tai}'!")
+    except Exception as e:
+        messages.error(request, f"Lỗi tạo đề tài: {str(e)}")
+
+    return redirect(request.META.get("HTTP_REFERER", "/giangvien/?tab=huongdan&sub=detai"))
+
+
+@require_POST
+def doi_trang_thai_goi_y_action(request, gy_id):
+    """Giảng viên bật/tắt nhận đăng ký cho đề tài gợi ý"""
+    gy = get_object_or_404(de_tai_goi_y, id=gy_id)
+    nguoi_dung = _lay_nguoi_thuc_hien(request, gy.dot)
+    ip = request.META.get("REMOTE_ADDR")
+
+    mo_moi = (gy.trang_thai != DeTaiGoiYTrangThai.MO)
+    dong_hoac_mo_de_tai_goi_y(gy, mo_dang_ky=mo_moi, nguoi_thuc_hien=nguoi_dung, ip_address=ip)
+
+    status_text = "Mở nhận đăng ký" if mo_moi else "Đóng nhận đăng ký"
+    messages.success(request, f"Đã chuyển trạng thái đề tài thành: {status_text}!")
+    return redirect(request.META.get("HTTP_REFERER", "/giangvien/?tab=huongdan&sub=detai"))
+
+
+@require_POST
+def sinh_vien_dang_ky_de_tai_action(request):
+    """Sinh viên chọn đề tài từ gợi ý của GV (UC13) hoặc tự đề xuất đề tài mới (UC14)"""
+    sv = get_current_student(request.user)
+    if not sv:
+        messages.error(request, "Không xác định được danh tính sinh viên đăng nhập!")
+        return redirect("/sinhvien/?step=2")
+
+    current_dot = lay_dot_chot_de_tai()
+    hs = ho_so.objects.filter(sinh_vien=sv, dot=current_dot).first()
+    if not hs:
+        hs = ho_so.objects.filter(sinh_vien=sv).order_by("-id").first()
+
+    if not hs:
+        messages.error(request, "Không tìm thấy hồ sơ thực tập/đồ án của bạn trong đợt này!")
+        return redirect("/sinhvien/?step=2")
+
+    loai_dang_ky = request.POST.get("loai_dang_ky")  # 'GOI_Y' hoặc 'DE_XUAT'
+    ip = request.META.get("REMOTE_ADDR")
+    nguoi_dung = _lay_nguoi_thuc_hien(request, hs.dot)
+
+    try:
+        if loai_dang_ky == "GOI_Y":
+            gy_id = request.POST.get("de_tai_goi_y_id")
+            if not gy_id:
+                messages.error(request, "Vui lòng chọn một đề tài trong danh sách gợi ý!")
+                return redirect("/sinhvien/?step=2")
+            gy = get_object_or_404(de_tai_goi_y, id=int(gy_id))
+            sinh_vien_chon_de_tai_goi_y(hs, gy, nguoi_thuc_hien=nguoi_dung, ip_address=ip)
+            messages.success(request, f"Bạn đã chọn đề tài gợi ý '{gy.ten_de_tai}' thành công! Hồ sơ đã gửi đến GVHD chờ phê duyệt.")
+
+        elif loai_dang_ky == "DE_XUAT":
+            ten_de_tai = request.POST.get("ten_de_tai", "").strip()
+            mo_ta = request.POST.get("mo_ta", "").strip()
+            sinh_vien_de_xuat_de_tai(hs, ten_de_tai=ten_de_tai, mo_ta=mo_ta, nguoi_thuc_hien=nguoi_dung, ip_address=ip)
+            messages.success(request, f"Đã gửi đề xuất đề tài '{ten_de_tai}' thành công đến Thầy/Cô hướng dẫn!")
+        else:
+            messages.error(request, "Hình thức đăng ký đề tài không hợp lệ!")
+    except Exception as e:
+        messages.error(request, f"Không thể đăng ký đề tài: {str(e)}")
+
+    return redirect("/sinhvien/?step=2")
+
+
+@require_POST
+def gvhd_phe_duyet_action(request, de_tai_id):
+    """GVHD duyệt chốt (chấp nhận) hoặc trả lại đề tài kèm góp ý (UC15)"""
+    dt = get_object_or_404(de_tai, id=de_tai_id)
+    nguoi_dung = _lay_nguoi_thuc_hien(request, dt.ho_so.dot)
+    ip = request.META.get("REMOTE_ADDR")
+
+    hanh_dong = request.POST.get("hanh_dong")  # 'CHAP_NHAN' hoặc 'TRA_LAI'
+    gop_y = request.POST.get("gop_y", "").strip()
+
+    try:
+        if hanh_dong == "CHAP_NHAN":
+            gvhd_phe_duyet_de_tai(dt, chap_nhan=True, gop_y="", nguoi_thuc_hien=nguoi_dung, ip_address=ip)
+            messages.success(request, f"Đã chốt chính thức đề tài '{dt.ten_de_tai}' cho sinh viên {dt.ho_so.sinh_vien.nguoi_dung.ho_ten}! Hồ sơ đã chuyển sang giai đoạn Thực hiện.")
+        elif hanh_dong == "TRA_LAI":
+            if not gop_y:
+                messages.error(request, "Bắt buộc phải nhập ý kiến góp ý khi yêu cầu sinh viên chỉnh sửa đề tài!")
+                return redirect(request.META.get("HTTP_REFERER", "/giangvien/?tab=huongdan&sub=detai"))
+            gvhd_phe_duyet_de_tai(dt, chap_nhan=False, gop_y=gop_y, nguoi_thuc_hien=nguoi_dung, ip_address=ip)
+            messages.warning(request, f"Đã trả lại đề tài cho sinh viên {dt.ho_so.sinh_vien.nguoi_dung.ho_ten} kèm nội dung góp ý chỉnh sửa.")
+        else:
+            messages.error(request, "Hành động phê duyệt không hợp lệ!")
+    except Exception as e:
+        messages.error(request, f"Lỗi phê duyệt: {str(e)}")
+
+    return redirect(request.META.get("HTTP_REFERER", "/giangvien/?tab=huongdan&sub=detai"))
+
+
+@require_POST
+def gvhd_duyet_tat_ca_action(request, dot_id):
+    """GVHD duyệt đồng loạt tất cả các đề tài đang chờ của sinh viên mình phụ trách"""
+    dot_obj = get_object_or_404(dot, id=dot_id)
+    gv = get_current_lecturer(request.user)
+    if not gv:
+        messages.error(request, "Không xác định được giảng viên!")
+        return redirect("/giangvien/?tab=huongdan&sub=detai")
+
+    nguoi_dung = _lay_nguoi_thuc_hien(request, dot_obj)
+    ip = request.META.get("REMOTE_ADDR")
+
+    # Lấy các đề tài CHO_CHOT của GV này
+    ids = list(de_tai.objects.filter(
+        ho_so__dot=dot_obj,
+        ho_so__giang_vien_huong_dan=gv,
+        trang_thai=DeTaiTrangThai.CHO_CHOT
+    ).values_list("id", flat=True))
+
+    if not ids:
+        messages.info(request, "Không có đề tài nào đang chờ duyệt!")
+        return redirect("/giangvien/?tab=huongdan&sub=detai")
+
+    count = gvhd_duyet_hang_loat_de_tai(ids, gv, nguoi_thuc_hien=nguoi_dung, ip_address=ip)
+    messages.success(request, f"Đã duyệt chốt chính thức thành công toàn bộ {count} đề tài đồ án!")
+    return redirect("/giangvien/?tab=huongdan&sub=detai")
+
+
+@require_POST
+def chuyen_sang_thuc_hien_action(request, dot_id):
+    """Trưởng khoa chuyển đợt sang Giai đoạn 4: Thực hiện & Minh chứng"""
+    dot_obj = get_object_or_404(dot, id=dot_id)
+    nguoi_dung = _lay_nguoi_thuc_hien(request, dot_obj)
+    ip = request.META.get("REMOTE_ADDR")
+
+    try:
+        chuyen_trang_thai_dot(
+            dot_obj=dot_obj,
+            trang_thai_moi=DotTrangThai.THUC_HIEN,
+            nguoi_thuc_hien=nguoi_dung,
+            ly_do="Chuyển sang Giai đoạn 4: Thực hiện đồ án và nộp minh chứng",
+            ip_address=ip
+        )
+        messages.success(request, "Đã chuyển đợt thành công sang Giai đoạn 4: Thực hiện & Nộp minh chứng tiến độ!")
+        return redirect("/thuchien/")
+    except Exception as e:
+        messages.error(request, f"Không thể chuyển giai đoạn: {str(e)}")
+        return redirect("detai:dashboard_dot", dot_id=dot_id)

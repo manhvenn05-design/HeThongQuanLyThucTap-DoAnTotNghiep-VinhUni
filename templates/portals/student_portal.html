@@ -207,31 +207,100 @@
                     <span class="material-symbols-outlined text-blue-600">assignment</span>
                     <span>Đề Tài Tốt Nghiệp Cá Nhân</span>
                 </h2>
-                <span class="px-2.5 py-0.5 bg-slate-100 text-slate-800 border border-slate-200 rounded text-xs font-medium">
-                    {{ de_tai_cua_toi.trang_thai_text }}
+                {% if de_tai_cua_toi and de_tai_cua_toi.trang_thai == 'DA_CHOT' %}
+                <span class="px-2.5 py-0.5 bg-emerald-50 text-emerald-800 border border-emerald-200 rounded text-xs font-semibold">
+                    Đã chốt chính thức (UC15)
                 </span>
+                {% elif de_tai_cua_toi and de_tai_cua_toi.trang_thai == 'CHO_CHOT' %}
+                <span class="px-2.5 py-0.5 bg-amber-50 text-amber-800 border border-amber-200 rounded text-xs font-semibold">
+                    Chờ GVHD phê duyệt
+                </span>
+                {% elif de_tai_cua_toi and de_tai_cua_toi.trang_thai == 'TRA_LAI' %}
+                <span class="px-2.5 py-0.5 bg-rose-50 text-rose-800 border border-rose-200 rounded text-xs font-semibold">
+                    Yêu cầu chỉnh sửa
+                </span>
+                {% else %}
+                <span class="px-2.5 py-0.5 bg-slate-100 text-slate-700 border border-slate-200 rounded text-xs font-semibold">
+                    Chưa đăng ký đề tài
+                </span>
+                {% endif %}
             </div>
 
+            {% if de_tai_cua_toi and de_tai_cua_toi.trang_thai != 'CHUA_GUI' %}
             <div class="p-5 bg-slate-50 border border-slate-200 rounded-xl space-y-3">
-                <div>
+                <div class="flex items-center gap-2">
                     <span class="text-xs bg-slate-200 text-slate-700 px-2 py-0.5 rounded font-mono font-semibold">
                         {{ de_tai_cua_toi.nguon_text }}
                     </span>
-                    <h3 class="text-lg font-bold font-heading text-slate-900 mt-2">
-                        {{ de_tai_cua_toi.ten_de_tai }}
+                    {% if de_tai_cua_toi.ngay_nop %}
+                    <span class="text-xs text-slate-400">Nộp ngày: {{ de_tai_cua_toi.ngay_nop }}</span>
+                    {% endif %}
+                </div>
+
+                <h3 class="text-base sm:text-lg font-bold font-heading text-slate-900">
+                    {{ de_tai_cua_toi.ten_de_tai }}
+                </h3>
+
+                {% if de_tai_cua_toi.mo_ta %}
+                <div class="text-xs text-slate-600 pt-1 border-t border-slate-200">
+                    <strong class="text-slate-800">Mục tiêu & nội dung:</strong> {{ de_tai_cua_toi.mo_ta }}
+                </div>
+                {% endif %}
+
+                {% if de_tai_cua_toi.trang_thai == 'TRA_LAI' and de_tai_cua_toi.gop_y %}
+                <div class="p-3 bg-rose-50 border border-rose-200 rounded-xl text-xs text-rose-900 space-y-1">
+                    <div class="font-bold flex items-center gap-1.5 text-rose-800">
+                        <span class="material-symbols-outlined text-sm">feedback</span>
+                        <span>Ý kiến góp ý / yêu cầu chỉnh sửa từ Thầy/Cô hướng dẫn:</span>
+                    </div>
+                    <p class="leading-relaxed pl-5 font-medium">{{ de_tai_cua_toi.gop_y }}</p>
+                </div>
+                {% endif %}
+
+                {% if de_tai_cua_toi.trang_thai == 'TRA_LAI' %}
+                <div class="pt-2">
+                    <button type="button" onclick="document.getElementById('editTopicForm').classList.toggle('hidden');" class="px-3.5 py-2 bg-blue-800 hover:bg-blue-900 text-white text-xs font-semibold rounded-xl shadow-xs transition flex items-center gap-1.5 cursor-pointer">
+                        <span class="material-symbols-outlined text-sm">edit</span>
+                        <span>Sửa và nộp lại đề tài</span>
+                    </button>
+                </div>
+                {% endif %}
+            </div>
+            {% endif %}
+
+            <!-- FORM ĐỀ XUẤT HOẶC CHỈNH SỬA ĐỀ TÀI MỚI (UC14) -->
+            <div id="editTopicForm" class="p-5 bg-white border border-slate-200 rounded-xl space-y-4 {% if de_tai_cua_toi and de_tai_cua_toi.trang_thai != 'CHUA_GUI' and de_tai_cua_toi.trang_thai != 'TRA_LAI' %}hidden{% endif %}">
+                <div class="flex items-center gap-2 border-b border-slate-100 pb-2">
+                    <span class="material-symbols-outlined text-blue-700">edit_document</span>
+                    <h3 class="text-sm font-bold font-heading text-slate-900">
+                        {% if de_tai_cua_toi and de_tai_cua_toi.trang_thai == 'TRA_LAI' %}Chỉnh sửa và nộp lại đề tài{% else %}Tự đề xuất đề tài mới (UC14){% endif %}
                     </h3>
                 </div>
 
-                <div class="text-xs text-slate-600 space-y-1 pt-1 border-t border-slate-200">
-                    <p><strong class="text-slate-800">Mục tiêu nghiên cứu:</strong> {{ de_tai_cua_toi.muc_tieu }}</p>
-                    <p><strong class="text-slate-800">Công nghệ áp dụng:</strong> <span class="font-mono text-blue-700">{{ de_tai_cua_toi.cong_nghe }}</span></p>
-                </div>
+                <form method="POST" action="{% url 'detai:sinh_vien_dang_ky' %}" class="space-y-3">
+                    {% csrf_token %}
+                    <input type="hidden" name="loai_dang_ky" value="DE_XUAT">
+                    <div>
+                        <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1 font-heading">
+                            Tên đề tài đồ án tốt nghiệp <span class="text-rose-500">*</span>:
+                        </label>
+                        <input type="text" name="ten_de_tai" required value="{% if de_tai_cua_toi and de_tai_cua_toi.trang_thai == 'TRA_LAI' %}{{ de_tai_cua_toi.ten_de_tai }}{% endif %}" placeholder="Ví dụ: Nghiên cứu mô hình ngôn ngữ lớn (LLM) và ứng dụng trợ lý học tập..." class="w-full text-xs p-2.5 bg-slate-50 border border-slate-300 rounded-xl focus:bg-white focus:ring-2 focus:ring-blue-800 transition">
+                    </div>
 
-                <div class="pt-3 flex items-center gap-2">
-                    <button type="button" onclick="showToast('Cập nhật đề xuất', 'Đang mở biểu mẫu hiệu chỉnh nội dung đề xuất đề tài...', 'info');" class="px-3.5 py-1.5 bg-white border border-slate-300 hover:bg-slate-100 text-slate-700 text-xs font-semibold rounded-lg transition">
-                        Chỉnh sửa đề xuất
-                    </button>
-                </div>
+                    <div>
+                        <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1 font-heading">
+                            Mô tả mục tiêu nghiên cứu & công nghệ áp dụng:
+                        </label>
+                        <textarea name="mo_ta" rows="3" placeholder="Trình bày vắn tắt mục tiêu của đồ án, các công nghệ dự kiến sử dụng (Python, Docker, React...)" class="w-full text-xs p-2.5 bg-slate-50 border border-slate-300 rounded-xl focus:bg-white focus:ring-2 focus:ring-blue-800 transition">{% if de_tai_cua_toi and de_tai_cua_toi.trang_thai == 'TRA_LAI' %}{{ de_tai_cua_toi.mo_ta }}{% endif %}</textarea>
+                    </div>
+
+                    <div class="pt-2 flex items-center justify-end gap-2">
+                        <button type="submit" class="px-4 py-2 bg-blue-800 hover:bg-blue-900 text-white rounded-xl text-xs font-semibold shadow-xs transition cursor-pointer flex items-center gap-1.5">
+                            <span class="material-symbols-outlined text-sm">send</span>
+                            <span>Gửi đề xuất cho Thầy/Cô hướng dẫn</span>
+                        </button>
+                    </div>
+                </form>
             </div>
         </section>
         {% endif %}
@@ -241,7 +310,7 @@
             <div class="flex items-center justify-between border-b border-slate-100 pb-3">
                 <h2 class="text-base font-bold font-heading text-slate-900 flex items-center gap-2">
                     <span class="material-symbols-outlined text-amber-500">lightbulb</span>
-                    <span>Danh Sách Đề Tài Gợi Ý Của TS. Cao Thanh Sơn</span>
+                    <span>Danh Sách Đề Tài Gợi Ý Của {{ thong_tin_sv.gvhd_ho_ten|default:"GVHD" }} (UC13)</span>
                 </h2>
                 <span class="text-xs text-slate-500">Sinh viên có thể chọn 1 đề tài thay vì tự đề xuất</span>
             </div>
@@ -250,23 +319,35 @@
                 {% for dt in de_tai_goi_y %}
                 <div class="p-4 bg-slate-50 border border-slate-200 rounded-xl space-y-3">
                     <div class="flex items-center justify-between">
-                        <span class="font-mono text-xs font-bold text-blue-700">{{ dt.ma }}</span>
+                        <span class="font-mono text-xs font-bold text-blue-700">{{ dt.ma_de_tai|default:dt.ma }}</span>
                         <span class="text-xs font-medium {% if dt.con_lai > 0 %}text-emerald-700{% else %}text-slate-400{% endif %}">
-                            Còn lại: {{ dt.con_lai }}/{{ dt.so_sv }} chỉ tiêu
+                            Còn lại: {{ dt.con_lai }}/{{ dt.so_luong_toi_da|default:dt.so_sv }} chỉ tiêu
                         </span>
                     </div>
-                    <h3 class="text-sm font-bold text-slate-900">{{ dt.ten }}</h3>
+                    <h3 class="text-sm font-bold text-slate-900">{{ dt.ten_de_tai|default:dt.ten }}</h3>
+                    {% if dt.mo_ta %}
+                    <p class="text-xs text-slate-500 line-clamp-2">{{ dt.mo_ta }}</p>
+                    {% endif %}
                     <div class="pt-2 border-t border-slate-200 flex items-center justify-end">
                         {% if dt.con_lai > 0 %}
-                        <button type="button" onclick="showToast('Đăng ký đề tài', 'Đã gửi yêu cầu đăng ký nhận đề tài gợi ý tới cán bộ hướng dẫn!', 'success');" class="px-3 py-1.5 bg-slate-900 text-white rounded-lg text-xs font-semibold hover:bg-slate-800">
-                            Đăng ký đề tài này
-                        </button>
+                        <form method="POST" action="{% url 'detai:sinh_vien_dang_ky' %}">
+                            {% csrf_token %}
+                            <input type="hidden" name="loai_dang_ky" value="GOI_Y">
+                            <input type="hidden" name="de_tai_goi_y_id" value="{{ dt.id }}">
+                            <button type="submit" class="px-3.5 py-1.5 bg-slate-900 text-white rounded-lg text-xs font-semibold hover:bg-slate-800 transition cursor-pointer">
+                                Đăng ký đề tài này
+                            </button>
+                        </form>
                         {% else %}
                         <button type="button" disabled class="px-3 py-1.5 bg-slate-200 text-slate-400 rounded-lg text-xs font-semibold cursor-not-allowed">
                             Đã hết chỗ
                         </button>
                         {% endif %}
                     </div>
+                </div>
+                {% empty %}
+                <div class="col-span-2 p-8 text-center bg-slate-50 rounded-xl border border-dashed border-slate-200 text-slate-500 text-xs">
+                    GVHD hiện chưa đưa ra đề tài gợi ý nào. Bạn hãy tự đề xuất đề tài mới ở tab "Đề tài của tôi".
                 </div>
                 {% endfor %}
             </div>

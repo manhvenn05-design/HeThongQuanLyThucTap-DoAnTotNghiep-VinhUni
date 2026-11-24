@@ -37,11 +37,22 @@
                     <span>Xuất Excel</span>
                 </button>
 
+                {% if current_dot.trang_thai == 'CHOT_DE_TAI' %}
+                <form method="POST" action="{% url 'detai:chuyen_sang_thuc_hien' current_dot.id %}" onsubmit="return confirm('Bạn có chắc chắn muốn chuyển đợt sang Giai đoạn 4: Thực hiện & Minh chứng?');" class="inline-block m-0">
+                    {% csrf_token %}
+                    <button type="submit" 
+                            class="inline-flex items-center gap-1.5 px-4 py-2 bg-slate-900 hover:bg-slate-800 text-white rounded-xl text-xs sm:text-sm font-semibold transition shadow-xs cursor-pointer whitespace-nowrap">
+                        <span>Sang giai đoạn Thực hiện</span>
+                        <span class="material-symbols-outlined text-base">arrow_forward</span>
+                    </button>
+                </form>
+                {% else %}
                 <a href="{% url 'thuchien:dashboard' %}" 
                    class="inline-flex items-center gap-1.5 px-4 py-2 bg-slate-900 hover:bg-slate-800 text-white rounded-xl text-xs sm:text-sm font-semibold transition shadow-xs cursor-pointer whitespace-nowrap">
-                    <span>Sang giai đoạn Thực hiện</span>
+                    <span>Xem giai đoạn Thực hiện</span>
                     <span class="material-symbols-outlined text-base">arrow_forward</span>
                 </a>
+                {% endif %}
             </div>
         </div>
 

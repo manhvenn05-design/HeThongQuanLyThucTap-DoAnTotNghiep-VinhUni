@@ -122,6 +122,9 @@ def giangvien_portal_view(request):
             },
         ]
 
+    # Đề tài gợi ý của GVHD
+    de_tai_goi_y = gv_data.get("de_tai_goi_y_list") or DE_TAI_GOI_Y
+
     context = {
         **gv_data,
         "active_sprint": 10,  # Đánh dấu đang ở Cổng Giảng viên
@@ -130,7 +133,7 @@ def giangvien_portal_view(request):
         "danh_sach_huong_dan": danh_sach_huong_dan,
         "danh_sach_phan_bien": DANH_SACH_PHAN_BIEN_MAU,
         "hoi_dong_info": HOI_DONG_INFO_MAU,
-        "de_tai_goi_y": DE_TAI_GOI_Y,
+        "de_tai_goi_y": de_tai_goi_y,
     }
     return render(request, "portals/lecturer_portal.html", context)
 
@@ -148,17 +151,23 @@ def sinhvien_portal_view(request):
     active_step = request.GET.get("step", "1")
     active_sub = request.GET.get("sub", "")
 
-    # Đề tài hiện tại của sinh viên (Sprint 3)
-    de_tai_cua_toi = {
-        "ten_de_tai": "Nghiên cứu mô hình ngôn ngữ lớn (LLM) và ứng dụng trợ lý học tập cho sinh viên Đại học Vinh",
-        "nguon": "SV_DE_XUAT",
-        "nguon_text": "Sinh viên tự đề xuất",
-        "trang_thai": "CHO_GVHD_DUYET",
-        "trang_thai_text": f"Chờ {sv_data['thong_tin_sv']['gvhd_ho_ten'] or 'GVHD'} duyệt" if sv_data['thong_tin_sv']['da_co_gvhd'] else "Chờ phân công GVHD",
-        "ngay_nop": "06/03/2026",
-        "muc_tieu": "Xây dựng pipeline RAG kết hợp LLM nguồn mở để tra cứu giáo trình và quy chế đào tạo tín chỉ.",
-        "cong_nghe": "Python, LangChain, FAISS, PyTorch, FastAPI",
-    }
+    # Đề tài hiện tại của sinh viên (Sprint 3 - Ưu tiên dữ liệu CSDL thật)
+    de_tai_cua_toi = sv_data.get("de_tai_cua_toi")
+    if not de_tai_cua_toi:
+        de_tai_cua_toi = {
+            "id": None,
+            "ten_de_tai": "Chưa gửi đăng ký đề tài",
+            "nguon": None,
+            "nguon_text": "Chưa đăng ký",
+            "trang_thai": "CHUA_GUI",
+            "trang_thai_text": f"Chờ gửi đề tài cho {sv_data['thong_tin_sv']['gvhd_ho_ten'] or 'GVHD'}" if sv_data['thong_tin_sv']['da_co_gvhd'] else "Chờ phân công GVHD",
+            "gop_y": "",
+            "ngay_nop": "--",
+            "muc_tieu": "Vui lòng chọn đề tài từ danh sách gợi ý của GVHD hoặc tự đề xuất đề tài mới ở Bước 2.",
+            "cong_nghe": "",
+        }
+
+    de_tai_goi_y = sv_data.get("de_tai_goi_y_list") or DE_TAI_GOI_Y
 
     # Nơi thực tập doanh nghiệp (Sprint 4)
     doanh_nghiep = {
