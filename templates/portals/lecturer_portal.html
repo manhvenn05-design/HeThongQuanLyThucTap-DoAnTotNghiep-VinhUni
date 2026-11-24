@@ -99,12 +99,37 @@
             </div>
 
             {% if active_sub == 'sinhvien' or not active_sub %}
+            {% if can_xac_nhan and cho_xac_nhan_count > 0 %}
+            <!-- CẢNH BÁO BẢN PHÂN CÔNG CHỜ GIẢNG VIÊN XÁC NHẬN (UC10) -->
+            <div class="bg-gradient-to-r from-amber-50 to-orange-50 border border-amber-200 rounded-2xl p-4 shadow-xs flex flex-col md:flex-row md:items-center justify-between gap-4">
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-xl bg-amber-500 text-white flex items-center justify-center shrink-0">
+                        <span class="material-symbols-outlined">notification_important</span>
+                    </div>
+                    <div>
+                        <h3 class="font-bold text-slate-900 text-sm font-heading">
+                            Trưởng khoa đã gửi dự thảo phân công hướng dẫn ({{ cho_xac_nhan_count }} sinh viên chờ thầy/cô xác nhận)
+                        </h3>
+                        <p class="text-xs text-slate-600">
+                            Vui lòng xem chi tiết danh sách sinh viên được phân công để tiếp nhận hoặc phản hồi lý do từ chối.
+                        </p>
+                    </div>
+                </div>
+                <div class="flex items-center gap-2 shrink-0">
+                    <a href="{% url 'phancong:xac_nhan_giang_vien' giang_vien.id %}" class="inline-flex items-center gap-1.5 px-4 py-2 bg-amber-600 hover:bg-amber-700 text-white text-xs font-semibold rounded-xl shadow-xs transition">
+                        <span class="material-symbols-outlined text-sm">checklist</span>
+                        <span>Màn hình xác nhận tiếp nhận</span>
+                    </a>
+                </div>
+            </div>
+            {% endif %}
+
             <!-- Hàng đợi duyệt đề tài & Quản lý SV hướng dẫn -->
             <div class="bg-white border border-slate-200 rounded-2xl shadow-xs overflow-hidden">
                 <div class="p-4 border-b border-slate-200 bg-slate-50/70 flex items-center justify-between">
                     <h2 class="text-sm font-bold font-heading text-slate-900 flex items-center gap-2">
                         <span class="material-symbols-outlined text-blue-600">group</span>
-                        <span>Danh Sách Sinh Viên Hướng Dẫn Của Thầy (4/5 Chỉ Tiêu)</span>
+                        <span>Danh Sách Sinh Viên Hướng Dẫn Của Thầy ({{ so_sv_huong_dan }}/{{ so_sv_toi_da }} Chỉ Tiêu)</span>
                     </h2>
                     <span class="text-xs text-slate-500">Bảo mật: Giảng viên không xem điểm GPA đầu vào</span>
                 </div>
@@ -136,6 +161,12 @@
 
                         <!-- Thao tác của GVHD -->
                         <div class="flex items-center gap-2 shrink-0">
+                            {% if sv.trang_thai_pc == 'CHO_XAC_NHAN' %}
+                            <a href="{% url 'phancong:xac_nhan_giang_vien' giang_vien.id %}" class="px-3.5 py-1.5 bg-amber-600 hover:bg-amber-700 text-white rounded-lg text-xs font-semibold shadow-xs transition flex items-center gap-1">
+                                <span class="material-symbols-outlined text-sm">how_to_reg</span>
+                                <span>Xác nhận tiếp nhận</span>
+                            </a>
+                            {% endif %}
                             {% if sv.trang_thai_de_tai == 'CHO_DUYET' %}
                             <button type="button" onclick="showToast('Duyệt đề tài', 'Đã duyệt đề tài thành công cho sinh viên {{ sv.ten_sv }}!', 'success');" class="px-3.5 py-1.5 bg-emerald-600 hover:bg-emerald-700 text-white rounded-lg text-xs font-semibold shadow-xs transition">
                                 Duyệt đề tài

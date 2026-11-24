@@ -347,7 +347,7 @@
                         <div>
                             <div class="flex items-center gap-2">
                                 <span class="font-bold text-slate-900 font-heading text-sm sm:text-base">
-                                    {{ card.giang_vien.hoc_ham_hoc_vi|default:"" }} {{ card.giang_vien.nguoi_dung.ho_ten }}
+                                    {{ card.giang_vien.hoc_vi|default:"" }} {{ card.giang_vien.nguoi_dung.ho_ten }}
                                 </span>
                                 <span class="text-xs text-slate-500">• {{ card.giang_vien.bo_mon.ten_bo_mon|default:"Khoa CNTT" }}</span>
                             </div>
@@ -480,7 +480,7 @@
                     <option value="">-- Chọn giảng viên còn chỉ tiêu --</option>
                     {% for card in danh_sach_gv_cards %}
                     <option value="{{ card.giang_vien.id }}" {% if card.con_lai == 0 %}disabled{% endif %}>
-                        {{ card.giang_vien.hoc_ham_hoc_vi|default:"" }} {{ card.giang_vien.nguoi_dung.ho_ten }} 
+                        {{ card.giang_vien.hoc_vi|default:"" }} {{ card.giang_vien.nguoi_dung.ho_ten }} 
                         ({{ card.giang_vien.bo_mon.ten_bo_mon|default:"Bộ môn" }}) 
                         - Hiện có {{ card.so_luong_hien_tai }}/{{ card.so_toi_da }} sinh viên {% if card.con_lai == 0 %}[ĐÃ ĐẦY TẢI]{% endif %}
                     </option>

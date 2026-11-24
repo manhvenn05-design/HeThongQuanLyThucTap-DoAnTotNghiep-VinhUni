@@ -20,7 +20,7 @@
   "model": "auth.user",
   "fields": {
     "password": "pbkdf2_sha256$1500000$iWXUy8IRVWjeLXDgiKpOLE$30Ezi4i92z4yV9JP8TnEWGMLgqm5KCgQxXeMAydP/pc=",
-    "last_login": "2026-11-11T15:12:43.711Z",
+    "last_login": "2026-11-24T05:36:19.097Z",
     "is_superuser": false,
     "username": "truongkhoa",
     "first_name": "Phong",
@@ -317,6 +317,14 @@
 },
 {
   "model": "sessions.session",
+  "pk": "q84kyq7tcml8wwi8bq6qge27y400ai7g",
+  "fields": {
+    "session_data": ".eJxVjEEOwiAQRe_C2pCBQhGX7nsGMjCDVA0kpV0Z765NutDtf-_9lwi4rSVsnZcwk7gILU6_W8T04LoDumO9NZlaXZc5yl2RB-1yasTP6-H-HRTs5VsrOltlmU02ccxAhAl0TBkVOOsMo8qcXKQBvCWLXjufQY3kBgUIYMT7AwGlOBc:1xVjBF:Lg34YRQc1eizPbfYile8pqNu0NQsvJGFOPjRhQbNi6k",
+    "expire_date": "2026-12-08T05:35:01.283Z"
+  }
+},
+{
+  "model": "sessions.session",
   "pk": "qheflbeslp64k6mzduxyxzw5vprj573w",
   "fields": {
     "session_data": ".eJxVjsEOwiAQRP-FsyFLC8V69N5vIAu7SLWBhLYn479bkh70Om_mZd7C4b4lt69c3UziJjpx-c08hhfnBuiJ-VFkKHmrs5etIk-6yqkQL_ez-ydIuKZjrehqlGHWUfshAhEG6HyIqMAaqxlV5GA99TAaMjh2doygBrK9AgTQhzTstXLeXC0Ltz-MWXy-KkM_sQ:1xQHGu:t005r6G7UFCWZRX6aGkDJeyPbbnygHtJpB9lxTq_Bec",
@@ -329,6 +337,14 @@
   "fields": {
     "session_data": "eyJjdXJyZW50X3JvbGUiOiJzdHVkZW50In0:1xQ3lN:CeBXt3SOl64T0Y0vZvl_UXtN4GOrLj8pWAFhQssgaCg",
     "expire_date": "2026-11-22T14:20:53.127Z"
+  }
+},
+{
+  "model": "sessions.session",
+  "pk": "r3b3rl19o2at0qcuc76ty4hjdo73gzsp",
+  "fields": {
+    "session_data": ".eJxVjEEOwiAQRe_C2pCBQhGX7nsGMjCDVA0kpV0Z765NutDtf-_9lwi4rSVsnZcwk7gILU6_W8T04LoDumO9NZlaXZc5yl2RB-1yasTP6-H-HRTs5VsrOltlmU02ccxAhAl0TBkVOOsMo8qcXKQBvCWLXjufQY3kBgUIYMT7AwGlOBc:1xVjCV:__8nRcOPp1sw15-bmXuw0JWv0kLg-r7gC51piIGiKqU",
+    "expire_date": "2026-12-08T05:36:19.103Z"
   }
 },
 {
@@ -1123,7 +1139,7 @@
     "hoc_ky": 2,
     "nam_hoc": "2026-2027",
     "khoa": 1,
-    "trang_thai": "CHUAN_BI",
+    "trang_thai": "PHAN_CONG",
     "so_sv_toi_da_moi_gv": 15,
     "hinh_thuc_cham": "HOI_DONG",
     "nguoi_tao": 1,
@@ -2582,7 +2598,7 @@
     "giang_vien_huong_dan": null,
     "de_tai_hien_tai": null,
     "ngay_tao": "2026-11-10T10:06:23.506Z",
-    "ngay_cap_nhat": "2026-11-10T10:06:23.506Z"
+    "ngay_cap_nhat": "2026-11-24T05:36:20.003Z"
   }
 },
 {
@@ -2595,7 +2611,7 @@
     "giang_vien_huong_dan": null,
     "de_tai_hien_tai": null,
     "ngay_tao": "2026-11-10T10:06:23.509Z",
-    "ngay_cap_nhat": "2026-11-10T10:06:23.509Z"
+    "ngay_cap_nhat": "2026-11-24T05:36:19.961Z"
   }
 },
 {
@@ -2608,7 +2624,7 @@
     "giang_vien_huong_dan": null,
     "de_tai_hien_tai": null,
     "ngay_tao": "2026-11-10T10:06:23.509Z",
-    "ngay_cap_nhat": "2026-11-10T10:06:23.509Z"
+    "ngay_cap_nhat": "2026-11-24T05:36:19.968Z"
   }
 },
 {
@@ -2621,7 +2637,7 @@
     "giang_vien_huong_dan": null,
     "de_tai_hien_tai": null,
     "ngay_tao": "2026-11-10T10:06:23.511Z",
-    "ngay_cap_nhat": "2026-11-10T10:06:23.511Z"
+    "ngay_cap_nhat": "2026-11-24T05:36:19.998Z"
   }
 },
 {
@@ -2634,7 +2650,7 @@
     "giang_vien_huong_dan": null,
     "de_tai_hien_tai": null,
     "ngay_tao": "2026-11-10T10:06:23.513Z",
-    "ngay_cap_nhat": "2026-11-10T10:06:23.513Z"
+    "ngay_cap_nhat": "2026-11-24T05:36:19.954Z"
   }
 },
 {
@@ -2647,7 +2663,7 @@
     "giang_vien_huong_dan": null,
     "de_tai_hien_tai": null,
     "ngay_tao": "2026-11-10T10:06:23.514Z",
-    "ngay_cap_nhat": "2026-11-10T10:06:23.514Z"
+    "ngay_cap_nhat": "2026-11-24T05:36:19.984Z"
   }
 },
 {
@@ -2660,7 +2676,7 @@
     "giang_vien_huong_dan": null,
     "de_tai_hien_tai": null,
     "ngay_tao": "2026-11-10T10:06:23.516Z",
-    "ngay_cap_nhat": "2026-11-10T10:06:23.516Z"
+    "ngay_cap_nhat": "2026-11-24T05:36:19.963Z"
   }
 },
 {
@@ -2673,7 +2689,7 @@
     "giang_vien_huong_dan": null,
     "de_tai_hien_tai": null,
     "ngay_tao": "2026-11-10T10:06:23.518Z",
-    "ngay_cap_nhat": "2026-11-10T10:06:23.518Z"
+    "ngay_cap_nhat": "2026-11-24T05:36:19.980Z"
   }
 },
 {
@@ -2686,7 +2702,7 @@
     "giang_vien_huong_dan": null,
     "de_tai_hien_tai": null,
     "ngay_tao": "2026-11-10T10:06:23.519Z",
-    "ngay_cap_nhat": "2026-11-10T10:06:23.520Z"
+    "ngay_cap_nhat": "2026-11-24T05:36:19.935Z"
   }
 },
 {
@@ -2699,7 +2715,7 @@
     "giang_vien_huong_dan": null,
     "de_tai_hien_tai": null,
     "ngay_tao": "2026-11-10T10:06:23.521Z",
-    "ngay_cap_nhat": "2026-11-10T10:06:23.521Z"
+    "ngay_cap_nhat": "2026-11-24T05:36:19.988Z"
   }
 },
 {
@@ -2712,7 +2728,7 @@
     "giang_vien_huong_dan": null,
     "de_tai_hien_tai": null,
     "ngay_tao": "2026-11-10T10:06:23.522Z",
-    "ngay_cap_nhat": "2026-11-10T10:06:23.522Z"
+    "ngay_cap_nhat": "2026-11-24T05:36:19.965Z"
   }
 },
 {
@@ -2725,7 +2741,7 @@
     "giang_vien_huong_dan": null,
     "de_tai_hien_tai": null,
     "ngay_tao": "2026-11-10T10:06:23.524Z",
-    "ngay_cap_nhat": "2026-11-10T10:06:23.524Z"
+    "ngay_cap_nhat": "2026-11-24T05:36:20.000Z"
   }
 },
 {
@@ -2738,7 +2754,7 @@
     "giang_vien_huong_dan": null,
     "de_tai_hien_tai": null,
     "ngay_tao": "2026-11-10T10:06:23.525Z",
-    "ngay_cap_nhat": "2026-11-10T10:06:23.525Z"
+    "ngay_cap_nhat": "2026-11-24T05:36:19.995Z"
   }
 },
 {
@@ -2751,7 +2767,7 @@
     "giang_vien_huong_dan": null,
     "de_tai_hien_tai": null,
     "ngay_tao": "2026-11-10T10:06:23.526Z",
-    "ngay_cap_nhat": "2026-11-10T10:06:23.526Z"
+    "ngay_cap_nhat": "2026-11-24T05:36:19.974Z"
   }
 },
 {
@@ -2764,7 +2780,7 @@
     "giang_vien_huong_dan": null,
     "de_tai_hien_tai": null,
     "ngay_tao": "2026-11-10T10:06:23.528Z",
-    "ngay_cap_nhat": "2026-11-10T10:06:23.528Z"
+    "ngay_cap_nhat": "2026-11-24T05:36:19.945Z"
   }
 },
 {
@@ -2777,7 +2793,7 @@
     "giang_vien_huong_dan": null,
     "de_tai_hien_tai": null,
     "ngay_tao": "2026-11-10T10:06:23.529Z",
-    "ngay_cap_nhat": "2026-11-10T10:06:23.529Z"
+    "ngay_cap_nhat": "2026-11-24T05:36:19.957Z"
   }
 },
 {
@@ -2790,7 +2806,7 @@
     "giang_vien_huong_dan": null,
     "de_tai_hien_tai": null,
     "ngay_tao": "2026-11-10T10:06:23.530Z",
-    "ngay_cap_nhat": "2026-11-10T10:06:23.531Z"
+    "ngay_cap_nhat": "2026-11-24T05:36:19.950Z"
   }
 },
 {
@@ -2803,7 +2819,7 @@
     "giang_vien_huong_dan": null,
     "de_tai_hien_tai": null,
     "ngay_tao": "2026-11-10T10:06:23.533Z",
-    "ngay_cap_nhat": "2026-11-10T10:06:23.533Z"
+    "ngay_cap_nhat": "2026-11-24T05:36:19.992Z"
   }
 },
 {
@@ -2816,7 +2832,7 @@
     "giang_vien_huong_dan": null,
     "de_tai_hien_tai": null,
     "ngay_tao": "2026-11-10T10:06:23.535Z",
-    "ngay_cap_nhat": "2026-11-10T10:06:23.535Z"
+    "ngay_cap_nhat": "2026-11-24T05:36:19.941Z"
   }
 },
 {
@@ -2829,7 +2845,7 @@
     "giang_vien_huong_dan": null,
     "de_tai_hien_tai": null,
     "ngay_tao": "2026-11-10T10:06:23.536Z",
-    "ngay_cap_nhat": "2026-11-10T10:06:23.537Z"
+    "ngay_cap_nhat": "2026-11-24T05:36:19.971Z"
   }
 },
 {
@@ -3087,8 +3103,593 @@
     "dot": 1,
     "trang_thai": "NHAP",
     "nguoi_tao": 1,
-    "ngay_gui": null,
-    "ngay_cong_bo": null
+    "ngay_gui": "2026-11-24T05:36:19.754Z",
+    "ngay_cong_bo": "2026-11-24T05:36:19.930Z"
+  }
+},
+{
+  "model": "phancong.phan_cong_huong_dan",
+  "pk": 21,
+  "fields": {
+    "ban_phan_cong": 2,
+    "ho_so": 29,
+    "giang_vien": 1,
+    "trang_thai": "CHO_XAC_NHAN",
+    "la_goi_y": true,
+    "ly_do_tu_choi": null,
+    "ngay_phan_hoi": "2026-11-24T05:36:19.823Z"
+  }
+},
+{
+  "model": "phancong.phan_cong_huong_dan",
+  "pk": 22,
+  "fields": {
+    "ban_phan_cong": 2,
+    "ho_so": 39,
+    "giang_vien": 1,
+    "trang_thai": "CHO_XAC_NHAN",
+    "la_goi_y": true,
+    "ly_do_tu_choi": null,
+    "ngay_phan_hoi": "2026-11-24T05:36:19.823Z"
+  }
+},
+{
+  "model": "phancong.phan_cong_huong_dan",
+  "pk": 23,
+  "fields": {
+    "ban_phan_cong": 2,
+    "ho_so": 35,
+    "giang_vien": 1,
+    "trang_thai": "CHO_XAC_NHAN",
+    "la_goi_y": true,
+    "ly_do_tu_choi": null,
+    "ngay_phan_hoi": "2026-11-24T05:36:19.823Z"
+  }
+},
+{
+  "model": "phancong.phan_cong_huong_dan",
+  "pk": 24,
+  "fields": {
+    "ban_phan_cong": 2,
+    "ho_so": 37,
+    "giang_vien": 1,
+    "trang_thai": "CHO_XAC_NHAN",
+    "la_goi_y": true,
+    "ly_do_tu_choi": null,
+    "ngay_phan_hoi": "2026-11-24T05:36:19.823Z"
+  }
+},
+{
+  "model": "phancong.phan_cong_huong_dan",
+  "pk": 25,
+  "fields": {
+    "ban_phan_cong": 2,
+    "ho_so": 25,
+    "giang_vien": 2,
+    "trang_thai": "CHO_XAC_NHAN",
+    "la_goi_y": true,
+    "ly_do_tu_choi": null,
+    "ngay_phan_hoi": "2026-11-24T05:36:19.840Z"
+  }
+},
+{
+  "model": "phancong.phan_cong_huong_dan",
+  "pk": 26,
+  "fields": {
+    "ban_phan_cong": 2,
+    "ho_so": 36,
+    "giang_vien": 2,
+    "trang_thai": "CHO_XAC_NHAN",
+    "la_goi_y": true,
+    "ly_do_tu_choi": null,
+    "ngay_phan_hoi": "2026-11-24T05:36:19.840Z"
+  }
+},
+{
+  "model": "phancong.phan_cong_huong_dan",
+  "pk": 27,
+  "fields": {
+    "ban_phan_cong": 2,
+    "ho_so": 22,
+    "giang_vien": 2,
+    "trang_thai": "CHO_XAC_NHAN",
+    "la_goi_y": true,
+    "ly_do_tu_choi": null,
+    "ngay_phan_hoi": "2026-11-24T05:36:19.840Z"
+  }
+},
+{
+  "model": "phancong.phan_cong_huong_dan",
+  "pk": 28,
+  "fields": {
+    "ban_phan_cong": 2,
+    "ho_so": 27,
+    "giang_vien": 2,
+    "trang_thai": "CHO_XAC_NHAN",
+    "la_goi_y": true,
+    "ly_do_tu_choi": null,
+    "ngay_phan_hoi": "2026-11-24T05:36:19.840Z"
+  }
+},
+{
+  "model": "phancong.phan_cong_huong_dan",
+  "pk": 29,
+  "fields": {
+    "ban_phan_cong": 2,
+    "ho_so": 31,
+    "giang_vien": 3,
+    "trang_thai": "CHO_XAC_NHAN",
+    "la_goi_y": true,
+    "ly_do_tu_choi": null,
+    "ngay_phan_hoi": "2026-11-24T05:36:19.860Z"
+  }
+},
+{
+  "model": "phancong.phan_cong_huong_dan",
+  "pk": 30,
+  "fields": {
+    "ban_phan_cong": 2,
+    "ho_so": 23,
+    "giang_vien": 3,
+    "trang_thai": "CHO_XAC_NHAN",
+    "la_goi_y": true,
+    "ly_do_tu_choi": null,
+    "ngay_phan_hoi": "2026-11-24T05:36:19.860Z"
+  }
+},
+{
+  "model": "phancong.phan_cong_huong_dan",
+  "pk": 31,
+  "fields": {
+    "ban_phan_cong": 2,
+    "ho_so": 40,
+    "giang_vien": 3,
+    "trang_thai": "CHO_XAC_NHAN",
+    "la_goi_y": true,
+    "ly_do_tu_choi": null,
+    "ngay_phan_hoi": "2026-11-24T05:36:19.860Z"
+  }
+},
+{
+  "model": "phancong.phan_cong_huong_dan",
+  "pk": 32,
+  "fields": {
+    "ban_phan_cong": 2,
+    "ho_so": 34,
+    "giang_vien": 3,
+    "trang_thai": "CHO_XAC_NHAN",
+    "la_goi_y": true,
+    "ly_do_tu_choi": null,
+    "ngay_phan_hoi": "2026-11-24T05:36:19.860Z"
+  }
+},
+{
+  "model": "phancong.phan_cong_huong_dan",
+  "pk": 33,
+  "fields": {
+    "ban_phan_cong": 2,
+    "ho_so": 28,
+    "giang_vien": 4,
+    "trang_thai": "CHO_XAC_NHAN",
+    "la_goi_y": true,
+    "ly_do_tu_choi": null,
+    "ngay_phan_hoi": "2026-11-24T05:36:19.883Z"
+  }
+},
+{
+  "model": "phancong.phan_cong_huong_dan",
+  "pk": 34,
+  "fields": {
+    "ban_phan_cong": 2,
+    "ho_so": 26,
+    "giang_vien": 4,
+    "trang_thai": "CHO_XAC_NHAN",
+    "la_goi_y": true,
+    "ly_do_tu_choi": null,
+    "ngay_phan_hoi": "2026-11-24T05:36:19.883Z"
+  }
+},
+{
+  "model": "phancong.phan_cong_huong_dan",
+  "pk": 35,
+  "fields": {
+    "ban_phan_cong": 2,
+    "ho_so": 30,
+    "giang_vien": 4,
+    "trang_thai": "CHO_XAC_NHAN",
+    "la_goi_y": true,
+    "ly_do_tu_choi": null,
+    "ngay_phan_hoi": "2026-11-24T05:36:19.883Z"
+  }
+},
+{
+  "model": "phancong.phan_cong_huong_dan",
+  "pk": 36,
+  "fields": {
+    "ban_phan_cong": 2,
+    "ho_so": 38,
+    "giang_vien": 4,
+    "trang_thai": "CHO_XAC_NHAN",
+    "la_goi_y": true,
+    "ly_do_tu_choi": null,
+    "ngay_phan_hoi": "2026-11-24T05:36:19.883Z"
+  }
+},
+{
+  "model": "phancong.phan_cong_huong_dan",
+  "pk": 37,
+  "fields": {
+    "ban_phan_cong": 2,
+    "ho_so": 33,
+    "giang_vien": 5,
+    "trang_thai": "CHO_XAC_NHAN",
+    "la_goi_y": true,
+    "ly_do_tu_choi": null,
+    "ngay_phan_hoi": "2026-11-24T05:36:19.907Z"
+  }
+},
+{
+  "model": "phancong.phan_cong_huong_dan",
+  "pk": 38,
+  "fields": {
+    "ban_phan_cong": 2,
+    "ho_so": 24,
+    "giang_vien": 5,
+    "trang_thai": "CHO_XAC_NHAN",
+    "la_goi_y": true,
+    "ly_do_tu_choi": null,
+    "ngay_phan_hoi": "2026-11-24T05:36:19.907Z"
+  }
+},
+{
+  "model": "phancong.phan_cong_huong_dan",
+  "pk": 39,
+  "fields": {
+    "ban_phan_cong": 2,
+    "ho_so": 32,
+    "giang_vien": 5,
+    "trang_thai": "CHO_XAC_NHAN",
+    "la_goi_y": true,
+    "ly_do_tu_choi": null,
+    "ngay_phan_hoi": "2026-11-24T05:36:19.907Z"
+  }
+},
+{
+  "model": "phancong.phan_cong_huong_dan",
+  "pk": 40,
+  "fields": {
+    "ban_phan_cong": 2,
+    "ho_so": 21,
+    "giang_vien": 5,
+    "trang_thai": "CHO_XAC_NHAN",
+    "la_goi_y": true,
+    "ly_do_tu_choi": null,
+    "ngay_phan_hoi": "2026-11-24T05:36:19.907Z"
+  }
+},
+{
+  "model": "hethong.thong_bao",
+  "pk": 1,
+  "fields": {
+    "nguoi_nhan": 1,
+    "tieu_de": "Xác nhận phân công hướng dẫn: Thực tập tốt nghiệp HK2 (2026 - 2027)",
+    "noi_dung": "Trưởng khoa đã gửi bản phân công hướng dẫn cho đợt DOT26_HK2_CNTT_01. Vui lòng kiểm tra và xác nhận tiếp nhận sinh viên.",
+    "loai": "PHAN_CONG",
+    "duong_dan_dieu_huong": "/phancong/xac-nhan/1/1/",
+    "da_doc": false,
+    "ngay_tao": "2026-11-24T05:36:19.793Z"
+  }
+},
+{
+  "model": "hethong.thong_bao",
+  "pk": 2,
+  "fields": {
+    "nguoi_nhan": 2,
+    "tieu_de": "Xác nhận phân công hướng dẫn: Thực tập tốt nghiệp HK2 (2026 - 2027)",
+    "noi_dung": "Trưởng khoa đã gửi bản phân công hướng dẫn cho đợt DOT26_HK2_CNTT_01. Vui lòng kiểm tra và xác nhận tiếp nhận sinh viên.",
+    "loai": "PHAN_CONG",
+    "duong_dan_dieu_huong": "/phancong/xac-nhan/2/1/",
+    "da_doc": false,
+    "ngay_tao": "2026-11-24T05:36:19.795Z"
+  }
+},
+{
+  "model": "hethong.thong_bao",
+  "pk": 3,
+  "fields": {
+    "nguoi_nhan": 3,
+    "tieu_de": "Xác nhận phân công hướng dẫn: Thực tập tốt nghiệp HK2 (2026 - 2027)",
+    "noi_dung": "Trưởng khoa đã gửi bản phân công hướng dẫn cho đợt DOT26_HK2_CNTT_01. Vui lòng kiểm tra và xác nhận tiếp nhận sinh viên.",
+    "loai": "PHAN_CONG",
+    "duong_dan_dieu_huong": "/phancong/xac-nhan/3/1/",
+    "da_doc": false,
+    "ngay_tao": "2026-11-24T05:36:19.795Z"
+  }
+},
+{
+  "model": "hethong.thong_bao",
+  "pk": 4,
+  "fields": {
+    "nguoi_nhan": 4,
+    "tieu_de": "Xác nhận phân công hướng dẫn: Thực tập tốt nghiệp HK2 (2026 - 2027)",
+    "noi_dung": "Trưởng khoa đã gửi bản phân công hướng dẫn cho đợt DOT26_HK2_CNTT_01. Vui lòng kiểm tra và xác nhận tiếp nhận sinh viên.",
+    "loai": "PHAN_CONG",
+    "duong_dan_dieu_huong": "/phancong/xac-nhan/4/1/",
+    "da_doc": false,
+    "ngay_tao": "2026-11-24T05:36:19.796Z"
+  }
+},
+{
+  "model": "hethong.thong_bao",
+  "pk": 5,
+  "fields": {
+    "nguoi_nhan": 5,
+    "tieu_de": "Xác nhận phân công hướng dẫn: Thực tập tốt nghiệp HK2 (2026 - 2027)",
+    "noi_dung": "Trưởng khoa đã gửi bản phân công hướng dẫn cho đợt DOT26_HK2_CNTT_01. Vui lòng kiểm tra và xác nhận tiếp nhận sinh viên.",
+    "loai": "PHAN_CONG",
+    "duong_dan_dieu_huong": "/phancong/xac-nhan/5/1/",
+    "da_doc": false,
+    "ngay_tao": "2026-11-24T05:36:19.796Z"
+  }
+},
+{
+  "model": "hethong.thong_bao",
+  "pk": 6,
+  "fields": {
+    "nguoi_nhan": 14,
+    "tieu_de": "Công bố GVHD chính thức: Thực tập tốt nghiệp HK2 (2026 - 2027)",
+    "noi_dung": "Bạn đã được phân công Giảng viên hướng dẫn: TS. Phan Anh Phong. Hãy chuẩn bị chọn hoặc đề xuất đề tài.",
+    "loai": "PHAN_CONG",
+    "duong_dan_dieu_huong": null,
+    "da_doc": false,
+    "ngay_tao": "2026-11-24T05:36:19.939Z"
+  }
+},
+{
+  "model": "hethong.thong_bao",
+  "pk": 7,
+  "fields": {
+    "nguoi_nhan": 24,
+    "tieu_de": "Công bố GVHD chính thức: Thực tập tốt nghiệp HK2 (2026 - 2027)",
+    "noi_dung": "Bạn đã được phân công Giảng viên hướng dẫn: TS. Phan Anh Phong. Hãy chuẩn bị chọn hoặc đề xuất đề tài.",
+    "loai": "PHAN_CONG",
+    "duong_dan_dieu_huong": null,
+    "da_doc": false,
+    "ngay_tao": "2026-11-24T05:36:19.943Z"
+  }
+},
+{
+  "model": "hethong.thong_bao",
+  "pk": 8,
+  "fields": {
+    "nguoi_nhan": 20,
+    "tieu_de": "Công bố GVHD chính thức: Thực tập tốt nghiệp HK2 (2026 - 2027)",
+    "noi_dung": "Bạn đã được phân công Giảng viên hướng dẫn: TS. Phan Anh Phong. Hãy chuẩn bị chọn hoặc đề xuất đề tài.",
+    "loai": "PHAN_CONG",
+    "duong_dan_dieu_huong": null,
+    "da_doc": false,
+    "ngay_tao": "2026-11-24T05:36:19.948Z"
+  }
+},
+{
+  "model": "hethong.thong_bao",
+  "pk": 9,
+  "fields": {
+    "nguoi_nhan": 22,
+    "tieu_de": "Công bố GVHD chính thức: Thực tập tốt nghiệp HK2 (2026 - 2027)",
+    "noi_dung": "Bạn đã được phân công Giảng viên hướng dẫn: TS. Phan Anh Phong. Hãy chuẩn bị chọn hoặc đề xuất đề tài.",
+    "loai": "PHAN_CONG",
+    "duong_dan_dieu_huong": null,
+    "da_doc": false,
+    "ngay_tao": "2026-11-24T05:36:19.953Z"
+  }
+},
+{
+  "model": "hethong.thong_bao",
+  "pk": 10,
+  "fields": {
+    "nguoi_nhan": 10,
+    "tieu_de": "Công bố GVHD chính thức: Thực tập tốt nghiệp HK2 (2026 - 2027)",
+    "noi_dung": "Bạn đã được phân công Giảng viên hướng dẫn: TS. Cao Thanh Sơn. Hãy chuẩn bị chọn hoặc đề xuất đề tài.",
+    "loai": "PHAN_CONG",
+    "duong_dan_dieu_huong": null,
+    "da_doc": false,
+    "ngay_tao": "2026-11-24T05:36:19.955Z"
+  }
+},
+{
+  "model": "hethong.thong_bao",
+  "pk": 11,
+  "fields": {
+    "nguoi_nhan": 21,
+    "tieu_de": "Công bố GVHD chính thức: Thực tập tốt nghiệp HK2 (2026 - 2027)",
+    "noi_dung": "Bạn đã được phân công Giảng viên hướng dẫn: TS. Cao Thanh Sơn. Hãy chuẩn bị chọn hoặc đề xuất đề tài.",
+    "loai": "PHAN_CONG",
+    "duong_dan_dieu_huong": null,
+    "da_doc": false,
+    "ngay_tao": "2026-11-24T05:36:19.959Z"
+  }
+},
+{
+  "model": "hethong.thong_bao",
+  "pk": 12,
+  "fields": {
+    "nguoi_nhan": 7,
+    "tieu_de": "Công bố GVHD chính thức: Thực tập tốt nghiệp HK2 (2026 - 2027)",
+    "noi_dung": "Bạn đã được phân công Giảng viên hướng dẫn: TS. Cao Thanh Sơn. Hãy chuẩn bị chọn hoặc đề xuất đề tài.",
+    "loai": "PHAN_CONG",
+    "duong_dan_dieu_huong": null,
+    "da_doc": false,
+    "ngay_tao": "2026-11-24T05:36:19.962Z"
+  }
+},
+{
+  "model": "hethong.thong_bao",
+  "pk": 13,
+  "fields": {
+    "nguoi_nhan": 12,
+    "tieu_de": "Công bố GVHD chính thức: Thực tập tốt nghiệp HK2 (2026 - 2027)",
+    "noi_dung": "Bạn đã được phân công Giảng viên hướng dẫn: TS. Cao Thanh Sơn. Hãy chuẩn bị chọn hoặc đề xuất đề tài.",
+    "loai": "PHAN_CONG",
+    "duong_dan_dieu_huong": null,
+    "da_doc": false,
+    "ngay_tao": "2026-11-24T05:36:19.964Z"
+  }
+},
+{
+  "model": "hethong.thong_bao",
+  "pk": 14,
+  "fields": {
+    "nguoi_nhan": 16,
+    "tieu_de": "Công bố GVHD chính thức: Thực tập tốt nghiệp HK2 (2026 - 2027)",
+    "noi_dung": "Bạn đã được phân công Giảng viên hướng dẫn: ThS. Lê Quốc Cường. Hãy chuẩn bị chọn hoặc đề xuất đề tài.",
+    "loai": "PHAN_CONG",
+    "duong_dan_dieu_huong": null,
+    "da_doc": false,
+    "ngay_tao": "2026-11-24T05:36:19.967Z"
+  }
+},
+{
+  "model": "hethong.thong_bao",
+  "pk": 15,
+  "fields": {
+    "nguoi_nhan": 8,
+    "tieu_de": "Công bố GVHD chính thức: Thực tập tốt nghiệp HK2 (2026 - 2027)",
+    "noi_dung": "Bạn đã được phân công Giảng viên hướng dẫn: ThS. Lê Quốc Cường. Hãy chuẩn bị chọn hoặc đề xuất đề tài.",
+    "loai": "PHAN_CONG",
+    "duong_dan_dieu_huong": null,
+    "da_doc": false,
+    "ngay_tao": "2026-11-24T05:36:19.969Z"
+  }
+},
+{
+  "model": "hethong.thong_bao",
+  "pk": 16,
+  "fields": {
+    "nguoi_nhan": 25,
+    "tieu_de": "Công bố GVHD chính thức: Thực tập tốt nghiệp HK2 (2026 - 2027)",
+    "noi_dung": "Bạn đã được phân công Giảng viên hướng dẫn: ThS. Lê Quốc Cường. Hãy chuẩn bị chọn hoặc đề xuất đề tài.",
+    "loai": "PHAN_CONG",
+    "duong_dan_dieu_huong": null,
+    "da_doc": false,
+    "ngay_tao": "2026-11-24T05:36:19.972Z"
+  }
+},
+{
+  "model": "hethong.thong_bao",
+  "pk": 17,
+  "fields": {
+    "nguoi_nhan": 19,
+    "tieu_de": "Công bố GVHD chính thức: Thực tập tốt nghiệp HK2 (2026 - 2027)",
+    "noi_dung": "Bạn đã được phân công Giảng viên hướng dẫn: ThS. Lê Quốc Cường. Hãy chuẩn bị chọn hoặc đề xuất đề tài.",
+    "loai": "PHAN_CONG",
+    "duong_dan_dieu_huong": null,
+    "da_doc": false,
+    "ngay_tao": "2026-11-24T05:36:19.977Z"
+  }
+},
+{
+  "model": "hethong.thong_bao",
+  "pk": 18,
+  "fields": {
+    "nguoi_nhan": 13,
+    "tieu_de": "Công bố GVHD chính thức: Thực tập tốt nghiệp HK2 (2026 - 2027)",
+    "noi_dung": "Bạn đã được phân công Giảng viên hướng dẫn: TS. Phạm Minh Đức. Hãy chuẩn bị chọn hoặc đề xuất đề tài.",
+    "loai": "PHAN_CONG",
+    "duong_dan_dieu_huong": null,
+    "da_doc": false,
+    "ngay_tao": "2026-11-24T05:36:19.983Z"
+  }
+},
+{
+  "model": "hethong.thong_bao",
+  "pk": 19,
+  "fields": {
+    "nguoi_nhan": 11,
+    "tieu_de": "Công bố GVHD chính thức: Thực tập tốt nghiệp HK2 (2026 - 2027)",
+    "noi_dung": "Bạn đã được phân công Giảng viên hướng dẫn: TS. Phạm Minh Đức. Hãy chuẩn bị chọn hoặc đề xuất đề tài.",
+    "loai": "PHAN_CONG",
+    "duong_dan_dieu_huong": null,
+    "da_doc": false,
+    "ngay_tao": "2026-11-24T05:36:19.987Z"
+  }
+},
+{
+  "model": "hethong.thong_bao",
+  "pk": 20,
+  "fields": {
+    "nguoi_nhan": 15,
+    "tieu_de": "Công bố GVHD chính thức: Thực tập tốt nghiệp HK2 (2026 - 2027)",
+    "noi_dung": "Bạn đã được phân công Giảng viên hướng dẫn: TS. Phạm Minh Đức. Hãy chuẩn bị chọn hoặc đề xuất đề tài.",
+    "loai": "PHAN_CONG",
+    "duong_dan_dieu_huong": null,
+    "da_doc": false,
+    "ngay_tao": "2026-11-24T05:36:19.990Z"
+  }
+},
+{
+  "model": "hethong.thong_bao",
+  "pk": 21,
+  "fields": {
+    "nguoi_nhan": 23,
+    "tieu_de": "Công bố GVHD chính thức: Thực tập tốt nghiệp HK2 (2026 - 2027)",
+    "noi_dung": "Bạn đã được phân công Giảng viên hướng dẫn: TS. Phạm Minh Đức. Hãy chuẩn bị chọn hoặc đề xuất đề tài.",
+    "loai": "PHAN_CONG",
+    "duong_dan_dieu_huong": null,
+    "da_doc": false,
+    "ngay_tao": "2026-11-24T05:36:19.993Z"
+  }
+},
+{
+  "model": "hethong.thong_bao",
+  "pk": 22,
+  "fields": {
+    "nguoi_nhan": 18,
+    "tieu_de": "Công bố GVHD chính thức: Thực tập tốt nghiệp HK2 (2026 - 2027)",
+    "noi_dung": "Bạn đã được phân công Giảng viên hướng dẫn: ThS. Hoàng Thị Dung. Hãy chuẩn bị chọn hoặc đề xuất đề tài.",
+    "loai": "PHAN_CONG",
+    "duong_dan_dieu_huong": null,
+    "da_doc": false,
+    "ngay_tao": "2026-11-24T05:36:19.996Z"
+  }
+},
+{
+  "model": "hethong.thong_bao",
+  "pk": 23,
+  "fields": {
+    "nguoi_nhan": 9,
+    "tieu_de": "Công bố GVHD chính thức: Thực tập tốt nghiệp HK2 (2026 - 2027)",
+    "noi_dung": "Bạn đã được phân công Giảng viên hướng dẫn: ThS. Hoàng Thị Dung. Hãy chuẩn bị chọn hoặc đề xuất đề tài.",
+    "loai": "PHAN_CONG",
+    "duong_dan_dieu_huong": null,
+    "da_doc": false,
+    "ngay_tao": "2026-11-24T05:36:19.999Z"
+  }
+},
+{
+  "model": "hethong.thong_bao",
+  "pk": 24,
+  "fields": {
+    "nguoi_nhan": 17,
+    "tieu_de": "Công bố GVHD chính thức: Thực tập tốt nghiệp HK2 (2026 - 2027)",
+    "noi_dung": "Bạn đã được phân công Giảng viên hướng dẫn: ThS. Hoàng Thị Dung. Hãy chuẩn bị chọn hoặc đề xuất đề tài.",
+    "loai": "PHAN_CONG",
+    "duong_dan_dieu_huong": null,
+    "da_doc": false,
+    "ngay_tao": "2026-11-24T05:36:20.002Z"
+  }
+},
+{
+  "model": "hethong.thong_bao",
+  "pk": 25,
+  "fields": {
+    "nguoi_nhan": 6,
+    "tieu_de": "Công bố GVHD chính thức: Thực tập tốt nghiệp HK2 (2026 - 2027)",
+    "noi_dung": "Bạn đã được phân công Giảng viên hướng dẫn: ThS. Hoàng Thị Dung. Hãy chuẩn bị chọn hoặc đề xuất đề tài.",
+    "loai": "PHAN_CONG",
+    "duong_dan_dieu_huong": null,
+    "da_doc": false,
+    "ngay_tao": "2026-11-24T05:36:20.004Z"
   }
 },
 {
@@ -3193,6 +3794,591 @@
     "mo_ta": "Cập nhật cấu hình đợt sang: Đồ án tốt nghiệp chính quy (15 tuần). Thời lượng 15 tuần.",
     "dia_chi_ip": "127.0.0.1",
     "thoi_gian": "2026-11-11T15:31:37.011Z"
+  }
+},
+{
+  "model": "hethong.nhat_ky_he_thong",
+  "pk": 12,
+  "fields": {
+    "nguoi_thuc_hien": 1,
+    "hanh_dong": "CHAY_THUAT_TOAN_SNAKE_DRAFT",
+    "doi_tuong_loai": "ban_phan_cong",
+    "doi_tuong_id": 2,
+    "mo_ta": "Chạy thuật toán Snake-draft chia đều 20 sinh viên cho 5 giảng viên.",
+    "dia_chi_ip": null,
+    "thoi_gian": "2026-11-22T09:52:36.019Z"
+  }
+},
+{
+  "model": "hethong.nhat_ky_he_thong",
+  "pk": 13,
+  "fields": {
+    "nguoi_thuc_hien": 1,
+    "hanh_dong": "CHUYEN_TRANG_THAI_DOT",
+    "doi_tuong_loai": "dot",
+    "doi_tuong_id": 1,
+    "mo_ta": "Chuyển trạng thái đợt DOT26_HK2_CNTT_01 từ [CHUAN_BI] sang [PHAN_CONG]. Test transition",
+    "dia_chi_ip": null,
+    "thoi_gian": "2026-11-24T05:35:18.414Z"
+  }
+},
+{
+  "model": "hethong.nhat_ky_he_thong",
+  "pk": 14,
+  "fields": {
+    "nguoi_thuc_hien": 1,
+    "hanh_dong": "CHAY_THUAT_TOAN_SNAKE_DRAFT",
+    "doi_tuong_loai": "ban_phan_cong",
+    "doi_tuong_id": 2,
+    "mo_ta": "Chạy thuật toán Snake-draft chia đều 20 sinh viên cho 5 giảng viên.",
+    "dia_chi_ip": "127.0.0.1",
+    "thoi_gian": "2026-11-24T05:36:19.719Z"
+  }
+},
+{
+  "model": "hethong.nhat_ky_he_thong",
+  "pk": 15,
+  "fields": {
+    "nguoi_thuc_hien": 1,
+    "hanh_dong": "CHUYEN_TRANG_THAI_HO_SO",
+    "doi_tuong_loai": "ho_so",
+    "doi_tuong_id": 29,
+    "mo_ta": "Chuyển trạng thái hồ sơ SV 22A1009 từ [TRONG_DANH_SACH] sang [CHO_XAC_NHAN]. Trưởng khoa gửi bản phân công hướng dẫn",
+    "dia_chi_ip": "127.0.0.1",
+    "thoi_gian": "2026-11-24T05:36:19.762Z"
+  }
+},
+{
+  "model": "hethong.nhat_ky_he_thong",
+  "pk": 16,
+  "fields": {
+    "nguoi_thuc_hien": 1,
+    "hanh_dong": "CHUYEN_TRANG_THAI_HO_SO",
+    "doi_tuong_loai": "ho_so",
+    "doi_tuong_id": 39,
+    "mo_ta": "Chuyển trạng thái hồ sơ SV 22A1019 từ [TRONG_DANH_SACH] sang [CHO_XAC_NHAN]. Trưởng khoa gửi bản phân công hướng dẫn",
+    "dia_chi_ip": "127.0.0.1",
+    "thoi_gian": "2026-11-24T05:36:19.765Z"
+  }
+},
+{
+  "model": "hethong.nhat_ky_he_thong",
+  "pk": 17,
+  "fields": {
+    "nguoi_thuc_hien": 1,
+    "hanh_dong": "CHUYEN_TRANG_THAI_HO_SO",
+    "doi_tuong_loai": "ho_so",
+    "doi_tuong_id": 35,
+    "mo_ta": "Chuyển trạng thái hồ sơ SV 22A1015 từ [TRONG_DANH_SACH] sang [CHO_XAC_NHAN]. Trưởng khoa gửi bản phân công hướng dẫn",
+    "dia_chi_ip": "127.0.0.1",
+    "thoi_gian": "2026-11-24T05:36:19.767Z"
+  }
+},
+{
+  "model": "hethong.nhat_ky_he_thong",
+  "pk": 18,
+  "fields": {
+    "nguoi_thuc_hien": 1,
+    "hanh_dong": "CHUYEN_TRANG_THAI_HO_SO",
+    "doi_tuong_loai": "ho_so",
+    "doi_tuong_id": 37,
+    "mo_ta": "Chuyển trạng thái hồ sơ SV 22A1017 từ [TRONG_DANH_SACH] sang [CHO_XAC_NHAN]. Trưởng khoa gửi bản phân công hướng dẫn",
+    "dia_chi_ip": "127.0.0.1",
+    "thoi_gian": "2026-11-24T05:36:19.769Z"
+  }
+},
+{
+  "model": "hethong.nhat_ky_he_thong",
+  "pk": 19,
+  "fields": {
+    "nguoi_thuc_hien": 1,
+    "hanh_dong": "CHUYEN_TRANG_THAI_HO_SO",
+    "doi_tuong_loai": "ho_so",
+    "doi_tuong_id": 25,
+    "mo_ta": "Chuyển trạng thái hồ sơ SV 22A1005 từ [TRONG_DANH_SACH] sang [CHO_XAC_NHAN]. Trưởng khoa gửi bản phân công hướng dẫn",
+    "dia_chi_ip": "127.0.0.1",
+    "thoi_gian": "2026-11-24T05:36:19.771Z"
+  }
+},
+{
+  "model": "hethong.nhat_ky_he_thong",
+  "pk": 20,
+  "fields": {
+    "nguoi_thuc_hien": 1,
+    "hanh_dong": "CHUYEN_TRANG_THAI_HO_SO",
+    "doi_tuong_loai": "ho_so",
+    "doi_tuong_id": 36,
+    "mo_ta": "Chuyển trạng thái hồ sơ SV 22A1016 từ [TRONG_DANH_SACH] sang [CHO_XAC_NHAN]. Trưởng khoa gửi bản phân công hướng dẫn",
+    "dia_chi_ip": "127.0.0.1",
+    "thoi_gian": "2026-11-24T05:36:19.772Z"
+  }
+},
+{
+  "model": "hethong.nhat_ky_he_thong",
+  "pk": 21,
+  "fields": {
+    "nguoi_thuc_hien": 1,
+    "hanh_dong": "CHUYEN_TRANG_THAI_HO_SO",
+    "doi_tuong_loai": "ho_so",
+    "doi_tuong_id": 22,
+    "mo_ta": "Chuyển trạng thái hồ sơ SV 22A1002 từ [TRONG_DANH_SACH] sang [CHO_XAC_NHAN]. Trưởng khoa gửi bản phân công hướng dẫn",
+    "dia_chi_ip": "127.0.0.1",
+    "thoi_gian": "2026-11-24T05:36:19.774Z"
+  }
+},
+{
+  "model": "hethong.nhat_ky_he_thong",
+  "pk": 22,
+  "fields": {
+    "nguoi_thuc_hien": 1,
+    "hanh_dong": "CHUYEN_TRANG_THAI_HO_SO",
+    "doi_tuong_loai": "ho_so",
+    "doi_tuong_id": 27,
+    "mo_ta": "Chuyển trạng thái hồ sơ SV 22A1007 từ [TRONG_DANH_SACH] sang [CHO_XAC_NHAN]. Trưởng khoa gửi bản phân công hướng dẫn",
+    "dia_chi_ip": "127.0.0.1",
+    "thoi_gian": "2026-11-24T05:36:19.776Z"
+  }
+},
+{
+  "model": "hethong.nhat_ky_he_thong",
+  "pk": 23,
+  "fields": {
+    "nguoi_thuc_hien": 1,
+    "hanh_dong": "CHUYEN_TRANG_THAI_HO_SO",
+    "doi_tuong_loai": "ho_so",
+    "doi_tuong_id": 31,
+    "mo_ta": "Chuyển trạng thái hồ sơ SV 22A1011 từ [TRONG_DANH_SACH] sang [CHO_XAC_NHAN]. Trưởng khoa gửi bản phân công hướng dẫn",
+    "dia_chi_ip": "127.0.0.1",
+    "thoi_gian": "2026-11-24T05:36:19.778Z"
+  }
+},
+{
+  "model": "hethong.nhat_ky_he_thong",
+  "pk": 24,
+  "fields": {
+    "nguoi_thuc_hien": 1,
+    "hanh_dong": "CHUYEN_TRANG_THAI_HO_SO",
+    "doi_tuong_loai": "ho_so",
+    "doi_tuong_id": 23,
+    "mo_ta": "Chuyển trạng thái hồ sơ SV 22A1003 từ [TRONG_DANH_SACH] sang [CHO_XAC_NHAN]. Trưởng khoa gửi bản phân công hướng dẫn",
+    "dia_chi_ip": "127.0.0.1",
+    "thoi_gian": "2026-11-24T05:36:19.779Z"
+  }
+},
+{
+  "model": "hethong.nhat_ky_he_thong",
+  "pk": 25,
+  "fields": {
+    "nguoi_thuc_hien": 1,
+    "hanh_dong": "CHUYEN_TRANG_THAI_HO_SO",
+    "doi_tuong_loai": "ho_so",
+    "doi_tuong_id": 40,
+    "mo_ta": "Chuyển trạng thái hồ sơ SV 22A1020 từ [TRONG_DANH_SACH] sang [CHO_XAC_NHAN]. Trưởng khoa gửi bản phân công hướng dẫn",
+    "dia_chi_ip": "127.0.0.1",
+    "thoi_gian": "2026-11-24T05:36:19.781Z"
+  }
+},
+{
+  "model": "hethong.nhat_ky_he_thong",
+  "pk": 26,
+  "fields": {
+    "nguoi_thuc_hien": 1,
+    "hanh_dong": "CHUYEN_TRANG_THAI_HO_SO",
+    "doi_tuong_loai": "ho_so",
+    "doi_tuong_id": 34,
+    "mo_ta": "Chuyển trạng thái hồ sơ SV 22A1014 từ [TRONG_DANH_SACH] sang [CHO_XAC_NHAN]. Trưởng khoa gửi bản phân công hướng dẫn",
+    "dia_chi_ip": "127.0.0.1",
+    "thoi_gian": "2026-11-24T05:36:19.782Z"
+  }
+},
+{
+  "model": "hethong.nhat_ky_he_thong",
+  "pk": 27,
+  "fields": {
+    "nguoi_thuc_hien": 1,
+    "hanh_dong": "CHUYEN_TRANG_THAI_HO_SO",
+    "doi_tuong_loai": "ho_so",
+    "doi_tuong_id": 28,
+    "mo_ta": "Chuyển trạng thái hồ sơ SV 22A1008 từ [TRONG_DANH_SACH] sang [CHO_XAC_NHAN]. Trưởng khoa gửi bản phân công hướng dẫn",
+    "dia_chi_ip": "127.0.0.1",
+    "thoi_gian": "2026-11-24T05:36:19.783Z"
+  }
+},
+{
+  "model": "hethong.nhat_ky_he_thong",
+  "pk": 28,
+  "fields": {
+    "nguoi_thuc_hien": 1,
+    "hanh_dong": "CHUYEN_TRANG_THAI_HO_SO",
+    "doi_tuong_loai": "ho_so",
+    "doi_tuong_id": 26,
+    "mo_ta": "Chuyển trạng thái hồ sơ SV 22A1006 từ [TRONG_DANH_SACH] sang [CHO_XAC_NHAN]. Trưởng khoa gửi bản phân công hướng dẫn",
+    "dia_chi_ip": "127.0.0.1",
+    "thoi_gian": "2026-11-24T05:36:19.784Z"
+  }
+},
+{
+  "model": "hethong.nhat_ky_he_thong",
+  "pk": 29,
+  "fields": {
+    "nguoi_thuc_hien": 1,
+    "hanh_dong": "CHUYEN_TRANG_THAI_HO_SO",
+    "doi_tuong_loai": "ho_so",
+    "doi_tuong_id": 30,
+    "mo_ta": "Chuyển trạng thái hồ sơ SV 22A1010 từ [TRONG_DANH_SACH] sang [CHO_XAC_NHAN]. Trưởng khoa gửi bản phân công hướng dẫn",
+    "dia_chi_ip": "127.0.0.1",
+    "thoi_gian": "2026-11-24T05:36:19.786Z"
+  }
+},
+{
+  "model": "hethong.nhat_ky_he_thong",
+  "pk": 30,
+  "fields": {
+    "nguoi_thuc_hien": 1,
+    "hanh_dong": "CHUYEN_TRANG_THAI_HO_SO",
+    "doi_tuong_loai": "ho_so",
+    "doi_tuong_id": 38,
+    "mo_ta": "Chuyển trạng thái hồ sơ SV 22A1018 từ [TRONG_DANH_SACH] sang [CHO_XAC_NHAN]. Trưởng khoa gửi bản phân công hướng dẫn",
+    "dia_chi_ip": "127.0.0.1",
+    "thoi_gian": "2026-11-24T05:36:19.788Z"
+  }
+},
+{
+  "model": "hethong.nhat_ky_he_thong",
+  "pk": 31,
+  "fields": {
+    "nguoi_thuc_hien": 1,
+    "hanh_dong": "CHUYEN_TRANG_THAI_HO_SO",
+    "doi_tuong_loai": "ho_so",
+    "doi_tuong_id": 33,
+    "mo_ta": "Chuyển trạng thái hồ sơ SV 22A1013 từ [TRONG_DANH_SACH] sang [CHO_XAC_NHAN]. Trưởng khoa gửi bản phân công hướng dẫn",
+    "dia_chi_ip": "127.0.0.1",
+    "thoi_gian": "2026-11-24T05:36:19.790Z"
+  }
+},
+{
+  "model": "hethong.nhat_ky_he_thong",
+  "pk": 32,
+  "fields": {
+    "nguoi_thuc_hien": 1,
+    "hanh_dong": "CHUYEN_TRANG_THAI_HO_SO",
+    "doi_tuong_loai": "ho_so",
+    "doi_tuong_id": 24,
+    "mo_ta": "Chuyển trạng thái hồ sơ SV 22A1004 từ [TRONG_DANH_SACH] sang [CHO_XAC_NHAN]. Trưởng khoa gửi bản phân công hướng dẫn",
+    "dia_chi_ip": "127.0.0.1",
+    "thoi_gian": "2026-11-24T05:36:19.791Z"
+  }
+},
+{
+  "model": "hethong.nhat_ky_he_thong",
+  "pk": 33,
+  "fields": {
+    "nguoi_thuc_hien": 1,
+    "hanh_dong": "CHUYEN_TRANG_THAI_HO_SO",
+    "doi_tuong_loai": "ho_so",
+    "doi_tuong_id": 32,
+    "mo_ta": "Chuyển trạng thái hồ sơ SV 22A1012 từ [TRONG_DANH_SACH] sang [CHO_XAC_NHAN]. Trưởng khoa gửi bản phân công hướng dẫn",
+    "dia_chi_ip": "127.0.0.1",
+    "thoi_gian": "2026-11-24T05:36:19.792Z"
+  }
+},
+{
+  "model": "hethong.nhat_ky_he_thong",
+  "pk": 34,
+  "fields": {
+    "nguoi_thuc_hien": 1,
+    "hanh_dong": "CHUYEN_TRANG_THAI_HO_SO",
+    "doi_tuong_loai": "ho_so",
+    "doi_tuong_id": 21,
+    "mo_ta": "Chuyển trạng thái hồ sơ SV 22A1001 từ [TRONG_DANH_SACH] sang [CHO_XAC_NHAN]. Trưởng khoa gửi bản phân công hướng dẫn",
+    "dia_chi_ip": "127.0.0.1",
+    "thoi_gian": "2026-11-24T05:36:19.793Z"
+  }
+},
+{
+  "model": "hethong.nhat_ky_he_thong",
+  "pk": 35,
+  "fields": {
+    "nguoi_thuc_hien": 1,
+    "hanh_dong": "GUI_BAN_PHAN_CONG_CHO_GV",
+    "doi_tuong_loai": "ban_phan_cong",
+    "doi_tuong_id": 2,
+    "mo_ta": "Gửi bản phân công đợt DOT26_HK2_CNTT_01 cho 5 giảng viên xác nhận.",
+    "dia_chi_ip": "127.0.0.1",
+    "thoi_gian": "2026-11-24T05:36:19.796Z"
+  }
+},
+{
+  "model": "hethong.nhat_ky_he_thong",
+  "pk": 36,
+  "fields": {
+    "nguoi_thuc_hien": 1,
+    "hanh_dong": "CHUYEN_TRANG_THAI_HO_SO",
+    "doi_tuong_loai": "ho_so",
+    "doi_tuong_id": 29,
+    "mo_ta": "Chuyển trạng thái hồ sơ SV 22A1009 từ [CHO_XAC_NHAN] sang [CHO_CHOT_DE_TAI]. Công bố chính thức danh sách phân công hướng dẫn",
+    "dia_chi_ip": "127.0.0.1",
+    "thoi_gian": "2026-11-24T05:36:19.937Z"
+  }
+},
+{
+  "model": "hethong.nhat_ky_he_thong",
+  "pk": 37,
+  "fields": {
+    "nguoi_thuc_hien": 1,
+    "hanh_dong": "CHUYEN_TRANG_THAI_HO_SO",
+    "doi_tuong_loai": "ho_so",
+    "doi_tuong_id": 39,
+    "mo_ta": "Chuyển trạng thái hồ sơ SV 22A1019 từ [CHO_XAC_NHAN] sang [CHO_CHOT_DE_TAI]. Công bố chính thức danh sách phân công hướng dẫn",
+    "dia_chi_ip": "127.0.0.1",
+    "thoi_gian": "2026-11-24T05:36:19.942Z"
+  }
+},
+{
+  "model": "hethong.nhat_ky_he_thong",
+  "pk": 38,
+  "fields": {
+    "nguoi_thuc_hien": 1,
+    "hanh_dong": "CHUYEN_TRANG_THAI_HO_SO",
+    "doi_tuong_loai": "ho_so",
+    "doi_tuong_id": 35,
+    "mo_ta": "Chuyển trạng thái hồ sơ SV 22A1015 từ [CHO_XAC_NHAN] sang [CHO_CHOT_DE_TAI]. Công bố chính thức danh sách phân công hướng dẫn",
+    "dia_chi_ip": "127.0.0.1",
+    "thoi_gian": "2026-11-24T05:36:19.946Z"
+  }
+},
+{
+  "model": "hethong.nhat_ky_he_thong",
+  "pk": 39,
+  "fields": {
+    "nguoi_thuc_hien": 1,
+    "hanh_dong": "CHUYEN_TRANG_THAI_HO_SO",
+    "doi_tuong_loai": "ho_so",
+    "doi_tuong_id": 37,
+    "mo_ta": "Chuyển trạng thái hồ sơ SV 22A1017 từ [CHO_XAC_NHAN] sang [CHO_CHOT_DE_TAI]. Công bố chính thức danh sách phân công hướng dẫn",
+    "dia_chi_ip": "127.0.0.1",
+    "thoi_gian": "2026-11-24T05:36:19.951Z"
+  }
+},
+{
+  "model": "hethong.nhat_ky_he_thong",
+  "pk": 40,
+  "fields": {
+    "nguoi_thuc_hien": 1,
+    "hanh_dong": "CHUYEN_TRANG_THAI_HO_SO",
+    "doi_tuong_loai": "ho_so",
+    "doi_tuong_id": 25,
+    "mo_ta": "Chuyển trạng thái hồ sơ SV 22A1005 từ [CHO_XAC_NHAN] sang [CHO_CHOT_DE_TAI]. Công bố chính thức danh sách phân công hướng dẫn",
+    "dia_chi_ip": "127.0.0.1",
+    "thoi_gian": "2026-11-24T05:36:19.954Z"
+  }
+},
+{
+  "model": "hethong.nhat_ky_he_thong",
+  "pk": 41,
+  "fields": {
+    "nguoi_thuc_hien": 1,
+    "hanh_dong": "CHUYEN_TRANG_THAI_HO_SO",
+    "doi_tuong_loai": "ho_so",
+    "doi_tuong_id": 36,
+    "mo_ta": "Chuyển trạng thái hồ sơ SV 22A1016 từ [CHO_XAC_NHAN] sang [CHO_CHOT_DE_TAI]. Công bố chính thức danh sách phân công hướng dẫn",
+    "dia_chi_ip": "127.0.0.1",
+    "thoi_gian": "2026-11-24T05:36:19.958Z"
+  }
+},
+{
+  "model": "hethong.nhat_ky_he_thong",
+  "pk": 42,
+  "fields": {
+    "nguoi_thuc_hien": 1,
+    "hanh_dong": "CHUYEN_TRANG_THAI_HO_SO",
+    "doi_tuong_loai": "ho_so",
+    "doi_tuong_id": 22,
+    "mo_ta": "Chuyển trạng thái hồ sơ SV 22A1002 từ [CHO_XAC_NHAN] sang [CHO_CHOT_DE_TAI]. Công bố chính thức danh sách phân công hướng dẫn",
+    "dia_chi_ip": "127.0.0.1",
+    "thoi_gian": "2026-11-24T05:36:19.961Z"
+  }
+},
+{
+  "model": "hethong.nhat_ky_he_thong",
+  "pk": 43,
+  "fields": {
+    "nguoi_thuc_hien": 1,
+    "hanh_dong": "CHUYEN_TRANG_THAI_HO_SO",
+    "doi_tuong_loai": "ho_so",
+    "doi_tuong_id": 27,
+    "mo_ta": "Chuyển trạng thái hồ sơ SV 22A1007 từ [CHO_XAC_NHAN] sang [CHO_CHOT_DE_TAI]. Công bố chính thức danh sách phân công hướng dẫn",
+    "dia_chi_ip": "127.0.0.1",
+    "thoi_gian": "2026-11-24T05:36:19.964Z"
+  }
+},
+{
+  "model": "hethong.nhat_ky_he_thong",
+  "pk": 44,
+  "fields": {
+    "nguoi_thuc_hien": 1,
+    "hanh_dong": "CHUYEN_TRANG_THAI_HO_SO",
+    "doi_tuong_loai": "ho_so",
+    "doi_tuong_id": 31,
+    "mo_ta": "Chuyển trạng thái hồ sơ SV 22A1011 từ [CHO_XAC_NHAN] sang [CHO_CHOT_DE_TAI]. Công bố chính thức danh sách phân công hướng dẫn",
+    "dia_chi_ip": "127.0.0.1",
+    "thoi_gian": "2026-11-24T05:36:19.966Z"
+  }
+},
+{
+  "model": "hethong.nhat_ky_he_thong",
+  "pk": 45,
+  "fields": {
+    "nguoi_thuc_hien": 1,
+    "hanh_dong": "CHUYEN_TRANG_THAI_HO_SO",
+    "doi_tuong_loai": "ho_so",
+    "doi_tuong_id": 23,
+    "mo_ta": "Chuyển trạng thái hồ sơ SV 22A1003 từ [CHO_XAC_NHAN] sang [CHO_CHOT_DE_TAI]. Công bố chính thức danh sách phân công hướng dẫn",
+    "dia_chi_ip": "127.0.0.1",
+    "thoi_gian": "2026-11-24T05:36:19.969Z"
+  }
+},
+{
+  "model": "hethong.nhat_ky_he_thong",
+  "pk": 46,
+  "fields": {
+    "nguoi_thuc_hien": 1,
+    "hanh_dong": "CHUYEN_TRANG_THAI_HO_SO",
+    "doi_tuong_loai": "ho_so",
+    "doi_tuong_id": 40,
+    "mo_ta": "Chuyển trạng thái hồ sơ SV 22A1020 từ [CHO_XAC_NHAN] sang [CHO_CHOT_DE_TAI]. Công bố chính thức danh sách phân công hướng dẫn",
+    "dia_chi_ip": "127.0.0.1",
+    "thoi_gian": "2026-11-24T05:36:19.971Z"
+  }
+},
+{
+  "model": "hethong.nhat_ky_he_thong",
+  "pk": 47,
+  "fields": {
+    "nguoi_thuc_hien": 1,
+    "hanh_dong": "CHUYEN_TRANG_THAI_HO_SO",
+    "doi_tuong_loai": "ho_so",
+    "doi_tuong_id": 34,
+    "mo_ta": "Chuyển trạng thái hồ sơ SV 22A1014 từ [CHO_XAC_NHAN] sang [CHO_CHOT_DE_TAI]. Công bố chính thức danh sách phân công hướng dẫn",
+    "dia_chi_ip": "127.0.0.1",
+    "thoi_gian": "2026-11-24T05:36:19.974Z"
+  }
+},
+{
+  "model": "hethong.nhat_ky_he_thong",
+  "pk": 48,
+  "fields": {
+    "nguoi_thuc_hien": 1,
+    "hanh_dong": "CHUYEN_TRANG_THAI_HO_SO",
+    "doi_tuong_loai": "ho_so",
+    "doi_tuong_id": 28,
+    "mo_ta": "Chuyển trạng thái hồ sơ SV 22A1008 từ [CHO_XAC_NHAN] sang [CHO_CHOT_DE_TAI]. Công bố chính thức danh sách phân công hướng dẫn",
+    "dia_chi_ip": "127.0.0.1",
+    "thoi_gian": "2026-11-24T05:36:19.981Z"
+  }
+},
+{
+  "model": "hethong.nhat_ky_he_thong",
+  "pk": 49,
+  "fields": {
+    "nguoi_thuc_hien": 1,
+    "hanh_dong": "CHUYEN_TRANG_THAI_HO_SO",
+    "doi_tuong_loai": "ho_so",
+    "doi_tuong_id": 26,
+    "mo_ta": "Chuyển trạng thái hồ sơ SV 22A1006 từ [CHO_XAC_NHAN] sang [CHO_CHOT_DE_TAI]. Công bố chính thức danh sách phân công hướng dẫn",
+    "dia_chi_ip": "127.0.0.1",
+    "thoi_gian": "2026-11-24T05:36:19.985Z"
+  }
+},
+{
+  "model": "hethong.nhat_ky_he_thong",
+  "pk": 50,
+  "fields": {
+    "nguoi_thuc_hien": 1,
+    "hanh_dong": "CHUYEN_TRANG_THAI_HO_SO",
+    "doi_tuong_loai": "ho_so",
+    "doi_tuong_id": 30,
+    "mo_ta": "Chuyển trạng thái hồ sơ SV 22A1010 từ [CHO_XAC_NHAN] sang [CHO_CHOT_DE_TAI]. Công bố chính thức danh sách phân công hướng dẫn",
+    "dia_chi_ip": "127.0.0.1",
+    "thoi_gian": "2026-11-24T05:36:19.989Z"
+  }
+},
+{
+  "model": "hethong.nhat_ky_he_thong",
+  "pk": 51,
+  "fields": {
+    "nguoi_thuc_hien": 1,
+    "hanh_dong": "CHUYEN_TRANG_THAI_HO_SO",
+    "doi_tuong_loai": "ho_so",
+    "doi_tuong_id": 38,
+    "mo_ta": "Chuyển trạng thái hồ sơ SV 22A1018 từ [CHO_XAC_NHAN] sang [CHO_CHOT_DE_TAI]. Công bố chính thức danh sách phân công hướng dẫn",
+    "dia_chi_ip": "127.0.0.1",
+    "thoi_gian": "2026-11-24T05:36:19.992Z"
+  }
+},
+{
+  "model": "hethong.nhat_ky_he_thong",
+  "pk": 52,
+  "fields": {
+    "nguoi_thuc_hien": 1,
+    "hanh_dong": "CHUYEN_TRANG_THAI_HO_SO",
+    "doi_tuong_loai": "ho_so",
+    "doi_tuong_id": 33,
+    "mo_ta": "Chuyển trạng thái hồ sơ SV 22A1013 từ [CHO_XAC_NHAN] sang [CHO_CHOT_DE_TAI]. Công bố chính thức danh sách phân công hướng dẫn",
+    "dia_chi_ip": "127.0.0.1",
+    "thoi_gian": "2026-11-24T05:36:19.996Z"
+  }
+},
+{
+  "model": "hethong.nhat_ky_he_thong",
+  "pk": 53,
+  "fields": {
+    "nguoi_thuc_hien": 1,
+    "hanh_dong": "CHUYEN_TRANG_THAI_HO_SO",
+    "doi_tuong_loai": "ho_so",
+    "doi_tuong_id": 24,
+    "mo_ta": "Chuyển trạng thái hồ sơ SV 22A1004 từ [CHO_XAC_NHAN] sang [CHO_CHOT_DE_TAI]. Công bố chính thức danh sách phân công hướng dẫn",
+    "dia_chi_ip": "127.0.0.1",
+    "thoi_gian": "2026-11-24T05:36:19.998Z"
+  }
+},
+{
+  "model": "hethong.nhat_ky_he_thong",
+  "pk": 54,
+  "fields": {
+    "nguoi_thuc_hien": 1,
+    "hanh_dong": "CHUYEN_TRANG_THAI_HO_SO",
+    "doi_tuong_loai": "ho_so",
+    "doi_tuong_id": 32,
+    "mo_ta": "Chuyển trạng thái hồ sơ SV 22A1012 từ [CHO_XAC_NHAN] sang [CHO_CHOT_DE_TAI]. Công bố chính thức danh sách phân công hướng dẫn",
+    "dia_chi_ip": "127.0.0.1",
+    "thoi_gian": "2026-11-24T05:36:20.001Z"
+  }
+},
+{
+  "model": "hethong.nhat_ky_he_thong",
+  "pk": 55,
+  "fields": {
+    "nguoi_thuc_hien": 1,
+    "hanh_dong": "CHUYEN_TRANG_THAI_HO_SO",
+    "doi_tuong_loai": "ho_so",
+    "doi_tuong_id": 21,
+    "mo_ta": "Chuyển trạng thái hồ sơ SV 22A1001 từ [CHO_XAC_NHAN] sang [CHO_CHOT_DE_TAI]. Công bố chính thức danh sách phân công hướng dẫn",
+    "dia_chi_ip": "127.0.0.1",
+    "thoi_gian": "2026-11-24T05:36:20.003Z"
+  }
+},
+{
+  "model": "hethong.nhat_ky_he_thong",
+  "pk": 56,
+  "fields": {
+    "nguoi_thuc_hien": 1,
+    "hanh_dong": "CHUYEN_TRANG_THAI_DOT",
+    "doi_tuong_loai": "dot",
+    "doi_tuong_id": 1,
+    "mo_ta": "Chuyển trạng thái đợt DOT26_HK2_CNTT_01 từ [PHAN_CONG] sang [CHOT_DE_TAI]. Công bố phân công chính thức, tự động mở giai đoạn Chọn & Chốt đề tài",
+    "dia_chi_ip": "127.0.0.1",
+    "thoi_gian": "2026-11-24T05:36:20.005Z"
   }
 },
 {

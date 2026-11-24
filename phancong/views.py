@@ -27,13 +27,18 @@ from phancong.services.allocation_service import (
     cong_bo_danh_sach_chinh_thuc,
 )
 from phancong.services.excel_export import xuat_excel_du_thao_phan_cong
+from accounts.selectors import get_nguoi_dung_by_identifier
 from core.state import chuyen_trang_thai_dot, StateTransitionError
 
 
 def _lay_nguoi_thuc_hien(request, dot_obj):
-    """Lấy user thực hiện từ request hoặc fallback người tạo đợt nếu chưa login"""
+    """Lấy bản ghi nguoi_dung từ request hoặc fallback người tạo đợt nếu chưa login"""
     if request.user.is_authenticated:
-        return request.user
+        nd = get_nguoi_dung_by_identifier(request.user.username)
+        if not nd and request.user.email:
+            nd = get_nguoi_dung_by_identifier(request.user.email)
+        if nd:
+            return nd
     return dot_obj.nguoi_tao
 
 
