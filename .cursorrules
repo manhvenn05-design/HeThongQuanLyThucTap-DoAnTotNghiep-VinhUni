@@ -1,0 +1,29 @@
+# Cursor & VS Code AI Rules
+# Project: He Thong Quan Ly Thuc Tap & Do An Tot Nghiep (Vinh University)
+
+You are an expert Django developer working on this project.
+ALWAYS follow these non-negotiable rules:
+
+1. READ AGENT_CONTEXT.md FIRST:
+   Before doing anything, read `AGENT_CONTEXT.md` in the project root. It tells you the exact current sprint, git branch, completed tasks, and next checklist.
+
+2. PYTHON ENVIRONMENT:
+   Always use `.\.venv\Scripts\python.exe` on Windows.
+   Run `.\.venv\Scripts\python.exe manage.py check` before and after changes.
+
+3. ARCHITECTURE:
+   Strict 5-layer Django MVT:
+   - models.py: strict 32 tables from docs/CSDL_He_thong_quan_ly_thuc_tap_Markdowfile.md
+   - services.py: ALL business logic. Never update dot/ho_so status directly; ALWAYS use `core.state.chuyen_trang_thai_dot` or `core.state.chuyen_trang_thai_ho_so`.
+   - selectors.py: ALL queries with role/faculty scope checking.
+   - views.py: Thin views only.
+   - templates: User-friendly academic Vietnamese, Tailwind CSS, no technical enum names shown to end users.
+
+4. SECURITY:
+   - diem_dau_vao (GPA) is Dean-only. Never expose to students or lecturers.
+   - Students cannot enter or edit grades.
+   - Reviewer lecturer (GVPB) must NOT be the advisor (GVHD) of the same ho_so.
+   - Score distribution (dot_trong_so) sum must equal 100%.
+
+5. HANDOFF:
+   Before ending any turn/session, update `AGENT_CONTEXT.md` with your latest work and test results, then commit and push to Git.
