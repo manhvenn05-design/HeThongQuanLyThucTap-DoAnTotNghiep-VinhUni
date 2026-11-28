@@ -8,7 +8,8 @@ from django.http import Http404
 from django.contrib import messages
 from django.utils import timezone
 from dots.selectors import get_dot_by_id
-from dots.services import cap_nhat_cau_hinh_dot_preset
+from dots.services import cap_nhat_cau_hinh_dot_preset, cap_nhat_trong_so_dot, TrongSoValidationError
+from core.constants import ThanhPhanDiem
 from accounts.models import nguoi_dung
 
 
@@ -83,3 +84,46 @@ def update_batch_preset_view(request, dot_id):
     )
 
     return redirect(f"/sprint1/?section=milestones")
+
+
+def update_dot_weights_view(request, dot_id):
+    """
+    Trưởng khoa lưu cấu hình tùy biến phân phối trọng số điểm cho đợt (UC03).
+    Hỗ trợ validate tổng 100%, không âm và ghi nhật ký hệ thống.
+    """
+    if request.method != 'POST':
+        return redirect(f"/sprint1/?section=milestones")
+
+    dot_obj = get_dot_by_id(dot_id)
+    if not dot_obj:
+        raise Http404("Không tìm thấy đợt.")
+
+    current_user = nguoi_dung.objects.filter(ma_dinh_danh_cong='CB_TK01').first()
+
+    raw_weights = {}
+    for tp in [ThanhPhanDiem.HUONG_DAN, ThanhPhanDiem.NOI_THUC_TAP, ThanhPhanDiem.PHAN_BIEN, ThanhPhanDiem.HOI_DONG]:
+        val_str = request.POST.get(f'weight_{tp}', '0').strip()
+        try:
+            val = float(val_str) if val_str else 0.0
+        except ValueError:
+            val = 0.0
+        raw_weights[tp] = val
+
+    try:
+        cap_nhat_trong_so_dot(
+            dot_obj=dot_obj,
+            trong_so_dict=raw_weights,
+            nguoi_thuc_hien=current_user,
+            ip_address=request.META.get('REMOTE_ADDR')
+        )
+        messages.success(
+            request,
+            f"Đã lưu thành công cấu hình phân phối điểm cho đợt {dot_obj.ten_dot}! Tỷ lệ đã được cập nhật chính thức vào CSDL."
+        )
+    except TrongSoValidationError as e:
+        messages.error(request, f"Không thể lưu phân bổ điểm: {str(e)}")
+    except Exception as e:
+        messages.error(request, f"Lỗi hệ thống khi cập nhật trọng số điểm: {str(e)}")
+
+    return redirect(f"/sprint1/?section=milestones")
+

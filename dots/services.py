@@ -33,9 +33,9 @@ PRESETS_CONFIG = {
             ("MOC_CHAM_PB_HD", "Chấm phản biện & Bảo vệ trước Hội đồng", LoaiMocThoiGian.CHAM_DIEM, 15),
         ],
         "trong_so": [
-            (ThanhPhanDiem.HUONG_DAN, 30),
+            (ThanhPhanDiem.HUONG_DAN, 40),
             (ThanhPhanDiem.PHAN_BIEN, 20),
-            (ThanhPhanDiem.HOI_DONG, 50),
+            (ThanhPhanDiem.HOI_DONG, 40),
         ]
     },
     "THUC_TAP_10_TUAN": {
@@ -51,8 +51,8 @@ PRESETS_CONFIG = {
         ],
         "trong_so": [
             (ThanhPhanDiem.HUONG_DAN, 40),
-            (ThanhPhanDiem.NOI_THUC_TAP, 40),
-            (ThanhPhanDiem.PHAN_BIEN, 20),
+            (ThanhPhanDiem.NOI_THUC_TAP, 30),
+            (ThanhPhanDiem.PHAN_BIEN, 30),
         ]
     },
     "HE_RUT_GON_8_TUAN": {
@@ -202,3 +202,131 @@ def tao_dot_chuyen_nghiep(
     )
 
     return dot_obj
+
+
+# ==============================================================================
+# NGHIỆP VỤ CẤU HÌNH PHÂN PHỐI TRỌNG SỐ ĐIỂM (UC03, UC26)
+# ==============================================================================
+
+class TrongSoValidationError(Exception):
+    """Lỗi vi phạm ràng buộc phân phối trọng số điểm."""
+    pass
+
+
+def lay_trong_so_mac_dinh(loai_dot: str) -> List[Tuple[str, float]]:
+    """
+    Trả về danh sách trọng số mặc định theo loại đợt:
+    - Đồ án (DO_AN): HUONG_DAN 40%, PHAN_BIEN 20%, HOI_DONG 40% (Tổng = 100%)
+    - Thực tập (THUC_TAP): HUONG_DAN 40%, NOI_THUC_TAP 30%, PHAN_BIEN 30% (Tổng = 100%)
+    """
+    if loai_dot == DotLoai.DO_AN:
+        return [
+            (ThanhPhanDiem.HUONG_DAN, 40.0),
+            (ThanhPhanDiem.PHAN_BIEN, 20.0),
+            (ThanhPhanDiem.HOI_DONG, 40.0),
+        ]
+    return [
+        (ThanhPhanDiem.HUONG_DAN, 40.0),
+        (ThanhPhanDiem.NOI_THUC_TAP, 30.0),
+        (ThanhPhanDiem.PHAN_BIEN, 30.0),
+    ]
+
+
+@transaction.atomic
+def khoi_tao_trong_so_mac_dinh(dot_obj: dot) -> List[dot_trong_so]:
+    """
+    Khởi tạo trọng số mặc định cho đợt nếu chưa từng có cấu hình trọng số.
+    """
+    if dot_trong_so.objects.filter(dot=dot_obj).exists():
+        return list(dot_trong_so.objects.filter(dot=dot_obj))
+
+    ds_mac_dinh = lay_trong_so_mac_dinh(dot_obj.loai)
+    created_list = []
+    for thanh_phan, val in ds_mac_dinh:
+        obj = dot_trong_so.objects.create(
+            dot=dot_obj,
+            thanh_phan=thanh_phan,
+            trong_so=val
+        )
+        created_list.append(obj)
+    return created_list
+
+
+@transaction.atomic
+def cap_nhat_trong_so_dot(
+    dot_obj: dot,
+    trong_so_dict: Dict[str, float],
+    nguoi_thuc_hien,
+    ip_address: Optional[str] = None
+) -> List[dot_trong_so]:
+    """
+    Trưởng khoa tùy chỉnh phân phối trọng số điểm của đợt (UC03).
+    Ràng buộc:
+    1. Đợt chưa hoàn tất (chưa ở HOAN_TAT).
+    2. Các trọng số phải >= 0.
+    3. Tổng tất cả các thành phần điểm bắt buộc phải bằng đúng 100.0%.
+    4. Ghi nhật ký hệ thống (nhat_ky_he_thong) theo quy chuẩn GEMINI.md.
+    """
+    if dot_obj.trang_thai == DotTrangThai.HOAN_TAT:
+        raise TrongSoValidationError("Không thể chỉnh sửa cấu hình trọng số của đợt đã hoàn tất và lưu trữ!")
+
+    # Validate các giá trị âm hoặc rỗng
+    cleaned_weights = {}
+    valid_components = [
+        ThanhPhanDiem.HUONG_DAN,
+        ThanhPhanDiem.NOI_THUC_TAP,
+        ThanhPhanDiem.PHAN_BIEN,
+        ThanhPhanDiem.HOI_DONG,
+    ]
+
+    for tp in valid_components:
+        val = trong_so_dict.get(tp, 0.0)
+        try:
+            val_float = round(float(val), 2)
+        except (ValueError, TypeError):
+            val_float = 0.0
+
+        if val_float < 0:
+            raise TrongSoValidationError(f"Trọng số của thành phần [{tp}] không được là số âm ({val_float}%)!")
+        if val_float > 100:
+            raise TrongSoValidationError(f"Trọng số của thành phần [{tp}] không được vượt quá 100% ({val_float}%)!")
+
+        cleaned_weights[tp] = val_float
+
+    # Kiểm tra tổng trọng số
+    tong_trong_so = round(sum(cleaned_weights.values()), 2)
+    if abs(tong_trong_so - 100.0) > 0.01:
+        raise TrongSoValidationError(
+            f"Tổng phân bổ trọng số phải bằng đúng 100%! Hiện tại tổng là: {tong_trong_so}%."
+        )
+
+    # Xóa các trọng số cũ của đợt
+    dot_obj.cac_trong_so.all().delete()
+
+    # Tạo lại các thành phần có trọng số > 0
+    updated_objs = []
+    labels_summary = []
+    for tp, val in cleaned_weights.items():
+        if val > 0:
+            obj = dot_trong_so.objects.create(
+                dot=dot_obj,
+                thanh_phan=tp,
+                trong_so=val
+            )
+            updated_objs.append(obj)
+            labels_summary.append(f"{obj.get_thanh_phan_display()}: {val}%")
+
+    # Ghi nhật ký hệ thống (UC30, không ghi điểm số, chỉ ghi cấu hình trọng số)
+    if nguoi_thuc_hien:
+        nhat_ky_he_thong.objects.create(
+            nguoi_thuc_hien=nguoi_thuc_hien,
+            hanh_dong="CAP_NHAT_TRONG_SO_DIEM",
+            doi_tuong_loai="dot",
+            doi_tuong_id=dot_obj.id,
+            mo_ta=f"Trưởng khoa cập nhật phân bổ điểm cho đợt {dot_obj.ma_dot}: " + " | ".join(labels_summary),
+            dia_chi_ip=ip_address,
+            thoi_gian=timezone.now(),
+        )
+
+    return updated_objs
+

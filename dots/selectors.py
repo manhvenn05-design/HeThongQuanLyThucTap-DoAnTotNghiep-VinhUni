@@ -36,5 +36,10 @@ def get_dot_milestones(dot_obj: dot) -> QuerySet:
 
 
 def get_dot_weights(dot_obj: dot) -> QuerySet:
-    """Lấy cấu hình trọng số điểm của đợt."""
-    return dot_trong_so.objects.filter(dot=dot_obj).order_by('thanh_phan')
+    """Lấy cấu hình trọng số điểm của đợt; tự động khởi tạo mặc định nếu chưa có."""
+    qs = dot_trong_so.objects.filter(dot=dot_obj).order_by('thanh_phan')
+    if not qs.exists():
+        from dots.services import khoi_tao_trong_so_mac_dinh
+        khoi_tao_trong_so_mac_dinh(dot_obj)
+        qs = dot_trong_so.objects.filter(dot=dot_obj).order_by('thanh_phan')
+    return qs

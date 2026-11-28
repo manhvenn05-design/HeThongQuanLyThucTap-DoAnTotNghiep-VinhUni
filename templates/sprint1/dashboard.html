@@ -522,6 +522,39 @@
                 {% endfor %}
             </div>
         </div>
+
+        <!-- Khối cấu hình phân phối trọng số điểm thành phần (UC03) -->
+        <div class="bg-white rounded-xl border border-slate-200 shadow-xs p-6 space-y-4">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-100 pb-3">
+                <div>
+                    <h2 class="text-base font-bold font-sans text-slate-900 flex items-center gap-2">
+                        <span class="material-symbols-outlined text-blue-700">balance</span>
+                        <span>Phân phối trọng số điểm thành phần ({{ current_dot.ten_dot }})</span>
+                    </h2>
+                    <p class="text-xs text-slate-500 mt-0.5">Tỷ lệ % tính điểm tổng kết tốt nghiệp theo quy chế đào tạo (Bắt buộc tổng = 100%)</p>
+                </div>
+                <button type="button" onclick="openUpdateWeightsModal()" class="inline-flex items-center gap-1.5 px-3.5 py-2 bg-blue-800 hover:bg-blue-900 text-white rounded-lg text-xs font-bold transition shadow-xs cursor-pointer shrink-0">
+                    <span class="material-symbols-outlined text-base">tune</span>
+                    <span>Tùy chỉnh phân bổ điểm</span>
+                </button>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3.5 pt-1">
+                {% for ts in trong_so %}
+                <div class="p-4 rounded-xl border border-slate-200 bg-slate-50/60 text-center space-y-1">
+                    <p class="text-[11px] font-semibold uppercase tracking-wider text-slate-500 font-sans">{{ ts.get_thanh_phan_display }}</p>
+                    <p class="text-2xl font-bold text-slate-900 font-sans">{{ ts.trong_so }}%</p>
+                    <div class="w-full bg-slate-200 rounded-full h-1.5 mt-2">
+                        <div class="bg-blue-800 h-1.5 rounded-full" style="width: {{ ts.trong_so }}%"></div>
+                    </div>
+                </div>
+                {% empty %}
+                <div class="col-span-4 p-5 rounded-xl border border-slate-200 bg-slate-50 text-center">
+                    <p class="text-sm font-bold text-slate-800">Chưa có cấu hình trọng số cho đợt này. Vui lòng bấm "Tùy chỉnh phân bổ điểm" để thiết lập.</p>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
     </div>
 
    {% endif %}
@@ -787,5 +820,182 @@
             `;
         }
     }
+
+    function openUpdateWeightsModal() {
+        let hd = 0, ntt = 0, pb = 0, hoidong = 0;
+        {% for ts in trong_so %}
+            {% if ts.thanh_phan == 'HUONG_DAN' %}hd = {{ ts.trong_so }};{% endif %}
+            {% if ts.thanh_phan == 'NOI_THUC_TAP' %}ntt = {{ ts.trong_so }};{% endif %}
+            {% if ts.thanh_phan == 'PHAN_BIEN' %}pb = {{ ts.trong_so }};{% endif %}
+            {% if ts.thanh_phan == 'HOI_DONG' %}hoidong = {{ ts.trong_so }};{% endif %}
+        {% endfor %}
+        if (hd === 0 && ntt === 0 && pb === 0 && hoidong === 0) {
+            {% if current_dot.loai == 'DO_AN' %}
+            hd = 40; pb = 20; hoidong = 40; ntt = 0;
+            {% else %}
+            hd = 40; ntt = 30; pb = 30; hoidong = 0;
+            {% endif %}
+        }
+        document.getElementById('inp_HUONG_DAN').value = hd;
+        document.getElementById('inp_NOI_THUC_TAP').value = ntt;
+        document.getElementById('inp_PHAN_BIEN').value = pb;
+        document.getElementById('inp_HOI_DONG').value = hoidong;
+        calculateTotalWeight();
+        document.getElementById('updateWeightsModal').classList.remove('hidden');
+    }
+
+    function closeUpdateWeightsModal() {
+        document.getElementById('updateWeightsModal').classList.add('hidden');
+    }
+
+    function applyWeightPreset(hd, ntt, pb, hoidong) {
+        document.getElementById('inp_HUONG_DAN').value = hd;
+        document.getElementById('inp_NOI_THUC_TAP').value = ntt;
+        document.getElementById('inp_PHAN_BIEN').value = pb;
+        document.getElementById('inp_HOI_DONG').value = hoidong;
+        calculateTotalWeight();
+    }
+
+    function calculateTotalWeight() {
+        const hd = parseFloat(document.getElementById('inp_HUONG_DAN').value) || 0;
+        const ntt = parseFloat(document.getElementById('inp_NOI_THUC_TAP').value) || 0;
+        const pb = parseFloat(document.getElementById('inp_PHAN_BIEN').value) || 0;
+        const hoidong = parseFloat(document.getElementById('inp_HOI_DONG').value) || 0;
+        const total = Math.round((hd + ntt + pb + hoidong) * 100) / 100;
+
+        const box = document.getElementById('weightSummaryBox');
+        const icon = document.getElementById('weightSummaryIcon');
+        const text = document.getElementById('weightSummaryText');
+        const totalVal = document.getElementById('weightTotalValue');
+        const btn = document.getElementById('btnSubmitWeights');
+
+        if (totalVal) totalVal.innerText = total + '%';
+
+        if (Math.abs(total - 100) < 0.01) {
+            if (box) box.className = "p-3.5 rounded-xl border flex items-center justify-between bg-emerald-50 border-emerald-200 text-emerald-800 transition";
+            if (icon) {
+                icon.className = "material-symbols-outlined text-xl text-emerald-600";
+                icon.innerText = "check_circle";
+            }
+            if (text) text.innerText = "Tổng trọng số: Hợp lệ (100%)";
+            if (totalVal) totalVal.className = "text-base font-mono font-bold text-emerald-700";
+            if (btn) {
+                btn.disabled = false;
+                btn.className = "px-5 py-2 rounded-lg bg-blue-800 hover:bg-blue-900 text-white font-bold shadow-xs cursor-pointer transition";
+            }
+        } else {
+            if (box) box.className = "p-3.5 rounded-xl border flex items-center justify-between bg-rose-50 border-rose-200 text-rose-800 transition";
+            if (icon) {
+                icon.className = "material-symbols-outlined text-xl text-rose-600";
+                icon.innerText = "error";
+            }
+            if (text) text.innerText = "Chưa hợp lệ: Tổng trọng số phải bằng đúng 100%!";
+            if (totalVal) totalVal.className = "text-base font-mono font-bold text-rose-700";
+            if (btn) {
+                btn.disabled = true;
+                btn.className = "px-5 py-2 rounded-lg bg-slate-300 text-slate-500 font-bold shadow-xs cursor-not-allowed transition";
+            }
+        }
+    }
 </script>
+
+<!-- ================= MODAL CẤU HÌNH PHÂN PHỐI TRỌNG SỐ ĐIỂM (UC03) ================= -->
+<div id="updateWeightsModal" class="hidden fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-xs flex items-center justify-center p-4">
+    <div class="bg-white rounded-2xl max-w-xl w-full p-6 shadow-2xl border border-slate-200 space-y-4">
+        <div class="flex items-center justify-between pb-3 border-b border-slate-200">
+            <div>
+                <h3 class="text-base font-bold font-sans text-slate-900 flex items-center gap-2">
+                    <span class="material-symbols-outlined text-blue-700">balance</span>
+                    <span>Cấu hình phân phối điểm thành phần</span>
+                </h3>
+                <p class="text-xs text-slate-500 mt-0.5">Đợt: <strong>{{ current_dot.ten_dot }}</strong> ({{ current_dot.get_loai_display }})</p>
+            </div>
+            <button type="button" onclick="closeUpdateWeightsModal()" class="text-slate-400 hover:text-slate-600 cursor-pointer">
+                <span class="material-symbols-outlined text-xl">close</span>
+            </button>
+        </div>
+
+        <!-- Mẫu gợi ý nhanh -->
+        <div class="flex items-center gap-2 text-xs">
+            <span class="text-slate-500 font-medium">Mẫu gợi ý:</span>
+            <button type="button" onclick="applyWeightPreset(40, 0, 20, 40)" class="px-2.5 py-1 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded font-semibold transition cursor-pointer">
+                Chuẩn Đồ án (40 - 20 - 40)
+            </button>
+            <button type="button" onclick="applyWeightPreset(40, 30, 30, 0)" class="px-2.5 py-1 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded font-semibold transition cursor-pointer">
+                Chuẩn Thực tập (40 - 30 - 30)
+            </button>
+        </div>
+
+        <form action="{% url 'update_dot_weights' dot_id=current_dot.id %}" method="POST" class="space-y-4 text-xs font-sans">
+            {% csrf_token %}
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
+                <div class="p-3 bg-slate-50 border border-slate-200 rounded-xl space-y-1">
+                    <label class="block font-bold text-slate-700 uppercase tracking-wide">
+                        1. Điểm đánh giá GVHD (%):
+                    </label>
+                    <div class="relative">
+                        <input type="number" id="inp_HUONG_DAN" name="weight_HUONG_DAN" min="0" max="100" step="1" required
+                               oninput="calculateTotalWeight()" class="w-full p-2.5 pr-8 bg-white border border-slate-300 rounded-lg text-slate-900 font-bold font-mono text-sm focus:border-blue-600 focus:ring-1 focus:ring-blue-600">
+                        <span class="absolute right-3 top-2.5 text-slate-400 font-bold">%</span>
+                    </div>
+                    <p class="text-[11px] text-slate-500">Giảng viên hướng dẫn trực tiếp chấm tiến độ & kết quả.</p>
+                </div>
+
+                <div class="p-3 bg-slate-50 border border-slate-200 rounded-xl space-y-1">
+                    <label class="block font-bold text-slate-700 uppercase tracking-wide">
+                        2. Điểm đơn vị thực tập (%):
+                    </label>
+                    <div class="relative">
+                        <input type="number" id="inp_NOI_THUC_TAP" name="weight_NOI_THUC_TAP" min="0" max="100" step="1" required
+                               oninput="calculateTotalWeight()" class="w-full p-2.5 pr-8 bg-white border border-slate-300 rounded-lg text-slate-900 font-bold font-mono text-sm focus:border-blue-600 focus:ring-1 focus:ring-blue-600">
+                        <span class="absolute right-3 top-2.5 text-slate-400 font-bold">%</span>
+                    </div>
+                    <p class="text-[11px] text-slate-500">Cơ quan / Doanh nghiệp nơi sinh viên thực tập chấm (đặt 0% nếu là Đồ án).</p>
+                </div>
+
+                <div class="p-3 bg-slate-50 border border-slate-200 rounded-xl space-y-1">
+                    <label class="block font-bold text-slate-700 uppercase tracking-wide">
+                        3. Điểm phản biện (%):
+                    </label>
+                    <div class="relative">
+                        <input type="number" id="inp_PHAN_BIEN" name="weight_PHAN_BIEN" min="0" max="100" step="1" required
+                               oninput="calculateTotalWeight()" class="w-full p-2.5 pr-8 bg-white border border-slate-300 rounded-lg text-slate-900 font-bold font-mono text-sm focus:border-blue-600 focus:ring-1 focus:ring-blue-600">
+                        <span class="absolute right-3 top-2.5 text-slate-400 font-bold">%</span>
+                    </div>
+                    <p class="text-[11px] text-slate-500">Giảng viên phản biện độc lập (khác GVHD).</p>
+                </div>
+
+                <div class="p-3 bg-slate-50 border border-slate-200 rounded-xl space-y-1">
+                    <label class="block font-bold text-slate-700 uppercase tracking-wide">
+                        4. Điểm hội đồng bảo vệ (%):
+                    </label>
+                    <div class="relative">
+                        <input type="number" id="inp_HOI_DONG" name="weight_HOI_DONG" min="0" max="100" step="1" required
+                               oninput="calculateTotalWeight()" class="w-full p-2.5 pr-8 bg-white border border-slate-300 rounded-lg text-slate-900 font-bold font-mono text-sm focus:border-blue-600 focus:ring-1 focus:ring-blue-600">
+                        <span class="absolute right-3 top-2.5 text-slate-400 font-bold">%</span>
+                    </div>
+                    <p class="text-[11px] text-slate-500">Hội đồng chấm bảo vệ khóa luận (đặt 0% nếu chỉ chấm Phản biện).</p>
+                </div>
+            </div>
+
+            <!-- Tổng trọng số & Báo động real-time -->
+            <div id="weightSummaryBox" class="p-3.5 rounded-xl border flex items-center justify-between bg-emerald-50 border-emerald-200 text-emerald-800 transition">
+                <div class="flex items-center gap-2">
+                    <span id="weightSummaryIcon" class="material-symbols-outlined text-xl text-emerald-600">check_circle</span>
+                    <span id="weightSummaryText" class="font-bold text-xs">Tổng trọng số: Hợp lệ (100%)</span>
+                </div>
+                <span id="weightTotalValue" class="text-base font-mono font-bold text-emerald-700">100%</span>
+            </div>
+
+            <div class="flex items-center justify-end gap-3 pt-2 border-t border-slate-100">
+                <button type="button" onclick="closeUpdateWeightsModal()" class="px-4 py-2 rounded-lg border border-slate-300 text-slate-700 hover:bg-slate-50 font-semibold cursor-pointer">
+                    Hủy
+                </button>
+                <button type="submit" id="btnSubmitWeights" class="px-5 py-2 rounded-lg bg-blue-800 hover:bg-blue-900 text-white font-bold shadow-xs cursor-pointer transition">
+                    Lưu phân bổ trọng số
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
 {% endblock %}

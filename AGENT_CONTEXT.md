@@ -9,61 +9,68 @@
 
 | Mục | Giá trị |
 | :--- | :--- |
-| **Sprint đang làm** | Sprint 4 — `THUC_HIEN` (UC16, UC17, UC18, UC31) |
-| **Nhánh Git hiện tại** | `feature/sprint3-detai` (đã merge xong, chờ tạo sprint4) |
-| **Lần cập nhật cuối** | 2026-11-26 09:45 — Antigravity |
+| **Giai đoạn hiện tại** | Đã hoàn thành cấu hình phân phối điểm (UC03 bổ sung) → Chuẩn bị Sprint 4 (`THUC_HIEN`) |
+| **Nhánh Git hiện tại** | `feature/sprint3-detai` |
+| **Lần cập nhật cuối** | 2026-11-28 12:55 — Antigravity |
 | **Người cập nhật** | Antigravity |
-| **Trạng thái server** | Chưa chạy (cần `python manage.py runserver`) |
-| **Test suite** | 37/37 PASS (tất cả Sprint 1, 2, 3) |
+| **Trạng thái server** | Sẵn sàng chạy (`python manage.py runserver`) |
+| **Test suite** | **47/47 PASS (100%)** — `dots` 10/10, `detai` 17/17, `phancong` 7/7, `hoso` 6/6, `organization` 7/7 |
 
 ---
 
 ## ✅ ĐÃ HOÀN THÀNH (Không cần làm lại)
 
-### Sprint 1 — `CHUAN_BI` (UC03–UC06) ✅ 100%
-- Nhánh: `feature/sprint1-backend` (đã push)
-- Mô hình: `accounts`, `organization`, `dots`, `hoso`, `hethong`
-- Views: Cổng đăng nhập, dashboard Trưởng khoa Sprint 1
-- Tests: `hoso` 6/6, `organization` 7/7
+### 1. Bổ sung: Cấu hình phân phối điểm thành phần (UC03) ✅ 100%
+- **Yêu cầu từ Thầy hướng dẫn**: Cho phép Trưởng khoa cấu hình linh hoạt phân phối điểm thành phần (% trọng số) cho từng đợt, tổng bắt buộc bằng 100%.
+- **Bảng CSDL**: Table 11 (`dot_trong_so` trong `dots/models.py`)
+- **Tỷ lệ chuẩn hóa mặc định**:
+  - **Đồ án (`DO_AN`)**: GVHD Hướng dẫn **40%** + Phản biện **20%** + Hội đồng **40%** = 100%.
+  - **Thực tập (`THUC_TAP`)**: GVHD Hướng dẫn **40%** + Đơn vị thực tập **30%** + Phản biện **30%** = 100%.
+- **Files triển khai**:
+  - `dots/services.py`: `TrongSoValidationError`, `lay_trong_so_mac_dinh`, `khoi_tao_trong_so_mac_dinh`, `cap_nhat_trong_so_dot` (validate tổng = 100%, không âm, ghi `nhat_ky_he_thong`).
+  - `dots/selectors.py`: `get_dot_weights` (tự động khởi tạo mặc định nếu đợt chưa có).
+  - `dots/views.py`: `update_dot_weights_view` (POST `/dot/<id>/update-weights/`).
+  - `config/urls.py`: path `update_dot_weights`.
+  - `templates/sprint1/dashboard.html`: Khối hiển thị thẻ trọng số điểm + Modal `#updateWeightsModal` tính tổng realtime bằng Javascript, cảnh báo lỗi và chặn submit nếu tổng != 100%.
+  - `dots/tests.py`: **10/10 unit tests PASS** (Validation tổng, số âm, đợt hoàn tất, selector, HTTP POST).
 
-### Sprint 2 — `PHAN_CONG` (UC07–UC11) ✅ 100%
-- Nhánh: `feature/sprint2-phancong` (đã push)
-- Thuật toán Snake Draft chia đều sinh viên theo GPA
-- Views: Dashboard Sprint 2, màn hình xác nhận GVHD, Cổng Sinh viên Bước 1
+### 2. Sprint 1 — `CHUAN_BI` (UC03–UC06) ✅ 100%
+- Nhánh: `feature/sprint1-backend`
+- Mô hình: `accounts`, `organization`, `dots`, `hoso`, `hethong`
+- Tiếp nhận Excel danh sách, đồng bộ điểm GPA USMART
+- Tests: `hoso` 6/6, `organization` 7/7, `dots` 10/10
+
+### 3. Sprint 2 — `PHAN_CONG` (UC07–UC11) ✅ 100%
+- Nhánh: `feature/sprint2-phancong`
+- Thuật toán Snake Draft ziczac chia đều sinh viên theo GPA
+- Views: Dashboard Sprint 2, GVHD xác nhận phân công, Cổng Sinh viên Bước 1
 - Tests: `phancong` 7/7
 
-### Sprint 3 — `CHOT_DE_TAI` (UC12–UC15) ✅ 100%
-- Nhánh: `feature/sprint3-detai` (đã push)
-- Files tạo mới:
-  - `detai/models.py` → Table 19 (`de_tai_goi_y`), Table 20 (`de_tai`)
-  - `detai/services/topic_service.py` → UC12, UC13, UC14, UC15
-  - `detai/selectors.py` → Các hàm truy vấn theo phân quyền
-  - `detai/views.py` + `detai/urls.py` → 6 actions
-  - `templates/sprint3/dashboard.html` → Dashboard Trưởng khoa
-  - `templates/portals/lecturer_portal.html` → Hàng đợi duyệt đề tài, modal góp ý, modal thêm đề tài gợi ý
-  - `templates/portals/student_portal.html` → Bước 2: Đăng ký / đề xuất đề tài
+### 4. Sprint 3 — `CHOT_DE_TAI` (UC12–UC15) ✅ 100%
+- Nhánh: `feature/sprint3-detai`
+- Table 19 (`de_tai_goi_y`), Table 20 (`de_tai`)
+- GVHD đưa đề tài gợi ý, SV chọn hoặc đề xuất, GVHD phê duyệt (Chốt / Góp ý trả lại / Duyệt tất cả)
 - Tests: `detai` 17/17
 
 ---
 
-## 🚧 ĐANG LÀM — SPRINT 4 (`THUC_HIEN`)
+## 🚧 BƯỚC TIẾP THEO — SPRINT 4 (`THUC_HIEN`)
 
 **Use Cases**: UC16, UC17, UC18, UC31  
-**Nhánh Git**: `feature/sprint4-thuchien` (chưa tạo)  
-**Trạng thái**: Chưa bắt đầu
+**Nhánh Git**: `feature/sprint4-thuchien` (tạo từ `feature/sprint3-detai`)  
+**Mục tiêu Sprint 4**:
+1. **UC16**: GVHD ban hành danh mục yêu cầu minh chứng / sản phẩm nộp theo tuần (Bắt buộc / Khuyến khích).
+2. **UC17**: Sinh viên nộp minh chứng định kỳ hàng tuần (File, Git URL, ERD, Video demo).
+3. **UC18**: GVHD theo dõi, đánh giá tiến độ sinh viên từng tuần (Đạt / Cần bổ sung / Chậm tiến độ).
+4. **UC31**: Trưởng khoa giám sát toàn cảnh tiến độ các nhóm, phát hiện và cảnh báo sinh viên chậm nộp.
 
 ### Checklist Sprint 4
-- [ ] Tạo nhánh `feature/sprint4-thuchien` từ `feature/sprint3-detai`
-- [ ] Kiểm tra CSDL: Các bảng liên quan (xem mục CSDL bên dưới)
-- [ ] Viết `thuchien/models.py` nếu cần bảng mới
-- [ ] Chạy `makemigrations` & `migrate`
-- [ ] Viết `thuchien/services.py` — logic UC16, UC17, UC18, UC31
-- [ ] Viết `thuchien/selectors.py`
-- [ ] Viết `thuchien/views.py` + `thuchien/urls.py`
-- [ ] Cập nhật templates: Cổng GV (tab Tiến độ), Cổng SV (Bước 3), Dashboard TK Sprint 4
-- [ ] Viết `thuchien/tests.py`
-- [ ] Chạy full test suite: 0 lỗi, tất cả PASS
-- [ ] Commit + Push `feature/sprint4-thuchien`
+- [ ] Tạo nhánh `git checkout -b feature/sprint4-thuchien`
+- [ ] Kiểm tra bảng CSDL: `minh_chung` (Bảng 24), `tuan_theo_doi` hoặc tương đương theo `docs/CSDL_He_thong_quan_ly_thuc_tap_Markdowfile.md`
+- [ ] Viết models/migrations nếu cần
+- [ ] Viết `thuchien/services.py`, `thuchien/selectors.py`, `thuchien/views.py`
+- [ ] Cập nhật giao diện: Cổng GV (Tab Tiến độ), Cổng SV (Bước 3: Nộp tiến độ), Dashboard Sprint 4
+- [ ] Viết `thuchien/tests.py` và chạy full test suite (phải 0 lỗi)
 
 ---
 
@@ -73,13 +80,13 @@
 ProjectA/
 ├── accounts/       # Bảng nguoi_dung (đăng nhập, vai trò)
 ├── organization/   # khoa, bo_mon, giang_vien, sinh_vien
-├── dots/           # dot (đợt thực tập/đồ án) — 6 trạng thái
-├── hoso/           # ho_so — 7 trạng thái, diem_dau_vao (BÍ MẬT)
-├── phancong/       # ban_phan_cong, phan_cong_huong_dan — Sprint 2
-├── detai/          # de_tai_goi_y, de_tai — Sprint 3
+├── dots/           # dot, dot_moc_thoi_gian, dot_trong_so (Cấu hình điểm UC03)
+├── hoso/           # ho_so, diem_dau_vao (BÍ MẬT chỉ Trưởng khoa xem)
+├── phancong/       # ban_phan_cong, phan_cong_huong_dan (Sprint 2)
+├── detai/          # de_tai_goi_y, de_tai (Sprint 3)
 ├── hethong/        # thong_bao, nhat_ky_he_thong
 ├── core/
-│   ├── constants.py    # Tất cả enum/constants (DotTrangThai, HoSoTrangThai...)
+│   ├── constants.py    # Tất cả enum/constants (DotTrangThai, HoSoTrangThai, ThanhPhanDiem...)
 │   └── state.py        # Dịch vụ chuyển trạng thái duy nhất (BẮT BUỘC dùng)
 └── templates/
     ├── base.html
@@ -94,38 +101,19 @@ CHUAN_BI → PHAN_CONG → CHOT_DE_TAI → THUC_HIEN → CHAM_DIEM → HOAN_TAT
   (S1)        (S2)         (S3)          (S4)         (S5)        (S6)
 ```
 
-### Luồng Trạng Thái Hồ Sơ (`ho_so.trang_thai`)
-```
-CHO_PHAN_CONG → CHO_CHOT_DE_TAI → DANG_THUC_HIEN → CHO_CHAM_DIEM → DA_GUI_DIEM → HOAN_TAT
-                                                  ↑
-                              (do gvhd_phe_duyet_de_tai kích hoạt)
-```
-
 ---
 
 ## 🔒 QUY TẮC BẤT DI BẤT DỊCH (AI PHẢI TUÂN THỦ)
 
 1. **CSDL 32 bảng**: Không đổi tên bảng, không đổi tên cột. Tên `snake_case` tiếng Việt không dấu.
-2. **Single State Transition**: Mọi thay đổi trạng thái `dot` và `ho_so` **BẮT BUỘC** gọi qua `core.state.chuyen_trang_thai_dot` / `chuyen_trang_thai_ho_so`. Tuyệt đối không gọi `.update(trang_thai=...)` trực tiếp trong views.
-3. **Bảo mật `diem_dau_vao`**: Chỉ Trưởng khoa thấy GPA đầu vào. Không lộ ra bất kỳ template hoặc context nào khác.
+2. **Single State Transition**: Mọi thay đổi trạng thái `dot` và `ho_so` **BẮT BUỘC** gọi qua `core.state.chuyen_trang_thai_dot` / `chuyen_trang_thai_ho_so`.
+3. **Bảo mật `diem_dau_vao`**: Chỉ Trưởng khoa thấy GPA đầu vào.
 4. **Sinh viên không nhập điểm**: Điểm chỉ do GVHD, GVPB, Hội đồng nhập.
-5. **Nhật ký hệ thống**: Chỉ ghi hành vi, không ghi nội dung điểm số.
-6. **Giảng viên phản biện ≠ GVHD** của cùng một hồ sơ.
-7. **UI tiếng Việt trang trọng**: Không để lộ tên enum/mã kỹ thuật (`CHO_CHOT`, `PHAN_CONG`...) ra giao diện người dùng thực.
-8. **Logo**: Dùng `{% static 'images/logo_vinhuni.png' %}` cho mọi màn hình.
-
----
-
-## 📋 CSDL CÁC BẢNG SPRINT 4 CẦN BIẾT
-
-Theo `docs/CSDL_He_thong_quan_ly_thuc_tap_Markdowfile.md`:
-
-### Bảng liên quan UC16, UC17, UC18, UC31 (cần kiểm tra chính xác trong docs):
-- **`tuan_theo_doi`** (nếu có): Theo dõi tiến độ hàng tuần
-- **`minh_chung`** (nếu có): File/link minh chứng sinh viên nộp
-- **`yeu_cau_minh_chung`** (nếu có): Danh mục yêu cầu GVHD ban hành
-
-> ⚠️ **Lưu ý**: Trước khi code Sprint 4, AI phải đọc lại chính xác tên bảng và tên cột từ `docs/CSDL_He_thong_quan_ly_thuc_tap_Markdowfile.md` để tránh sai lệch.
+5. **Cấu hình trọng số điểm**: Tổng trọng số các thành phần bắt buộc = 100%.
+6. **Nhật ký hệ thống**: Chỉ ghi hành vi tác động, không ghi giá trị điểm số.
+7. **Giảng viên phản biện ≠ GVHD** của cùng một hồ sơ.
+8. **UI tiếng Việt trang trọng**: Không để lộ tên enum/mã kỹ thuật (`CHO_CHOT`, `PHAN_CONG`...) ra giao diện người dùng thực.
+9. **Logo**: Dùng `{% static 'images/logo_vinhuni.png' %}` cho mọi màn hình.
 
 ---
 
@@ -135,10 +123,7 @@ Theo `docs/CSDL_He_thong_quan_ly_thuc_tap_Markdowfile.md`:
 ```
 1. git add . && git commit -m "session: [mô tả ngắn gọn những gì đã làm]"
 2. git push origin [tên-nhánh-hiện-tại]
-3. Cập nhật AGENT_CONTEXT.md:
-   - Cập nhật "TRẠNG THÁI HIỆN TẠI"
-   - Tick vào checklist những việc đã hoàn thành
-   - Ghi vào "GHI CHÚ PHIÊN LÀM VIỆC CUỐI" bên dưới
+3. Cập nhật AGENT_CONTEXT.md
 4. git add AGENT_CONTEXT.md && git commit -m "context: update handoff notes"
 5. git push
 ```
@@ -155,18 +140,17 @@ Theo `docs/CSDL_He_thong_quan_ly_thuc_tap_Markdowfile.md`:
 
 ## 📝 GHI CHÚ PHIÊN LÀM VIỆC CUỐI
 
-**Phiên**: 2026-11-26 09:45 | **Nền tảng**: Antigravity  
+**Phiên**: 2026-11-28 12:55 | **Nền tảng**: Antigravity  
 **Đã làm**:
-- Hoàn tất Sprint 3 (UC12-UC15): 17 unit tests mới, fix lỗi field `loai` vs `loai_su_kien` trên model `thong_bao`
-- Cập nhật modal feedback GVHD (`#gvFeedbackModal`): thêm `form id`, `action` động qua JS, `name="gop_y"` trên textarea
-- Thêm modal `#addSuggestedTopicModal`: POST thực sự đến `detai:tao_de_tai_goi_y`
-- Push nhánh `feature/sprint3-detai` lên GitHub
+- Triển khai trọn vẹn yêu cầu cấu hình phân phối điểm linh hoạt theo góp ý của Thầy (UC03):
+  * Cập nhật `PRESETS_CONFIG` với cơ cấu chuẩn: Đồ án (40% HD - 20% PB - 40% HĐ), Thực tập (40% HD - 30% NTT - 30% PB).
+  * Viết service nghiệp vụ `cap_nhat_trong_so_dot`, `khoi_tao_trong_so_mac_dinh`, `lay_trong_so_mac_dinh` và exception `TrongSoValidationError` tại `dots/services.py`.
+  * Thêm selector `get_dot_weights` tự động khởi tạo trọng số nếu chưa có.
+  * Thêm view `update_dot_weights_view` và route URL `update_dot_weights`.
+  * Tích hợp giao diện: Thẻ hiển thị tỷ lệ % + Modal tùy chỉnh `#updateWeightsModal` với thanh báo động realtime tính tổng trọng số.
+  * Viết 10 unit tests mới trong `dots/tests.py` đạt 100% PASS.
+  * Chạy toàn bộ test suite dự án: **47/47 tests PASS (0 errors)**.
 
 **Chưa làm / Bước tiếp theo**:
-- Tạo nhánh `feature/sprint4-thuchien`
-- Đọc CSDL Sprint 4 từ docs
-- Bắt đầu UC16: GVHD ban hành danh mục minh chứng
-
-**Lỗi đã gặp & cách fix**:
-- `thong_bao() got unexpected keyword arguments: 'loai_su_kien'`: Model dùng field `loai`, không phải `loai_su_kien`. Đã fix trong `topic_service.py`.
-- Git `index.lock Permission denied` trên Windows: Chạy `git add` với `BypassSandbox: true`.
+- Tạo nhánh `feature/sprint4-thuchien` từ `feature/sprint3-detai`.
+- Bắt đầu triển khai Sprint 4 (UC16, UC17, UC18, UC31).
